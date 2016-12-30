@@ -1,0 +1,181 @@
+#px-system-useraccess-form-useraccess-parent label.control-label {
+	font-size: 14px;
+}
+#px-system-useraccess-form-useraccess-child label.control-label {
+	font-style: italic;
+	font-weight: normal;
+}
+.xn-logo .xn-logo-big {
+	display: inline;
+	height: 50px;
+}
+.xn-logo .xn-logo-mini {
+	display: none;
+	height: 50px;
+}
+.x-navigation-minimized .xn-logo .xn-logo-mini {
+	display: inline;
+}
+.x-navigation-minimized .xn-logo .xn-logo-big {
+	display: none;
+}
+.no-padding {
+	padding: 0px;
+}
+#px-system-menu-orders-dragable .panel,
+#px-system-menu-orders-dragable .list-group-item {
+	cursor: move;
+}
+.note-editable img {
+	margin: 5px;
+}
+.px-preview-upload-multiple .gallery-item {
+	padding: 0px;
+	position: relative;
+}
+.px-preview-upload-multiple .gallery-item .image {
+	text-align: center;
+	position: relative;
+}
+.px-preview-upload-multiple .gallery-item .btn-delete-file {
+	color: #fff;
+	background: #A43F3E;
+	font-size: 15px;
+	line-height: 25px;
+	border-radius: 2px;
+	font-weight: bold;
+	padding: 0px 10px;
+	position: absolute;
+	display: inline-block;
+	top: 3px;
+	right: 3px;
+	z-index: 10;
+	cursor: pointer;
+	border: 1px solid #A43F3E;
+}
+.px-preview-upload-multiple .gallery-item .btn-delete-file:hover {
+	background: #fff;
+	color: #A43F3E;
+}
+.px-preview-upload-multiple .gallery-item .image img {
+	max-width: 100%;
+	width: auto;
+	max-height: 200px;
+}
+#preview-gallery-video > div {
+	margin-bottom: 15px;
+}
+#preview-gallery-video > div > iframe {
+	max-width: 100% !important;
+	height: 200px !important;
+}
+#preview-gallery-video > div > textarea {
+	resize: none;
+	height: 120px;
+	margin-bottom: 5px;
+}
+#preview-gallery-video > div > button {
+	width: 48%;
+	margin: 0px 1%;
+	float: left;
+}
+.btn-show-pass {
+	cursor: pointer;
+}
+#preview-document {
+
+}
+.per-preview-document {
+	padding: 5px 15px;
+	background: #ededed;
+	border: 1px solid #fafafa;
+	float: left;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+.per-preview-document .btn-download {
+	margin-left: 10px;
+}
+.per-preview-document .btn-delete-file {
+	color: #B64645;
+	cursor: pointer;
+	margin-left: 10px;
+}
+.px-site-content-project-add-draggable {
+	z-index: 2;
+}
+#preview-photo,
+#preview-banner {
+	margin-top: 10px;
+	float: left;
+}
+#preview-photo input {
+	visibility: hidden;
+}
+.image-original-preview {
+	width: 50%;
+	float: left;
+	margin-right: 10px;
+}
+.image-original-preview img {
+	width: 100%;
+}
+.image-crop-previews {
+	width: 123px;
+	height: 100px;
+	overflow: hidden;
+	float: left;
+}
+.image-crop-previews-pot {
+	width: 100px;
+	height: 145px;
+	overflow: hidden;
+	float: left;
+}
+.image-crop-previews-ban {
+	width: 207px;
+	height: 100px;
+	overflow: hidden;
+	float: left;
+}
+.image-crop-previews-news {
+	width: 350px;
+	height: 100px;
+	overflow: hidden;
+	float: left;
+}
+.image-crop-previews-news-photo-small {
+	width: 139px;
+	height: 100px;
+	overflow: hidden;
+	float: left;
+}
+.image-crop-previews-guide {
+	width: 350px;
+	height: 100px;
+	overflow: hidden;
+	float: left;
+}
+.image-crop-previews-guide-photo-small {
+	width: 139px;
+	height: 100px;
+	overflow: hidden;
+	float: left;
+}
+.image-crop-previews img,
+.image-crop-previews-pot img,
+.image-crop-previews-ban img {
+	width: 100%;
+}
+.image-crop-previews-news img {
+	width: 100%;
+}
+.image-crop-previews-news-photo-small img {
+	width: 100%;
+}
+.image-crop-previews-guide img {
+	width: 100%;
+}
+.image-crop-previews-guide-photo-small img {
+	width: 100%;
+}
