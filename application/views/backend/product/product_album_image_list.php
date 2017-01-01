@@ -44,7 +44,7 @@
 							<tr>
 								<td class="text-center"><?php echo $no; ?></td>
 								<td class="text-center"><img class="zoom_01" src="assets/uploads/product/<?php echo $d_row->product_id ?>/<?php echo $d_row->photo ?>" alt="" width="200px" height="100px" /></td>
-								<td class="text-center"><a class="btn btn-change-status <?php if($d_row->primary_status == 0) echo 'btn-danger'; else echo 'btn-success' ?>" href="product/primary_status_edit/<?php echo $d_row->id ?>"><?php if($d_row->primary_status == 0) echo "No"; else echo "Yes" ?></a></td>
+								<td class="text-center"><a class="btn btn-change-status <?php if($d_row->primary_status == 0) echo 'btn-danger'; else echo 'btn-success' ?>" href="admin_product/primary_status_edit/<?php echo $d_row->id ?>"><?php if($d_row->primary_status == 0) echo "No"; else echo "Yes" ?></a></td>
 								<td class="text-center">
 									<button class="btn btn-info btn-xs btn-edit" type="button" data-original-title="Ubah" data-placement="top" data-toggle="tooltip" data-target-form="<?php echo $controller.'/image_edit'; ?>" data-target-id="<?php echo $d_row->id; ?>" data-target-get="<?php echo $controller.'/image_get'; ?>"><i class="fa fa-edit"></i></button>
 									<button class="btn btn-danger btn-xs btn-delete" type="button" data-original-title="Hapus" data-placement="top" data-toggle="tooltip" data-target-id="<?php echo $d_row->id; ?>"><i class="fa fa-trash-o"></i></button>

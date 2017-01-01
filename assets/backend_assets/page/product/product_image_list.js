@@ -87,12 +87,12 @@ $(document).ready(function(){
                 $('#px-product-image-form-id').val(response.data.row.id);
                 $('#px-product-image-form-caption').val(response.data.row.caption);
                 if(response.data.row.photo_status == 'ok'){
-                    $('[name="old_photo"]').val(response.data.row.file);
+                    $('[name="old_photo"]').val(response.data.row.photo);
                     $('#preview-photo img').attr('src',response.data.row.photo_file);
                     $('#preview-photo').removeClass('hidden');
                 }
                 else{
-                    $('[name="old_photo"]').val(response.data.row.file);
+                    $('[name="old_photo"]').val(response.data.row.photo);
                     $('#preview-photo img').attr('src',response.data.row.photo_file);
                     $('#preview-photo').addClass('hidden');
                 }

@@ -38,7 +38,7 @@ $(document).ready(function(){
 	$('.btn-change-status').click(function(){
 		var id = $(this).attr('row_id');
 		$.ajax({
-			url:'product/brandedit',
+			url:'admin_product/brandedit',
 			type:'POST',
 			dataType:'json',
 			data: {id:id},

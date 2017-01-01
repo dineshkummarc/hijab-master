@@ -8,18 +8,60 @@ $(document).ready(function(){
             nama_belakang: {
                 required: true
             },
-            username: {
+            email:{
                 required: true,
-                minlength: 12
+                email:true,
+                remote:
+                {
+                    url: 'admin_customer/check_email',
+                    type: "post",
+                    data:
+                    {
+                        username: function()
+                        {
+                            return $('#px-customer-form #px-customer-form-email').val();
+                        },
+                        id : function()
+                        {
+                            return $('#px-customer-form #px-customer-form-id').val();
+                        }
+                    }
+                }
             },
             password: {
                 required: true
             },
             password_confirm: {
-                required: true
+                equalTo: '#px-customer-form-password'
             },
             tgl_lahir: {
                 required: true
+            },
+            title: {
+                required: true
+            },
+            address: {
+                required: true
+            },
+            province: {
+                required: true
+            },
+            city: {
+                required: true
+            },
+            region: {
+                required: true
+            },
+            postal_code: {
+                required: true
+            },
+            phone: {
+                required: true
+            }
+        },
+        messages: {
+            email: {
+                remote: "Email is already Exist, please use other Email"
             }
         },
         submitHandler: function(form) {
@@ -107,4 +149,44 @@ $(document).ready(function(){
 	$('body').delegate('.btn-delete-file','click',function(){
 		$(this).parent().remove();
 	});
+        $('#px-customer-address-form-province').change(function(){
+            var province_id = $(this).val();
+            $.ajax({
+                url : 'admin_customer/get_city',
+                type : 'POST',
+                dataType : 'json',
+                data : {'province_id' : province_id},
+                success: function(response){
+                    if(response.status = 'ok')
+                    {
+                        $('#px-customer-address-form-city').html("");
+                        $.each(response.data, function(i, data){
+                        {
+                            $('#px-customer-address-form-city').append('<option value="'+data.id+'">'+data.type+' '+data.name+'</option>');
+                        }
+                        });
+                    }
+                }
+            });
+        });
+        $('#px-customer-address-form-city').change(function(){
+            var city_id = $(this).val();
+            $.ajax({
+                url : 'admin_customer/get_region',
+                type : 'POST',
+                dataType : 'json',
+                data : {'city_id' : city_id},
+                success: function(response){
+                    if(response.status = 'ok')
+                    {
+                        $('#px-customer-address-form-region').html("");
+                        $.each(response.data, function(i, data){
+                        {
+                            $('#px-customer-address-form-region').append('<option value="'+data.id+'">'+data.name+'</option>');
+                        }
+                        });
+                    }
+                }
+            });
+        });
 })

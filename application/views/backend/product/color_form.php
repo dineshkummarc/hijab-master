@@ -33,13 +33,13 @@
                         <div class="form-group">
                             <label class="col-md-2 col-xs-12 control-label" for="#px-color-form-name">Name</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="name" id="px-color-form-name" value="<?php if ($data) echo $data->name; ?>" placeholder="Warna Barang">
+                                <input type="text" class="form-control" name="name" id="px-color-form-name" value="<?php if ($data) echo $data->name; ?>" placeholder="Warna Barang" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 col-xs-12 control-label" for="#px-color-form-kode">Kode</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="kode" id="px-color-form-kode" value="<?php if ($data) echo $data->kode; ?>" placeholder="Kode Warna">
+                                <input type="text" class="form-control" name="kode" id="px-color-form-kode" value="<?php if ($data) echo $data->kode; ?>" placeholder="Kode Warna" required>
                             </div>
                         </div>
                     </div>

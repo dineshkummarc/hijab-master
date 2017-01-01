@@ -19,10 +19,10 @@
 
             <!-- START DEFAULT DATATABLE -->
             <div class="panel panel-default">
-                <div class="panel-heading">                                
-                    <h3 class="panel-title">Data</h3>                              
-                </div>
                 <form class="form-horizontal" action="<?php if ($data) echo $controller . '/' . $function_edit; else echo $controller . '/' . $function_add; ?>" method="POST" id="px-customer-form">
+                    <div class="panel-heading">                                
+                        <h3 class="panel-title">Data Customer</h3>                              
+                    </div>
                     <input type="hidden" name="id" id="px-customer-form-id" value="<?php if ($data) echo $data->id; ?>">
                     <div class="panel-body">
                         <div class="alert alert-success hidden"><strong>Success! </strong><span></span></div>
@@ -31,43 +31,46 @@
                         <div class="form-group">
                             <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-name">Nama Depan</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="nama_depan" id="px-customer-form-nama_depan" value="<?php if ($data) echo $data->nama_depan; ?>" placeholder="Nama Depan">
+                                <input type="text" class="form-control" name="nama_depan" id="px-customer-form-nama_depan" value="<?php if ($data) echo $data->nama_depan; ?>" placeholder="Nama Depan" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-name">Nama Belakang</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="nama_belakang" id="px-customer-form-nama_belakang" value="<?php if ($data) echo $data->nama_belakang; ?>" placeholder="Nama Belakang">
+                                <input type="text" class="form-control" name="nama_belakang" id="px-customer-form-nama_belakang" value="<?php if ($data) echo $data->nama_belakang; ?>" placeholder="Nama Belakang" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-name">E-Mail</label>
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-email">Email</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="email" id="px-customer-form-username" value="<?php if ($data) echo $data->email; ?>" placeholder="E-Mail">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-username">Username</label>
-                            <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="username" id="px-customer-form-username" value="<?php if ($data) echo $data->username; ?>" placeholder="Username Anda">
+                                <input type="email" class="form-control" name="email" id="px-customer-form-email" value="<?php if ($data) echo $data->email; ?>" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-password">Password</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="password" id="px-customer-form-password" value="<?php if ($data) echo $data->password; ?>" placeholder="Password">
+                                <input type="password" class="form-control" name="password" id="px-customer-form-password" value="<?php if ($data) echo $data->password; ?>" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-password">Password Confirm</label>
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-conf-password">Password Confirm</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="password_confirm" id="px-customer-form-password_confirm" value="<?php if ($data) echo $data->password; ?>" placeholder="Ulangi Password">
+                                <input type="password" class="form-control" name="password_confirm" id="px-customer-form-password_confirm" value="<?php if ($data) echo $data->password; ?>" placeholder="Ulangi Password" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-tgl_lahir">Tanggal Lahir</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control datepicker" name="tgl_lahir" id="px-customer-form-tgl_lahir" value="<?php if ($data) echo $data->tgl_lahir; ?>" placeholder="Tanggal Lahir">
+                                <input type="text" class="form-control datepicker" name="tgl_lahir" id="px-customer-form-tgl_lahir" value="<?php if ($data) echo $data->tgl_lahir; ?>" placeholder="Tanggal Lahir" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-form-jenis_kelamin">Jenis Kelamin</label>
+                            <div class="col-md-9 col-xs-12">
+                                <select class="form-control" name="jenis_kelamin" id="px-customer-form-jenis_kelamin" required>
+                                    <option value="L" <?php if($data) if($data->jenis_kelamin == 'L') echo 'selected' ?>>Pria</option>
+                                    <option value="P" <?php if($data) if($data->jenis_kelamin == 'P') echo 'selected' ?>>Wanita</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -95,6 +98,68 @@
                                 <div class="image-original-preview" id="image-original-previews">
                                     <img src="<?php echo $photo_file ?>" alt="photo" id="original-image"/>                                                                                                           
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-heading">                                
+                        <h3 class="panel-title">Customer Billing Address</h3>                              
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-address-form-title">Judul Alamat</label>
+                            <div class="col-md-9 col-xs-12">
+                                <input type="text" class="form-control" name="title" id="px-customer-address-form-title" value="<?php if($data) if ($data->billing) echo $data->billing->title; ?>" placeholder="Home atau Office" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-address-form-address">Alamat Anda</label>
+                            <div class="col-md-9 col-xs-12">
+                                <textarea class="form-control" name="address" id="px-customer-address-form-address" placeholder="Alamat Anda" required><?php if($data) if ($data->billing) echo $data->billing->address; ?></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-address-form-province">Provinsi</label>
+                            <div class="col-md-9 col-xs-12">
+                                <select name="province" id="px-customer-address-form-province" class="form-control" required>
+                                    <option value="">Pilih Provinsi</option>
+                                    <?php foreach ($province_list as $d_row) { ?>
+                                    <option value="<?php echo $d_row->id; ?>"<?php if($data) if($data->billing) if($data->billing->province == $d_row->id) echo 'selected' ?>><?php echo $d_row->name;?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-address-form-city">Kota</label>
+                            <div class="col-md-9 col-xs-12">
+                                <select name="city" id="px-customer-address-form-city" class="form-control" required>
+                                    <option value="">Pilih Kota</option>
+                                    <?php if($data) if($data->billing) { foreach ($city as $d_row) { ?>
+                                    <option value="<?php echo $d_row->id; ?>"<?php if($data) if($data->billing) if($data->billing->city == $d_row->id) echo 'selected' ?>><?php echo $d_row->type.' '.$d_row->name;?></option>
+                                    <?php }} ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-address-form-region">Kecamatan</label>
+                            <div class="col-md-9 col-xs-12">
+                                <select name="region" id="px-customer-address-form-region" class="form-control" required>
+                                    <option value="">Pilih Kecamatan</option>
+                                    <?php if($data) if($data->billing) { foreach ($region as $d_row) { ?>
+                                    <option value="<?php echo $d_row->id; ?>"<?php if($data) if($data->billing) if($data->billing->region == $d_row->id) echo 'selected' ?>><?php echo $d_row->name;?></option>
+                                    <?php }} ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-address-form-postal_code">Kode Pos</label>
+                            <div class="col-md-9 col-xs-12">
+                                <input type="text" class="form-control" name="postal_code" id="px-customer-address-form-postal_code" value="<?php if($data) if ($data->billing) echo $data->billing->postal_code; ?>" placeholder="Kode Pos Anda" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-customer-address-form-phone">Phone</label>
+                            <div class="col-md-9 col-xs-12">
+                                <input type="text" class="form-control" name="phone" id="px-customer-address-form-phone" value="<?php if($data) if ($data->billing) echo $data->billing->phone; ?>" placeholder="No Handphone" required>
                             </div>
                         </div>
                     </div>

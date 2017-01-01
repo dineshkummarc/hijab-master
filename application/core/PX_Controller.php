@@ -25,18 +25,16 @@ class PX_Controller extends CI_Controller {
         $this->tbl_jasa_pengiriman = $this->tbl_prefix.'jasa_pengiriman';
         $this->tbl_order = $this->tbl_prefix.'order';
         $this->tbl_product = $this->tbl_prefix.'product';
-        $this->tbl_product_category = $this->tbl_prefix.'product_category';
-        $this->tbl_product_color = $this->tbl_prefix.'product_color';
+        $this->tbl_category = $this->tbl_prefix.'category';
         $this->tbl_product_editor_picks = $this->tbl_prefix.'product_editor_picks';
         $this->tbl_product_group = $this->tbl_prefix.'product_group';
         $this->tbl_product_image = $this->tbl_prefix.'product_image';
-        $this->tbl_product_size = $this->tbl_prefix.'product_size';
         $this->tbl_product_stock = $this->tbl_prefix.'product_stock';
         $this->tbl_product_order = $this->tbl_prefix.'product_order';
         $this->tbl_master_data = $this->tbl_prefix . 'master_data';
         $this->tbl_menu = $this->tbl_prefix . 'menu';
         $this->tbl_news = $this->tbl_prefix . 'news';
-        $this->tbl_shipping_address = $this->tbl_prefix. 'shipping_address';
+        $this->tbl_shipping_address = $this->tbl_prefix. 'customer_shipping_address';
         $this->tbl_shipping_city = $this->tbl_prefix. 'shipping_city';
         $this->tbl_shipping_province = $this->tbl_prefix. 'shipping_province';
         $this->tbl_shipping_region = $this->tbl_prefix. 'shipping_region';
@@ -61,6 +59,7 @@ class PX_Controller extends CI_Controller {
         $this->load->model('model_useraccess');
         $this->load->model('model_usergroup');
         $this->load->model('model_master');
+        $this->load->model('model_customer');
         // sessions
         if ($this->session->userdata('admin') != FALSE)
             $this->session_admin = $this->session->userdata('admin');

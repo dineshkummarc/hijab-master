@@ -25,9 +25,7 @@
 							<!--<a class="btn btn-default pull-right" href="<?php /*echo $controller. '/customer_excel/'*/?>" style="margin-right:5px"><i class="fa fa-file-excel-o"></i></a>
 							<a class="btn btn-default pull-right" href="<?php /*echo $controller. '/customer_excel/'*/?>" style="margin-right:5px"><i class="fa fa-file-pdf-o"></i></a>-->
 					<div class="btn-group pull-right responsive-width" role="group">
-						<a class="btn btn-default btn-responsive" ><i class="fa fa-download">  Export</i></a>
-						<a class="btn btn-default btn-responsive" href="<?php echo $controller. '/customer_excel/'?>" ><i class="fa fa-file-excel-o"></i></a>
-						<a class="btn btn-default btn-responsive" href="<?php echo $controller. '/customer_excel/'?>" ><i class="fa fa-file-pdf-o"></i></a>
+						<a class="btn btn-default btn-responsive" href="<?php echo $controller. '/customer_excel/'?>"><i class="fa fa-download">  Export</i></a>
 						<a class="btn btn-success btn-responsive" href="<?php echo $controller.'/'.$function_form; ?>"><i class="fa fa-plus"></i> Add New</a>
 					</div>
 
