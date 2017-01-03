@@ -118,7 +118,7 @@
                                         <div class="col-lg-12 col-xs-12 col-sm-12">
                                             <div class="single-product">
                                                 <div class="product-pic">
-                                                    <a href="#">
+                                                    <a href="shop/detail/<?php echo $prod->id ?>">
                                                         <img src="assets/uploads/product/<?php echo $prod->id ?>/<?php echo $key->image ?>" alt="" />
                                                     </a>
                                                     <div class="pro-cart-bottom">
@@ -128,8 +128,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-details">
-                                                    <h3><a href="#"><?php echo $prod->name_product ?></a></h3>
-                                                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                                                    <h3><a href="shop/detail/<?php echo $prod->id ?>"><?php echo $prod->name_product ?></a></h3>
+                                                    <a href="shop/detail/<?php echo $prod->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                                                     <div class="price-star">
                                                         <div class="rating">
                                                             <i class="fa fa-star"></i>

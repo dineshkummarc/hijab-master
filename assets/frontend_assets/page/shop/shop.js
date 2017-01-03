@@ -2,9 +2,11 @@
  * Created by Zubair on 22-12-2016.
  */
 $(document).ready(function(){
+    var url= $( "#base_url" ).val();
     var sess_id = '';
     var id = '';
     var stock = '';
+
     $('body').delegate('.btn-quick-view','click',function(){
         // $('#px-shop').addClass('open');
          id = $(this).attr('data-target-id');
@@ -100,10 +102,66 @@ $(document).ready(function(){
             while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1' + '.' + '$2');
             }
-            return 'Rp. ' + x1 + x2;
+            return 'Rp.' + x1 + x2;
         }
         else{
-            return 'Rp. 0';
+            return 'Rp.0';
         }
     }
+
+    $(function() {
+     $( "#slider-range" ).slider({
+     range: true,
+     min: 0,
+     max: 1000000,
+     values: [ 0, 1000000 ],
+     slide: function( event, ui ) {
+     $( "#amount" ).val( "Rp." + ui.values[ 0 ] + " - Rp." + ui.values[ 1 ] );
+     }
+     
+     });
+     $( "#amount" ).val( "Rp." + $( "#slider-range" ).slider( "values", 0 ) +
+     " - Rp." + $( "#slider-range" ).slider( "values", 1 ) );
+     
+     });
+    
+     $('.box').click(function(){
+    var value_price = $('input[name="price"]').val();
+    var price = value_price.replace("Rp.","");
+    var price= price.replace(" - ",",");
+     var price= price.replace("Rp.","");
+     if(this.checked){
+      var category = $('input[name="category[]"]:checked').serialize();
+      var brand = $('input[name="brand[]"]:checked').serialize();
+       var color = $('input[name="color[]"]:checked').serialize();
+       var size = $('input[name="size[]"]:checked').serialize();
+        history.pushState(null, null, url+'shop/search?'+category+brand+price+color+size);
+
+     }else{
+       var category = $('input[name="category[]"]:checked').serialize();
+      var brand = $('input[name="brand[]"]:checked').serialize();
+       var color = $('input[name="color[]"]:checked').serialize();
+       var size = $('input[name="size[]"]:checked').serialize();
+        history.pushState(null, null, url+'shop/search?'+category+brand+'&price='+price+color+size);
+     }
+     $.ajax({
+    url:"shop/search",
+    type: "post",
+    data:{
+        category: category,
+        brand: brand,
+        color: color,
+        price: price,
+        size : size,
+    },
+    dataType: "JSON",
+    success: function(data) {
+     
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      alert('Error get data from ajax');
+    }
+  });
+    });
 })
+
