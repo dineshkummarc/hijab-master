@@ -131,17 +131,7 @@ class Shop extends PX_Controller {
         }
 
         $this->cart->insert($insert_data);
-//        var_dump($this->cart->contents());
-        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
-        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
-        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
-        $data['product'] = $this->model_basic->select_all($this->tbl_product);
-        foreach ($data['product'] as $d_row) {
-            $d_row->price = indonesian_currency($d_row->price);
-            $d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->id, 'primary_status', '1')->row();
-        };
-        $data['content'] = $this->load->view('frontend/shop/index',$data,true);
-        $this->load->view('frontend/index',$data);
+        echo "<script>window.history.back()</script>";
     }
 
     function updateToCart($id)
@@ -177,28 +167,16 @@ class Shop extends PX_Controller {
        // var_dump($this->cart->contents());
 
         $this->cart->update($insert_data);
-      // var_dump($this->cart->contents());
-        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
-        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
-        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
-        $data['product'] = $this->model_basic->select_all($this->tbl_product);
-        foreach ($data['product'] as $d_row) {
-            $d_row->price = indonesian_currency($d_row->price);
-            $d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->id, 'primary_status', '1')->row();
-        };
-        $data['content'] = $this->load->view('frontend/shop/index',$data,true);
-        $this->load->view('frontend/index',$data);
+      
+         echo "<script>window.history.back()</script>";
     }
-// <<<<<<< HEAD
-// =======
+
 
      function addToWishList($product_id){
          $data = $this->get_app_settings();
          $data += $this->controller_attr;
          $data += $this->get_function('Shop','shop');
          $id = $this->session->userdata('id');
-
- //        var_dump($this->cart->contents());
 
          $select= array(
              'product_id' => $product_id,
@@ -292,9 +270,15 @@ class Shop extends PX_Controller {
         foreach ($size as $key => $value) {
             echo $value;
         }
-        $a=$this->model_product->search_product($category,$brand,$color,$price,$size)->result();
-        echo $this->db->last_query($a);
-         echo json_encode(array('status'=>TRUE,));
+        $data='';
+        $data['product']=$this->model_product->search_product($category,$brand,$color,$price,$size);
+        foreach ($data['product']->result() as $d_row) {
+            $d_row->price = indonesian_currency($d_row->price);
+            $d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->id, 'primary_status', '1')->row();
+            $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
+        }
+        $response = $this->load->view('frontend/shop/page',$data,TRUE);
+        echo json_encode(array('status'=>TRUE,'response'=>$response));
      }
 
 

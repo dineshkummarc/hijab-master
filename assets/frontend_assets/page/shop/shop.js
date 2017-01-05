@@ -138,11 +138,11 @@ $(document).ready(function(){
         history.pushState(null, null, url+'shop/search?'+category+brand+price+color+size);
 
      }else{
-       var category = $('input[name="category[]"]:checked').serialize();
+      var category = $('input[name="category[]"]:checked').serialize();
       var brand = $('input[name="brand[]"]:checked').serialize();
        var color = $('input[name="color[]"]:checked').serialize();
        var size = $('input[name="size[]"]:checked').serialize();
-        history.pushState(null, null, url+'shop/search?'+category+brand+'&price='+price+color+size);
+        history.pushState(null, null, url+'shop/search?'+category+brand+price+color+size);
      }
      $.ajax({
     url:"shop/search",
@@ -156,7 +156,7 @@ $(document).ready(function(){
     },
     dataType: "JSON",
     success: function(data) {
-     
+      $('#row_product').html(data.response);
     },
     error: function(jqXHR, textStatus, errorThrown) {
       alert('Error get data from ajax');

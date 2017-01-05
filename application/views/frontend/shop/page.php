@@ -1,9 +1,5 @@
-<?php $this->load->view('frontend/sidebar') ?>
-    <div class="fashion-area">
-        <div class="container">
-            <div class="row">
-            <?php $this->load->view('frontend/shop/sidebar') ?>
-                <div class="col-lg-9 col-md-9 col-sm-12" id="row_product">
+
+              
                     <div class="fashion-tab-area">
                         <div class="page-title">
                             <h4>Fashion</h4>
@@ -49,11 +45,9 @@
                                     <div class="fashion-grid-view">
 
                                         <div class="row" id="">
-                                            <?php foreach ($product as $d_row) {
-//                                                $id = $d_row->id;
-//                                                $name = $d_row->name_product;
-//                                                $price = $d_row->price;
-
+                                            <?php 
+                                            if($product->num_rows>=1){
+                                            foreach ($product->result() as $d_row) {
                                                 ?>
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="single-product2">
@@ -113,7 +107,15 @@
                                             </div>
 
 
-                                            <?php } ?>
+                                            <?php }
+                                        }else{
+                                            echo"<div class='col-md-12'><h4>Item Not Found</h4></div>";
+                                        }
+                                            ?>
+                                        
+
+
+
                                         </div>
 
 
@@ -152,24 +154,5 @@
                                             </div>                                      
                                         </div>
                                     </div>                              
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-<div id="shopModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="vertical-alignment-helper">
-            <div class="modal-dialog vertical-align-center">
-     
-        <div class="modal-content" id="shop-detail">
-
-                <a  type="button" class="btn btn-default"  href="login" >Login / Register</a>
-            </div>
-        </div>
-                </div>
-            </div>
-
-    </div>
+                          
+                           

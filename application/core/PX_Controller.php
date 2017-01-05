@@ -25,6 +25,7 @@ class PX_Controller extends CI_Controller {
         $this->tbl_jasa_pengiriman = $this->tbl_prefix.'jasa_pengiriman';
         $this->tbl_order = $this->tbl_prefix.'order';
         $this->tbl_product = $this->tbl_prefix.'product';
+        $this->tbl_product_category = $this->tbl_prefix.'product_category';
         $this->tbl_category = $this->tbl_prefix.'category';
         $this->tbl_product_editor_picks = $this->tbl_prefix.'product_editor_picks';
         $this->tbl_product_group = $this->tbl_prefix.'product_group';
