@@ -39,6 +39,7 @@ class PX_Controller extends CI_Controller {
         $this->tbl_shipping_city = $this->tbl_prefix. 'shipping_city';
         $this->tbl_shipping_province = $this->tbl_prefix. 'shipping_province';
         $this->tbl_shipping_region = $this->tbl_prefix. 'shipping_region';
+        $this->tbl_shipping_service = $this->tbl_prefix. 'shipping_service';
         $this->tbl_size = $this->tbl_prefix.'size';
         $this->tbl_static_content = $this->tbl_prefix . 'static_content';
         $this->tbl_tracking_system = $this->tbl_prefix.'tracking_system';
@@ -61,6 +62,8 @@ class PX_Controller extends CI_Controller {
         $this->load->model('model_usergroup');
         $this->load->model('model_master');
         $this->load->model('model_customer');
+        $this->load->model('model_rajaongkir');
+        $this->load->model('model_shipping_cost');
         // sessions
         if ($this->session->userdata('admin') != FALSE)
             $this->session_admin = $this->session->userdata('admin');
