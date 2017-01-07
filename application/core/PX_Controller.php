@@ -52,6 +52,7 @@ class PX_Controller extends CI_Controller {
         $this->tbl_underconstruct_status = $this->tbl_prefix. 'underconstruct_status';
         $this->tbl_tracking_status = $this->tbl_prefix.'tracking_status';
         $this->tbl_flag = $this->tbl_prefix. 'flag';
+        $this->tbl_order_confirmation = $this->tbl_prefix.'order_confirmation';
         // MODELS
         $this->load->model('model_basic');
         $this->load->model('model_menu');
@@ -64,6 +65,7 @@ class PX_Controller extends CI_Controller {
         $this->load->model('model_customer');
         $this->load->model('model_rajaongkir');
         $this->load->model('model_shipping_cost');
+        $this->load->model('model_order');
         // sessions
         if ($this->session->userdata('admin') != FALSE)
             $this->session_admin = $this->session->userdata('admin');

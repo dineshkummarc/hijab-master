@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2017 at 01:02 PM
+-- Generation Time: Jan 07, 2017 at 07:57 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -1061,6 +1061,7 @@ CREATE TABLE `px_order` (
   `invoice_number` varchar(250) NOT NULL,
   `total_order` int(11) NOT NULL,
   `total_ship_price` int(15) NOT NULL,
+  `random_code` int(11) NOT NULL,
   `total_payment` int(15) NOT NULL,
   `status` tinyint(3) NOT NULL,
   `date_created` datetime NOT NULL,
@@ -1071,8 +1072,32 @@ CREATE TABLE `px_order` (
 -- Dumping data for table `px_order`
 --
 
-INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `invoice_number`, `total_order`, `total_ship_price`, `total_payment`, `status`, `date_created`, `date_modified`) VALUES
-(1, 9, 5, 'HIJAB070120170001', 176000, 9000, 185000, 0, '2017-01-07 17:00:00', '2017-01-07 17:00:00');
+INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `invoice_number`, `total_order`, `total_ship_price`, `random_code`, `total_payment`, `status`, `date_created`, `date_modified`) VALUES
+(1, 9, 5, 'HIJAB070120170001', 176000, 9000, 0, 185000, 3, '2017-01-07 17:00:00', '2017-01-07 17:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `px_order_confirmation`
+--
+
+CREATE TABLE `px_order_confirmation` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `account_name` varchar(250) NOT NULL,
+  `account_bank` varchar(250) NOT NULL,
+  `bank_target` varchar(250) NOT NULL,
+  `total_payment` int(11) NOT NULL,
+  `date_transfer` date NOT NULL,
+  `date_created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `px_order_confirmation`
+--
+
+INSERT INTO `px_order_confirmation` (`id`, `order_id`, `account_name`, `account_bank`, `bank_target`, `total_payment`, `date_transfer`, `date_created`) VALUES
+(1, 1, 'EDO APRIYADI', 'BCA', 'MANDIRI', 185000, '2017-01-07', '2017-01-07 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -1220,7 +1245,7 @@ CREATE TABLE `px_product_stock` (
 --
 
 INSERT INTO `px_product_stock` (`id`, `product_id`, `color_id`, `size_id`, `stock`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(105, 33, 1, 1, 11, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
+(105, 33, 1, 1, 12, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
 (106, 33, 2, 1, 100, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
 (109, 33, 1, 2, 20, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (110, 33, 2, 2, 3, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
@@ -1232,7 +1257,7 @@ INSERT INTO `px_product_stock` (`id`, `product_id`, `color_id`, `size_id`, `stoc
 (117, 34, 1, 2, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
 (121, 34, 1, 4, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
 (123, 34, 2, 1, 0, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
-(124, 34, 2, 2, 0, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
+(124, 34, 2, 2, 1, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
 (125, 34, 2, 4, 0, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25');
 
 -- --------------------------------------------------------
@@ -8989,7 +9014,9 @@ CREATE TABLE `px_tracking_system` (
 --
 
 INSERT INTO `px_tracking_system` (`id`, `order_id`, `status_id`, `title`, `content`, `date_created`) VALUES
-(5, 1, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-07 17:00:00');
+(5, 1, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-07 17:00:00'),
+(10, 1, 2, 'Order Paid', 'Pembayaran Telah Diterima, Order Siap Dikirim', '2017-01-08 01:52:29'),
+(11, 1, 3, 'Order Shipped', 'Order Telah Dikirim ke Customer, Nomor Resi : 123123123123', '2017-01-08 01:53:41');
 
 -- --------------------------------------------------------
 
@@ -9246,6 +9273,12 @@ ALTER TABLE `px_order`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `px_order_confirmation`
+--
+ALTER TABLE `px_order_confirmation`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `px_product`
 --
 ALTER TABLE `px_product`
@@ -9471,6 +9504,11 @@ ALTER TABLE `px_news`
 ALTER TABLE `px_order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `px_order_confirmation`
+--
+ALTER TABLE `px_order_confirmation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `px_product`
 --
 ALTER TABLE `px_product`
@@ -9544,12 +9582,12 @@ ALTER TABLE `px_tracking_history`
 -- AUTO_INCREMENT for table `px_tracking_status`
 --
 ALTER TABLE `px_tracking_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `px_tracking_system`
 --
 ALTER TABLE `px_tracking_system`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `px_underconstruct_status`
 --

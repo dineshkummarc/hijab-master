@@ -46,7 +46,7 @@ class Admin_order extends PX_Controller {
             $order = $temp->row();
         else
             redirect ($data['controller'].'/'.$data['function'].'?detail=error');
-        $order->status = $this->model_basic->select_where($this->tbl_tracking_status, 'status_id', $order->status)->row();
+        $order->status_order = $this->model_basic->select_where($this->tbl_tracking_status, 'status_id', $order->status)->row();
         $order->tracking_system = $this->model_basic->select_where($this->tbl_tracking_system, 'order_id', $order->id)->result();
         $order->product_order = $this->model_basic->select_where($this->tbl_product_order, 'order_id', $order->id)->result();
         foreach($order->product_order as $data_row)
@@ -54,84 +54,108 @@ class Admin_order extends PX_Controller {
             $data_row->data_product = $this->model_basic->select_where($this->tbl_product, 'id', $data_row->product_id)->row();
             $data_row->size = $this->model_basic->select_where($this->tbl_size, 'id', $data_row->size_id)->row()->name;
             $data_row->color = $this->model_basic->select_where($this->tbl_color, 'id', $data_row->color_id)->row()->name;
+            $data_row->price = $this->indonesian_currency($data_row->price*$data_row->quantity);
         }
+        $order->total_order = $this->indonesian_currency($order->total_order);
+        $order->total_payment = $this->indonesian_currency($order->total_payment);
+        $order->total_ship_price = $this->indonesian_currency($order->total_ship_price);
+        $order->random_code = $this->indonesian_currency($order->random_code);
+        $order->date_created = date('d M Y H:i:s', strtotime($order->date_created));
         //customer
         $customer = $this->model_basic->select_where($this->tbl_customer, 'id', $order->customer_id)->row();
         $customer->billing_address = $this->model_basic->select_where($this->tbl_customer_billing_address, 'customer_id', $customer->id)->row();
+        $customer->billing_address->province = $this->model_basic->select_where($this->tbl_shipping_province, 'id', $customer->billing_address->province)->row()->name;
+        $customer->billing_address->city = $this->model_basic->select_where($this->tbl_shipping_city, 'id', $customer->billing_address->city)->row()->name;
+        $customer->billing_address->region = $this->model_basic->select_where($this->tbl_shipping_region, 'id', $customer->billing_address->region)->row()->name;
         //shipping address
         $shipping_address = $this->model_basic->select_where($this->tbl_shipping_address, 'id', $order->ship_address_id)->row();
+        $shipping_address->province = $this->model_basic->select_where($this->tbl_shipping_province, 'id', $shipping_address->province)->row()->name;
+        $shipping_address->city = $this->model_basic->select_where($this->tbl_shipping_city, 'id', $shipping_address->city)->row()->name;
+        $shipping_address->region = $this->model_basic->select_where($this->tbl_shipping_region, 'id', $shipping_address->region)->row()->name;
         //order confirmation
+        $order_confirmation = $this->model_basic->select_where_order($this->tbl_order_confirmation, 'order_id', $order->id, 'date_created', 'DESC');
+        foreach($order_confirmation->result() as $data_row)
+        {
+            $data_row->total_payment = $this->indonesian_currency($data_row->total_payment);
+            $data_row->date_transfer = date('d M Y', strtotime($data_row->date_transfer));
+        }
+        //tracking system
+        $tracking_system = $this->model_basic->select_where_order($this->tbl_tracking_system, 'order_id', $order->id, 'date_created', 'desc')->result();
+        foreach($tracking_system as $data_row)
+        {
+            $data_row->status = $this->model_basic->select_where($this->tbl_tracking_status, 'status_id', $data_row->status_id)->row();
+            $data_row->date_created = date('d M Y H:i:s', strtotime($data_row->date_created));
+        }
         $data['order'] = $order;
         $data['customer'] = $customer;
         $data['shipping_address'] = $shipping_address;
-        $data['order_confirmation'] = array();
+        $data['order_confirmation'] = $order_confirmation;
+        $data['tracking_system'] = $tracking_system;
         $data['content'] = $this->load->view('backend/order/order_detail', $data, true);
         $this->load->view('backend/index', $data);
     }
-
-    public function order_status($id, $customer, $status) {
+    
+    function process_order()
+    {
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
         $data += $this->get_function('Order List', 'order_list');
         $data += $this->get_menu();
         $this->check_userakses($data['function_id'], ACT_UPDATE);
-
-        $modified = date('Y-m-d H:i:s', now());
-
-        $update = array(
-            'status' => $status,
-            'date_modified' => $modified);
-
-        $do_update = $this->model_basic->update($this->tbl_order, $update, 'id', $id);
-
-        if ($do_update) {
-            $this->model_basic->delete($this->tbl_tracking_system, 'order_id', $id);
-            $created = date('Y-m-d H:i:s', now());
-            $modified = date('Y-m-d H:i:s', now());
-            if ($status == 1) {
-                $title = "Menunggu Pembayaran";
-                $content = "Menunggu Pembayaran";
-                $data_input = array(
-                    'customer_id' => $customer,
-                    'order_id' => $id,
-                    'flag_id' => 1,
-                    'shipping_flag_id' => 1,
-                    'title' => $title,
-                    'content' => $content,
-                    'date_created' => $created,
-                    'date_modified' => $modified);
-                $ubah_status = $this->model_basic->insert_all($this->tbl_tracking_system, $data_input);
-                if ($ubah_status) {
-                    $order = $this->model_basic->select_where($this->tbl_product_order, 'order_id', $id)->result();
-                    //var_dump($order);
-                    foreach ($order as $d_row) {
-                        $product = $this->model_basic->select_where($this->tbl_product_stock, 'id', $d_row->product_stock_id)->row();
-                        // var_dump($product);
-                        $jumlah_beli = $product->stock - $d_row->quantity;
-                        // print_r($product->stock - $d_row->quantity);
-                        $data_update = array(
-                            'stock' => $jumlah_beli);
-                        $this->model_basic->update($this->tbl_product_stock, $data_update, 'id', $product->id);
-                    }
+        
+        $order_id = $this->input->post('id');
+        $status = $this->input->post('status');
+        $nomor_resi = $this->input->post('nomor_resi');
+        
+        if($order_id && $status)
+        {
+            $this->db->trans_start();
+            $status_update = array('status' => $status);
+            $this->model_basic->update($this->tbl_order, $status_update, 'id', $order_id);
+            if($status == -99)
+            {
+                $product_order = $this->model_basic->select_where($this->tbl_product_order, 'order_id', $order_id)->result();
+                foreach($product_order as $data_row)
+                {
+                    $this->model_order->update_amount_stock($data_row->product_stock_id, 1, $data_row->quantity);
                 }
-                redirect('order/order_list?update=true');
-            } elseif ($status == -99) {
-                $title = "Tidak ada Transaksi";
-                $content = "Tidak ada Transaksi";
-                $data_input = array(
-                    'customer_id' => $customer,
-                    'order_id' => $id,
-                    'flag_id' => 0,
-                    'shipping_flag_id' => 0,
-                    'title' => $title,
-                    'content' => $content,
-                    'date_created' => $created,
-                    'date_modified' => $modified);
-                $this->model_basic->insert_all($this->tbl_tracking_system, $data_input);
-                redirect('order/order_list?update=true');
             }
-        } else {
-            $this->returnJson(array('status' => 'error', 'msg' => 'Error'));
+            switch($status)
+            {
+                case 2:
+                    $title = 'Order Paid';
+                    $content = 'Pembayaran Telah Diterima, Order Siap Dikirim';
+                    break;
+                case 3:
+                    $title = 'Order Shipped';
+                    $content = 'Order Telah Dikirim ke Customer, Nomor Resi : '.$nomor_resi;
+                    break;
+                default:
+                    $title = 'Order Rejected';
+                    $content = 'Order Ditolak disebabkan Pembayaran Tidak Diterima';
+                    break;
+            }
+            $insert_tracking_system = array(
+                'order_id' => $order_id,
+                'status_id' => $status,
+                'title' => $title,
+                'content' => $content,
+                'date_created' => date('Y-m-d H:i:s', now()));
+            $this->model_basic->insert_all($this->tbl_tracking_system, $insert_tracking_system);
+            if($this->db->trans_status() == TRUE)
+            {
+                $this->db->trans_commit();
+                $this->returnJson(array('status' => 'ok', 'msg' => 'Change Status Success', 'redirect' => $data['controller'].'/order_detail/'.$order_id));
+            }
+            else
+            {
+                $this->db->trans_rollback();
+                $this->returnJson(array('status' => 'error', 'msg' => 'Change Status Failed, Please Try Again'));
+            }
+        }
+        else
+        {
+            $this->returnJson(array('status' => 'error', 'msg' => 'Change Status Failed, Please Try Again'));
         }
     }
 
