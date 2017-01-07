@@ -71,7 +71,7 @@ class Model_product extends PX_Model {
     }
 
    function uniq_code() { 
-        $q = $this->db->query("SELECT MAX(RIGHT(invoice_number,3)) AS idmax FROM ".$this->tbl_order);
+        $q = $this->db->query("SELECT MAX(RIGHT(invoice_number,6)) AS idmax FROM ".$this->tbl_order);
         $kd = ""; 
         if($q->num_rows()>0){ 
             foreach($q->result() as $k){
@@ -79,10 +79,9 @@ class Model_product extends PX_Model {
                 $kd = sprintf("s", $tmp); 
             }
         }else{ 
-            $kd = "001";
+            $kd = "000001";
         }
-        $yer=substr(date('Y'),2,2);
-        $kar = "HDINV".$year."".date('m')."".date('d');
+        $kar = "HDINV".date('Ymd');
         return $kar.$kd;
    } 
 }

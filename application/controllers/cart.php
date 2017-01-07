@@ -115,6 +115,5 @@ class Cart extends PX_Controller {
 
     function submit_order(){
         $invoice=$this->model_product->uniq_code();
-        
     }
 }
