@@ -59,8 +59,8 @@
                                                 <div class="single-product2">
                                                     <div class="product-pic">
                                                         <a href="shop/detail/<?php echo $d_row->id?>">
-                                                            <img src="assets/uploads/product/<?php echo $d_row->image->product_id ?>/<?php echo $d_row->image->photo ?>" alt="" />
-                                                            <img class="secondary-img" src="assets/uploads/product/<?php echo $d_row->image->product_id ?>/<?php echo $d_row->image->photo ?>" alt="" />
+                                                            <img src="assets/uploads/product/<?php echo $d_row->id ?>/<?php echo $d_row->image?>" alt="" />
+                                                            <img class="secondary-img" src="assets/uploads/product/<?php echo $d_row->id?>/<?php echo $d_row->image?>" alt="" />
                                                         </a>
                                                         <div class="pro-cart-bottom">
                                                             <a type="button" data-target-id="<?php echo $d_row->id ?>" data-toggle="modal" class="btn-quick-view"  data-target="#shopModal" title="Quick View" ><i class="fa fa-search" aria-hidden="true"></i></a>

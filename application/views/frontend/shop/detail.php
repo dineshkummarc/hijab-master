@@ -6,20 +6,23 @@
 					<div class="single-pro-tab">
 					  <!-- Tab panes -->
 					  <div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="home">
-							<?php foreach ($detail->image as $key) {
-								?>
-								<img class="zoom_01" src="assets/uploads/product/<?php echo $key->product_id ?>/<?php echo $key->photo ?>" data-zoom-image="assets/uploads/product/<?php echo $key->product_id ?>/<?php echo $key->photo ?>" alt=""/></div>
-						<?php	} ?>
-							
+					  <?php $no=0; foreach ($detail->image as $key) {
+					  	$no++;
 						
+						?>
+						<div role="tabpanel" class="tab-pane <?php if($no==1){ echo"active"; } ?>" id="home<?php echo $no ?>">
+							<img class="zoom_01" src="assets/uploads/product/<?php echo $detail->id ?>/<?php echo $key->photo ?>" data-zoom-image="assets/uploads/product/<?php echo $detail->id ?>/<?php echo $key->photo ?>" alt=""/></div>
+						
+						<?php } ?>
 					  </div>
+					 
 					  <!-- Nav tabs -->
 					  <ul class="pro-show-tab " role="tablist">
-					  <?php foreach ($detail->image as $detail->image) {
+					  <?php $no=0; foreach ($detail->image as $key) {
+								$no++;
 								?>
-						<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-							<img src="assets/uploads/product/<?php echo $detail->image->product_id ?>/<?php echo $detail->image->photo ?>"  alt=""/></a>
+						<li role="presentation" class="<?php if($no==1) echo"active"; ?>"><a href="#home<?php echo $no ?>" aria-controls="<?php echo $no ?>" role="tab" data-toggle="tab">
+							<img src="assets/uploads/product/<?php echo $detail->id ?>/<?php echo $key->photo ?>" alt=""/></a>
 						</li>
 						<?php } ?>
 					  </ul>
