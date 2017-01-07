@@ -7,48 +7,32 @@
 					  <!-- Tab panes -->
 					  <div class="tab-content">
 						<div role="tabpanel" class="tab-pane active" id="home">
-							<img class="zoom_01" src="assets/uploads/product/<?php echo $detail->image->product_id ?>/<?php echo $detail->image->photo ?>" data-zoom-image="assets/uploads/product/<?php echo $detail->image->product_id ?>/<?php echo $detail->image->photo ?>" alt=""/></div>
-						<div role="tabpanel" class="tab-pane" id="profile">
-							<img class="zoom_01" src="assets/frontend_assets/img/fashion-product/3.jpg" data-zoom-image="assets/frontend_assets/img/fashion-product/3.jpg" alt=""/>
-						</div>
-						<div role="tabpanel" class="tab-pane" id="messages">
-							<img class="zoom_01" src="assets/frontend_assets/img/fashion-product/5.jpg" data-zoom-image="assets/frontend_assets/img/fashion-product/5.jpg" alt=""/>
-						</div>
-						<div role="tabpanel" class="tab-pane" id="messages2">
-							<img class="zoom_01" src="assets/frontend_assets/img/fashion-product/7.jpg" data-zoom-image="assets/frontend_assets/img/fashion-product/7.jpg" alt=""/>
-						</div>
+							<?php foreach ($detail->image as $key) {
+								?>
+								<img class="zoom_01" src="assets/uploads/product/<?php echo $key->product_id ?>/<?php echo $key->photo ?>" data-zoom-image="assets/uploads/product/<?php echo $key->product_id ?>/<?php echo $key->photo ?>" alt=""/></div>
+						<?php	} ?>
+							
+						
 					  </div>
 					  <!-- Nav tabs -->
 					  <ul class="pro-show-tab " role="tablist">
+					  <?php foreach ($detail->image as $detail->image) {
+								?>
 						<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">
 							<img src="assets/uploads/product/<?php echo $detail->image->product_id ?>/<?php echo $detail->image->photo ?>"  alt=""/></a>
 						</li>
-						<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
-							<img src="assets/frontend_assets/img/fashion-product/3.jpg" alt=""/></a>
-						</li>
-						<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
-							<img src="assets/frontend_assets/img/fashion-product/5.jpg" alt=""/></a>
-						</li>
-						<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
-							<img src="assets/frontend_assets/img/fashion-product/7.jpg" alt=""/></a>
-						</li>
+						<?php } ?>
 					  </ul>
 					</div>	
 				</div>
 				<div class=" col-lg-7 col-md-7 col-sm-7">
+				<form method="post" action="shop/addToCart" enctype="multipart/form-data">
 					<div class="product-details pro-right fashion">
 						<h1><?php echo $detail->name_product?></h1>
 						<div class="price-star">
-							<div class="rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<a  class="reviews" href="#">3 Review(s)</a>
-								<a class="reviews" href="#">Add Your Review</a>
-							</div>
+							
 							<label> Product code : <?php echo $detail->id?> </label>
+							<input type="hidden" name="id_product" value="<?php echo $detail->id ?>">
 							<div class="price fix">
 								<div class="low-price special-price floatleft">
 									<h4><span><?php echo $detail->price?></span></h4>
@@ -57,28 +41,17 @@
 									<label>Availability:</label> <span class="stock"><?php echo $detail->stock; ?></span>
 								</div>
 							</div>
-							<ul class="tier-prices product-pricing">
-								<li class="tier-price tier-0">
-									Buy 1 for <span class="price">$510.00</span> each and&nbsp;<strong class="benefit">save&nbsp;<span class="percent tier-0">6</span>%</strong><span class="msrp-price-hide-message"></span>
-								</li>
-								<li class="tier-price tier-0">
-									Buy 2 for <span class="price">$510.00</span> each and&nbsp;<strong class="benefit">save&nbsp;<span class="percent tier-0">4</span>%</strong><span class="msrp-price-hide-message"></span>
-								</li>
-								<li class="tier-price tier-0">
-									Buy 3 for <span class="price">$510.00</span> each and&nbsp;<strong class="benefit">save&nbsp;<span class="percent tier-0">2</span>%</strong><span class="msrp-price-hide-message"></span>
-								</li>
-							</ul>
 						</div>
 						<div class="desc-std p-details">
 							<h5><strong>PRODUCT DESCRIPTION</strong></h5>
 							<p><?php echo $detail->description?>. 
-							<a href="#">Learn More</a></p>
+							
 						</div>
 						<div class="product-size">
-							<form action="#">				
+										
 								<div class="input-box">
 									<h4>Color <span>*</span></h4>							
-									<select>
+									<select name="color">
 										<?php foreach ($detail->color as $list_color) { ?>
 										<option value="<?php echo $list_color->color_id?>" selected><?php echo $list_color->color->name?></option>
 										<?php } ?>
@@ -88,24 +61,23 @@
 									<h4>Size <span>*</span></h4>
 									<div class="input-box">
 									
-										<select>
+										<select name="size">
 										<?php foreach ($detail->size as $list_size) { ?>
 											<option value="<?php echo $list_size->size_id;?>" selected><?php echo $list_size->size->name?></option>
 										<?php } ?>
 										</select>								
 									</div>
 									
-								</div>
-							</form>						
+								</div>				
 						</div>
 
 						<div class="actions">
 							<div class="plus-minus">
 								<div class="quantity cart-plus-minus">
-									<input class="text" type="text" value="1"/>
+									<input class="text" name="qty" type="text" value="1"/>
 								</div>							
 							</div>	
-							<a href="#">Add tO Cart</a>
+							<button type="submit" class="btn">Add To Cart</button>
 							<ul class="add-to-link">
 <!--								<li><a data-toggle="tooltip" title="Quick View" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>-->
 <!--								<li><a data-toggle="tooltip" title="Add to Compare" href="#"><i class="fa fa-retweet" aria-hidden="true"></i></a></li>-->
@@ -113,6 +85,7 @@
 							</ul>
 						</div>
 					</div>	
+					</form>
 				</div>
 			</div>
 		</div>

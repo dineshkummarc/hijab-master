@@ -26,23 +26,22 @@
 									</thead>
 									<tbody>
 										<tr>
-										<?php $get_cart = $this->cart->contents(); ?>
-										<?php if (!empty($get_cart)) { ?>
-											<?php foreach ($get_cart as $d_row) {
+										<?php if (!empty($cart)) { ?>
+											<?php foreach ($cart as $d_row) {
 												if ($this->session->userdata('id') == $d_row['customer_id']) { ?>
 											<td class="product-Item">
 												<a href="#">
-													<img src="assets/frontend_assets/img/topsell/2.jpg" alt="" title="Simple Product With Their Price" />
+													<img src="assets/uploads/product/<?php echo $d_row['id'] ?>/<?php echo $d_row['pict']?>" alt="" title="<?php echo $d_row['name'] ?>" />
 												</a>												
 											</td>										
 											<td class="product-name">
 												<h3><a href="#"><?php echo $d_row['name']?> </a></h3>
 												<div class="price-star">
 													<div class="rating">
-														<h4>Color <span>Red</span></h4>
+														<h4>Color <span><?php echo $d_row['n_color']; ?></span></h4>
 													</div>
 													<div class="rating">
-														<h4>Size <span>Medium</span></h4>
+														<h4>Size <span><?php echo $d_row['n_size']; ?></span></h4>
 													</div>
 												</div>											
 											</td>

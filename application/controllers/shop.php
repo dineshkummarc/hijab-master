@@ -64,7 +64,7 @@ class Shop extends PX_Controller {
 		$data['detail']->price = indonesian_currency($data['detail']->price);
 		$data['detail']->size = $this->model_stock->select_size($this->tbl_product_stock, 'product_id', $id)->result();
 		$data['detail']->color = $this->model_stock->select_color($this->tbl_product_stock, 'product_id', $id)->result();
-		$data['detail']->image = $this->model_basic->select_where_order($this->tbl_product_image, 'product_id', $data['detail']->id, 'primary_status', '1')->row();
+		$data['detail']->image = $this->model_basic->select_where_order($this->tbl_product_image, 'product_id', $data['detail']->id, 'primary_status', '1')->result();
         $stock = '';
         if((int)$this->model_stock->sum_stock($id)->row()->stock > 0)
             $stock = 'In Stock';
@@ -81,46 +81,31 @@ class Shop extends PX_Controller {
 		$this->load->view('frontend/index',$data); 
 	}
 
-	function addToCart($product_id)
+	function addToCart()
     {
-
+        $product_id=$this->input->post('id_product');
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
         $data += $this->get_function('Shop','shop');
         $id = $this->session->userdata('id');
         if($id == false)
             $id = 0;
-        //var_dump($id);
-//
-    //       $get_customer = $this->model_basic->select_where($this->tbl_customer,'id',$id)->row();
         $get_product = $this->model_basic->select_where($this->tbl_product,'id',$product_id)->row();
         $get_image_product = $this->model_basic->select_where($this->tbl_product_image,'product_id', $product_id)->row();
-
-//        $insert =array(
-//            'total' => $this->input->post('total'),
-//            'product_id' => $get_product->id,
-//            'customer_id' => $get_customer->id
-//        );
-//        $this->model_basic->insert_all($this->tbl_cart, $insert);
-//        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
-//        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
-//        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
-//        $data['product'] = $this->model_basic->select_all($this->tbl_product);
-//        foreach ($data['product'] as $d_row) {
-//            $d_row->price = indonesian_currency($d_row->price);
-//            $d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->id, 'primary_status', '1')->row();
-//        };
-//        $data['content'] = $this->load->view('frontend/shop/index',$data,true);
-//        $this->load->view('frontend/index',$data);
+        $size=$this->model_basic->select_where($this->tbl_size,'id',$this->input->post('size'))->row();
+        $color=$this->model_basic->select_where($this->tbl_color,'id',$this->input->post('color'))->row();
         $insert_data = array(
             'id' => $get_product->id,
             'name' => $get_product->name_product,
             'price' => $get_product->price,
-            'qty' => 1,
+            'qty' => $this->input->post('qty'),
             'customer_id' => $id,
-            'pict' => $get_image_product->photo
+            'pict' => $get_image_product->photo,
+            'size' => $this->input->post('size'),
+            'color' => $this->input->post('color'),
+            'n_size' => $size->name,
+            'n_color' => $color->name,
         );
-//        var_dump($insert_data);
         $cek_wishlist = array(
             'product_id' => $get_product->id,
             'customer_id' => $id);

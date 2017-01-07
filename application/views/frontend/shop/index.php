@@ -94,8 +94,8 @@
 //                                                        // Submit Button.
 //                                                        echo form_submit($btn);
 //                                                        echo form_close();
-//                                                        ?>
-                                                        <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+//                                                        ?><!-- 
+                                                        <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a> -->
                                                         <div class="price-star">
                                                             <div class="rating">
                                                                 <i class="fa fa-star"></i>

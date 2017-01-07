@@ -248,6 +248,25 @@ input[type=checkbox]:checked + label:before { letter-spacing: 5px; }
     text-align: center;
     margin-bottom: 10px;
 }
+.actions button {
+    float: left;
+    font-family: "Bree Serif",serif;
+    font-size: 14px;
+    padding: 7px 24px;
+    text-transform: uppercase;
+}
+.product-details button {
+    border: 2px solid #ececec;
+    color: #555555;
+    float: left;
+    font-size: 18px;
+    padding: 5px 9px;
+}
+.product-details button:hover {
+  background: #ff5555 none repeat scroll 0 0;
+  border-color: #ff5555;
+  color: white;
+}
 /*media screen////////////*/
 @media (max-width: 767px) {
 .container,.box-layout {
