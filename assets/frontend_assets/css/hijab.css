@@ -16,8 +16,36 @@
 	position:relative;
 	margin:0 auto;
 }
+.tabtab td{
+	padding: 5px;
+}
+.discount-price{
+	text-decoration: line-through;
+}
+.box{
+	border:2px solid #eeeeee;
+	padding: 10px;
+}
 footer li{
 	list-style: none;
+}
+.address table{
+	width: 100%;
+}
+.btn-update{
+float: right; top: -40px; position: relative;border: 2px solid #ececec;
+    color: #555;
+    display: block;
+    font-family: bree serif;
+    font-size: 14px;
+    padding: 9px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #fff; 
+}
+.btn-update:hover{
+	color: #fff;
+    background: #ff5555; 
 }
 .features-nav a{
 	text-transform: uppercase;

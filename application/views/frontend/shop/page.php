@@ -53,8 +53,8 @@
                                                 <div class="single-product2">
                                                     <div class="product-pic">
                                                         <a href="shop/detail/<?php echo $d_row->id?>">
-                                                            <img src="assets/uploads/product/<?php echo $d_row->image->product_id ?>/<?php echo $d_row->image->photo ?>" alt="" />
-                                                            <img class="secondary-img" src="assets/uploads/product/<?php echo $d_row->image->product_id ?>/<?php echo $d_row->image->photo ?>" alt="" />
+                                                            <img src="assets/uploads/product/<?php echo $d_row->id ?>/<?php echo $d_row->image ?>" alt="" />
+                                                            <img class="secondary-img" src="assets/uploads/product/<?php echo $d_row->id ?>/<?php echo $d_row->image ?>" alt="" />
                                                         </a>
                                                         <div class="pro-cart-bottom">
                                                             <a type="button" data-target-id="<?php echo $d_row->id ?>" data-toggle="modal" class="btn-quick-view"  data-target="#shopModal" title="Quick View" ><i class="fa fa-search" aria-hidden="true"></i></a>
@@ -89,17 +89,17 @@
 //                                                        echo form_submit($btn);
 //                                                        echo form_close();
 //                                                        ?>
-                                                        <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
                                                         <div class="price-star">
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
+                                                           
                                                             <div class="price">
+                                                              
+                                                            <?php if($d_row->discount>0){
+                                                                ?>
+                                                                <span class="discount-price"><?php echo $d_row->price?></span>
+                                                                <span><?php echo $d_row->price_disc ?></span>
+                                                                <?php }else{ ?>
                                                                 <span><?php echo $d_row->price?></span>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>                          

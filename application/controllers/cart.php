@@ -55,13 +55,12 @@ class Cart extends PX_Controller {
 
         $get_cart = $this->cart->contents();
 
-        $qty = $_POST('cart');
-        var_dump($qty);
-
+        $no=0;
         foreach ($get_cart as $cart) {
+            $no++;
         	$update_cart = array(
         		'rowid' => $cart['rowid'],
-        		'qty' => $cart['qty']
+        		'qty' => $_POST['qty'][$no],
         		);
         	$this->cart->update($update_cart);
         }
@@ -104,8 +103,14 @@ class Cart extends PX_Controller {
         $address->name_province=$province->name;
         $address->name_city=$city->name;
         $address->name_region=$region->name;
-        $address->cost=$region->price;
-        $address->tot_price=$region->price+$this->cart->total();
+        $berat='';
+        foreach ($this->cart->contents() as $cart) {
+            $berat+=$cart['weight']*$cart['qty'];
+        }
+        $ongkir=ceil($berat/1000);
+        $ongkir=$region->price*$berat;
+        $address->cost= $ongkir;
+        $address->tot_price= $ongkir+$this->cart->total();
         echo json_encode($address);
     }
 
@@ -143,6 +148,10 @@ class Cart extends PX_Controller {
                 'quantity'=>$cart['qty'],
                 );
             $insert=$this->db->insert($this->tbl_product_order,$data);
+            $data_stock=array(
+                'stock'=>$stock->stock-$cart['qty'],
+                );
+            $update=$this->db->update($this->tbl_product_stock, $data_stock, array('id' => $stock->id));
         }
         if($insert){
              $this->cart->destroy();

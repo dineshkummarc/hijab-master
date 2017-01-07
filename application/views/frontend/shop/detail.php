@@ -73,7 +73,9 @@
 									
 								</div>				
 						</div>
-
+						<?php if( $this->session->set_flashdata('msg_stock')){ ?>
+							<h3><?php echo  $this->session->set_flashdata('msg_stock'); ?></h3>
+						<?php } ?>
 						<div class="actions">
 							<div class="plus-minus">
 								<div class="quantity cart-plus-minus">
