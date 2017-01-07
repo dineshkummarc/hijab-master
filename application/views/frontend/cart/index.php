@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="table-content">
-						<form action="#">
+						<form action="cart/updateAllCart" method="post">
 							<div class="table-content table-responsive">
 								<table>
 									<thead>
@@ -27,7 +27,8 @@
 									<tbody>
 										<tr>
 										<?php if (!empty($cart)) { ?>
-											<?php foreach ($cart as $d_row) {
+											<?php $no=0; foreach ($cart as $d_row) {
+												$no++;
 												if ($this->session->userdata('id') == $d_row['customer_id']) { ?>
 											<td class="product-Item">
 												<a href="#">
@@ -50,7 +51,7 @@
 											</td>
 											<td class="product-quantity">
 												<div class="quantity cart-plus-minus">
-													<input class="text" type="text" name="qty[]" value="<?php echo $d_row['qty']?>">
+													<input class="text" type="text" name="qty[<?php echo $no ?>]" value="<?php echo $d_row['qty']?>">
 												</div>												
 											</td>
 											<td class="product-subtotal">
@@ -64,7 +65,7 @@
 									</tbody>
 								</table>
 							</div>
-						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -72,11 +73,11 @@
 				<div class="col-sm-12">
 					<div class="shopping-link">
 						<div class="continue-shp">
-							<a href="#">continue shopping</a>
+							<a href="shop">continue shopping</a>
 						</div>
-						<div class="continue-shp update-cart">
-
-							<a href="cart/updateAllCart">update shopping cart</a>
+						<div class="action continue-shp update-cart">
+						<button name="update" class="btn-update">UPDATE SHOPPING CART</button>
+							
 
 						</div>
 						<div class="continue-shp clear-cart">
@@ -85,6 +86,7 @@
 					</div>
 				</div>
 			</div>
+			</form>
 		</div>
 	</div>
 	<!-- cart-collaterals -->

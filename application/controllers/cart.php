@@ -55,13 +55,12 @@ class Cart extends PX_Controller {
 
         $get_cart = $this->cart->contents();
 
-        $qty = $_POST('cart');
-        var_dump($qty);
-
+        $no=0;
         foreach ($get_cart as $cart) {
+            $no++;
         	$update_cart = array(
         		'rowid' => $cart['rowid'],
-        		'qty' => $cart['qty']
+        		'qty' => $_POST['qty'][$no],
         		);
         	$this->cart->update($update_cart);
         }
