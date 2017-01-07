@@ -20,10 +20,13 @@ class Shop extends PX_Controller {
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
 		$data['product'] = $this->model_basic->select_all($this->tbl_product);
 		foreach ($data['product'] as $d_row) {
+            $price_disc= $d_row->price/100*$d_row->discount;
+            $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
 			$d_row->price = indonesian_currency($d_row->price);
             $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id)->row();
 			$d_row->image = $image->photo;
             $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
+            
 		}
         $data['category']=$this->model_basic->select_where($this->tbl_category,'delete_flag','0')->result();
         $data['color']=$this->model_basic->select_all($this->tbl_color);
@@ -45,8 +48,12 @@ class Shop extends PX_Controller {
 
         $data['product'] = $this->model_basic->select_where($this->tbl_product, 'brand_id', $data['brand']->id)->result();
         foreach ($data['product'] as $d_row) {
-            $d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->id, 'primary_status', '1')->row();
+            $price_disc= $d_row->price/100*$d_row->discount;
+            $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
             $d_row->price = indonesian_currency($d_row->price);
+            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id)->row();
+            $d_row->image = $image->photo;
+            $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
         }
 
         $data['content'] = $this->load->view('frontend/brand/index',$data,true);
@@ -270,8 +277,11 @@ class Shop extends PX_Controller {
         $data='';
         $data['product']=$this->model_product->search_product($category,$brand,$color,$price,$size);
         foreach ($data['product']->result() as $d_row) {
+             $price_disc= $d_row->price/100*$d_row->discount;
+            $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
             $d_row->price = indonesian_currency($d_row->price);
-            $d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->id, 'primary_status', '1')->row();
+            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id)->row();
+            $d_row->image = $image->photo;
             $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
         }
         $response = $this->load->view('frontend/shop/page',$data,TRUE);

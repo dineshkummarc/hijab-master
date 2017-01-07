@@ -97,15 +97,15 @@
 //                                                        ?><!-- 
                                                         <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a> -->
                                                         <div class="price-star">
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
+                                                            
                                                             <div class="price">
+                                                            <?php if($d_row->discount>0){
+                                                                ?>
+                                                                <span class="discount-price"><?php echo $d_row->price?></span>
+                                                                <span><?php echo $d_row->price_disc ?></span>
+                                                                <?php }else{ ?>
                                                                 <span><?php echo $d_row->price?></span>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>                          

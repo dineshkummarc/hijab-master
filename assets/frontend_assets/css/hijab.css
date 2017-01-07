@@ -16,8 +16,21 @@
 	position:relative;
 	margin:0 auto;
 }
+.tabtab td{
+	padding: 5px;
+}
+.discount-price{
+	text-decoration: line-through;
+}
+.box{
+	border:2px solid #eeeeee;
+	padding: 10px;
+}
 footer li{
 	list-style: none;
+}
+.address table{
+	width: 100%;
 }
 .btn-update{
 float: right; top: -40px; position: relative;border: 2px solid #ececec;
