@@ -23,7 +23,7 @@ class Model_product extends PX_Model {
         );
         $this->db->from($this->tbl_product);
         $this->db->join($this->tbl_brand,$this->tbl_brand.'.id='.$this->tbl_product.'.brand_id');
-        $this->db->join($this->tbl_product_category,$this->tbl_product_category.'.id='.$this->tbl_product.'.category_id');
+        $this->db->join($this->tbl_category,$this->tbl_category.'.id='.$this->tbl_product.'.category_id');
         $this->db->join($this->tbl_product_stock,$this->tbl_product_stock.'.product_id='.$this->tbl_product.'.id');
         $this->db->join($this->tbl_color,$this->tbl_color.'.id='.$this->tbl_product_stock.'.color_id');
         $this->db->join($this->tbl_size,$this->tbl_size.'.id='.$this->tbl_product_stock.'.size_id');
@@ -71,15 +71,26 @@ class Model_product extends PX_Model {
     }
 
    function uniq_code() { 
-        $q = $this->db->query("SELECT MAX(RIGHT(invoice_number,6)) AS idmax FROM ".$this->tbl_order);
+        $q = $this->db->query("SELECT MAX(RIGHT(invoice_number,6)) AS idmax FROM ".$this->tbl_order." WHERE invoice_number LIKE '%".date('Ymd')."%' order by id Desc" )->row();
         $kd = ""; 
-        if($q->num_rows()>0){ 
-            foreach($q->result() as $k){
-                $tmp = ((int)$k->idmax)+1; 
-                $kd = sprintf("s", $tmp); 
+        if($q->idmax==null){ 
+          $kd = "000001";
+        }else{
+        	$num=$q->idmax+1;
+            if($q->idmax<=9){
+            	$kd="00000".$num;
+            }elseif($q->idmax<=99){
+            	$kd="0000".$num;
             }
-        }else{ 
-            $kd = "000001";
+            elseif($q->idmax<=999){
+            	$kd="000".$num;
+            }elseif($q->idmax<=9999){
+            	$kd="00".$num;
+            }elseif($q->idmax<=99999){
+            	$kd="0".$num;
+            }elseif($q->idmax<=999999){
+            	$kd=$num;
+            }
         }
         $kar = "HDINV".date('Ymd');
         return $kar.$kd;

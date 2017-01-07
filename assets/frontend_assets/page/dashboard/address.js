@@ -15,7 +15,7 @@ $("#list_shipp").change(function (){
         $( "#cost_text" ).html("Rp. "+ cost);
          var totprice = idr(response.tot_price);
         $( "#tot_price_text" ).html("Rp. "+ totprice);
-        $( "#totprice" ).val(response.tot_price);
+        $( "#tot_price" ).val(response.tot_price);
        $('#province_ship')
          .append($("<option></option>")
                     .attr("value",response.province)

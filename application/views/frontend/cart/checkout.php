@@ -9,9 +9,9 @@
 				
 				<div class="billing-details">
 					<div class="row">
-						<div class="col-lg-7 col-md-7 col-sm-7">
+						<div class="col-lg-6 col-md-6 col-sm-6">
 							<h3 class="h3-18">Billing Details</h3>
-							<form action="shop/process_checkout" method="post" class="biling-info">
+							<form action="cart/submit_order" method="post" class="biling-info">
 								
 								<div class="col-sm-6">
 									<div class="input-box">
@@ -88,66 +88,8 @@
 
 								</div>
 						</div>
-						<!-- billing content end -->
-						<!-- order view start-->
-						<div class="col-lg-5 col-md-5 col-sm-5">
-							<div class="payment-box">
-								<h3 class="h3-18">Your Order</h3>
-								<table class="shop_table checkbox-tbl">
-									<thead>
-										<tr>
-											<th class="product-name">Product</th>
-											<th class="product-total">Total</th>
-										</tr>
-									</thead>
-									<tbody>
-									<?php $get_checkout = $this->cart->contents();?>
-										<?php if (!empty($get_checkout)) { ?>
-											<?php foreach ($get_checkout as $checkout) { 
-												if ($this->session->userdata('id') == $checkout['customer_id']) { ?>
-										<tr class="cart_item">										
-											<td class="product-name">
-												<?php echo $checkout['name']?> <strong class="product-quantity">× <?php echo $checkout['qty']?></strong>
-											</td>
-											<td class="product-total"><span class="p-price"><?php echo indonesian_currency($checkout['price'])?></span></td>										
-										</tr>
-									<?php }}}?>
-									</tbody>
-									<tfoot>
-										<tr class="cart-subtotal">
-											<th>Subtotal</th>
-											<td><span class="t-price"><?php echo indonesian_currency($this->cart->total()); ?></span></td>
-										</tr>
-										<tr class="shipping">
-											<th>Shipping</th>
-											<td>
-												<h4>JNE</h4>
-											</td>
-										</tr>
-										<tr class="">
-											<th>Tipe Pengiriman</th>
-											<td>
-												<span>REG</span>
-											</td>
-										</tr>
-										<tr class="">
-											<th>Biaya Kirim</th>
-											<td>
-												<span class="price" id="cost_text"></span>
-											</td>
-										</tr>
-										<tr class="order-total">
-											<th>Total</th>
-											<td><strong><span class="t-price" id="tot_price_text"><?php echo indonesian_currency($this->cart->total()); ?></span></strong> </td>
-										</tr>
-									</tfoot>
-								</table>
-								<div class="payment-method">
-									<button class="btnb floatright" type="submit">Proceed</button>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-7">
+
+						<div class="col-md-6">
 							<div class="shiping-address">
 								
 									<div class="col-sm-12">
@@ -229,11 +171,57 @@
 									</div>
 
 								</div>
-								<input type="hidden" value="" id="cost"/>
-								<input type="hidden" value="" id="tot_price"/>
+								<input type="hidden" name="cost" value="" id="cost"/>
+								<input type="hidden" value="" name="tot_price" id="tot_price"/>
 									</div>
 									<div class="clearfix"></div>
 								</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 pull-right">
+							<div class="payment-box">
+								<h3 class="h3-18">Your Order</h3>
+								<table class="shop_table checkbox-tbl">
+									<thead>
+										<tr>
+											<th class="product-name">Product</th>
+											<th class="product-total">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+									<?php $get_checkout = $this->cart->contents();?>
+										<?php if (!empty($get_checkout)) { ?>
+											<?php foreach ($get_checkout as $checkout) { 
+												if ($this->session->userdata('id') == $checkout['customer_id']) { ?>
+										<tr class="cart_item">										
+											<td class="product-name">
+												<?php echo $checkout['name']?> <strong class="product-quantity">× <?php echo $checkout['qty']?></strong>
+											</td>
+											<td class="product-total"><span class="p-price"><?php echo indonesian_currency($checkout['price'])?></span></td>										
+										</tr>
+									<?php }}}?>
+									</tbody>
+									<tfoot>
+										<tr class="cart-subtotal">
+											<th>Subtotal</th>
+											<td><span class="t-price"><?php echo indonesian_currency($this->cart->total()); ?></span></td>
+										</tr>
+										
+										<tr class="">
+											<th>Biaya Kirim</th>
+											<td>
+												<span class="price" id="cost_text">-</span>
+											</td>
+										</tr>
+										<tr class="order-total">
+											<th>Total</th>
+											<td><strong><span class="t-price" id="tot_price_text"><?php echo indonesian_currency($this->cart->total()); ?></span></strong> </td>
+										</tr>
+									</tfoot>
+								</table>
+								<div class="payment-method">
+									<button class="btnb floatright" type="submit">Proceed</button>
+								</div>
+							</div>
 						</div>
 						<!-- order view end-->
 					</div>
