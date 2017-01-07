@@ -91,6 +91,16 @@ class Shop extends PX_Controller {
         $id = $this->session->userdata('id');
         if($id == false)
             $id = 0;
+         $where=array(
+                'product_id'=>$product_id,
+                'size_id'=>$this->input->post('size'),
+                'color_id'=>$this->input->post('color'),
+                );
+            $stock=$this->model_basic->select_where_array($this->tbl_product_stock,$where)->row();
+        if($stock->stock<1){
+            $this->session->set_flashdata('msg_stock','Out of stock');
+            echo "<script>window.history.back()</script>";
+        }
         $get_product = $this->model_basic->select_where($this->tbl_product,'id',$product_id)->row();
         $get_image_product = $this->model_basic->select_where($this->tbl_product_image,'product_id', $product_id)->row();
         $size=$this->model_basic->select_where($this->tbl_size,'id',$this->input->post('size'))->row();

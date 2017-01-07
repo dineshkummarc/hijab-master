@@ -143,6 +143,10 @@ class Cart extends PX_Controller {
                 'quantity'=>$cart['qty'],
                 );
             $insert=$this->db->insert($this->tbl_product_order,$data);
+            $data_stock=array(
+                'stock'=>$stock->stock-$cart['qty'],
+                );
+            $update=$this->db->update($this->tbl_product_stock, $data_stock, array('id' => $stock->id));
         }
         if($insert){
              $this->cart->destroy();
