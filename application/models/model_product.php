@@ -69,4 +69,20 @@ class Model_product extends PX_Model {
         $this->db->group_by($this->tbl_product.'.id');
         return $this->db->get();
     }
+
+   function uniq_code() { 
+        $q = $this->db->query("SELECT MAX(RIGHT(invoice_number,3)) AS idmax FROM ".$this->tbl_order);
+        $kd = ""; 
+        if($q->num_rows()>0){ 
+            foreach($q->result() as $k){
+                $tmp = ((int)$k->idmax)+1; 
+                $kd = sprintf("s", $tmp); 
+            }
+        }else{ 
+            $kd = "001";
+        }
+        $yer=substr(date('Y'),2,2);
+        $kar = "HDINV".$year."".date('m')."".date('d');
+        return $kar.$kd;
+   } 
 }

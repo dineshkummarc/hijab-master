@@ -111,11 +111,11 @@
 					<div class="shipping-tax grand-total">
 						<div class="sub-price">
 							<h5>Subtotal</h5>
-							<h5 class="right">$720.00</h5>
+							<h5 class="right"><?php echo indonesian_currency($this->cart->total()); ?></h5>
 						</div>
 						<div class="sub-price">
 							<h4>Grand Total</h4>
-							<h4 class="right">$1,536.00</h4>
+							<h4 class="right"><?php echo indonesian_currency($this->cart->total()); ?></h4>
 						</div>
 						<div class="check-link">
 							<a href="cart/checkout">proceed to checkout</a>

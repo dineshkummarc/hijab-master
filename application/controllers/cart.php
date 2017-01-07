@@ -7,6 +7,7 @@ class Cart extends PX_Controller {
 		parent::__construct();
 		$this->controller_attr = array('controller' => 'cart','controller_name' => 'Cart','controller_id' => 0);
                 $this->do_underconstruct();
+        $this->load->model('model_product');
 	}
 
 
@@ -24,6 +25,10 @@ class Cart extends PX_Controller {
 	}
 
 	function checkout(){
+        if($this->session->userdata('validated')==FALSE){
+            $this->session->set_flashdata('msg_check','Anda harus login atau register untuk melakukan step berikutnya.');
+            redirect('login');
+        }
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('cart','My Cart');
@@ -93,5 +98,23 @@ class Cart extends PX_Controller {
 
         $data['content'] = $this->load->view('frontend/cart/index',$data,true);
         $this->load->view('frontend/index',$data);
+    }
+
+    function address($id){
+        $address=$this->model_basic->select_where($this->tbl_shipping_address,'id',$id)->row();
+        $province=$this->model_basic->select_where($this->tbl_shipping_province,'id',$address->province)->row();
+        $city=$this->model_basic->select_where($this->tbl_shipping_city,'id',$address->city)->row();
+        $region=$this->model_basic->select_where($this->tbl_shipping_region,'id',$address->region)->row();
+        $address->name_province=$province->name;
+        $address->name_city=$city->name;
+        $address->name_region=$region->name;
+        $address->cost=$region->price;
+        $address->tot_price=$region->price+$this->cart->total();
+        echo json_encode($address);
+    }
+
+    function submit_order(){
+        $invoice=$this->model_product->uniq_code();
+        
     }
 }

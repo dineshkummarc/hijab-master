@@ -1,6 +1,11 @@
 	<div class="shopping-area p-t-70">
 		<div class="container">
 			<div class="row">
+			<?php if($this->session->flashdata('msg_check')){ ?>
+			<div class="col-lg-12 col-md-12 col-sm-12 text-center">
+				<h4><?php echo $this->session->flashdata('msg')?></h4>
+			</div>
+			<?php } ?>
 				<div class="col-lg-12">
 					<div class="page-title m-b-30">
 						<h5>Login or Create an Account</h5>
@@ -13,6 +18,7 @@
 	<div class="cart-collaterals">
 		<div class="container">
 			<div class="row">
+			
 				<div class="col-lg-6 col-md-6 col-sm-6">
 					<div class="shipping-tax">
 						<div class="content-title">

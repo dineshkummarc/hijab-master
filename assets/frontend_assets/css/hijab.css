@@ -22,6 +22,12 @@ footer li{
 .features-nav a{
 	text-transform: uppercase;
 }
+.shiping-address{
+	border:1px solid #e1e1e1;
+	clear: both;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
 .copyright{
 	background:#fff;
 	padding: 15px;
@@ -158,6 +164,7 @@ left:0;
     height: 40px;
     padding: 10px;
     width: 100%;
+    margin-bottom: 0px;
 }
 .row-modal {
 	margin-right: -15px;
@@ -260,11 +267,12 @@ input[type=checkbox]:checked + label:before { letter-spacing: 5px; }
     padding: 7px 24px;
     text-transform: uppercase;
 }
+
 .product-details button {
-    border: 2px solid #ececec;
+    border: 3px solid #ececec;
     color: #555555;
     float: left;
-    font-size: 18px;
+    font-size: 15px;
     padding: 5px 9px;
 }
 .product-details button:hover {

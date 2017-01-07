@@ -1,91 +1,48 @@
 $(document).ready(function(){
-    $('body').delegate('.province', 'click',function (){
-        var id = $(this).val(); 
-        $.ajax({
-            url:'customer/city',
-            type:'POST',
-            dataType:'json',
-            data : {
-                'id':id
-            },
-            success: function(response)
-            {
-                if(response.status = 'ok')
-                {
-                    $('#city').html("");
-                        $.each(response.data, function(i, data){
-                        {
-                            $('#city').append('<option value="'+data.id+'">'+data.type+' '+data.name+'</option>');
-                        }
-                    });
-                }                        
-            }
-        });
-    });
-
-    $(".city").change(function (){
-        var id = $(this).val();
-        $.ajax({
-            url:'customer/region',
-            type:'POST',
-            dataType:'json',
-            data : {
-                'id':id
-            },
-            success: function(response)
-            {
-                if(response.status = 'ok')
-                {
-                    $('#region').html("");
-                        $.each(response.data, function(i, data){
-                        {
-                            $('#region').append('<option value="'+data.id+'">'+data.name+'</option>');
-                        }
-                    });
-                }                        
-            }
-        });
-    });
-
-    $(".region").change(function (){
-        var id = $(this).val();
-        $.ajax({
-            url:'customer/price',
-            type:'GET',
-            dataType:'json',
-            data : {
-                'id':id
-            },
-            success: function(response)
-            {
-                if(response.status = 'ok')
-                {
-                    var div = $(document.createElement('div')).attr("id", 'div');
-                    div.after()
-                    .html('<span>Coba</span>');
-                    div.appendTo("#price");
-                }                        
-            }
-        });
-    });
-
-    $('body').delegate('.ship', 'click',function (){
-        var id = $(this).val();
-        $('#address').empty(); 
-        $.ajax({
-            url:'customer/shipping',
-            type:'POST',
-            dataType:'json',
-            data : {
-                'id':id
-            },
-            success: function(response)
-            {
-                if(response.status = 'ok')
-                {
-                    $('#address').append(response.data.address+ ' ' +response.data.region+ ' ' +response.data.city+ ' ' +response.data.province+ ' ' +response.data.postal_code);
-                }                        
-            }
-        });
-    });
+$("#list_shipp").change(function (){
+    var id=$(this).val();
+      $.ajax({
+    url:"cart/address/" + id,
+    type: 'GET',
+    success: function(response) {
+      document.getElementById("form-shiiping").className = "";
+      $( "#name_ship" ).val(response.receiver_name);
+      $( "#tujuan_ship" ).val(response.title);
+       $( "#postcode_ship" ).val(response.postal_code);
+       $( "#address_ship" ).val(response.address);
+       $( "#cost" ).val(response.cost);
+       var cost = idr(response.cost);
+        $( "#cost_text" ).html("Rp. "+ cost);
+         var totprice = idr(response.tot_price);
+        $( "#tot_price_text" ).html("Rp. "+ totprice);
+        $( "#totprice" ).val(response.tot_price);
+       $('#province_ship')
+         .append($("<option></option>")
+                    .attr("value",response.province)
+                    .text(response.name_province)); 
+        $('#city_ship')
+         .append($("<option></option>")
+                    .attr("value",response.city)
+                    .text(response.name_city)); 
+         $('#region_ship')
+         .append($("<option></option>")
+                    .attr("value",response.region)
+                    .text(response.name_region)); 
+    },
+    dataType: "json",
+  });
+});
 })
+
+function idr(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + '.' + '$2');
+    }
+    return x1 + x2;
+}

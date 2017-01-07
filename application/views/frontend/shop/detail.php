@@ -100,84 +100,13 @@
 					<div class="pro-tab-all">
 						<ul class="pro-desc-tab-menu">
 							<li class="active"><a href="#pro-des" data-toggle="tab">Product Description</a></li>
-							<li><a href="#addreviews" data-toggle="tab">Size Chart</a></li>
+							
 <!--							<li><a href="#tag" data-toggle="tab">Tags</a></li>-->
 <!--							<li><a href="#cus-tab" data-toggle="tab">Custom Tab</a></li>-->
 						</ul>							
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active m-mb" id="pro-des">
 								<p><?php echo $detail->description?>. </p>
-							</div>
-							<div role="tabpanel" class="tab-pane" id="addreviews">
-								<div class="add-review">
-									<h2>Size Chart</h2>
-									<form action="#">
-<!--										<h3>You're reviewing: <span>Simple Product With Tier Price</span></h3>	-->
-<!--										<h4>How do you rate this product? <em class="required">*</em></h4>-->
-										<div class="table-responsive">
-											<table class="data-table">
-												<colgroup><col>
-												<col>
-												<col>
-												<col>
-												<col>
-												<col>
-												</colgroup>
-												<thead>
-												<tr class="first last">
-													<th>&nbsp;</th>
-													<?php foreach ($detail->size as $list_size) { ?>
-													<th><span class="nobr"></span><?php echo $list_size->size_id?></th>
-													<?php } ?>
-												</tr>
-												</thead>
-												<tbody>
-													<tr class="first odd">
-														<th>Price</th>
-														<td class="value"><input name="ratings[3]" id="Price_1" value="11" class="radio" type="radio"></td>
-														<td class="value"><input name="ratings[3]" id="Price_2" value="12" class="radio" type="radio"></td>
-														<td class="value"><input name="ratings[3]" id="Price_3" value="13" class="radio" type="radio"></td>
-														<td class="value"><input name="ratings[3]" id="Price_4" value="14" class="radio" type="radio"></td>
-														<td class="value last"><input name="ratings[3]" id="Price_5" value="15" class="radio" type="radio"></td>
-													</tr>
-													<tr class="even">
-														<th>Value</th>
-														<td class="value"><input name="ratings[2]" id="Value_1" value="6" class="radio" type="radio"></td>
-														<td class="value"><input name="ratings[2]" id="Value_2" value="7" class="radio" type="radio"></td>
-														<td class="value"><input name="ratings[2]" id="Value_3" value="8" class="radio" type="radio"></td>
-														<td class="value"><input name="ratings[2]" id="Value_4" value="9" class="radio" type="radio"></td>
-														<td class="value last"><input name="ratings[2]" id="Value_5" value="10" class="radio" type="radio"></td>
-													</tr>
-													<tr class="last odd">
-														<th>Quality</th>
-															<td class="value"><input name="ratings[1]" id="Quality_1" value="1" class="radio" type="radio"></td>
-															<td class="value"><input name="ratings[1]" id="Quality_2" value="2" class="radio" type="radio"></td>
-															<td class="value"><input name="ratings[1]" id="Quality_3" value="3" class="radio" type="radio"></td>
-															<td class="value"><input name="ratings[1]" id="Quality_4" value="4" class="radio" type="radio"></td>
-															<td class="value last"><input name="ratings[1]" id="Quality_5" value="5" class="radio" type="radio"></td>
-														</tr>
-												</tbody>
-											</table>
-										</div>
-<!--										<div class="sub-form m-t-30">-->
-<!--											<div class="input-box">-->
-<!--												<h4>Nickname <span>*</span></h4>-->
-<!--												<input type="text" name="nickname" id="nickname" />-->
-<!--											</div>-->
-<!--											<div class="input-box">-->
-<!--												<h4>Summary of Your Review <span>*</span></h4>-->
-<!--												<input type="text" name="summary" id="summary" />-->
-<!--											</div>-->
-<!--											<div class="input-box">-->
-<!--												<h4>Review <span>*</span></h4>-->
-<!--												<textarea name="review" id="review" cols="30" rows="10"></textarea>-->
-<!--											</div>-->
-<!--											<div class="input-box">-->
-<!--												<button class="btnb-l">Submit Review</button>-->
-<!--											</div>											-->
-<!--										</div>-->
-									</form>
-								</div>
 							</div>
 <!--							<div role="tabpanel" class="tab-pane" id="tag">-->
 <!--								<div class="add-review sub-form m-mb">-->

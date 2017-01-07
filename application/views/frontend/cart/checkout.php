@@ -80,135 +80,13 @@
 									</div>
 								</div>
 								<div class="col-sm-12">
-									<div class="input-box m-b-10">
-									<tr class="shipping">
-										<label>Shipping Address Title</label>
-										<select name="shipping_id" class="ship">
-											<?php foreach ($usershipping as $d_row) { ?>
-											<option value="<?php echo $d_row->id?>"><?php echo $d_row->title?></option>
-											<?php } ?>
-										</select>
-									</tr>
-										</div>
-									<div class="input-box m-b-10">
-										<label>Shipping Address<abbr class="required" title="required">*</abbr></label>
-										<textarea name="shippingAdress" id="address" cols="5" rows="2" placeholder=""></textarea>
-									</div>
-
-								</div>
-								<div class="col-sm-12">
-									<div class="account-box-hide">
-										<p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-										<div class="input-box">
-											<label>Account password <abbr class="required" title="required">*</abbr></label>
-											<input type="password" name="Account" placeholder="password" />
-										</div>
-									</div>
-								</div>
-								<div class="shiping-address">
-									<div class="col-sm-12">
-									<h3 class="h3-18">Ship to a different address? <input type="checkbox" name="input_different" value ="1" class="showship"/></h3>
-									</div>
-									<div class="ship-box-hide">
-										
-										<div class="col-sm-6">
-											<div class="input-box">
-												<label>First Name <abbr class="required" title="required">*</abbr></label>
-												<input type="text" name="firstname"  value="" />
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="input-box">
-												<label>Last Name <abbr class="required" title="required">*</abbr></label>
-												<input type="text" name="lastname" value=""/>
-											</div>
-										</div>
 									
-										<div class="col-sm-12">
-											<div class="input-box">
-												<label>Address <abbr class="required" title="required">*</abbr></label>
-												<input type="text" name="address" placeholder="Street address" />
-											</div>
-											<div class="input-box mt-10">
-											<label>Tempat Tujuan <abbr class="required" title="required">*</abbr></label>
-												<input type="text" name="address" placeholder="Apartment, suite, unit etc. (optional)" />
-											</div>									
-										</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Province <abbr class="required" title="required">*</abbr></label>
-										<select name="province" class="province">
-											<option value="">Pilih Provinsi</option>
-											<?php foreach ($province_list as $d_row) { ?>
-                                    		<option value="<?php echo $d_row->id; ?>"><?php echo $d_row->name;?></option>
-                                    		<?php } ?>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>City <abbr class="required" title="required">*</abbr></label>
-										<select name="city" class="city" id="city">
-											<option value="">Pilih Kota</option>
-											<?php foreach ($city_list as $d_row) { ?>
-                                    		<option value="<?php echo $d_row->id; ?>"><?php echo $d_row->name;?></option>
-                                    		<?php } ?>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Region <abbr class="required" title="required">*</abbr></label>
-										<select name="region" id="region">
-											<option value="">Pilih Kecamatan</option>
-											<?php foreach ($region_list as $d_row) { ?>
-                                    		<option value="<?php echo $d_row->id; ?>"><?php echo $d_row->name;?></option>
-                                    		<?php } ?>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Postcode / Zip <abbr class="required" title="required">*</abbr></label>
-										<input type="text" name="Postcode" placeholder="Postcode / Zip" value=""/>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Email Address <abbr class="required" title="required">*</abbr></label>
-										<input type="text" name="Email" value="" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Phone <abbr class="required" title="required">*</abbr></label>
-										<input type="text" name="Phone " placeholder="Phone" value=""/>
-									</div>
-								</div>
-								<div class="col-sm-12">
 									<div class="input-box m-b-10">
-									<tr class="shipping">
-										<label>Alamat Pengiriman</label>
-<!--										<td>-->
-											<select name="jasa_pengiriman_id">
-												<?php foreach ($kurir as $data) { ?>
-													<option value="<?php echo $data->id?>"><?php echo $data->name?></option>
-												<?php } ?>
-											</select>
-<!--										</td>-->
-									</tr>
-										</div>
-									<div class="input-box m-b-10">
-<!--										<label>Alamat Pengiriman<abbr class="required" title="required">*</abbr></label>-->
-										<textarea name="note" id="note" cols="5" rows="2" placeholder="Notes about your order, e.g. special notes for delivery."><?php echo $useraddress->address?></textarea>
+										<label>Billing Address<abbr class="required" title="required">*</abbr></label>
+										<textarea name="billing-address" id="address" cols="5" rows="2" placeholder=""><?php  echo $useraddress->address ?></textarea>
 									</div>
 
 								</div>
-									</div>
-									
-								</div>
-
-						
 						</div>
 						<!-- billing content end -->
 						<!-- order view start-->
@@ -243,36 +121,119 @@
 										<tr class="shipping">
 											<th>Shipping</th>
 											<td>
-												<select name="jasa_pengiriman_id">
-													<?php foreach ($kurir as $data) { ?>
-													<option value="<?php echo $data->id?>"><?php echo $data->name?></option>
-													<?php } ?>
-												</select>
+												<h4>JNE</h4>
 											</td>
 										</tr>
 										<tr class="">
 											<th>Tipe Pengiriman</th>
 											<td>
-												<span>*</span>
+												<span>REG</span>
 											</td>
 										</tr>
 										<tr class="">
 											<th>Biaya Kirim</th>
 											<td>
-												<span class="price" id="price"></span>
+												<span class="price" id="cost_text"></span>
 											</td>
 										</tr>
 										<tr class="order-total">
 											<th>Total</th>
-											<td><strong><span class="t-price"><?php echo indonesian_currency($this->cart->total()); ?></span></strong> </td>
+											<td><strong><span class="t-price" id="tot_price_text"><?php echo indonesian_currency($this->cart->total()); ?></span></strong> </td>
 										</tr>
 									</tfoot>
 								</table>
 								<div class="payment-method">
-
 									<button class="btnb floatright" type="submit">Proceed</button>
 								</div>
 							</div>
+						</div>
+						<div class="col-md-7">
+							<div class="shiping-address">
+								
+									<div class="col-sm-12">
+									<h3 class="h3-18">Choose shipping address</h3>
+									</div>
+									<div>
+									<div class="col-md-6">
+									<div class="input-box m-b-12">
+									<div class="">
+										<label>Shipping Address Title</label>
+										<select required name="shipping_id" id="list_shipp" class="ship">
+										<option value="">Choose Adress</option>
+											<?php foreach ($usershipping as $d_row) { ?>
+											<option value="<?php echo $d_row->id?>"><?php echo $d_row->title?></option>
+											<?php } ?>
+										</select>
+									</div>
+										</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-box m-b-6">
+
+										<div class="product-details">
+										<button class="" type="button" id="newshipping">Add new Shipping address</button>
+										</div>
+									</div></div>
+									<div class="clearfix"></div>
+									</div>
+
+									<div class="hide" id="form-shiiping">
+										
+										<div class="col-sm-12">
+											<div class="input-box">
+												<label>Reciever Name <abbr class="required" title="required">*</abbr></label>
+												<input type="text" name="name_ship" id="name_ship"  value="" />
+											</div>
+										</div>
+									
+										<div class="col-sm-12">
+											<div class="input-box mt-10">
+											<label>Tempat Tujuan <abbr class="required" title="required">*</abbr></label>
+												<input type="text" name="tujuan_ship" id="tujuan_ship" placeholder="Apartment, suite, unit etc. (optional)" />
+											</div>									
+										</div>
+								<div class="col-sm-6">
+									<div class="input-box">
+										<label>Province <abbr class="required" title="required">*</abbr></label>
+										<select name="province_ship" id="province_ship" class="province">
+											
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="input-box">
+										<label>City <abbr class="required" title="required">*</abbr></label>
+										<select name="city_ship" id="city_ship" >
+											
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="input-box">
+										<label>Region <abbr class="required" title="required">*</abbr></label>
+										<select name="region_ship" id="region_ship">
+											
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="input-box">
+										<label>Postcode / Zip <abbr class="required" title="required">*</abbr></label>
+										<input type="text" name="postcode_ship" id="postcode_ship" placeholder="Postcode / Zip" value=""/>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="input-box m-b-10">
+									<label>Shipping Address</label>
+										<textarea name="address_ship" id="address_ship" cols="5" rows="2" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+									</div>
+
+								</div>
+								<input type="hidden" value="" id="cost"/>
+								<input type="hidden" value="" id="tot_price"/>
+									</div>
+									<div class="clearfix"></div>
+								</div>
 						</div>
 						<!-- order view end-->
 					</div>
