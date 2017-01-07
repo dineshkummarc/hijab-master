@@ -35,19 +35,30 @@
 								<div class="col-sm-6">
 									<div class="input-box">
 										<label>Provice <abbr class="required" title="required">*</abbr></label>
-										<input type="text" name="province" value="<?php echo $useraddress->province->name?>" />
+										<select name="province">
+											<option value="">choose province</option>
+											<?php foreach ($province_list as $key) { ?>
+											<option <?php if($useraddress->province->id==$key->id) echo"selected"; ?> value="<?php echo $key->id ?>"><?php echo $key->name ?></option>
+										<?php } ?>
+										</select>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="input-box">
 										<label>City <abbr class="required" title="required">*</abbr></label>
-										<input type="text" name="city" value="<?php echo $useraddress->city->name?>" />
+										<select name="city">
+											<option value="<?php echo $useraddress->city->id ?>"><?php echo $useraddress->city->name ?></option>
+											
+										</select>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="input-box">
 										<label>Region <abbr class="required" title="required">*</abbr></label>
-										<input type="text" name="region" value="<?php echo $useraddress->region->name?>" />
+										<select name="region">
+											<option value="<?php echo $useraddress->region->id ?>"><?php echo $useraddress->region->name?></option>
+											
+										</select>
 									</div>
 								</div>
 								<div class="col-sm-6">
@@ -73,7 +84,6 @@
 									<tr class="shipping">
 										<label>Shipping Address Title</label>
 										<select name="shipping_id" class="ship">
-											<option>-- choose one --</option>
 											<?php foreach ($usershipping as $d_row) { ?>
 											<option value="<?php echo $d_row->id?>"><?php echo $d_row->title?></option>
 											<?php } ?>
