@@ -10,9 +10,16 @@ class Admin_system extends PX_Controller {
 		$this->controller_attr = array('controller' => 'admin_system','controller_name' => 'Admin System','controller_id' => 0);
 	}
 
-	public function index() {
-		
-	}
+     public function index() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Admin System','admin_system');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+        $data['submenu'] = $this->get_submenu($data['controller']);
+        $data['content'] = $this->load->view('backend/admin_system/index',$data,true);
+        $this->load->view('backend/index',$data);
+    }
 
 	function my_profile(){
     	$data = $this->get_app_settings();

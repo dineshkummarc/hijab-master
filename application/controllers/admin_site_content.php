@@ -10,8 +10,15 @@ class Admin_site_content extends PX_Controller {
         $this->controller_attr = array('controller' => 'admin_site_content', 'controller_name' => 'Admin Site Content', 'controller_id' => 0);
     }
 
-    public function index() {
-        
+     public function index() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Admin Site Content','admin_site_content');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+        $data['submenu'] = $this->get_submenu($data['controller']);
+        $data['content'] = $this->load->view('backend/admin_site_content/index',$data,true);
+        $this->load->view('backend/index',$data);
     }
 
     function banner() {

@@ -9,6 +9,17 @@ class Admin_product extends PX_Controller {
         $this->controller_attr = array('controller' => 'admin_product', 'controller_name' => 'Admin Product', 'controller_id' => 0);
     }
 
+    public function index() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Category','category');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+        $data['submenu'] = $this->get_submenu($data['controller']);
+        $data['content'] = $this->load->view('backend/product/index',$data,true);
+        $this->load->view('backend/index',$data);
+    }
+
     public function category() {
         $data = $this->get_app_settings();
         $data += $this->controller_attr;

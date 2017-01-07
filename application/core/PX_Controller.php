@@ -185,6 +185,13 @@ class PX_Controller extends CI_Controller {
         return $data;
     }
 
+    function get_submenu($parent)
+    {
+        $parent_id = $this->model_basic->select_where($this->tbl_menu, 'target', $parent)->row()->id;
+        $submenu = $this->model_basic->select_where_order($this->tbl_menu, 'id_parent', $parent_id, 'orders', 'ASC')->result();
+        return $submenu;
+    }
+
     function get_all_menu() {
         $menu = $this->model_basic->select_where_order($this->tbl_menu, 'id_parent', '0', 'orders', 'ASC')->result();
         $submenu = $this->model_basic->select_where_order($this->tbl_menu, 'id_parent >', '0', 'orders', 'ASC')->result();

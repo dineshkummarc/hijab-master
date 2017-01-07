@@ -9,6 +9,17 @@ class Admin_shipping_cost extends PX_Controller {
         $this->controller_attr = array('controller' => 'admin_shipping_cost', 'controller_name' => 'Admin Shipping Cost', 'controller_id' => 0);
     }
 
+    public function index() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Shipping Cost List','shipping_cost_list');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+        $data['submenu'] = $this->get_submenu($data['controller']);
+        $data['content'] = $this->load->view('backend/shipping_cost/index',$data,true);
+        $this->load->view('backend/index',$data);
+    }
+
     function get_all_data_price() {
         set_time_limit(0);
         $i = 1;

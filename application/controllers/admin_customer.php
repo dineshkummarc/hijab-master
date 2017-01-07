@@ -9,6 +9,17 @@ class Admin_customer extends PX_Controller {
         $this->controller_attr = array('controller' => 'admin_customer', 'controller_name' => 'Admin Customer', 'controller_id' => 0);
     }
 
+    public function index() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Customer List','customer_list');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+        $data['submenu'] = $this->get_submenu($data['controller']);
+        $data['content'] = $this->load->view('backend/customer/index',$data,true);
+        $this->load->view('backend/index',$data);
+    }
+
     public function customer_list() {
         $data = $this->get_app_settings();
         $data += $this->controller_attr;

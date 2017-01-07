@@ -10,6 +10,17 @@ class Admin_order extends PX_Controller {
         $this->do_underconstruct();
     }
 
+    public function index() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Order List','order_list');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+        $data['submenu'] = $this->get_submenu($data['controller']);
+        $data['content'] = $this->load->view('backend/order/index',$data,true);
+        $this->load->view('backend/index',$data);
+    }
+
     public function order_list() {
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
