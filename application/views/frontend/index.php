@@ -133,7 +133,7 @@
 										</div>
 										<div class="del-icon">
 											<a class="fa fa-trash-o" aria-hidden="true" href="shop/updateToCart/<?php echo $d_row['rowid'] ?>"></a>
-											<a class="fa fa-pencil" aria-hidden="true" href="#"></a>
+										
 										</div>
 									</li>
 									<?php }}} ?>
@@ -142,12 +142,7 @@
 											<h4>Cart Subtotal: <span><?php echo indonesian_currency($this->cart->total()); ?></span></h4>
 										</div>
 										<div class="checkout">
-											<a href="cart">view cart</a>
-											<?php if($this->session->userdata('validated')) { ?>
-											<a class="#" href="cart/checkout">Checkout</a>
-											<?php }else{ ?>
-											<a type="button"  data-toggle="modal" data-target="#myModal">Checkout</a>
-											<?php } ?>
+											<a class="" style="width: 100%" href="cart">view cart</a>
 										</div>
 									</li>
 								</ul>
