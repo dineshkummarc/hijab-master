@@ -110,6 +110,7 @@ class Shop extends PX_Controller {
             'name' => $get_product->name_product,
             'price' => $get_product->price,
             'qty' => $this->input->post('qty'),
+            'weight' => $get_product->weight,
             'customer_id' => $id,
             'pict' => $get_image_product->photo,
             'size' => $this->input->post('size'),

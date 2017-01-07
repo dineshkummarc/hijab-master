@@ -103,8 +103,14 @@ class Cart extends PX_Controller {
         $address->name_province=$province->name;
         $address->name_city=$city->name;
         $address->name_region=$region->name;
-        $address->cost=$region->price;
-        $address->tot_price=$region->price+$this->cart->total();
+        $berat='';
+        foreach ($this->cart->contents() as $cart) {
+            $berat+=$cart['weight']*$cart['qty'];
+        }
+        $ongkir=ceil($berat/1000);
+        $ongkir=$region->price*$berat;
+        $address->cost= $ongkir;
+        $address->tot_price= $ongkir+$this->cart->total();
         echo json_encode($address);
     }
 
