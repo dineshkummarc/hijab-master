@@ -12,270 +12,57 @@
 
     <div class="row">
         <div class="col-md-12">
-
-            <!-- START DEFAULT DATATABLE -->
             <div class="panel panel-default">
                 <div class="panel-heading">                                
-                    <h3 class="panel-title">Data Customer</h3></br></br>
+                    <h3 class="panel-title">Order : <?php echo $order->invoice_number ?></h3>
+                    <button class="btn btn-danger pull-right">Reject This Order</button>
+                    <button class="btn btn-success pull-right">Approve Order Payment</button>
                 </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Nama Customer</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->name_customer->nama_depan ?> <?php echo $order_detail->name_customer->nama_belakang ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">E-Mail</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->name_customer->email ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Username</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->name_customer->username ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Tanggal Lahir</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->name_customer->tgl_lahir ?>
-                        </div>
-                    </div></br>
-                </div>
-            </div>
-            <!-- END DEFAULT DATATABLE -->
-
-            <!-- START DEFAULT DATATABLE -->
-            <div class="panel panel-default">
-                <div class="panel-heading">                                
-                    <h3 class="panel-title">Alamat Pembayaran</h3></br></br>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Alamat</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->billing->address ?>
-                        </div>
-                    </div></br>                    
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kecamatan</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->billing->region->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kota</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->billing->city->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Provinsi</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->billing->province->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kode Pos</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->billing->postal_code ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Phone</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->billing->phone ?>
-                        </div>
-                    </div></br>
-                </div>
-            </div>
-            <!-- END DEFAULT DATATABLE -->
-
-            <?php $no=1; foreach ($order_detail->shipping as $d_row) {?>
-            <!-- START DEFAULT DATATABLE -->
-            <div class="panel panel-default">
-                <div class="panel-heading">                                
-                    <h3 class="panel-title">Data Alamat Pengiriman/Pembayaran</h3></br></br>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Dikirim ke</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $d_row->title ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Alamat</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $d_row->address ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kecamatan</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $d_row->region->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kota/Kabupaten</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $d_row->city->type ?> <?php echo $d_row->city->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Provinsi</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $d_row->province->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kode Pos</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $d_row->postal_code ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Phone</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $d_row->phone ?>
-                        </div>
-                    </div></br>
-                </div>
-            </div>
-            <?php $no++; } ?>
-            <!-- END DEFAULT DATATABLE -->
-
-            <!-- START DEFAULT DATATABLE -->
-            <div class="panel panel-default">
-                <div class="panel-heading">                                
-                    <h3 class="panel-title">Data Pengiriman</h3></br></br>
-                </div>
-                <div class="panel-body">
-                <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Invoice</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->invoice_number ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Status Pembelian</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->status ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Dikirim Ke</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->ship->title ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Alamat Pengiriman</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->ship->address ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kecamatan</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->ship->region->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kota</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->ship->city->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Provinsi</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->ship->province->name ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Kode Pos</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->ship->postal_code ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Phone</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->ship->phone ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Total Order</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->total_order ?> Barang
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Total Pengiriman</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->total_ship_price ?>
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Total Pembayaran</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->total_payment ?>
-                            (Sudah Termasuk Total Pengiriman)
-                        </div>
-                    </div></br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Tanggal Pemesanan Barang</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->date_created ?>
-                        </div>
-                    </div></br><br>
-                    <div class="form-group">
-                        <label class="col-md-2 col-xs-12 control-label">Tanggal Status Pemesanan Barang</label>
-                        <div class="col-md-9 col-xs-12">
-                            <?php echo $order_detail->date_modified ?>
-                        </div>
-                    </div></br>
-                </div>
-            </div>
-            <!-- END DEFAULT DATATABLE -->
-
-            <div class="panel panel-default">
-                <div class="panel-heading">                                
-                    <h3 class="panel-title">Data Pembelian Barang <?php echo $order_detail->name_customer->nama_depan?> <?php echo $order_detail->name_customer->nama_belakang?></h3></br></br>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="6%" class="text-center">No</th>
-                                <th class="text-center">Produk</th>
-                                <th class="text-center">Ukuran</th>
-                                <th class="text-center">Warna</th>
-                                <th class="text-center">Price</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-center">Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no=1; foreach ($order as $d_row) { ?>
-                            <tr>
-                                <td class="text-center"><?php echo $no; ?></td>
-                                <td class="text-center"><?php echo $d_row->product->name_product; ?></td>
-                                <td class="text-center"><?php echo $d_row->product_stock->size->name; ?></td>
-                                <td class="text-center"><?php echo $d_row->product_stock->color->name; ?></td>
-                                <td class="text-center"><?php echo $d_row->harga; ?></td>
-                                <td class="text-center"><?php echo $d_row->quantity; ?></td>
-                                <td class="text-center"><?php echo $d_row->totalprice?></td>
-                            </tr>
-                            <?php $no++; } ?>
-                        </tbody>
-                    </table>
-                    <?php if ($order_detail->status == 0) { ?>
-                    <a class="btn btn-success" href="<?php echo $controller ?>/order_status/<?php echo $order_detail->id ?>/<?php echo $order_detail->customer_id ?>/1">Accepted</a> <a class="btn btn-danger pull-right" href="<?php echo $controller ?>/order_status/<?php echo $order_detail->id ?>/<?php echo $order_detail->customer_id ?>/-99">Canceled/Rejected</a>
-                    <?php } ?>
+                <ul class="nav nav-tabs faq-cat-tabs">
+                    <li class="active"><a href="#tab-1" data-toggle="tab">Order Summary</a></li>
+                    <li><a href="#tab-2" data-toggle="tab">Order Detail</a></li>
+                    <li><a href="#tab-3" data-toggle="tab">Data Customer</a></li>
+                    <li><a href="#tab-4" data-toggle="tab">Shipping Address</a></li>
+                    <li><a href="#tab-5" data-toggle="tab">Order Payment Confirmation</a></li>
+                </ul>
+                <div class="tab-content faq-cat-content">
+                    <!-- TAB KONTRAK -->
+                    <div class="tab-pane active in fade" id="tab-1">
+                        <form class="form-horizontal">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-12 control-label">Invoice Number</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <span class="form-control"><?php echo $order->invoice_number ?></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-12 control-label">Customer</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <span class="form-control"><?php echo $customer->nama_depan.' '.$customer->nama_belakang ?></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-12 control-label">Customer Email</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <span class="form-control"><?php echo $customer->email ?></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-12 control-label">Total Payment</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <span class="form-control"><?php echo $order->total_payment ?></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-12 control-label">Status</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <span class="form-control"><?php echo $customer->nama_depan.' '.$customer->nama_belakang ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

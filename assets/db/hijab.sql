@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2017 at 12:54 PM
+-- Generation Time: Jan 07, 2017 at 01:02 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -1010,15 +1010,12 @@ INSERT INTO `px_menu` (`id`, `name`, `target`, `id_parent`, `icon`, `orders`) VA
 (54, 'Category List', 'category', 53, 'fa-adjust', 1),
 (55, 'Color List', 'color', 53, 'fa-adjust', 2),
 (56, 'Size List', 'size', 53, 'fa-adjust', 3),
-(57, 'Product Image List', 'image', 53, 'fa-image', 9),
 (59, 'Product List', 'product_list', 53, 'fa-shopping-cart', 7),
 (60, 'Brand List', 'brand', 53, 'fa-adjust', 4),
 (61, 'Customer', 'admin_customer', 0, 'fa-users', 3),
 (62, 'Customer List', 'customer_list', 61, 'fa-user', 0),
-(63, 'Order', 'order', 0, 'fa-shopping-cart', 4),
+(63, 'Order', 'admin_order', 0, 'fa-shopping-cart', 4),
 (64, 'Order List', 'order_list', 63, 'fa-shopping-cart', 2),
-(65, 'Jasa Pengiriman', 'jasa_pengiriman', 63, 'fa-truck', 1),
-(66, 'Tracking', 'tracking_list', 63, 'fa-truck', 3),
 (67, 'Editor Pick', 'editor_picks', 53, 'fa-calendar', 5),
 (68, 'Product Grup', 'product_group_list', 53, 'fa-list', 6),
 (69, 'Shipping Cost', 'admin_shipping_cost', 0, 'fa-cube', 5),
@@ -1069,6 +1066,13 @@ CREATE TABLE `px_order` (
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `px_order`
+--
+
+INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `invoice_number`, `total_order`, `total_ship_price`, `total_payment`, `status`, `date_created`, `date_modified`) VALUES
+(1, 9, 5, 'HIJAB070120170001', 176000, 9000, 185000, 0, '2017-01-07 17:00:00', '2017-01-07 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -1165,8 +1169,8 @@ CREATE TABLE `px_product_image` (
 --
 
 INSERT INTO `px_product_image` (`id`, `product_id`, `photo`, `primary_status`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(17, 33, '5858ee51b025f-product.jpg', 0, 7, '2016-12-20 15:39:45', 7, '2016-12-20 15:39:45'),
-(18, 33, '58666fdd8e101-product.jpg', 1, 7, '2016-12-30 21:31:57', 7, '2016-12-30 21:31:57');
+(17, 33, '5858ee51b025f-product.jpg', 1, 7, '2016-12-20 15:39:45', 7, '2016-12-20 15:39:45'),
+(18, 33, '58666fdd8e101-product.jpg', 0, 7, '2016-12-30 21:31:57', 7, '2016-12-30 21:31:57');
 
 -- --------------------------------------------------------
 
@@ -1177,11 +1181,21 @@ INSERT INTO `px_product_image` (`id`, `product_id`, `photo`, `primary_status`, `
 CREATE TABLE `px_product_order` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_stock_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
+  `color_id` int(11) NOT NULL,
+  `product_stock_id` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `px_product_order`
+--
+
+INSERT INTO `px_product_order` (`id`, `product_id`, `order_id`, `size_id`, `color_id`, `product_stock_id`, `price`, `quantity`) VALUES
+(1, 33, 1, 1, 1, 105, 76000, 1),
+(2, 34, 1, 2, 2, 124, 100000, 1);
 
 -- --------------------------------------------------------
 
@@ -8940,20 +8954,20 @@ CREATE TABLE `px_tracking_history` (
 CREATE TABLE `px_tracking_status` (
   `id` int(11) NOT NULL,
   `title` text NOT NULL,
-  `status_id` int(11) DEFAULT '0'
+  `status_id` int(11) DEFAULT '0',
+  `class_text` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_tracking_status`
 --
 
-INSERT INTO `px_tracking_status` (`id`, `title`, `status_id`) VALUES
-(1, 'Unconfirmed', 0),
-(2, 'Confirmed', 1),
-(3, 'Packing', 2),
-(4, 'Shipped', 3),
-(5, 'Canceled/Rejected', -99),
-(6, 'Out of Stock', -98);
+INSERT INTO `px_tracking_status` (`id`, `title`, `status_id`, `class_text`) VALUES
+(1, 'Unconfirmed', 0, 'btn-warning'),
+(2, 'Confirmed', 1, 'btn-primary'),
+(3, 'Paid', 2, 'btn-info'),
+(5, 'Shipped', 3, 'btn-success'),
+(6, 'Rejected', -99, 'btn-danger');
 
 -- --------------------------------------------------------
 
@@ -8963,26 +8977,19 @@ INSERT INTO `px_tracking_status` (`id`, `title`, `status_id`) VALUES
 
 CREATE TABLE `px_tracking_system` (
   `id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `flag_id` int(11) NOT NULL,
-  `shipping_flag_id` int(11) NOT NULL,
-  `jasa_pengiriman_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
   `title` text NOT NULL,
   `content` text NOT NULL,
-  `date_created` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
+  `date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_tracking_system`
 --
 
-INSERT INTO `px_tracking_system` (`id`, `customer_id`, `order_id`, `flag_id`, `shipping_flag_id`, `jasa_pengiriman_id`, `title`, `content`, `date_created`, `date_modified`) VALUES
-(1, 1, 1, 1, 6, 0, 'Shipped', 'Barang sudah diterima', '2016-11-22 18:26:00', '2016-11-22 19:50:16'),
-(2, 2, 2, 0, 0, 0, 'Tidak ada Transaksi', 'Tidak ada Transaksi', '2016-11-22 18:26:27', '2016-11-22 18:26:27'),
-(3, 1, 3, 1, 1, 0, '', '', '2016-12-14 15:40:18', '2016-12-14 15:40:18'),
-(4, 1, 4, 1, 1, 0, '', '', '2016-12-14 15:45:28', '2016-12-14 15:45:28');
+INSERT INTO `px_tracking_system` (`id`, `order_id`, `status_id`, `title`, `content`, `date_created`) VALUES
+(5, 1, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-07 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -9072,14 +9079,11 @@ INSERT INTO `px_useraccess` (`id`, `id_usergroup`, `id_menu`, `act_create`, `act
 (146, 1, 55, 1, 1, 1, 1),
 (147, 1, 54, 1, 1, 1, 1),
 (148, 1, 59, 1, 1, 1, 1),
-(150, 1, 57, 1, 1, 1, 1),
 (151, 1, 60, 1, 1, 1, 1),
 (152, 1, 61, 1, 1, 1, 1),
 (153, 1, 62, 1, 1, 1, 1),
 (154, 1, 63, 1, 1, 1, 1),
-(155, 1, 65, 1, 1, 1, 1),
 (156, 1, 64, 1, 1, 1, 1),
-(157, 1, 66, 1, 1, 1, 1),
 (158, 1, 67, 1, 1, 1, 1),
 (159, 1, 68, 1, 1, 1, 1),
 (160, 1, 69, 1, 1, 1, 1),
@@ -9465,7 +9469,7 @@ ALTER TABLE `px_news`
 -- AUTO_INCREMENT for table `px_order`
 --
 ALTER TABLE `px_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `px_product`
 --
@@ -9490,7 +9494,7 @@ ALTER TABLE `px_product_image`
 -- AUTO_INCREMENT for table `px_product_order`
 --
 ALTER TABLE `px_product_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `px_product_stock`
 --
@@ -9540,12 +9544,12 @@ ALTER TABLE `px_tracking_history`
 -- AUTO_INCREMENT for table `px_tracking_status`
 --
 ALTER TABLE `px_tracking_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `px_tracking_system`
 --
 ALTER TABLE `px_tracking_system`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `px_underconstruct_status`
 --
