@@ -23,8 +23,13 @@ class Home extends PX_Controller {
 			$product=$this->model_product->group_product($key->id)->result();
 			$key->product=$product;
 			foreach ($product as $product) {
-				$image=$this->model_basic->select_where($this->tbl_product_image,'product_id',$product->id)->row();
-				$key->image=$image->photo;
+				$image=$this->model_basic->select_where($this->tbl_product_image,'product_id',$product->id);
+				if ($image->num_rows() > 0) {
+					$product->image=$image->row()->photo;
+				}else{
+					$product->image="";
+				}
+				
 			}
 		}
 		$data['f_product']=$f_product;

@@ -119,7 +119,7 @@
                                             <div class="single-product">
                                                 <div class="product-pic">
                                                     <a href="shop/detail/<?php echo $prod->id ?>">
-                                                        <img src="assets/uploads/product/<?php echo $prod->id ?>/<?php echo $key->image ?>" alt="" />
+                                                        <img src="assets/uploads/product/<?php echo $prod->id ?>/<?php echo $prod->image ?>" alt="" />
                                                     </a>
                                                     <div class="pro-cart-bottom">
                                                         <a data-toggle="tooltip" title="Quick View" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>

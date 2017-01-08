@@ -130,6 +130,7 @@ $(document).ready(function(){
     var price = value_price.replace("Rp.","");
     var price= price.replace(" - ",",");
      var price= price.replace("Rp.","");
+     console.log(this);
      if(this.checked){
       var category = $('input[name="category[]"]:checked').serialize();
       var brand = $('input[name="brand[]"]:checked').serialize();

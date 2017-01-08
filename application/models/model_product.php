@@ -19,6 +19,7 @@ class Model_product extends PX_Model {
 
     function search_product($category,$brand,$color,$price,$size){
         $price = explode(",", $price);
+        die(print_r($price));
          $this->db->select($this->tbl_product.'.*'
         );
         $this->db->from($this->tbl_product);
@@ -94,5 +95,63 @@ class Model_product extends PX_Model {
         }
         $kar = "HDINV".date('Ymd');
         return $kar.$kd;
-   } 
+   }
+
+   //denimaru
+    function get_product_where($category, $brand, $color, $size, $price, $max, $start)
+    {
+        $this->db->select('*');
+        //category
+        $a=0;
+        if($category!=''){
+            foreach ($category as $key) {
+                $a++;
+                if($a>1){
+                $this->db->or_like($this->tbl_product.'.category_id',$key);
+                }
+            }
+        }
+        //size
+        $a=0;
+            if($size!=''){
+                $a++;
+                if($a>1){
+            foreach ($size as $key) {
+                $this->db->or_like($this->tbl_size.'.id',$key);
+                }
+            }
+        }
+        //brand
+        $a=0;
+        if($brand!=''){
+            $a++;
+            if($a>1){
+                foreach ($brand as $key) {
+                    $this->db->or_like($this->tbl_product.'.brand_id',$key);
+                }
+            }
+        }
+        //color
+        $a=0;
+            if($color!=''){
+                $a++;
+            if($a>1){
+                foreach ($color as $key) {
+                    $this->db->or_like($this->tbl_color.'.id',$key);
+                } 
+            }
+        }
+
+        if($price != NULL)
+        {
+            $price1 = $price[0];
+            $price2 = $price[1];
+            $this->db->where('price <=', $price2);
+            $this->db->where('price >=', $price1);
+        }
+        $this->db->where('show_flag', 1);
+        $this->db->order_by('id', 'asc');
+        $query = $this->db->get($this->tbl_product, $max, $start);
+        return $query;
+    } 
 }
