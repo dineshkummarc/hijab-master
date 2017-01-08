@@ -44,6 +44,8 @@
 								<td class="text-center">
 									<form action="<?php echo $controller.'/'.$function_form; ?>" method="post">
 										<input type="hidden" name="id" value="<?php echo $d_row->id; ?>">
+										<a href="<?=base_url('admin_product/editor_picks_image/'.$d_row->id)?>"><button  class="btn btn-info btn-xs btn-img" type="button" data-original-title="Image" data-placement="top" data-toggle="tooltip"><i class="fa fa-image"></i></button></a>
+										<input type="hidden" name="id" value="<?php echo $d_row->id; ?>">
 										<button class="btn btn-info btn-xs btn-edit" type="submit" data-original-title="Ubah" data-placement="top" data-toggle="tooltip"><i class="fa fa-edit"></i></button>
 								 		<button class="btn btn-danger btn-xs btn-delete" type="button" data-original-title="Hapus" data-placement="top" data-toggle="tooltip" data-target-id="<?php echo $d_row->id; ?>"><i class="fa fa-trash-o"></i></button>
 								 	</form>

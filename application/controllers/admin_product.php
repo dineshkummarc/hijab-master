@@ -117,6 +117,161 @@ class Admin_product extends PX_Controller {
         }
     }
 
+    function category_image($id){
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Category Image', 'category_image');
+        $data += $this->get_menu();
+        //$this->check_userakses($data['function_id'], ACT_CREATE);
+        $data['id'] = $id;
+        $data['potrait'] = $this->model_basic->select_where($this->tbl_category,'id',$id)->row()->potrait_image;
+        $data['landscape'] = $this->model_basic->select_where($this->tbl_category,'id',$id)->row()->landscape_image;
+        $data['content'] = $this->load->view('backend/product/category_image',$data,true);
+        $this->load->view('backend/index',$data);
+    }
+
+    function category_image_add($type, $id){
+        // print_r($_POST);die();
+        $data = $this->controller_attr;
+        $data += $this->get_function('Category Image', 'category_image');
+        //$menu = $this->get_menu_id($data['function']);$this->userakses($menu->id, 2);
+        $img_name_crop = uniqid().'-hijab.jpg';
+        if($this->input->post('image')) {
+            $origw = $this->input->post('origwidth');
+            $origh = $this->input->post('origheight');
+            $fakew = $this->input->post('fakewidth');
+            $fakeh = $this->input->post('fakeheight');
+            $x = $this->input->post('x') * $origw / $fakew;
+            $y = $this->input->post('y') * $origh / $fakeh;
+            # ambil width crop
+            $targ_w = $this->input->post('w') * $origw / $fakew;
+            # ambil heigth crop
+            $targ_h = $this->input->post('h') * $origh / $fakeh;
+            # rasio gambar crop
+            $jpeg_quality = 100;
+            if(!is_dir(FCPATH . "assets/uploads/category/"))
+                mkdir(FCPATH . "assets/uploads/category/");
+            if(!is_dir(FCPATH . "assets/uploads/category/".$id))
+                mkdir(FCPATH . "assets/uploads/category/".$id);
+            if(basename($this->input->post('image')) && $this->input->post('image') != null){
+                $src = $this->input->post('image');
+            }
+            # inisial handle copy gambar
+            $ext = pathinfo($src, PATHINFO_EXTENSION);
+
+            if($ext == 'jpg' || $ext == 'jpeg' || $ext == 'JPG' || $ext == 'JPEG')
+                $img_r = imagecreatefromjpeg($src);
+            if($ext == 'png' || $ext == 'PNG')
+                $img_r = imagecreatefrompng($src);
+            if($ext == 'gif' || $ext == 'GIF')
+                $img_r = imagecreatefromgif($src);
+
+            $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+            # simpan hasil croping pada folder lain
+            $path_img_crop = realpath(FCPATH . "assets/uploads/category/".$id);
+            # nama gambar yg di crop
+            # proses copy
+            imagecopyresampled($dst_r,$img_r,0,0,$x,$y,$targ_w,$targ_h,$targ_w,$targ_h);
+            # buat gambar
+            imagejpeg($dst_r,$path_img_crop .'/'. $img_name_crop,$jpeg_quality);
+            $this->makeThumbnails($path_img_crop.'/', $img_name_crop, 300, 453);
+            $this->delete_temp('temp_folder');
+            $insert = $this->db->where('id', $id)->update($this->tbl_category, array($type.'_image'=>$img_name_crop));
+            if($insert)
+                $this->returnJson(array('status' => 'ok','message' => 'Insert Success','redirect' => $data['controller'].'/'.$data['function'].'/'.$id));
+            else
+                $this->returnJson(array('status'=>'error','message'=>'Insert Failed'));
+        }
+        else
+            $this->returnJson(array('status' => 'error','message' => 'Please Complete The Form'));
+    }
+
+    function category_image_get(){
+        $id = $this->input->post('id');
+        $data = $this->controller_attr;
+        $data += $this->get_function('Category Image','category_image');
+        $data_get = $this->model_basic->select_where($this->tbl_category,'id',$id)->row();
+        if($data_get){
+            $filename = $this->model_basic->select_where($this->tbl_category,'id',$id)->row()->potrait_image;
+            $this->returnJson(array('status'=>'ok','data'=>$data_get, 'filename'=>$filename));
+        }
+        else{
+            $this->returnJson(array('status'=>'error','message'=>'Data Not Found'));
+        }
+    }
+
+    function category_image_edit($type, $id){
+        $data = $this->controller_attr;
+        $data += $this->get_function('Category Image','category_image');
+        //$menu = $this->get_menu_id($data['function']);$this->userakses($menu->id, 3);
+        $id = $this->input->post('id');
+        $img_name_crop = uniqid().'-hijab.jpg';
+        $foto = $this->input->post('image');
+        $old_foto = $this->input->post('old_image');
+        $data_update = array(
+            'id' => $id
+            );
+        if($foto && (basename($foto) != $old_foto))
+            $data_update['filename'] = $img_name_crop;
+        else if($this->input->post('x') || $this->input->post('y') || $this->input->post('w') || $this->input->post('h'))
+            $data_update['filename'] = $img_name_crop;
+
+        if(!$this->db->where('id', $id)->update($this->tbl_category, array($type.'_image'=>$img_name_crop)))
+        {
+            $this->returnJson(array('status' => 'error', 'message' => 'Update Failed'));
+        }
+        else
+        {
+            if(($foto && (basename($foto) != $old_foto)) || ($this->input->post('x') || $this->input->post('y') || $this->input->post('w') || $this->input->post('h')))
+            {
+                $origw = $this->input->post('origwidth');
+                $origh = $this->input->post('origheight');
+                $fakew = $this->input->post('fakewidth');
+                $fakeh = $this->input->post('fakeheight');
+                $x = $this->input->post('x') * $origw / $fakew;
+                $y = $this->input->post('y') * $origh / $fakeh;
+                # ambil width crop
+                $targ_w = $this->input->post('w') * $origw / $fakew;
+                # abmil heigth crop
+                $targ_h = $this->input->post('h') * $origh / $fakeh;
+                # rasio gambar crop
+                $jpeg_quality = 90;
+                if(!is_dir(FCPATH . "assets/uploads/category/"))
+                    mkdir(FCPATH . "assets/uploads/category/");
+                if(!is_dir(FCPATH . "assets/uploads/category/".$id))
+                    mkdir(FCPATH . "assets/uploads/category/".$id);
+                if(basename($foto) && $foto != null){
+                    $src = $this->input->post('image');
+                }
+                else if($this->input->post('x')||$this->input->post('y')||$this->input->post('w')||$this->input->post('h'))
+                    $src = "assets/uploads/category/".$id.'/'.$old_foto;
+                # inisial handle copy gambar
+                $ext = pathinfo($src, PATHINFO_EXTENSION);
+
+                if($ext == 'jpg' || $ext == 'jpeg' || $ext == 'JPG' || $ext == 'JPEG')
+                    $img_r = imagecreatefromjpeg($src);
+                if($ext == 'png' || $ext == 'PNG')
+                    $img_r = imagecreatefrompng($src);
+                if($ext == 'gif' || $ext == 'GIF')
+                    $img_r = imagecreatefromgif($src);
+
+                $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+                # simpan hasil croping pada folder lain
+                $path_img_crop = realpath(FCPATH . "assets/uploads/category/".$id);
+                # nama gambar yg di crop
+                # proses copy
+                imagecopyresampled($dst_r,$img_r,0,0,$x,$y,$targ_w,$targ_h,$targ_w,$targ_h);
+                # buat gambar
+                imagejpeg($dst_r,$path_img_crop .'/'. $img_name_crop,$jpeg_quality);
+                $this->makeThumbnails($path_img_crop.'/', $img_name_crop, 300, 454);
+                @unlink(FCPATH."assets/uploads/category/".$id.'/'.$old_foto);
+                $this->delete_temp('temp_folder');
+            }
+            $this->returnJson(array('status' => 'ok', 'message' => 'Update Success','redirect' => $this->controller_attr['controller'].'/'.$data['function'].'/'.$id));
+        }
+    }
+
+
     public function editor_picks() {
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
@@ -203,6 +358,157 @@ class Admin_product extends PX_Controller {
             $this->returnJson(array('status' => 'ok', 'msg' => 'Delete Success', 'redirect' => $data['controller'] . '/' . $data['function']));
         } else {
             $this->returnJson(array('status' => 'failed', 'msg' => 'Delete failed'));
+        }
+    }
+
+    function editor_picks_image($id){
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Editor Picks Image', 'editor_picks_image');
+        $data += $this->get_menu();
+        //$this->check_userakses($data['function_id'], ACT_CREATE);
+        $data['id'] = $id;
+        $data['name'] = $this->model_basic->select_where($this->tbl_editor_picks,'id',$id)->row()->name;
+        $data['image'] = $this->model_basic->select_where($this->tbl_editor_picks,'id',$id)->row()->image;
+        $data['content'] = $this->load->view('backend/product/editor_picks_image',$data,true);
+        $this->load->view('backend/index',$data);
+    }
+
+    function editor_picks_image_add(){
+        $data = $this->controller_attr;
+        $data += $this->get_function('Editor Picks Image', 'editor_picks_image');
+        //$menu = $this->get_menu_id($data['function']);$this->userakses($menu->id, 2);
+        $id = $this->input->post('editor_picksimage-id');
+        $img_name_crop = uniqid().'-hijab.jpg';
+        if($this->input->post('image')) {
+            $origw = $this->input->post('origwidth');
+            $origh = $this->input->post('origheight');
+            $fakew = $this->input->post('fakewidth');
+            $fakeh = $this->input->post('fakeheight');
+            $x = $this->input->post('x') * $origw / $fakew;
+            $y = $this->input->post('y') * $origh / $fakeh;
+            # ambil width crop
+            $targ_w = $this->input->post('w') * $origw / $fakew;
+            # ambil heigth crop
+            $targ_h = $this->input->post('h') * $origh / $fakeh;
+            # rasio gambar crop
+            $jpeg_quality = 100;
+            if(!is_dir(FCPATH . "assets/uploads/editor_picks/"))
+                mkdir(FCPATH . "assets/uploads/editor_picks/");
+            if(!is_dir(FCPATH . "assets/uploads/editor_picks/".$id))
+                mkdir(FCPATH . "assets/uploads/editor_picks/".$id);
+            if(basename($this->input->post('image')) && $this->input->post('image') != null){
+                $src = $this->input->post('image');
+            }
+            # inisial handle copy gambar
+            $ext = pathinfo($src, PATHINFO_EXTENSION);
+
+            if($ext == 'jpg' || $ext == 'jpeg' || $ext == 'JPG' || $ext == 'JPEG')
+                $img_r = imagecreatefromjpeg($src);
+            if($ext == 'png' || $ext == 'PNG')
+                $img_r = imagecreatefrompng($src);
+            if($ext == 'gif' || $ext == 'GIF')
+                $img_r = imagecreatefromgif($src);
+
+            $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+            # simpan hasil croping pada folder lain
+            $path_img_crop = realpath(FCPATH . "assets/uploads/editor_picks/".$id);
+            # nama gambar yg di crop
+            # proses copy
+            imagecopyresampled($dst_r,$img_r,0,0,$x,$y,$targ_w,$targ_h,$targ_w,$targ_h);
+            # buat gambar
+            imagejpeg($dst_r,$path_img_crop .'/'. $img_name_crop,$jpeg_quality);
+            $this->makeThumbnails($path_img_crop.'/', $img_name_crop, 300, 453);
+            $this->delete_temp('temp_folder');
+            $insert = $this->db->where('id', $id)->update($this->tbl_editor_picks, array('image'=>$img_name_crop));
+            if($insert)
+                $this->returnJson(array('status' => 'ok','message' => 'Insert Success','redirect' => $data['controller'].'/'.$data['function'].'/'.$id));
+            else
+                $this->returnJson(array('status'=>'error','message'=>'Insert Failed'));
+        }
+        else
+            $this->returnJson(array('status' => 'error','message' => 'Please Complete The Form'));
+    }
+
+    function editor_picks_image_get(){
+        $id = $this->input->post('id');
+        $data = $this->controller_attr;
+        $data += $this->get_function('Editor Picks Image','editor_picks_image');
+        $data_get = $this->model_basic->select_where($this->tbl_editor_picks,'id',$id)->row();
+        if($data_get){
+            $this->returnJson(array('status'=>'ok','data'=>$data_get));
+        }
+        else{
+            $this->returnJson(array('status'=>'error','message'=>'Data Not Found'));
+        }
+    }
+
+    function editor_picks_image_edit(){
+        $data = $this->controller_attr;
+        $data += $this->get_function('Editor Picks Image','editor_picks_image');
+        //$menu = $this->get_menu_id($data['function']);$this->userakses($menu->id, 3);
+        $id = $this->input->post('editor_picksimage-id');
+        $img_name_crop = uniqid().'-hijab.jpg';
+        $foto = $this->input->post('image');
+        $old_foto = $this->input->post('old_image');
+        $data_update = array(
+            'id' => $id
+            );
+        if($foto && (basename($foto) != $old_foto))
+            $data_update['filename'] = $img_name_crop;
+        else if($this->input->post('x') || $this->input->post('y') || $this->input->post('w') || $this->input->post('h'))
+            $data_update['filename'] = $img_name_crop;
+
+        if(!$this->db->where('id', $id)->update($this->tbl_editor_picks, array('image'=>$img_name_crop)))
+        {
+            $this->returnJson(array('status' => 'error', 'message' => 'Update Failed'));
+        }
+        else
+        {
+            if(($foto && (basename($foto) != $old_foto)) || ($this->input->post('x') || $this->input->post('y') || $this->input->post('w') || $this->input->post('h')))
+            {
+                $origw = $this->input->post('origwidth');
+                $origh = $this->input->post('origheight');
+                $fakew = $this->input->post('fakewidth');
+                $fakeh = $this->input->post('fakeheight');
+                $x = $this->input->post('x') * $origw / $fakew;
+                $y = $this->input->post('y') * $origh / $fakeh;
+                # ambil width crop
+                $targ_w = $this->input->post('w') * $origw / $fakew;
+                # abmil heigth crop
+                $targ_h = $this->input->post('h') * $origh / $fakeh;
+                # rasio gambar crop
+                $jpeg_quality = 90;
+                if(!is_dir(FCPATH . "assets/uploads/editor_picks/".$id))
+                    mkdir(FCPATH . "assets/uploads/editor_picks/".$id);
+                if(basename($foto) && $foto != null){
+                    $src = $this->input->post('image');
+                }
+                else if($this->input->post('x')||$this->input->post('y')||$this->input->post('w')||$this->input->post('h'))
+                    $src = "assets/uploads/editor_picks/".$id.'/'.$old_foto;
+                # inisial handle copy gambar
+                $ext = pathinfo($src, PATHINFO_EXTENSION);
+
+                if($ext == 'jpg' || $ext == 'jpeg' || $ext == 'JPG' || $ext == 'JPEG')
+                    $img_r = imagecreatefromjpeg($src);
+                if($ext == 'png' || $ext == 'PNG')
+                    $img_r = imagecreatefrompng($src);
+                if($ext == 'gif' || $ext == 'GIF')
+                    $img_r = imagecreatefromgif($src);
+
+                $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+                # simpan hasil croping pada folder lain
+                $path_img_crop = realpath(FCPATH . "assets/uploads/editor_picks/".$id);
+                # nama gambar yg di crop
+                # proses copy
+                imagecopyresampled($dst_r,$img_r,0,0,$x,$y,$targ_w,$targ_h,$targ_w,$targ_h);
+                # buat gambar
+                imagejpeg($dst_r,$path_img_crop .'/'. $img_name_crop,$jpeg_quality);
+                $this->makeThumbnails($path_img_crop.'/', $img_name_crop, 300, 454);
+                @unlink(FCPATH."assets/uploads/category/".$id.'/'.$old_foto);
+                $this->delete_temp('temp_folder');
+            }
+            $this->returnJson(array('status' => 'ok', 'message' => 'Update Success','redirect' => $this->controller_attr['controller'].'/'.$data['function'].'/'.$id));
         }
     }
 
