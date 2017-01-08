@@ -446,7 +446,7 @@ class Admin_product extends PX_Controller {
         $insert['date_created'] = date('Y-m-d H:i:s', now());
         $insert['date_modified'] = date('Y-m-d H:i:s', now());
 
-        if ($insert['name']) {
+        if ($insert['name'] && $insert['diskon']) {
             $do_insert = $this->model_basic->insert_all($this->tbl_brand, $insert);
             if ($do_insert) {
                 if ($this->input->post('photo')) {
@@ -492,7 +492,7 @@ class Admin_product extends PX_Controller {
         else
             $update['photo'] = $this->input->post('old_photo');
 
-        if ($update['name']) {
+        if ($update['name'] && $update['diskon']) {
             $do_update = $this->model_basic->update($this->tbl_brand, $update, 'id', $update['id']);
             if ($do_update) {
                 if (($foto && (basename($foto) != $old_foto))) {
