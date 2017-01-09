@@ -31,6 +31,9 @@
 	border:2px solid #eeeeee;
 	padding: 10px;
 }
+.panel:hover, .panel a:hover{
+	color: #ff5555;
+}
 footer li{
 	list-style: none;
 }
