@@ -1,9 +1,9 @@
 $(document).ready(function(){
     var ratio = $('[name="orientation"]').val();
     var a = 1;
-    var b = 1;
+    var b = 1.3372;
     var w = 100;
-    var h = 100;
+    var h = 133.72;
     $('#px-product-image-form').validate({
         ignore: [],
         rules: {                                            
@@ -153,15 +153,15 @@ $(document).ready(function(){
                 $('#image-crop-previews').removeAttr('class').addClass('image-crop-previews');
                 a = 1;
                 w = 100;
-                b = 1 ;
-                h = 100;
+                b = 1.3372 ;
+                h = 133.72;
             }
             else {
                 $('#image-crop-previews').removeAttr('class').addClass('image-crop-previews-pot');
                 a = 1;
                 w = 100;
-                b = 1;
-                h = 100;
+                b = 1.3372;
+                h = 133.72;
             }
             $('#px-site-content-pageimage-fileupload-'+target+'-upload-button').removeAttr('disabled');
             $('#preview-'+target).removeClass('hidden');
@@ -188,15 +188,15 @@ $(document).ready(function(){
             $('#image-crop-previews').removeAttr('class').addClass('image-crop-previews');
             a = 1;
             w = 100;
-            b = 1 ;
-            h = 100;
+            b = 1.3372;
+            h = 133.72;
         }
         else {
             $('#image-crop-previews').removeAttr('class').addClass('image-crop-previews-pot');
             a = 1;
             w = 100;
-            b = 1;
-            h = 100;
+            b = 1.3372;
+            h = 133.72;
         }
         var ratios = a / b;
         $('#original-image').Jcrop({
