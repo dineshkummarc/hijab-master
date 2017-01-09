@@ -19,6 +19,11 @@
 .tabtab td{
 	padding: 5px;
 }
+.center{
+	margin: 0 auto;
+	position: relative;
+	float: none;
+}
 .discount-price{
 	text-decoration: line-through;
 }

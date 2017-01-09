@@ -8,10 +8,15 @@ class Dashboard extends PX_Controller {
 		if($this->session->userdata('validated')==FALSE){
 			redirect('login');
 		}
+
                 $this->do_underconstruct();
 	}
 
 	public function index(){
+		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$this->session->userdata('id'))->num_rows();
+		if($user<=0){
+			redirect('dashboard/photo_profile');
+		}
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('User','User');
@@ -22,6 +27,114 @@ class Dashboard extends PX_Controller {
 		$this->load->view('frontend/index',$data);
 	}
 
+	public function photo_profile(){
+		$data = $this->get_app_settings();
+		$data += $this->controller_attr;
+		$data += $this->get_function('Photo Profile','User');
+		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$this->session->userdata('id'))->num_rows();
+		if($user<=0){
+			$data['count_bil']=0;
+		}else{
+			$data['count_bil']=0;
+		}
+		$data['user'] = $this->model_basic->select_where('px_customer','id',$this->session->userdata('id'))->row();
+		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+		$data['content'] = $this->load->view('frontend/dashboard/photo_profile',$data,true);
+		$this->load->view('frontend/index',$data);
+	}
+	public function submit_photo(){
+		$attachment_file=$_FILES["photo"]["name"];
+        $output_dir = "assets/uploads/customer/".$this->session->userdata('id')."/";
+            $fileName = strtolower($_FILES["photo"]["name"]);
+            move_uploaded_file($_FILES["photo"]["tmp_name"],$output_dir.$fileName);
+            //echo "File uploaded successfully";
+            $new  = "assets/uploads/customer/".$this->session->userdata('id')."/".$fileName;
+			$this->load->library('image_lib');
+			if(file_exists(FCPATH."".$new)){
+			$config['image_library'] = 'gd2';
+			$config['source_image'] = $new;
+			$config['create_thumb'] = TRUE;
+			$config['maintain_ratio'] = TRUE;
+			$config['width']    = 250;
+			$config['height']   = 250;
+			$config['new_image'] = FCPATH."assets/uploads/customer/".$this->session->userdata('id')."/";
+			$config['thumb_marker'] = '-customer-thumb';
+			$this->image_lib->initialize($config);
+			$this->image_lib->resize();
+			$config['width']    = 500;
+			$config['height']   = 500;
+			$config['thumb_marker'] = '-customer';
+			$this->image_lib->initialize($config);
+			$this->image_lib->resize();
+			unlink($new);
+			$fileName=str_replace('.jpg','-customer.jpg',$fileName);
+			$data=array(
+				'photo'=> $fileName,
+				);
+			$update=$this->db->update($this->tbl_customer, $data, "id =".$this->session->userdata('id'));
+			if($update){
+				redirect('dashboard/bil_address');
+			}else{
+				echo"error";
+			}
+        }
+	}
+
+	public function bil_address(){
+		$data = $this->get_app_settings();
+		$data += $this->controller_attr;
+		$data += $this->get_function('User Address Shipping','User');
+		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$this->session->userdata('id'))->num_rows();
+		if($user<=0){
+			$data['count_bil']=0;
+		}else{
+			$data['count_bil']=0;
+		}
+		$data['province_list'] = $this->model_basic->select_all($this->tbl_shipping_province);
+        $data['city_list'] = $this->model_basic->select_all($this->tbl_shipping_city);
+        $data['region_list'] = $this->model_basic->select_all($this->tbl_shipping_region);
+        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+		$data['content'] = $this->load->view('frontend/dashboard/bil_address',$data,true);
+		$this->load->view('frontend/index',$data);
+	}
+
+	public function register_biladdress(){
+		$user=$this->model_basic->select_where($this->tbl_customer,'id',$this->session->userdata('id'))->row();
+		$data_bil=array(
+				"customer_id"=>$this->session->userdata('id'),
+				"address"=>$this->input->post('address'),
+				"province"=>$this->input->post('province'),
+				"city"=>$this->input->post('city'),
+				"region"=>$this->input->post('region'),
+				"postal_code"=>$this->input->post('postal_code'),
+				"phone"=>$this->input->post('phone'),
+				"title"=>$this->input->post('title'),
+			);
+		$insert=$this->db->insert($this->tbl_customer_billing_address,$data_bil);
+		$data_ship=array(
+				"receiver_name"=>$user->nama_depan." ".$user->nama_belakang,
+				"customer_id"=>$this->session->userdata('id'),
+				"address"=>$this->input->post('address'),
+				"province"=>$this->input->post('province'),
+				"city"=>$this->input->post('city'),
+				"region"=>$this->input->post('region'),
+				"postal_code"=>$this->input->post('postal_code'),
+				"phone"=>$this->input->post('phone'),
+				"title"=>$this->input->post('title'),
+			);
+		$insert=$this->db->insert($this->tbl_shipping_address,$data_bil);
+		if($insert){
+			$this->session->set_flashdata('msg','congratulations, you have been registered in our system');
+			redirect('dashboard');
+		}else{
+			echo"error";
+		}
+
+	}
 	public function profile(){
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
@@ -127,5 +240,23 @@ class Dashboard extends PX_Controller {
 			$this->session->set_flashdata('msg','Gagal, data alamat anda gagal di perbarui');
 			redirect('dashboard/address');
 		}
+	}
+
+	public function kabupaten($id){
+		$kabupaten=$this->model_basic->select_where($this->tbl_shipping_city,'id_province',$id)->result();
+		$data="<option value=''>Pilih Kota</option>";
+		foreach ($kabupaten as $key) {
+			$data.="<option value='".$key->id."'>".$key->name."</option>";
+		}
+		echo json_encode($data);
+	}
+
+	public function region($id){
+		$kabupaten=$this->model_basic->select_where($this->tbl_shipping_region,'id_city',$id)->result();
+		$data="<option value=''>Pilih Kecamatan</option>";
+		foreach ($kabupaten as $key) {
+			$data.="<option value='".$key->id."'>".$key->name."</option>";
+		}
+		echo json_encode($data);
 	}
 }

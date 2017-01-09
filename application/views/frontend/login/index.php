@@ -64,32 +64,32 @@
 							<div class="shipping-form">		
 								<div class="input-box m-b-20">
 									<h4>Nama Depan <span>*</span></h4>
-									<input type="text" name="nama_depan" id="px-customer-form-nama_depan" placeholder="Nama Depan"/>
+									<input required type="text" value="<?php if($this->session->flashdata('notif')){ echo $this->session->flashdata('nama_depan');} ?>" name="nama_depan" id="px-customer-form-nama_depan" placeholder="Nama Depan"/>
 								</div>
 								<div class="input-box m-b-20">
 									<h4>Nama Belakang <span>*</span></h4>
-									<input type="text" name="nama_belakang" id="px-customer-form-nama_belakang" placeholder="Nama Belakang"/>
+									<input required type="text" value="<?php if($this->session->flashdata('notif')){ echo $this->session->flashdata('nama_belakang');} ?>" name="nama_belakang" id="px-customer-form-nama_belakang" placeholder="Nama Belakang"/>
 								</div>
 								<div class="input-box m-b-20">
 									<h4>Tanggal Lahir <span>*</span></h4>
-									<input type="date" name="tgl_lahir" id="px-customer-form-tgl_lahir" placeholder="tanggal_lahir" class="datepicker"/>
+									<input required type="date" value="<?php if($this->session->flashdata('notif')){ echo $this->session->flashdata('tgl_lahir');} ?>" name="tgl_lahir" id="px-customer-form-tgl_lahir" placeholder="tanggal_lahir" class="datepicker"/>
 								</div>
 								<div class="input-radio m-b-20">
 									<h4>Jenis Kelamin <span>*</span></h4>
-									<input type="radio" name="jenis_kelamin" id="jenis_kelamin" value="Laki-Laki" /> Laki-Laki
-									<input type="radio" name="jenis_kelamin" id="jenis_kelamin" value="Perempuan" /> Perempuan
+									<input required type="radio" <?php if($this->session->flashdata('notif') and $this->session->flashdata('jenis_kelamin')=='L'){ echo"checked";} ?>  name="jenis_kelamin" id="jenis_kelamin" value="L" /> Laki-Laki
+									<input required type="radio" name="jenis_kelamin" <?php if($this->session->flashdata('notif') and $this->session->flashdata('jenis_kelamin')=='P' ){ echo"checked";} ?> id="jenis_kelamin" value="P" /> Perempuan
 								</div>				
 								<div class="input-box m-b-20">
 									<h4>Email Address <span>*</span></h4>
-									<input type="text" name="email" id="px-customer-form-email" placeholder="E-Mail"/>
+									<input required type="email" value="<?php if($this->session->flashdata('notif')){ echo $this->session->flashdata('email');} ?>" name="email" id="px-customer-form-email" placeholder="E-Mail"/>
 								</div>					
 								<div class="input-box m-b-20">
 									<h4>Password <span>*</span></h4>
-									<input type="password" name="password" id="px-customer-form-password" placeholder="Password" />		
+									<input required type="password" name="password" id="px-customer-form-password" placeholder="Password" />		
 								</div>
 								<div class="input-box m-b-20">
 									<h4>Konfirm Password <span>*</span></h4>
-									<input type="password" name="cpassword" id="px-customer-form-password" placeholder="Konfirm Password" />		
+									<input required type="password" name="cpassword" id="px-customer-form-password" placeholder="Konfirm Password" />		
 								</div>					
 								<div class="input-box m-b-20 m-mb">
 									<p class="red floatleft">* Required Fields</p>									
