@@ -27,7 +27,7 @@
 						<p class="my-title text-center">Please fill in your address to complete the register</p>
 						<div class="col-lg-6 col-xs-6 col-sm-6 center text-center">
 						<?php }else{ ?>
-					<p class="my-title">Welcome to your account. Here you can manage all of your personal information and orders.</p>
+					
 					<?php
 						$this->load->view('frontend/dashboard/side-menu'); 
 					?>

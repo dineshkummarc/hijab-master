@@ -27,7 +27,7 @@
 						<p class="my-title text-center">Please upload your photos to complete the registration</p>
 						<div class="col-lg-12 col-xs-12 col-sm-12 text-center">
 						<?php }else{ ?>
-					<p class="my-title">Welcome to your account. Here you can manage all of your personal information and orders.</p>
+					
 					<?php
 						$this->load->view('frontend/dashboard/side-menu'); 
 					?>

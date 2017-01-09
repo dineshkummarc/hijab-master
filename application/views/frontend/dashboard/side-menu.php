@@ -1,4 +1,7 @@
 				<div class="col-lg-4 col-xs-12 col-sm-4 box">
+				<div>
+					<p class="my-title">Welcome to your account. Here you can manage all of your personal information and orders.</p>
+				</div>
 					<div class="faq-accordion withlink">
 						<div aria-multiselectable="true" role="tablist" id="accordion" class="panel-group">
 						<div class="panel">

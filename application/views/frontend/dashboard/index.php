@@ -23,7 +23,7 @@
 					<div class="faq-title">
 						<h4><?php echo $function_name;?></h4>
 					</div>
-					<p class="my-title">Welcome to your account. Here you can manage all of your personal information and orders.</p>
+					
 					<?php
 						$this->load->view('frontend/dashboard/side-menu'); 
 					?>
