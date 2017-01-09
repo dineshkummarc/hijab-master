@@ -7,6 +7,7 @@ class Admin_shipping_cost extends PX_Controller {
     function __construct() {
         parent:: __construct();
         $this->controller_attr = array('controller' => 'admin_shipping_cost', 'controller_name' => 'Admin Shipping Cost', 'controller_id' => 0);
+        $this->check_login();
     }
 
     public function index() {

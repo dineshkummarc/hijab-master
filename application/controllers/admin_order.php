@@ -7,7 +7,7 @@ class Admin_order extends PX_Controller {
     function __construct() {
         parent:: __construct();
         $this->controller_attr = array('controller' => 'admin_order', 'controller_name' => 'Admin Order', 'controller_id' => 0);
-        $this->do_underconstruct();
+        $this->check_login();
     }
 
     public function index() {

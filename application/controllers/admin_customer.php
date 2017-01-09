@@ -7,6 +7,7 @@ class Admin_customer extends PX_Controller {
     function __construct() {
         parent:: __construct();
         $this->controller_attr = array('controller' => 'admin_customer', 'controller_name' => 'Admin Customer', 'controller_id' => 0);
+        $this->check_login();
     }
 
     public function index() {
