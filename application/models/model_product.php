@@ -17,6 +17,20 @@ class Model_product extends PX_Model {
         return $this->db->get();
     }
 
+    function group_product_random($group){
+        $this->db->select($this->tbl_product.'.*,'.
+            $this->tbl_group.'.id as id_group,'.
+            $this->tbl_group.'.name as name_group'
+        );
+        $this->db->from($this->tbl_product);
+        $this->db->join($this->tbl_product_group,$this->tbl_product_group.'.product_id'.'='.$this->tbl_product.'.id');
+        $this->db->join($this->tbl_group,$this->tbl_group.'.id'.'='.$this->tbl_product_group.'.group_id');
+        $this->db->where($this->tbl_product.'.delete_flag',0);
+        $this->db->where($this->tbl_group.'.id',$group);
+        $this->db->order_by('id', 'RANDOM');
+        return $this->db->get();
+    }
+
     function search_product($category,$brand,$color,$price,$size){
         $price = explode(",", $price);
         die(print_r($price));

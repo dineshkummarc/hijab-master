@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2017 at 03:38 PM
+-- Generation Time: Jan 10, 2017 at 10:45 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -335,6 +335,34 @@ INSERT INTO `px_editor_picks` (`id`, `name`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `px_faq`
+--
+
+CREATE TABLE `px_faq` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text,
+  `date_modified` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `px_faq`
+--
+
+INSERT INTO `px_faq` (`id`, `title`, `content`, `date_modified`) VALUES
+(1, 'DO YOU SHIP INTERNATIONALLY?', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:07:23'),
+(2, 'WHO SHOULD I TO CONTACT IF I HAVE ANY QUESTION?', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:11:35'),
+(3, 'HOW CAN I CANCEL OR CHANGE MY ORDER?', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:13:38'),
+(4, 'HOW CAN I RETURN A PRODUCT?', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:14:12'),
+(5, 'HOW LONG WILLIT TAKE TO GET MY PACKAGE?', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:14:46'),
+(6, 'WHAT SHIPPING METHODS ARE AVAILABLE?', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:15:12'),
+(7, 'DO YOU PROVIDE ANY WARRANTY', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:15:40'),
+(8, 'DO YOU HAVE REPLACEMENT GUARANTEE?', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:16:08'),
+(9, 'HOW CAN I CANCEL OR CHANGE MY ORDER?', '<p><span style="color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven''t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:16:52');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `px_flag`
 --
 
@@ -369,6 +397,26 @@ CREATE TABLE `px_group` (
 
 INSERT INTO `px_group` (`id`, `name`) VALUES
 (2, 'New');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `px_guest_book`
+--
+
+CREATE TABLE `px_guest_book` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(225) NOT NULL,
+  `email` varchar(225) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `subject` varchar(250) NOT NULL,
+  `content` text NOT NULL,
+  `status` int(11) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_read` datetime NOT NULL,
+  `date_replied` datetime NOT NULL,
+  `id_parent` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -996,7 +1044,7 @@ CREATE TABLE `px_menu` (
 
 INSERT INTO `px_menu` (`id`, `name`, `target`, `id_parent`, `icon`, `orders`) VALUES
 (1, 'Dashboard', 'admin', 0, 'fa-dashboard', 1),
-(2, 'System', 'admin_system', 0, 'fa-cog', 7),
+(2, 'System', 'admin_system', 0, 'fa-cog', 8),
 (3, 'User', 'user', 2, 'fa-user', 3),
 (4, 'User Group', 'usergroup', 2, 'fa-users', 5),
 (5, 'Master Data', 'master_data', 2, 'fa-database', 8),
@@ -1004,7 +1052,7 @@ INSERT INTO `px_menu` (`id`, `name`, `target`, `id_parent`, `icon`, `orders`) VA
 (7, 'Pengaturan', 'settings', 2, 'fa-cogs', 9),
 (8, 'Urutan Menu', 'menu_orders', 2, 'fa-list', 7),
 (9, 'User Akses', 'useraccess', 2, 'fa-check-circle', 4),
-(11, 'Site Content', 'admin_site_content', 0, 'fa-globe', 6),
+(11, 'Site Content', 'admin_site_content', 0, 'fa-globe', 7),
 (12, 'Static Content', 'static_content', 11, 'fa-book', 13),
 (13, 'Banner', 'banner', 11, 'fa-image', 1),
 (17, 'News', 'news', 11, 'fa-globe', 11),
@@ -1022,8 +1070,11 @@ INSERT INTO `px_menu` (`id`, `name`, `target`, `id_parent`, `icon`, `orders`) VA
 (64, 'Order List', 'order_list', 63, 'fa-shopping-cart', 2),
 (67, 'Editor Pick', 'editor_picks', 53, 'fa-calendar', 5),
 (68, 'Product Grup', 'product_group_list', 53, 'fa-list', 6),
-(69, 'Shipping Cost', 'admin_shipping_cost', 0, 'fa-cube', 5),
-(70, 'Shipping Cost List', 'shipping_cost_list', 69, 'fa-adjust', 0);
+(69, 'Shipping Cost', 'admin_shipping_cost', 0, 'fa-cube', 6),
+(70, 'Shipping Cost List', 'shipping_cost_list', 69, 'fa-adjust', 0),
+(71, 'faq', 'faq', 11, 'fa-question', 0),
+(72, 'Voucher', 'admin_voucher', 0, 'fa-tag', 5),
+(73, 'Global Voucher', 'global_voucher', 72, 'fa-adjust', 0);
 
 -- --------------------------------------------------------
 
@@ -1104,7 +1155,9 @@ CREATE TABLE `px_order_confirmation` (
 --
 
 INSERT INTO `px_order_confirmation` (`id`, `order_id`, `account_name`, `account_bank`, `bank_target`, `total_payment`, `date_transfer`, `date_created`) VALUES
-(1, 1, 'EDO APRIYADI', 'BCA', 'MANDIRI', 185000, '2017-01-07', '2017-01-07 21:00:00');
+(1, 1, 'EDO APRIYADI', 'BCA', 'MANDIRI', 185000, '2017-01-07', '2017-01-07 21:00:00'),
+(2, 2, 'EDO APRIYADI', 'BCA', 'BCA', 100000, '2016-12-31', '2017-01-10 11:39:41'),
+(3, 2, 'EDO APRIYADI', 'BCA', 'BCA', 100000, '2017-01-19', '2017-01-10 11:40:10');
 
 -- --------------------------------------------------------
 
@@ -1201,7 +1254,7 @@ CREATE TABLE `px_product_image` (
 --
 
 INSERT INTO `px_product_image` (`id`, `product_id`, `photo`, `primary_status`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(17, 33, '587362c6ef908-product.jpg', 0, 7, '2016-12-20 15:39:45', 7, '2017-01-09 17:15:34'),
+(17, 33, '587362c6ef908-product.jpg', 1, 7, '2016-12-20 15:39:45', 7, '2017-01-09 17:15:34'),
 (19, 34, '587362df08422-product.jpg', 0, 7, '2017-01-08 23:56:17', 7, '2017-01-09 17:15:59'),
 (20, 33, '587361eae3211-product.jpg', 0, 7, '2017-01-09 17:11:54', 7, '2017-01-09 17:11:54');
 
@@ -9126,7 +9179,10 @@ INSERT INTO `px_useraccess` (`id`, `id_usergroup`, `id_menu`, `act_create`, `act
 (158, 1, 67, 1, 1, 1, 1),
 (159, 1, 68, 1, 1, 1, 1),
 (160, 1, 69, 1, 1, 1, 1),
-(161, 1, 70, 1, 1, 1, 1);
+(161, 1, 70, 1, 1, 1, 1),
+(162, 1, 71, 1, 1, 1, 1),
+(163, 1, 72, 1, 1, 1, 1),
+(164, 1, 73, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -9150,6 +9206,22 @@ INSERT INTO `px_usergroup` (`id`, `usergroup_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `px_voucher`
+--
+
+CREATE TABLE `px_voucher` (
+  `id` int(11) NOT NULL,
+  `voucher` varchar(50) DEFAULT NULL,
+  `date_start` datetime DEFAULT NULL,
+  `date_end` datetime DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `delete_flag` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `px_wishlist`
 --
 
@@ -9164,7 +9236,9 @@ CREATE TABLE `px_wishlist` (
 --
 
 INSERT INTO `px_wishlist` (`id`, `product_id`, `customer_id`) VALUES
-(1, 23, 3);
+(1, 23, 3),
+(6, 33, 9),
+(8, 34, 9);
 
 --
 -- Indexes for dumped tables
@@ -9243,6 +9317,12 @@ ALTER TABLE `px_editor_picks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `px_faq`
+--
+ALTER TABLE `px_faq`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `px_flag`
 --
 ALTER TABLE `px_flag`
@@ -9252,6 +9332,12 @@ ALTER TABLE `px_flag`
 -- Indexes for table `px_group`
 --
 ALTER TABLE `px_group`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `px_guest_book`
+--
+ALTER TABLE `px_guest_book`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -9411,6 +9497,12 @@ ALTER TABLE `px_usergroup`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `px_voucher`
+--
+ALTER TABLE `px_voucher`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `px_wishlist`
 --
 ALTER TABLE `px_wishlist`
@@ -9444,7 +9536,7 @@ ALTER TABLE `px_banner`
 -- AUTO_INCREMENT for table `px_brand`
 --
 ALTER TABLE `px_brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `px_cart`
 --
@@ -9481,6 +9573,11 @@ ALTER TABLE `px_customer_shipping_address`
 ALTER TABLE `px_editor_picks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `px_faq`
+--
+ALTER TABLE `px_faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
 -- AUTO_INCREMENT for table `px_flag`
 --
 ALTER TABLE `px_flag`
@@ -9490,6 +9587,11 @@ ALTER TABLE `px_flag`
 --
 ALTER TABLE `px_group`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `px_guest_book`
+--
+ALTER TABLE `px_guest_book`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `px_jasa_pengiriman`
 --
@@ -9504,7 +9606,7 @@ ALTER TABLE `px_master_data`
 -- AUTO_INCREMENT for table `px_menu`
 --
 ALTER TABLE `px_menu`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT for table `px_news`
 --
@@ -9519,7 +9621,7 @@ ALTER TABLE `px_order`
 -- AUTO_INCREMENT for table `px_order_confirmation`
 --
 ALTER TABLE `px_order_confirmation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `px_product`
 --
@@ -9614,17 +9716,22 @@ ALTER TABLE `px_user`
 -- AUTO_INCREMENT for table `px_useraccess`
 --
 ALTER TABLE `px_useraccess`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 --
 -- AUTO_INCREMENT for table `px_usergroup`
 --
 ALTER TABLE `px_usergroup`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `px_voucher`
+--
+ALTER TABLE `px_voucher`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `px_wishlist`
 --
 ALTER TABLE `px_wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

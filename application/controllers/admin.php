@@ -24,6 +24,7 @@ class Admin extends PX_Controller {
         $data += $this->get_function('Admin', 'admin');
         $data += $this->get_menu();
         if ($this->session->userdata('admin') != FALSE) {
+            //$data['total_order'] = $this->model_basic->select_where($this->tbl_order, '');
             $data['content'] = $this->load->view('backend/admin/dashboard', $data, true);
             $this->load->view('backend/index', $data);
         } else
@@ -77,6 +78,16 @@ class Admin extends PX_Controller {
 
     function php_info() {
         echo phpinfo();
+    }
+    
+    function test_send_email()
+    {
+        $email_data = new stdClass();
+        $email_data->receiver = 'edoapriyadi@gmail.com';
+        $email_data->subject = 'Test Email';
+        if($this->send_email($email_data))
+            echo 'Success';
+        else echo 'Failed';
     }
 
 }

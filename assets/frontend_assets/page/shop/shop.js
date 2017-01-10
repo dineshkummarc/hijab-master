@@ -24,10 +24,13 @@ $(document).ready(function(){
                 $('#modd'+i).append('<div class="col-lg-3 col-md-3 col-sm-3"><div id="moddd' + i + '" class="single-pro-tab"></div></div>');
                 $('#moddd'+i).append('<div id="content' + i + '" class="tab-content"></div>');
                 // $('#moddd'+i).append('<ul id="contents' + i + '" class="pro-show-tab " role="tablist"></ul>');
-
+                   var nox =0;
                 $.getJSON('product/get_product_image/'+ product_id, { get_param: 'value' }, function(datax) {
                     $.each(datax, function(index, images) {
-                        $('#content' + i).append('<div role="tabpanel" class="tab-pane active" id="home"><img class="zoom_01" class="img-responsive" src="assets/uploads/product/' + product_id + '/'+ images.photo +'" /></div>');
+                        if(nox == 0){
+                            $('#content' + i).append('<div role="tabpanel" class="tab-pane active" id="home"><img class="zoom_01" class="img-responsive img-thumbnail" src="assets/uploads/product/' + product_id + '/'+ images.photo +'" /></div>');
+                            nox =1;
+                        }
                     });
                 });
 

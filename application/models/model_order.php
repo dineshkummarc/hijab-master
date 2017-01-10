@@ -21,4 +21,13 @@ class Model_order extends PX_Model {
             return FALSE;
         return TRUE;
     }
+    
+    function get_order_confirm($customer_id){
+        $this->load->database('default',TRUE);
+        $this->db->select('*');
+        $this->db->from($this->tbl_order_confirmation);
+        $this->db->join($this->tbl_order,$this->tbl_order.'.id = '.$this->tbl_order_confirmation.'.order_id');
+        $this->db->where($this->tbl_order.'.customer_id', $customer_id);
+        return $this->db->get()->result();
+    }
 }

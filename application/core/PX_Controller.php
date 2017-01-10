@@ -53,6 +53,9 @@ class PX_Controller extends CI_Controller {
         $this->tbl_tracking_status = $this->tbl_prefix.'tracking_status';
         $this->tbl_flag = $this->tbl_prefix. 'flag';
         $this->tbl_order_confirmation = $this->tbl_prefix.'order_confirmation';
+        $this->tbl_guest_book = $this->tbl_prefix.'guest_book';
+        $this->tbl_faq = $this->tbl_prefix.'faq';
+        $this->tbl_voucher = $this->tbl_prefix.'voucher';
         // MODELS
         $this->load->model('model_basic');
         $this->load->model('model_menu');
@@ -309,6 +312,34 @@ class PX_Controller extends CI_Controller {
                 redirect('underconstruction');
             } else
                 return TRUE;
+        }
+    }
+    
+    function send_email($email_data)
+    {
+        $this->load->library('email');
+        $config = array (
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.mandrillapp.com',
+            'smtp_port' => '587',
+            'smtp_auth' => true,
+            'smtp_crypto' => 'tls',
+            'smtp_user' => 'Hijab Dept',
+            'smtp_pass' => 'D6VPRyDCBLUpz4_mkDaCPw',
+            'mailtype' => 'html',
+            'charset'  => 'utf-8',
+            'priority' => '1'
+        );
+        $this->email->initialize($config);
+        $this->email->from('noreply@hijabdept.com', 'Hijab Dept');
+        $this->email->to($email_data->receiver);
+        $this->email->subject($email_data->subject);
+        $this->email->message($email_data->message);
+
+        if ($this->email->send()) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
 

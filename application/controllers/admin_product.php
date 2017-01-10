@@ -1603,6 +1603,9 @@ class Admin_product extends PX_Controller {
 
     function get_product_image($id) {
         $get_product = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $id, 'primary_status', '1')->result();
+        if(!$get_product){
+            $get_product = $this->model_basic->select_where($this->tbl_product_image, 'product_id', $id)->result();
+        }
         echo json_encode($get_product);
     }
 

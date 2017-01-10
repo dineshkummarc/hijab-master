@@ -929,4 +929,143 @@ class Admin_site_content extends PX_Controller {
             $this->returnJson(array('status' => 'error', 'msg' => 'Please complete the form'));
     }
 
+    function faq() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Admin Faq', 'faq');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+
+        $data['data'] = $this->model_basic->select_all($this->tbl_faq);
+        $data['content'] = $this->load->view('backend/admin_site_content/faq', $data, true);
+        $this->load->view('backend/index', $data);
+    }
+
+    function faq_form() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Admin FAQ', 'faq');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_CREATE);
+        $id = $this->input->post('id');
+        if ($id) {
+            $data['data'] = $this->model_basic->select_where($this->tbl_faq, 'id', $id)->row();
+            $content = new domDocument;
+            libxml_use_internal_errors(true);
+            $content->loadHTML($data['data']->content);
+            libxml_use_internal_errors(false);
+            libxml_use_internal_errors(false);
+            $content->preserveWhiteSpace = false;
+            $images = $content->getElementsByTagName('img');
+            if ($images) {
+                foreach ($images as $image) {
+                    $data['data']->image[] = $image->getAttribute('src');
+                }
+            }
+        }
+        else
+            $data['data'] = null;
+        $data['content'] = $this->load->view('backend/admin_site_content/faq_form', $data, true);
+        $this->load->view('backend/index', $data);
+    }
+
+    function faq_add() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Admin FAQ', 'faq');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_CREATE);
+
+        $images = $this->input->post('images');
+        $table_field = $this->db->list_fields($this->tbl_faq);
+        $insert = array();
+        foreach ($table_field as $field) {
+            $insert[$field] = $this->input->post($field);
+        }
+        $insert['date_modified'] = date('Y-m-d H:i:s', now());
+        if ($insert['title'] && $insert['content']) {
+            $do_insert = $this->model_basic->insert_all($this->tbl_faq, $insert);
+            if ($do_insert) {
+                if ($images) {
+                    if (!is_dir(FCPATH . "assets/uploads/static_content/" . $do_insert->id))
+                        mkdir(FCPATH . "assets/uploads/static_content/" . $do_insert->id);
+                    $content = $insert['content'];
+                    foreach ($images as $im) {
+                        if (strpos($content, $im) !== false) {
+                            $new_im = 'assets/uploads/static_content/' . $do_insert->id . '/' . basename($im);
+                            @copy($im, $new_im);
+                            $content = str_replace($im, $new_im, $content);
+                        }
+                    }
+                    $update['content'] = $content;
+                    $do_update = $this->model_basic->update($this->tbl_faq, $update, 'id', $do_insert->id);
+                    $this->delete_temp('temp_folder');
+                }
+                $this->returnJson(array('status' => 'ok', 'msg' => 'Input data success', 'redirect' => $data['controller'] . '/' . $data['function']));
+            }
+            else
+                $this->returnJson(array('status' => 'error', 'msg' => 'Failed when saving data'));
+        }
+        else
+            $this->returnJson(array('status' => 'error', 'msg' => 'Please complete the form'));
+    }
+
+    function faq_edit() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Admin FAQ', 'faq');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_UPDATE);
+
+        $images = $this->input->post('images');
+        $table_field = $this->db->list_fields($this->tbl_faq);
+        $update = array();
+        foreach ($table_field as $field) {
+            $update[$field] = $this->input->post($field);
+        }
+        $update['date_modified'] = date('Y-m-d H:i:s', now());
+        if ($images) {
+            if (!is_dir(FCPATH . "assets/uploads/static_content/" . $update['id']))
+                mkdir(FCPATH . "assets/uploads/static_content/" . $update['id']);
+            $content = $update['content'];
+            foreach ($images as $im) {
+                if (strpos($content, $im) !== false) {
+                    $new_im = 'assets/uploads/static_content/' . $update['id'] . '/' . basename($im);
+                    if ($im != $new_im)
+                        @copy($im, $new_im);
+                    $content = str_replace($im, $new_im, $content);
+                }
+                else
+                    @unlink($im);
+            }
+            $update['content'] = $content;
+            $this->delete_temp('temp_folder');
+        }
+        if ($update['title'] && $update['content']) {
+            $do_update = $this->model_basic->update($this->tbl_faq, $update, 'id', $update['id']);
+            if ($do_update)
+                $this->returnJson(array('status' => 'ok', 'msg' => 'Update success', 'redirect' => $data['controller'] . '/' . $data['function']));
+            else
+                $this->returnJson(array('status' => 'error', 'msg' => 'Failed when updating data'));
+        }
+        else
+            $this->returnJson(array('status' => 'error', 'msg' => 'Please complete the form'));
+    }
+
+    function faq_delete() {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Admin FAQ', 'faq');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_DELETE);
+        $id = $this->input->post('id');
+        $do_delete = $this->model_basic->delete($this->tbl_faq, 'id', $id);
+        if ($do_delete) {
+            $this->delete_folder('static_content/' . $id);
+            $this->returnJson(array('status' => 'ok', 'msg' => 'Delete Success', 'redirect' => $data['controller'] . '/' . $data['function']));
+        }
+        else
+            $this->returnJson(array('status' => 'error', 'msg' => 'Delete Failed'));
+    }
+
 }
