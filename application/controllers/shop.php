@@ -283,8 +283,9 @@ class Shop extends PX_Controller {
         }
         $data='';
         $data['product']=$this->model_product->search_product($category,$brand,$color,$price,$size);
+        // print_r($this->db->last_query());die();
         foreach ($data['product']->result() as $d_row) {
-             $price_disc= $d_row->price/100*$d_row->discount;
+            $price_disc= $d_row->price/100*$d_row->discount;
             $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
             $d_row->price = indonesian_currency($d_row->price);
             $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id);
