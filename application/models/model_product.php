@@ -33,9 +33,8 @@ class Model_product extends PX_Model {
 
     function search_product($category,$brand,$color,$price,$size){
         $price = explode(",", $price);
-        die(print_r($price));
-         $this->db->select($this->tbl_product.'.*'
-        );
+        // die(print_r($price));
+        $this->db->select($this->tbl_product.'.*');
         $this->db->from($this->tbl_product);
         $this->db->join($this->tbl_brand,$this->tbl_brand.'.id='.$this->tbl_product.'.brand_id');
         $this->db->join($this->tbl_category,$this->tbl_category.'.id='.$this->tbl_product.'.category_id');
@@ -55,27 +54,27 @@ class Model_product extends PX_Model {
         }
         $a=0;
         if($size!=''){
-             $a++;
-            if($a>1){
          foreach ($size as $key) {
+            $a++;
+            if($a>1){
             $this->db->or_like($this->tbl_size.'.id',$key);
-            }
+        }
         }
         }
         $a=0;
         if($brand!=''){
-             $a++;
-            if($a>1){
         foreach ($brand as $key) {
+            $a++;
+            if($a>1){
             $this->db->or_like($this->tbl_product.'.brand_id',$key);
         }
         }
         }
         $a=0;
         if($color!=''){
+         foreach ($color as $key) {
              $a++;
             if($a>1){
-         foreach ($color as $key) {
             $this->db->or_like($this->tbl_color.'.id',$key);
             } 
         }
