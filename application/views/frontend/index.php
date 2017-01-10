@@ -105,54 +105,54 @@
                                 <!--								<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>-->
                                 <!--								<span>0</span>-->
                                 <!--							</div>-->
-                                <div class="my-cart">
+                                <div class="header-last">
+<!--							<div class="header-right hidden-xs">-->
+<!--								<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>-->
+<!--								<span>0</span>-->
+<!--							</div>-->
+							<div class="my-cart">
 
-                                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-                                    <span><?php echo $this->cart->total_items(); ?></span>
-                                    <?php
-                                    $get_cart = $this->cart->contents();
+								<a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+								<span><?php echo $this->cart->total_items(); ?></span>
+								<?php $get_cart = $this->cart->contents();
 //								var_dump($get_cart);
-                                    ?>
-                                    <a class="cart" href="#">My Cart <span>$0.00</span></a>
-                                    <ul>
-                                        <?php if (!empty($get_cart)) {
-                                            ?>
-                                            <li>
-                                                <h3><?php echo $this->cart->total_items(); ?> items in the shopping bag.</h3>
-                                            </li>
-                                            <?php
-                                            foreach ($get_cart as $d_row) {
-                                                if ($this->session->userdata('id') == $d_row['customer_id']) {
-                                                    ?>
-                                                    <li>
-                                                        <div class="cart-img">
-                                                            <a href="#"><img src="assets/uploads/product/<?php echo $d_row['id'] ?>/<?php echo $d_row['pict'] ?>" alt="" /></a>
-                                                        </div>
-                                                        <div class="cart-info">
-                                                            <h5><a href="#"><?php echo $d_row['name'] ?></a></h5>
-                                                            <span><strong><?php echo $d_row['qty'] ?></strong> x <?php echo indonesian_currency($d_row['price']) ?></span>
-                                                        </div>
-                                                        <div class="del-icon">
-                                                            <a class="fa fa-trash-o" aria-hidden="true" href="shop/updateToCart/<?php echo $d_row['rowid'] ?>"></a>
+								?>
+								<a class="cart" href="#">My Cart <span><?php echo indonesian_currency($this->cart->total()); ?></span></a>
+								<ul>
+									<?php if(!empty($get_cart)){
 
-                                                        </div>
-                                                    </li>
-                                                <?php
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                        <li>
-                                            <div class="cart-total">
-                                                <h4>Cart Subtotal: <span><?php echo indonesian_currency($this->cart->total()); ?></span></h4>
-                                            </div>
-                                            <div class="checkout">
-                                                <a class="" style="width: 100%" href="cart">view cart</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>				
+										?>
+									<li>
+										<h3><?php echo $this->cart->total_items(); ?> items in the shopping bag.</h3>
+									</li>
+										<?php foreach ($get_cart as $d_row){
+												if($this->session->userdata('id') == $d_row['customer_id']){
+												?>
+									<li>
+										<div class="cart-img">
+											<a href="#"><img src="assets/uploads/product/<?php echo $d_row['id'] ?>/<?php echo $d_row['pict'] ?>" alt="" /></a>
+										</div>
+										<div class="cart-info">
+											<h5><a href="#"><?php echo $d_row['name'] ?></a></h5>
+											<span><strong><?php echo $d_row['qty'] ?></strong> x <?php echo indonesian_currency( $d_row['price']) ?></span>
+										</div>
+										<div class="del-icon">
+											<a class="fa fa-trash-o" aria-hidden="true" href="shop/updateToCart/<?php echo $d_row['rowid'] ?>"></a>
+										
+										</div>
+									</li>
+									<?php }}} ?>
+									<li>
+										<div class="cart-total">
+											<h4>Cart Subtotal: <span><?php echo indonesian_currency($this->cart->total()); ?></span></h4>
+										</div>
+										<div class="checkout">
+											<a class="" style="width: 100%" href="cart">view cart</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>				
                             <div class="header-search hidden-xs hidden-sm">
                                 <form action="#">
                                     <input type="text" placeholder="" value="Search entire store here" 
