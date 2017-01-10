@@ -180,7 +180,7 @@ class Dashboard extends PX_Controller {
 		$data['order'] = $this->model_basic->select_where($this->tbl_order, 'customer_id', $this->session->userdata('id'))->result();
 
 		foreach ($data['order'] as $d_row) {
-			$d_row->date_created = "Tanggal : ".date('d M Y', strtotime($d_row->date_created)).'</br>Jam : '.date('H:i', strtotime($d_row->date_created));
+			$d_row->date_created = "Tanggal : ".date('d M Y', strtotime($d_row->date_created)).' | Jam : '.date('H:i', strtotime($d_row->date_created));
 			$d_row->total_order=indonesian_currency($d_row->total_order);
 			$d_row->total_ship_price = indonesian_currency($d_row->total_ship_price);
 			$d_row->total_payment = indonesian_currency($d_row->total_payment);

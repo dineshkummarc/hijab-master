@@ -36,7 +36,7 @@
 						</div>
 							<div class="col-md-11">
 							<h4><?php echo $d_row->invoice_number?></h4>
-							<SPAN><?php echo $d_row->date_created?></SPAN> | <span>Jam : 02:09</span>
+							<SPAN><?php echo $d_row->date_created?></SPAN>
 								<div style="" class="square-order">
 									<div class="row">
 										<div class="col-md-8">
