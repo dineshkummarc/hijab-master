@@ -40,13 +40,13 @@
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>New Password<span>*</span></label>
-										<input type="text" name="password" value="" />
+										<input type="password" name="password" value="" />
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Konfirm Password<span>*</span></label>
-										<input type="text" name="cpassword" value="" />
+										<input type="password" name="cpassword" value="" />
 									</div>
 								</div>								
 								<div class="col-sm-12">

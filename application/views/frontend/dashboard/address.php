@@ -55,7 +55,7 @@
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Provinsi<span>*</span></label>
-										<select name="province" class="province">
+										<select id="province" name="province" class="province">
 											<option value="">Pilih Provinsi</option>
 											<?php foreach ($province_list as $d_row) { ?>
                                     		<option value="<?php echo $d_row->id; ?>"<?php if($useraddress->province == $d_row->id) echo 'selected';?>><?php echo $d_row->name;?></option>
@@ -66,7 +66,7 @@
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Kota/Kabupaten<span>*</span></label>
-										<select name="city" id="city" class="city">
+										<select name="city" id="kabupaten" class="city">
 											<option value="">Pilih Kota</option>
 											<?php foreach ($city_list as $d_row) { ?>
                                     		<option value="<?php echo $d_row->id; ?>"<?php if($useraddress->city == $d_row->id) echo 'selected';?>><?php echo $d_row->name;?></option>

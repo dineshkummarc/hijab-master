@@ -181,6 +181,7 @@ class Dashboard extends PX_Controller {
 
 		foreach ($data['order'] as $d_row) {
 			$d_row->date_created = "Tanggal : ".date('d M Y', strtotime($d_row->date_created)).'</br>Jam : '.date('H:i', strtotime($d_row->date_created));
+			$d_row->total_order=indonesian_currency($d_row->total_order);
 			$d_row->total_ship_price = indonesian_currency($d_row->total_ship_price);
 			$d_row->total_payment = indonesian_currency($d_row->total_payment);
 		}

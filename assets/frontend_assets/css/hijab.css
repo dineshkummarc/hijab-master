@@ -16,8 +16,23 @@
     position:relative;
     margin:0 auto;
 }
+.box2 h4{
+    color: #555; text-decoration: underline;
+}
+.status-order{
+    background: #fff; color: #7fc8aa; padding: 5px
+}
+.square-order{
+    background: #7fc8aa ; color: #fff; padding: 10px; margin-top: 5px;
+}
 .tabtab td{
     padding: 5px;
+}
+.orderlist{
+    margin-top:10px; margin-bottom:10px;margin-left: 10px; padding-bottom: 15px;
+}
+.box2{
+    border:2px solid #555; color: #555
 }
 .center{
 	margin: 0 auto;
