@@ -112,7 +112,7 @@
 								<?php $get_cart = $this->cart->contents();
 //								var_dump($get_cart);
 								?>
-								<a class="cart" href="#">My Cart <span>$0.00</span></a>
+								<a class="cart" href="#">My Cart <span><?php echo indonesian_currency($this->cart->total()); ?></span></a>
 								<ul>
 									<?php if(!empty($get_cart)){
 
