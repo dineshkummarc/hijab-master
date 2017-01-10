@@ -48,6 +48,9 @@ class Dashboard extends PX_Controller {
 		$attachment_file=$_FILES["photo"]["name"];
         $output_dir = "assets/uploads/customer/".$this->session->userdata('id')."/";
             $fileName = strtolower($_FILES["photo"]["name"]);
+            if (!file_exists("assets/uploads/customer/".$this->session->userdata('id'))) {
+    		mkdir("assets/uploads/customer/".$this->session->userdata('id'));
+			}
             move_uploaded_file($_FILES["photo"]["tmp_name"],$output_dir.$fileName);
             //echo "File uploaded successfully";
             $new  = "assets/uploads/customer/".$this->session->userdata('id')."/".$fileName;
