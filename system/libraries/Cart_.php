@@ -5,8 +5,9 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2006 - 2014, EllisLab, Inc.
+ * @author		EllisLab Dev Team
+ * @copyright		Copyright (c) 2006 - 2014, EllisLab, Inc.
+ * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -21,7 +22,7 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Shopping Cart
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/cart.html
  */
 class CI_Cart {
@@ -230,26 +231,18 @@ class CI_Cart {
 		// --------------------------------------------------------------------
 
 		// Now that we have our unique "row ID", we'll add our cart items to the master array
-    // EDIT:    added check if idential rowid/item already in cart, then just increase qty
-    //          without this addition, it would not increase qty but simply replace the item
-    if (array_key_exists($rowid, $this->_cart_contents)) 
-    {  
-       $this->_cart_contents[$rowid]['qty'] += $items['qty'];    
-    } 
-    else 
-    {
-        // let's unset this first, just to make sure our index contains only the data from this submission
-        unset($this->_cart_contents[$rowid]);     
 
-        // Create a new index with our new row ID
-        $this->_cart_contents[$rowid]['rowid'] = $rowid;
+		// let's unset this first, just to make sure our index contains only the data from this submission
+		unset($this->_cart_contents[$rowid]);
 
-        // And add the new items to the cart array
-        foreach ($items as $key => $val)
-        {
-            $this->_cart_contents[$rowid][$key] = $val;
-        }                       
-    } 
+		// Create a new index with our new row ID
+		$this->_cart_contents[$rowid]['rowid'] = $rowid;
+
+		// And add the new items to the cart array
+		foreach ($items as $key => $val)
+		{
+			$this->_cart_contents[$rowid][$key] = $val;
+		}
 
 		// Woot!
 		return $rowid;

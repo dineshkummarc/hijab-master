@@ -23,42 +23,42 @@
 					<div class="faq-title">
 						<h4><?php echo $function_name;?></h4>
 					</div>
+					<?php if($count_bil==0){ ?>
+						<p class="my-title text-center">Please fill in your address to complete the register</p>
+						<div class="col-lg-6 col-xs-6 col-sm-6 center text-center">
+						<?php }else{ ?>
 					
 					<?php
 						$this->load->view('frontend/dashboard/side-menu'); 
 					?>
 					<div class="col-lg-6 col-xs-6 col-sm-6">
-						  <div class="panel-body">
-						  <h3>Isi Alamat Anda</h3>
+					<?php } ?>
+						  <div class="panel-body text-center">
+						  <h3>Your Address</h3>
 						  <?php if($this->session->flashdata('msg')){ ?>
-	                        <div class="form-group text-center" >
+	                        <div class="form-group text-left" >
 	                        <h4 style="color:red"><?php echo $this->session->flashdata('msg') ?></h4>
 	                        </div>
 	                        <?php } ?>
-							<form action="dashboard/editaddress" class="biling-info" method="post">
+							<form action="dashboard/register_biladdress" class="biling-info text-left" method="post">
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Tempat Tujuan<span>*</span></label>
-										<select name="title">
-											<option>Pilih Kantor/Rumah</option>
-											<option value="Kantor"<?php if($useraddress->title == 'Kantor') echo 'selected';?>>Kantor</option>
-											<option value="Rumah"<?php if($useraddress->title == 'Rumah') echo 'selected';?>>Rumah</option>
+										<select required name="title">
+											<option value="">Pilih Kantor/Rumah</option>
+											<option value="Kantor">Kantor</option>
+											<option value="Rumah">Rumah</option>
 										</select>
 									</div>
 								</div>
-								<div class="col-sm-12">
-									<div class="input-box">
-										<label>Alamat<span>*</span></label>
-										<input type="text" name="address" value="<?php echo $useraddress->address ?>" />
-									</div>
-								</div>
+								
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Provinsi<span>*</span></label>
-										<select name="province" class="province">
+										<select id="province" required name="province" class="province">
 											<option value="">Pilih Provinsi</option>
 											<?php foreach ($province_list as $d_row) { ?>
-                                    		<option value="<?php echo $d_row->id; ?>"<?php if($useraddress->province == $d_row->id) echo 'selected';?>><?php echo $d_row->name;?></option>
+                                    		<option value="<?php echo $d_row->id; ?>"><?php echo $d_row->name;?></option>
                                     		<?php } ?>
 										</select>
 									</div>
@@ -66,35 +66,37 @@
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Kota/Kabupaten<span>*</span></label>
-										<select name="city" id="city" class="city">
+										<select id="kabupaten" required name="city"  class="city">
 											<option value="">Pilih Kota</option>
-											<?php foreach ($city_list as $d_row) { ?>
-                                    		<option value="<?php echo $d_row->id; ?>"<?php if($useraddress->city == $d_row->id) echo 'selected';?>><?php echo $d_row->name;?></option>
-                                    		<?php } ?>
+											
 										</select>
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Kecamatan<span>*</span></label>
-										<select name="region" id="region">
+										<select  required name="region" id="region">
 											<option value="">Pilih Kecamatan</option>
-											<?php foreach ($region_list as $d_row) { ?>
-                                    		<option value="<?php echo $d_row->id; ?>"<?php if($useraddress->region == $d_row->id) echo 'selected';?>><?php echo $d_row->name;?></option>
-                                    		<?php } ?>
+											
 										</select>
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="input-box">
+										<label>Alamat<span>*</span></label>
+										<textarea required name="address"></textarea>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="input-box">
 										<label>Kode Pos<span>*</span></label>
-										<input type="text" name="postal_code" value="<?php echo $useraddress->postal_code?>" />
+										<input required type="text" name="postal_code" />
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Phone<span>*</span></label>
-										<input type="text" name="phone" value="<?php echo $useraddress->phone?>" />
+										<input required type="text" name="phone"/>
 									</div>
 								</div>
 								<div class="col-sm-12">

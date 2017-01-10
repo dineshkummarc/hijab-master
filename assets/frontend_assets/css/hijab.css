@@ -19,12 +19,20 @@
 .tabtab td{
     padding: 5px;
 }
+.center{
+	margin: 0 auto;
+	position: relative;
+	float: none;
+}
 .discount-price{
     text-decoration: line-through;
 }
 .box{
     border:2px solid #eeeeee;
     padding: 10px;
+}
+.panel:hover, .panel a:hover{
+	color: #ff5555;
 }
 footer li{
     list-style: none;

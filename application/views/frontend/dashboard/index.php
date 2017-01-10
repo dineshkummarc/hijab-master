@@ -23,11 +23,16 @@
 					<div class="faq-title">
 						<h4><?php echo $function_name;?></h4>
 					</div>
-					<p class="my-title">Welcome to your account. Here you can manage all of your personal information and orders.</p>
+					
 					<?php
 						$this->load->view('frontend/dashboard/side-menu'); 
 					?>
 					<div class="col-lg-6 col-xs-6 col-sm-6">
+											  <?php if($this->session->flashdata('msg')){ ?>
+	                        <div class="form-group text-center" >
+	                        <h4 style="color:red"><?php echo $this->session->flashdata('msg') ?></h4>
+	                        </div>
+	                        <?php } ?>
 					</div>	
 				</div>
 			</div>

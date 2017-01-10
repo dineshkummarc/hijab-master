@@ -98,7 +98,7 @@
 									<div class="input-box m-b-12">
 									<div class="">
 										<label>Shipping Address Title</label>
-										<select required name="shipping_id" id="list_shipp" class="ship">
+										<select name="shipping_id" id="list_shipp" class="ship">
 										<option value="">Choose Adress</option>
 											<?php foreach ($usershipping as $d_row) { ?>
 											<option value="<?php echo $d_row->id?>"><?php echo $d_row->title?></option>
@@ -122,21 +122,26 @@
 										<div class="col-sm-12">
 											<div class="input-box">
 												<label>Reciever Name <abbr class="required" title="required">*</abbr></label>
-												<input readonly type="text" name="name_ship" id="name_ship"  value="" />
+												<input type="text" name="name_ship" id="name_ship"  value="" />
 											</div>
 										</div>
 									
 										<div class="col-sm-12">
 											<div class="input-box mt-10">
 											<label>Tempat Tujuan <abbr class="required" title="required">*</abbr></label>
-												<input readonly type="text" name="tujuan_ship" id="tujuan_ship" placeholder="Apartment, suite, unit etc. (optional)" />
+												<input type="text" name="tujuan_ship" id="tujuan_ship" placeholder="Apartment, suite, unit etc. (optional)" />
 											</div>									
 										</div>
 								<div class="col-sm-6">
 									<div class="input-box">
 										<label>Province <abbr class="required" title="required">*</abbr></label>
 										<select name="province_ship" id="province_ship" class="province">
-											
+											<option value="">Pilih Provinsi</option>
+											<?php if ($province_list) {
+												foreach ($province_list as $data) { ?>
+													<option value="<?php echo $data->id_province ?>"><?php echo $data->name ?></option>
+												<?php }
+											} ?>
 										</select>
 									</div>
 								</div>
@@ -159,13 +164,13 @@
 								<div class="col-sm-6">
 									<div class="input-box">
 										<label>Postcode / Zip <abbr class="required" title="required">*</abbr></label>
-										<input  readonly type="text" name="postcode_ship" id="postcode_ship" placeholder="Postcode / Zip" value=""/>
+										<input type="text" name="postcode_ship" id="postcode_ship" placeholder="Postcode / Zip" value=""/>
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="input-box m-b-10">
 									<label>Shipping Address</label>
-										<textarea readonly name="address_ship" id="address_ship" cols="5" rows="2" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+										<textarea  name="address_ship" id="address_ship" cols="5" rows="2" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
 									</div>
 
 								</div>

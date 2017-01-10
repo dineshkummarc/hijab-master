@@ -114,12 +114,47 @@ class Cart extends PX_Controller {
         echo json_encode($address);
     }
 
+    function get_ongkir(){
+        $region_id = $this->input->post('region_id');
+        $region=$this->model_basic->select_where($this->tbl_shipping_region,'id',$region_id)->row();
+        $berat=0;
+        foreach ($this->cart->contents() as $cart) {
+            $berat+=$cart['weight']*$cart['qty'];
+        }
+        $ongkir=ceil($berat/1000);
+        $ongkir=$region->price*$berat;
+        $address = new stdClass();
+        $address->cost= $ongkir;
+        $address->tot_price= $ongkir+$this->cart->total();
+
+        echo json_encode($address);
+    }
+
     function submit_order(){
         $invoice=$this->model_product->uniq_code();
+        $customer_id = $this->session->userdata('id');
+        $shipping_id = $this->input->post('shipping_id');
+        if ($shipping_id == "") {
+            $customer_phone = $this->model_basic->select_where($this->tbl_customer_billing_address, 'customer_id', $customer_id)->row()->phone;
+            $data_shipping_address = array(
+                    'customer_id' => $customer_id,
+                    'receiver_name' => $this->input->post('name_ship'),
+                    'title' => "New Address",
+                    'address' => $this->input->post('tujuan_ship'),
+                    'province' => $this->input->post('province_ship'),
+                    'city' => $this->input->post('city_ship'),
+                    'region' => $this->input->post('region_ship'),
+                    'postal_code' => $this->input->post('postcode_ship'),
+                    'phone' => $customer_phone
+                );
+            $shipping_id = $this->model_basic->insert_all($this->tbl_shipping_address, $data_shipping_address)->id;
+        }else{
+            $shipping_id = $this->input->post('shipping_id');
+        }
         $random_code=rand(100,999);
         $data_order=array(
             'customer_id'=>$this->session->userdata('id'),
-            'ship_address_id'=>$this->input->post('shipping_id'),
+            'ship_address_id'=>$shipping_id,
             'invoice_number'=>$invoice,
             'total_order'=>$this->cart->total(),
             'total_ship_price'=>$this->input->post('cost'),
@@ -133,13 +168,13 @@ class Cart extends PX_Controller {
         $order_id=$this->db->insert_id();
         foreach ($this->cart->contents() as $cart) {
             $where=array(
-                'product_id'=>$cart['id'],
+                'id'=>$cart['id'],
                 'size_id'=>$cart['size'],
                 'color_id'=>$cart['color'],
                 );
             $stock=$this->model_basic->select_where_array($this->tbl_product_stock,$where)->row();
             $data=array(
-                'product_id'=>$cart['id'],
+                'product_id'=>$stock->product_id,
                 'order_id'=>$order_id,
                 'size_id'=>$cart['size'],
                 'color_id'=>$cart['color'],
@@ -149,11 +184,20 @@ class Cart extends PX_Controller {
                 );
             $insert=$this->db->insert($this->tbl_product_order,$data);
             $data_stock=array(
-                'stock'=>$stock->stock-$cart['qty'],
+                'stock' => $stock->stock - $cart['qty']
                 );
             $update=$this->db->update($this->tbl_product_stock, $data_stock, array('id' => $stock->id));
         }
         if($insert){
+             //insert to tracking system
+             $data_tracking = array('order_id' => $order_id,
+                                    'status_id' => 0,
+                                    'title' => "Menunggu Konfirmasi",
+                                    'content' => "Menunggu Konfirmasi Pembayaran dari Customer",
+                                    'date_created' =>date('Y-m-d H:i:s', now()) 
+                                );
+             $this->model_basic->insert_all($this->tbl_tracking_system, $data_tracking);
+
              $this->cart->destroy();
             redirect('cart/thankyou/'.$invoice);
         }else{
@@ -174,10 +218,10 @@ class Cart extends PX_Controller {
         $data['ship_address']=$this->model_basic->select_where($this->tbl_shipping_address,'id',$data['invoice']->ship_address_id)->row();
         $data['prov_bil']=$this->model_basic->select_where($this->tbl_shipping_province,'id',$data['bil_address']->province)->row();
         $data['city_bil']=$this->model_basic->select_where($this->tbl_shipping_city,'id',$data['bil_address']->city)->row();
-        $data['region_bil']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['bil_address']->province)->row();
+        $data['region_bil']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['bil_address']->region)->row();
         $data['prov_ship']=$this->model_basic->select_where($this->tbl_shipping_province,'id',$data['ship_address']->province)->row();
         $data['city_ship']=$this->model_basic->select_where($this->tbl_shipping_city,'id',$data['ship_address']->city)->row();
-        $data['region_ship']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['ship_address']->province)->row();
+        $data['region_ship']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['ship_address']->region)->row();
         $order_prod=$this->model_basic->select_where($this->tbl_product_order,'order_id',$data['invoice']->id)->result();
         foreach ($order_prod as $key) {
             $product=$this->model_basic->select_where($this->tbl_product,'id',$key->product_id)->row();

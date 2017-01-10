@@ -107,7 +107,7 @@ class Shop extends PX_Controller {
                 'size_id'=>$this->input->post('size'),
                 'color_id'=>$this->input->post('color'),
                 );
-            $stock=$this->model_basic->select_where_array($this->tbl_product_stock,$where)->row();
+        $stock=$this->model_basic->select_where_array($this->tbl_product_stock,$where)->row();
         if($stock->stock<1){
             $this->session->set_flashdata('msg_stock','Out of stock');
             echo "<script>window.history.back()</script>";
@@ -117,7 +117,7 @@ class Shop extends PX_Controller {
         $size=$this->model_basic->select_where($this->tbl_size,'id',$this->input->post('size'))->row();
         $color=$this->model_basic->select_where($this->tbl_color,'id',$this->input->post('color'))->row();
         $insert_data = array(
-            'id' => $get_product->id,
+            'id' => $stock->id,
             'name' => $get_product->name_product,
             'price' => $get_product->price,
             'qty' => $this->input->post('qty'),
@@ -139,7 +139,9 @@ class Shop extends PX_Controller {
         }
 
         $this->cart->insert($insert_data);
-        echo "<script>window.history.back()</script>";
+        //echo "<script>window.history.back()</script>";
+
+        redirect('cart','refresh');
     }
 
     function updateToCart($id)
