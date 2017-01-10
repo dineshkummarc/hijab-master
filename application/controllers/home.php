@@ -18,6 +18,8 @@ class Home extends PX_Controller {
         $data += $this->get_function('Home', 'home');
         $data['banner'] = $this->model_basic->select_all($this->tbl_banner);
         $data['r_product'] = $this->model_basic->select_all($this->tbl_group);
+        $data['category'] = $this->model_basic->select_all_limit_order($this->tbl_category, 4, 'id', 'DESC')->result();
+        $data['editor_pick'] = $this->model_basic->select_all_limit_order($this->tbl_editor_picks, 4, 'id', 'DESC')->result();
         $f_product = $this->model_basic->select_all($this->tbl_group);
         foreach ($f_product as $key) {
             $product = $this->model_product->group_product_random($key->id)->result();

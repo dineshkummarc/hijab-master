@@ -20,73 +20,44 @@
         <section>
   <div class="container">
     <div class="grid-custom">
+      <?php $no=1; foreach($category as $data_row) {
+        if($no == 1) { ?>
       <div class="col-md-6 grid no-padding-left">
-        <div class="grid-large" style="background: url('assets/frontend_assets/img/grid1.jpg') center center; background-size: cover">
+        <div class="grid-large" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center center; background-size: cover">
           <div class="caption-right">
-            <div class="caption-grid">top</div>
+            <div class="caption-grid"><?php echo $data_row->name ?></div>
           </div>
         </div>
       </div>
+        <?php } else if($no != 4) { ?>
 
       <div class="col-md-3 grid no-padding-right">
-        <div class="grid-small" style="background: url('assets/frontend_assets/img/grid1.jpg') center; background-size: cover">
+        <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center; background-size: cover">
           <div class="caption-left">
-            <div class="caption-grid">accessories</div>
+            <div class="caption-grid"><?php echo $data_row->name ?></div>
           </div>
         </div>
       </div>
-
-      <div class="col-md-3 grid no-padding-right">
-        <div class="grid-small" style="background: url('assets/frontend_assets/img/grid1.jpg') center; background-size: cover">
-          <div class="caption-left">
-            <div class="caption-grid">hijab</div>
-          </div>
-        </div>
-      </div>
+        <?php } else { ?>
 
       <div class="col-md-6 grid no-padding-right">
-        <div class="grid-small" style="background: url('assets/frontend_assets/img/grid1.jpg') center; background-size: cover">
+        <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->landscape_image ?>') center; background-size: cover">
           <div class="caption-right">
-            <div class="caption-grid">look book</div>
+            <div class="caption-grid"><?php echo $data_row->name ?></div>
           </div>
         </div>
       </div>
-
+        <?php }$no++;} ?>
+       <?php foreach($editor_pick as $data_row) { ?>
        <div class="col-md-6 grid no-padding-left">
-        <div class="grid-large" style="background: url('assets/frontend_assets/img/grid1.jpg') center; background-size: cover">
+        <div class="grid-large" style="background: url('<?php echo "assets/uploads/editor_picks/".$data_row->id."/".$data_row->image ?>') center; background-size: cover">
         </div>
         <div class="caption-grid-bottom">
-          <h4><b>The Ultimate Gift Guide</b></h4>
+          <h4><b><?php echo $data_row->name ?></b></h4>
           <a href="#" class="link-shop">shop now</a>
         </div>
       </div>
-
-       <div class="col-md-6 grid no-padding-right">
-        <div class="grid-large" style="background: url('assets/frontend_assets/img/grid1.jpg') center; background-size: cover">
-        </div>
-        <div class="caption-grid-bottom">
-          <h4><b>Lorem Ipsum Dolor Amet</b></h4>
-          <a href="#" class="link-shop">shop now</a>
-        </div>
-      </div>
-
-       <div class="col-md-6 grid no-padding-left">
-        <div class="grid-large" style="background: url('assets/frontend_assets/img/grid1.jpg') center; background-size: cover">
-        </div>
-        <div class="caption-grid-bottom">
-          <h4><b>The Ultimate Gift Guide</b></h4>
-          <a href="#" class="link-shop">shop now</a>
-        </div>
-      </div>
-
-       <div class="col-md-6 grid no-padding-right">
-        <div class="grid-large" style="background: url('assets/frontend_assets/img/grid1.jpg') center; background-size: cover">
-        </div>
-        <div class="caption-grid-bottom">
-          <h4><b>The Ultimate Gift Guide</b></h4>
-          <a href="#" class="link-shop">shop now</a>
-        </div>
-      </div>
+       <?php } ?>
     </div>
   </div>
 </section>

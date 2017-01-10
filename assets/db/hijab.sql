@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2017 at 10:45 AM
+-- Generation Time: Jan 10, 2017 at 07:25 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -196,14 +196,10 @@ CREATE TABLE `px_category` (
 --
 
 INSERT INTO `px_category` (`id`, `name`, `potrait_image`, `landscape_image`, `delete_flag`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(1, 'Baju', '', '', 0, 7, '2016-11-03 16:29:21', 7, '2016-11-03 16:29:21'),
-(2, 'Celana', '', '', 0, 7, '2016-11-08 17:34:52', 7, '2016-11-08 17:34:52'),
-(3, 'Hijab', '', '', 0, 7, '2016-11-08 17:34:59', 7, '2016-11-08 17:34:59'),
-(4, 'Scraf', '', '', 0, 7, '2016-12-19 23:39:02', 7, '2016-12-19 23:39:02'),
-(5, 'Gamis', '', '', 0, 7, '2016-12-19 23:39:13', 7, '2016-12-19 23:39:13'),
-(6, 'Bergo', '', '', 0, 7, '2016-12-19 23:39:22', 7, '2016-12-19 23:39:22'),
-(7, 'Khimar', '', '', 0, 7, '2016-12-19 23:39:33', 7, '2016-12-19 23:39:33'),
-(8, 'Tunik', '', '', 0, 7, '2016-12-19 23:39:43', 7, '2016-12-19 23:39:43');
+(3, 'Hijab', '58751e561b12c-hijab.jpg', '58751e4c78b90-hijab.jpg', 0, 7, '2016-11-08 17:34:59', 7, '2016-11-08 17:34:59'),
+(8, 'Tunic', '58751eade0094-hijab.jpg', '58751ea38f8ed-hijab.jpg', 0, 7, '2016-12-19 23:39:43', 7, '2017-01-11 00:49:03'),
+(9, 'Blouse', '58751e0790e34-hijab.jpg', '58751dfb471ae-hijab.jpg', 0, 7, '2017-01-11 00:36:30', 7, '2017-01-11 00:36:30'),
+(10, 'Pants', '58751e7feeb7d-hijab.jpg', '58751e7693e8d-hijab.jpg', 0, 7, '2017-01-11 00:48:22', 7, '2017-01-11 00:48:22');
 
 -- --------------------------------------------------------
 
@@ -310,7 +306,9 @@ CREATE TABLE `px_customer_shipping_address` (
 INSERT INTO `px_customer_shipping_address` (`id`, `customer_id`, `receiver_name`, `title`, `address`, `province`, `city`, `region`, `postal_code`, `phone`, `is_deleted`) VALUES
 (5, 9, 'Edo Apriyadi', 'Home', 'Jl. Muara Gg PD Hasan no 186 Bogor Timur', 9, 79, 1065, 12127, '081290847470', 0),
 (6, 9, 'Edo Apriyadi', 'Office', 'Jl. Bangka Raya No 31A Pela Mampang', 6, 153, 2107, 12125, '081290847470', 0),
-(7, 10, 'Edo Apriyadi', 'Home', 'Jl. Blabla', 9, 79, 1065, 12127, '081290847470', 0);
+(7, 10, 'Edo Apriyadi', 'Home', 'Jl. Blabla', 9, 79, 1065, 12127, '081290847470', 0),
+(8, 9, 'Apriyadi Edo', 'New Address', 'Apartemen', 9, 79, 1063, 12720, '081290847470', 0),
+(9, 9, 'Apriyadi Edo', 'New Address', 'Apartemen', 6, 153, 2107, 12720, '081290847470', 0);
 
 -- --------------------------------------------------------
 
@@ -329,8 +327,10 @@ CREATE TABLE `px_editor_picks` (
 --
 
 INSERT INTO `px_editor_picks` (`id`, `name`, `image`) VALUES
-(1, 'Natal', ''),
-(2, 'Tahun Baru', '');
+(1, 'Casual and Street Style', '58751ad99fc31-hijab.jpg'),
+(2, 'Party Outfit', '58751b08860f4-hijab.jpg'),
+(3, 'Travelling Style', '58751b54b6b2d-hijab.jpg'),
+(4, 'Work Outfit', '58751b6737c3f-hijab.jpg');
 
 -- --------------------------------------------------------
 
@@ -1131,7 +1131,11 @@ INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `invoice_number`
 (1, 9, 5, 'HIJAB070120170001', 176000, 9000, 0, 185000, 3, '2017-01-07 17:00:00', '2017-01-07 17:00:00'),
 (2, 9, 5, 'HDINV20170109000001', 300000, 0, 466, 466, 1, '2017-01-09 00:16:21', '2017-01-09 00:16:21'),
 (3, 9, 5, 'HDINV20170109000002', 228000, 27000, 811, 255811, 1, '2017-01-09 00:17:45', '2017-01-09 00:17:45'),
-(4, 9, 5, 'HDINV20170109000003', 76000, 9000, 666, 85666, 3, '2017-01-09 00:32:43', '2017-01-09 00:32:43');
+(4, 9, 5, 'HDINV20170109000003', 76000, 9000, 666, 85666, 3, '2017-01-09 00:32:43', '2017-01-09 00:32:43'),
+(5, 9, 8, 'HDINV20170110000001', 76000, 0, 547, 547, 1, '2017-01-10 21:53:04', '2017-01-10 21:53:04'),
+(6, 9, 8, 'HDINV20170110000002', 76000, 0, 392, 392, 1, '2017-01-10 22:04:30', '2017-01-10 22:04:30'),
+(7, 9, 9, 'HDINV20170110000003', 76000, 0, 337, 337, 1, '2017-01-10 23:15:51', '2017-01-10 23:15:51'),
+(8, 10, 7, 'HDINV20170110000004', 228000, 0, 645, 645, 1, '2017-01-10 23:17:41', '2017-01-10 23:17:41');
 
 -- --------------------------------------------------------
 
@@ -1188,8 +1192,10 @@ CREATE TABLE `px_product` (
 --
 
 INSERT INTO `px_product` (`id`, `category_id`, `brand_id`, `name_product`, `price`, `discount`, `description`, `weight`, `barcode`, `show_flag`, `delete_flag`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(33, 4, 6, 'Scarf Elzatta Kaila Lamarsya', 76000, 0, '<p><span style="font-weight: bold;">Scarf Elzatta Kaila Lamarsya</span><br></p><p><br></p><p>Jilbab segi empat yang baru dirilis oleh <span style="font-weight: bold;">elzatta </span>katalog terbaru katalog 3 2016 yaitu model kaila lamarsya. </p><p><span style="font-weight: bold;">Scarf Elzatta Kaila Lamarsya</span> merupakan kerudung segi empat memiliki tema <span style="font-weight: bold;">grunge &nbsp;</span>dengan &nbsp;<span style="font-weight: bold;">motif bunga yang cantik</span>, terbuat dari bahan katun paris (<span style="font-weight: bold;">polyspun</span>) khas elzatta yang <span style="font-weight: bold;">nyaman </span>dipakai.</p><p><br></p><p>Kerudung segi 4 seperti ini sangat <span style="font-weight: bold;">diminati </span>oleh para <span style="font-weight: bold;">hijabers </span>yang <span style="font-weight: bold;">hoby berkreasi</span> membentuk kerudung dalam berbagai gaya baik klasik ataupun modern sehingga terlihat sangat <span style="font-weight: bold;">fashionable</span>.</p>', 1, '234243242', 1, 0, 7, '2016-12-20 15:39:21', 7, '2017-01-01 19:03:22'),
-(34, 3, 4, 'Test Product 11', 100000, 0, '<p>Test123<br></p>', 100, '123456666', 1, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-09 00:10:12');
+(33, 9, 6, 'Blue Blouse', 76000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm</p><p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', 1, '234243242', 1, 0, 7, '2016-12-20 15:39:21', 7, '2017-01-11 01:10:57'),
+(34, 9, 4, 'Olive Top', 100000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', 100, '123456666', 1, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-11 01:13:31'),
+(35, 10, 1, 'Indij Black Long Kimono', 200000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', 100, '123123', 1, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(36, 3, 3, 'Indij Cream Layered Tunic', 300000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', 100, '1231231', 1, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16');
 
 -- --------------------------------------------------------
 
@@ -1208,9 +1214,20 @@ CREATE TABLE `px_product_editor_picks` (
 --
 
 INSERT INTO `px_product_editor_picks` (`id`, `product_id`, `editor_picks_id`) VALUES
-(72, 33, 2),
-(79, 34, 1),
-(80, 34, 2);
+(87, 33, 1),
+(88, 33, 2),
+(89, 33, 3),
+(90, 33, 4),
+(91, 34, 1),
+(92, 34, 2),
+(93, 35, 1),
+(94, 35, 2),
+(95, 35, 3),
+(96, 35, 4),
+(97, 36, 1),
+(98, 36, 2),
+(99, 36, 3),
+(100, 36, 4);
 
 -- --------------------------------------------------------
 
@@ -1229,8 +1246,10 @@ CREATE TABLE `px_product_group` (
 --
 
 INSERT INTO `px_product_group` (`id`, `product_id`, `group_id`) VALUES
-(13, 33, 2),
-(17, 34, 2);
+(20, 33, 2),
+(21, 34, 2),
+(22, 35, 2),
+(23, 36, 2);
 
 -- --------------------------------------------------------
 
@@ -1254,9 +1273,10 @@ CREATE TABLE `px_product_image` (
 --
 
 INSERT INTO `px_product_image` (`id`, `product_id`, `photo`, `primary_status`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(17, 33, '587362c6ef908-product.jpg', 1, 7, '2016-12-20 15:39:45', 7, '2017-01-09 17:15:34'),
-(19, 34, '587362df08422-product.jpg', 0, 7, '2017-01-08 23:56:17', 7, '2017-01-09 17:15:59'),
-(20, 33, '587361eae3211-product.jpg', 0, 7, '2017-01-09 17:11:54', 7, '2017-01-09 17:11:54');
+(17, 33, '587523cac5b1d-product.jpg', 1, 7, '2016-12-20 15:39:45', 7, '2017-01-11 01:11:22'),
+(19, 34, '5875245f348ec-product.jpg', 1, 7, '2017-01-08 23:56:17', 7, '2017-01-11 01:13:51'),
+(21, 35, '587524c3901ee-product.jpg', 1, 7, '2017-01-11 01:15:31', 7, '2017-01-11 01:15:31'),
+(22, 36, '587524dae6a67-product.jpg', 0, 7, '2017-01-11 01:15:54', 7, '2017-01-11 01:15:54');
 
 -- --------------------------------------------------------
 
@@ -1283,7 +1303,9 @@ INSERT INTO `px_product_order` (`id`, `product_id`, `order_id`, `size_id`, `colo
 (1, 33, 1, 1, 1, 105, 76000, 1),
 (2, 34, 1, 2, 2, 124, 100000, 1),
 (3, 33, 3, 1, 1, 105, 76000, 3),
-(4, 33, 4, 4, 2, 114, 76000, 1);
+(4, 33, 4, 4, 2, 114, 76000, 1),
+(5, 33, 7, 4, 2, 114, 76000, 1),
+(6, 33, 8, 2, 1, 109, 76000, 3);
 
 -- --------------------------------------------------------
 
@@ -1310,18 +1332,34 @@ CREATE TABLE `px_product_stock` (
 INSERT INTO `px_product_stock` (`id`, `product_id`, `color_id`, `size_id`, `stock`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
 (105, 33, 1, 1, 9, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
 (106, 33, 2, 1, 100, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
-(109, 33, 1, 2, 20, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(109, 33, 1, 2, 17, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (110, 33, 2, 2, 3, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (111, 33, 1, 3, 50, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (112, 33, 2, 3, 20, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (113, 33, 1, 4, 10, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(114, 33, 2, 4, 8, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(114, 33, 2, 4, 7, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (115, 34, 1, 1, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
 (117, 34, 1, 2, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
 (121, 34, 1, 4, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
 (123, 34, 2, 1, 0, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
 (124, 34, 2, 2, 1, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
-(125, 34, 2, 4, 0, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25');
+(125, 34, 2, 4, 0, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
+(126, 35, 1, 1, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(127, 35, 2, 1, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(128, 35, 1, 2, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(129, 35, 2, 2, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(130, 35, 1, 3, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(131, 35, 2, 3, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(132, 35, 1, 4, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(133, 35, 2, 4, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(134, 36, 1, 1, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(135, 36, 2, 1, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(136, 36, 1, 2, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(137, 36, 2, 2, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(138, 36, 1, 3, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(139, 36, 2, 3, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(140, 36, 1, 4, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(141, 36, 2, 4, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16');
 
 -- --------------------------------------------------------
 
@@ -9081,7 +9119,9 @@ INSERT INTO `px_tracking_system` (`id`, `order_id`, `status_id`, `title`, `conte
 (10, 1, 2, 'Order Paid', 'Pembayaran Telah Diterima, Order Siap Dikirim', '2017-01-08 01:52:29'),
 (11, 1, 3, 'Order Shipped', 'Order Telah Dikirim ke Customer, Nomor Resi : 123123123123', '2017-01-08 01:53:41'),
 (12, 4, 2, 'Order Paid', 'Pembayaran Telah Diterima, Order Siap Dikirim', '2017-01-09 15:34:28'),
-(13, 4, 3, 'Order Shipped', 'Order Telah Dikirim ke Customer, Nomor Resi : 67rufjgut6867', '2017-01-09 15:34:38');
+(13, 4, 3, 'Order Shipped', 'Order Telah Dikirim ke Customer, Nomor Resi : 67rufjgut6867', '2017-01-09 15:34:38'),
+(14, 7, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-10 23:15:51'),
+(15, 8, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-10 23:17:42');
 
 -- --------------------------------------------------------
 
@@ -9218,6 +9258,13 @@ CREATE TABLE `px_voucher` (
   `status` tinyint(1) DEFAULT NULL,
   `delete_flag` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `px_voucher`
+--
+
+INSERT INTO `px_voucher` (`id`, `voucher`, `date_start`, `date_end`, `date_created`, `status`, `delete_flag`) VALUES
+(4, 'BOGORKEREN2016', '2017-01-01 00:00:00', '2017-01-19 00:00:00', '2017-01-10 21:59:21', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -9546,7 +9593,7 @@ ALTER TABLE `px_cart`
 -- AUTO_INCREMENT for table `px_category`
 --
 ALTER TABLE `px_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_color`
 --
@@ -9566,12 +9613,12 @@ ALTER TABLE `px_customer_billing_address`
 -- AUTO_INCREMENT for table `px_customer_shipping_address`
 --
 ALTER TABLE `px_customer_shipping_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `px_editor_picks`
 --
 ALTER TABLE `px_editor_picks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `px_faq`
 --
@@ -9616,7 +9663,7 @@ ALTER TABLE `px_news`
 -- AUTO_INCREMENT for table `px_order`
 --
 ALTER TABLE `px_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `px_order_confirmation`
 --
@@ -9626,32 +9673,32 @@ ALTER TABLE `px_order_confirmation`
 -- AUTO_INCREMENT for table `px_product`
 --
 ALTER TABLE `px_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `px_product_editor_picks`
 --
 ALTER TABLE `px_product_editor_picks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `px_product_group`
 --
 ALTER TABLE `px_product_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `px_product_image`
 --
 ALTER TABLE `px_product_image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `px_product_order`
 --
 ALTER TABLE `px_product_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `px_product_stock`
 --
 ALTER TABLE `px_product_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 --
 -- AUTO_INCREMENT for table `px_shipping_city`
 --
@@ -9701,7 +9748,7 @@ ALTER TABLE `px_tracking_status`
 -- AUTO_INCREMENT for table `px_tracking_system`
 --
 ALTER TABLE `px_tracking_system`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `px_underconstruct_status`
 --
@@ -9726,7 +9773,7 @@ ALTER TABLE `px_usergroup`
 -- AUTO_INCREMENT for table `px_voucher`
 --
 ALTER TABLE `px_voucher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `px_wishlist`
 --

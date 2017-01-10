@@ -150,7 +150,7 @@ $(document).ready(function(){
             $('#original-image').Jcrop({
                 onChange: showPreview,
                 onSelect: showPreview,
-                aspectRatio: 1 / 1.51,
+                aspectRatio: 1.171 / 1,
                 setSelect:  [ 0, 12, 569, 227.6 ]
             });
         }).on('fileuploadfail', function (e, data) {
@@ -166,7 +166,7 @@ $(document).ready(function(){
         $('#original-image').Jcrop({
             onChange: showPreview,
             onSelect: showPreview,
-            aspectRatio: 1 / 1.51
+            aspectRatio: 1.171 / 1
         });
     });
     function origImageVal(){
@@ -186,8 +186,8 @@ $(document).ready(function(){
         var imgheight = $('#original-image').height();
         $('#fakeheight').val(imgheight);
         $('#fakewidth').val(imgwidth);
-        var rx = 150 / coords.w;
-        var ry = 226 / coords.h;
+        var rx = 117.1 / coords.w;
+        var ry = 100 / coords.h;
 
         $('#crop-image').attr('src',image_asli).css({
             width: Math.round(rx * imgwidth) + 'px',
