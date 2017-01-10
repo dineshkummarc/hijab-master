@@ -50,6 +50,7 @@ class Login extends PX_Controller{
                                 'qty' => $d_cart['qty'],
                                 'customer_id' => $this->session->userdata('id'),
                                 'pict' => $d_cart['pict'],
+                                'product_id'  => $d_cart['product_id'],
                                 'n_size' => $d_cart['n_size'],
                                 'n_color' => $d_cart['n_color']
                             );
