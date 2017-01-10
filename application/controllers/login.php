@@ -39,26 +39,6 @@ class Login extends PX_Controller{
 	                    'validated' => true
 	                    );
       				$this->session->set_userdata($data);
-                    if($this->cart->contents()){
-                        $get_cart = $this->cart->contents();
-                        $this->cart->destroy();
-                        foreach ($get_cart as $d_cart){
-                            $insert_data = array(
-                                'id' => $d_cart['id'],
-                                'name' => $d_cart['name'],
-                                'price' => $d_cart['price'],
-                                'qty' => $d_cart['qty'],
-                                'customer_id' => $this->session->userdata('id'),
-                                'pict' => $d_cart['pict'],
-                                'product_id'  => $d_cart['product_id'],
-                                'size' => $d_cart['size'],
-                                'color' => $d_cart['color'],
-                                'n_size' => $d_cart['n_size'],
-                                'n_color' => $d_cart['n_color']
-                            );
-                        }
-                        $this->cart->insert($insert_data);
-                    }
                  	redirect('dashboard');
       			}else{
       				$this->session->set_flashdata('msg','Password yang anda masukan salah');
