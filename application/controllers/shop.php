@@ -278,9 +278,9 @@ class Shop extends PX_Controller {
         $color = str_replace("&","",$color);
         $size = explode("size%5B%5D=", $size);
         $size = str_replace("&","",$size);
-        foreach ($size as $key => $value) {
-            echo $value;
-        }
+        // foreach ($size as $key => $value) {
+        //     echo $value;
+        // }
         $data='';
         $data['product']=$this->model_product->search_product($category,$brand,$color,$price,$size);
         // print_r($this->db->last_query());die();
