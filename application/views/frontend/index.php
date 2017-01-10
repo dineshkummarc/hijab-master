@@ -130,7 +130,7 @@
 												?>
 									<li>
 										<div class="cart-img">
-											<a href="#"><img src="assets/uploads/product/<?php echo $d_row['id'] ?>/<?php echo $d_row['pict'] ?>" alt="" /></a>
+											<a href="#"><img src="assets/uploads/product/<?php echo $d_row['product_id'] ?>/<?php echo $d_row['pict'] ?>" alt="" /></a>
 										</div>
 										<div class="cart-info">
 											<h5><a href="#"><?php echo $d_row['name'] ?></a></h5>

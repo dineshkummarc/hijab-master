@@ -32,7 +32,7 @@
 												if ($this->session->userdata('id') == $d_row['customer_id']) { ?>
 											<td class="product-Item">
 												<a href="#">
-													<img src="assets/uploads/product/<?php echo $d_row['id'] ?>/<?php echo $d_row['pict']?>" alt="" title="<?php echo $d_row['name'] ?>" />
+													<img src="assets/uploads/product/<?php echo $d_row['product_id'] ?>/<?php echo $d_row['pict']?>" alt="" title="<?php echo $d_row['name'] ?>" />
 												</a>												
 											</td>										
 											<td class="product-name">
