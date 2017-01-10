@@ -80,7 +80,28 @@ $("#region_ship").change(function (){
       
     });
 });
-
+$("#province").change(function (){
+    var id=$(this).val();
+      $.ajax({
+    url:"dashboard/kabupaten/" + id,
+    type: 'GET',
+    success: function(response) {
+     $('#kabupaten').html(response);
+    },
+    dataType: "json",
+  });
+});
+$("#kabupaten").change(function (){
+    var id=$(this).val();
+      $.ajax({
+    url:"dashboard/region/" + id,
+    type: 'GET',
+    success: function(response) {
+     $('#region').html(response);
+    },
+    dataType: "json",
+  });
+});
 })
 
 function idr(nStr)
