@@ -5,15 +5,16 @@ class Dashboard extends PX_Controller {
 		parent::__construct();
 
 		$this->controller_attr = array('controller' => 'dashboard','controller_name' => 'Dashboard');
-		if($this->session->userdata('validated')==FALSE){
+		if($this->session->userdata('member')['validated']===FALSE)
+		{
 			redirect('login');
 		}
-
-                $this->do_underconstruct();
+		$this->do_underconstruct();
 	}
 
 	public function index(){
-		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$this->session->userdata('id'))->num_rows();
+		$customer_id = $this->session->userdata('member')['id'];
+		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$customer_id)->num_rows();
 		if($user<=0){
 			redirect('dashboard/photo_profile');
 		}
@@ -31,13 +32,14 @@ class Dashboard extends PX_Controller {
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('Photo Profile','User');
-		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$this->session->userdata('id'))->num_rows();
+		$customer_id = $this->session->userdata('member')['id'];
+		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$customer_id)->num_rows();
 		if($user<=0){
 			$data['count_bil']=0;
 		}else{
 			$data['count_bil']=0;
 		}
-		$data['user'] = $this->model_basic->select_where('px_customer','id',$this->session->userdata('id'))->row();
+		$data['user'] = $this->model_basic->select_where('px_customer','id',$customer_id)->row();
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
@@ -45,15 +47,16 @@ class Dashboard extends PX_Controller {
 		$this->load->view('frontend/index',$data);
 	}
 	public function submit_photo(){
+		$customer_id = $this->session->userdata('member')['id'];
 		$attachment_file=$_FILES["photo"]["name"];
-        $output_dir = "assets/uploads/customer/".$this->session->userdata('id')."/";
+        $output_dir = "assets/uploads/customer/".$customer_id."/";
             $fileName = strtolower($_FILES["photo"]["name"]);
-            if (!file_exists("assets/uploads/customer/".$this->session->userdata('id'))) {
-    		mkdir("assets/uploads/customer/".$this->session->userdata('id'));
+            if (!file_exists("assets/uploads/customer/".$customer_id)) {
+    		mkdir("assets/uploads/customer/".$customer_id);
 			}
             move_uploaded_file($_FILES["photo"]["tmp_name"],$output_dir.$fileName);
             //echo "File uploaded successfully";
-            $new  = "assets/uploads/customer/".$this->session->userdata('id')."/".$fileName;
+            $new  = "assets/uploads/customer/".$customer_id."/".$fileName;
 			$this->load->library('image_lib');
 			if(file_exists(FCPATH."".$new)){
 			$config['image_library'] = 'gd2';
@@ -62,7 +65,7 @@ class Dashboard extends PX_Controller {
 			$config['maintain_ratio'] = TRUE;
 			$config['width']    = 250;
 			$config['height']   = 250;
-			$config['new_image'] = FCPATH."assets/uploads/customer/".$this->session->userdata('id')."/";
+			$config['new_image'] = FCPATH."assets/uploads/customer/".$customer_id."/";
 			$config['thumb_marker'] = '-customer-thumb';
 			$this->image_lib->initialize($config);
 			$this->image_lib->resize();
@@ -76,7 +79,7 @@ class Dashboard extends PX_Controller {
 			$data=array(
 				'photo'=> $fileName,
 				);
-			$update=$this->db->update($this->tbl_customer, $data, "id =".$this->session->userdata('id'));
+			$update=$this->db->update($this->tbl_customer, $data, "id =".$customer_id);
 			if($update){
 				redirect('dashboard/bil_address');
 			}else{
@@ -89,7 +92,8 @@ class Dashboard extends PX_Controller {
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('User Address Shipping','User');
-		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$this->session->userdata('id'))->num_rows();
+		$customer_id = $this->session->userdata('member')['id'];
+		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$customer_id)->num_rows();
 		if($user<=0){
 			$data['count_bil']=0;
 		}else{
@@ -106,9 +110,10 @@ class Dashboard extends PX_Controller {
 	}
 
 	public function register_biladdress(){
-		$user=$this->model_basic->select_where($this->tbl_customer,'id',$this->session->userdata('id'))->row();
+		$customer_id = $this->session->userdata('member')['id'];
+		$user=$this->model_basic->select_where($this->tbl_customer,'id',$customer_id)->row();
 		$data_bil=array(
-				"customer_id"=>$this->session->userdata('id'),
+				"customer_id"=>$customer_id,
 				"address"=>$this->input->post('address'),
 				"province"=>$this->input->post('province'),
 				"city"=>$this->input->post('city'),
@@ -120,7 +125,7 @@ class Dashboard extends PX_Controller {
 		$insert=$this->db->insert($this->tbl_customer_billing_address,$data_bil);
 		$data_ship=array(
 				"receiver_name"=>$user->nama_depan." ".$user->nama_belakang,
-				"customer_id"=>$this->session->userdata('id'),
+				"customer_id"=>$customer_id,
 				"address"=>$this->input->post('address'),
 				"province"=>$this->input->post('province'),
 				"city"=>$this->input->post('city'),
@@ -142,7 +147,8 @@ class Dashboard extends PX_Controller {
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('User Profile','User');
-		$data['user'] = $this->model_basic->select_where('px_customer','id',$this->session->userdata('id'))->row();
+		$customer_id = $this->session->userdata('member')['id'];
+		$data['user'] = $this->model_basic->select_where('px_customer','id',$customer_id)->row();
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
@@ -151,6 +157,7 @@ class Dashboard extends PX_Controller {
 	}
 
 	function editprofile(){
+		$customer_id = $this->session->userdata('member')['id'];
 		$data=array(
 			'nama_depan'=>$this->input->post('nama_depan'),
 			'nama_belakang'=>$this->input->post('nama_belakang'),
@@ -158,7 +165,7 @@ class Dashboard extends PX_Controller {
 			'email'=>$this->input->post('email'),
 			'date_modified'=>date('Y-m-d H:i:s',now()),
 			);
-		$query=$this->model_basic->update($this->tbl_customer,$data,'id',$this->session->userdata('id'));
+		$query=$this->model_basic->update($this->tbl_customer,$data,'id',$customer_id);
 		if($query){
 			$this->session->set_flashdata('notif','succsess');
 			$this->session->set_flashdata('msg','Berhasil, data akun anda telah berhasil di perbarui');
@@ -177,7 +184,9 @@ class Dashboard extends PX_Controller {
 		$data += $this->controller_attr;
 		$data += $this->get_function('Order History','User');
 
-		$data['order'] = $this->model_basic->select_where($this->tbl_order, 'customer_id', $this->session->userdata('id'))->result();
+		$customer_id = $this->session->userdata('member')['id'];
+
+		$data['order'] = $this->model_basic->select_where($this->tbl_order, 'customer_id', $customer_id)->result();
 
 		foreach ($data['order'] as $d_row) {
 			$d_row->date_created = "Tanggal : ".date('d M Y', strtotime($d_row->date_created)).' | Jam : '.date('H:i', strtotime($d_row->date_created));
@@ -198,7 +207,8 @@ class Dashboard extends PX_Controller {
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('User Change Password','User');
-		$data['user'] = $this->model_basic->select_where('px_customer','id',$this->session->userdata('id'))->row();
+		$customer_id = $this->session->userdata('member')['id'];
+		$data['user'] = $this->model_basic->select_where('px_customer','id',$customer_id)->row();
 		$data['user']->password = $this->encrypt->decode($data['user']->password);
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
@@ -211,8 +221,9 @@ class Dashboard extends PX_Controller {
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('User Address Shipping','User');
-		$data['user'] = $this->model_basic->select_where('px_customer','id',$this->session->userdata('id'))->row();
-		$data['useraddress'] = $this->model_basic->select_where('px_customer_billing_address','customer_id',$this->session->userdata('id'))->row();
+		$customer_id = $this->session->userdata('member')['id'];
+		$data['user'] = $this->model_basic->select_where('px_customer','id',$customer_id)->row();
+		$data['useraddress'] = $this->model_basic->select_where('px_customer_billing_address','customer_id',$customer_id)->row();
 		$data['province_list'] = $this->model_basic->select_all($this->tbl_shipping_province);
         $data['city_list'] = $this->model_basic->select_all($this->tbl_shipping_city);
         $data['region_list'] = $this->model_basic->select_all($this->tbl_shipping_region);
@@ -233,7 +244,7 @@ class Dashboard extends PX_Controller {
 			'postal_code'=>$this->input->post('postal_code'),
 			'phone' => $this->input->post('phone')
 			);
-		$query=$this->model_basic->update($this->tbl_customer_billing_address,$data,'customer_id',$this->session->userdata('id'));
+		$query=$this->model_basic->update($this->tbl_customer_billing_address,$data,'customer_id',$customer_id);
 		if($query){
 			$this->session->set_flashdata('notif','succsess');
 			$this->session->set_flashdata('msg','Berhasil, data alamat anda telah berhasil di perbarui');

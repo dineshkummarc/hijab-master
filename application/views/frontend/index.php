@@ -78,9 +78,9 @@
                                 <div class="header-account hidden-xs">
                                     <h3>My Account</h3>
                                     <ul>
-                                        <?php if ($this->session->userdata('validated')) { ?>
+                                        <?php if ($this->session->userdata('member')['validated']) { ?>
                                             <ul>
-                                                <li><a href="dashboard">Hello, <?php echo $this->session->userdata('nama_depan'); ?></a></li>
+                                                <li><a href="dashboard">Hello, <?php echo $this->session->userdata('member')['nama_depan']; ?></a></li>
                                                 <li><a href="#" >Profile</a></li>
                                                 <li><a href="#" >Order History</a></li>
                                                 <li><a href="#" >Change Password</a></li>
@@ -126,7 +126,7 @@
 										<h3><?php echo $this->cart->total_items(); ?> items in the shopping bag.</h3>
 									</li>
 										<?php foreach ($get_cart as $d_row){
-												if($this->session->userdata('id') == $d_row['customer_id']){
+												if($this->session->userdata('member')['id'] == $d_row['customer_id']){
 												?>
 									<li>
 										<div class="cart-img">

@@ -24,16 +24,18 @@ class Cart extends PX_Controller {
 	}
 
 	function checkout(){
-        if($this->session->userdata('validated')==FALSE){
+        if($this->session->userdata('member')['validated'] === FALSE)
+        {
             $this->session->set_flashdata('msg_check','Anda harus login atau register untuk melakukan step berikutnya.');
             redirect('login');
         }
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('cart','My Cart');
-        $data['user'] = $this->model_basic->select_where($this->tbl_customer, 'id', $this->session->userdata('id'))->row();
-        $data['useraddress'] = $this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$this->session->userdata('id'))->row();
-        $data['usershipping'] = $this->model_basic->select_where($this->tbl_shipping_address, 'customer_id', $this->session->userdata('id'))->result();
+        $customer_id = $this->session->userdata('member')['id'];
+        $data['user'] = $this->model_basic->select_where($this->tbl_customer, 'id', $customer_id)->row();
+        $data['useraddress'] = $this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$customer_id)->row();
+        $data['usershipping'] = $this->model_basic->select_where($this->tbl_shipping_address, 'customer_id', $customer_id)->result();
         $data['useraddress']->province = $this->model_basic->select_where($this->tbl_shipping_province, 'id', $data['useraddress']->province)->row();
         $data['useraddress']->city = $this->model_basic->select_where($this->tbl_shipping_city, 'id', $data['useraddress']->city)->row();
         $data['useraddress']->region = $this->model_basic->select_where($this->tbl_shipping_region, 'id', $data['useraddress']->region)->row();
@@ -52,7 +54,7 @@ class Cart extends PX_Controller {
     	$data = $this->get_app_settings();
         $data += $this->controller_attr;
         $data += $this->get_function('Shop','shop');
-
+        $customer_id = $this->session->userdata('member')['id'];
         $get_cart = $this->cart->contents();
 
         $no=0;
@@ -132,7 +134,7 @@ class Cart extends PX_Controller {
 
     function submit_order(){
         $invoice=$this->model_product->uniq_code();
-        $customer_id = $this->session->userdata('id');
+        $customer_id = $customer_id = $this->session->userdata('member')['id'];;
         $shipping_id = $this->input->post('shipping_id');
         if ($shipping_id == "") {
             $customer_phone = $this->model_basic->select_where($this->tbl_customer_billing_address, 'customer_id', $customer_id)->row()->phone;
@@ -153,7 +155,7 @@ class Cart extends PX_Controller {
         }
         $random_code=rand(100,999);
         $data_order=array(
-            'customer_id'=>$this->session->userdata('id'),
+            'customer_id'=>$customer_id,
             'ship_address_id'=>$shipping_id,
             'invoice_number'=>$invoice,
             'total_order'=>$this->cart->total(),
@@ -212,6 +214,7 @@ class Cart extends PX_Controller {
         if($invoice==null){
             redirect('login');
         }
+        $customer_id = $this->session->userdata('member')['id'];
         $data['invoice']=$this->model_basic->select_where($this->tbl_order,'invoice_number',$invoice)->row();
         $data['bil_address']=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$data['invoice']->customer_id)->row();
         $data['customer']=$this->model_basic->select_where($this->tbl_customer,'id',$data['invoice']->customer_id)->row();

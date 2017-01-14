@@ -18,7 +18,7 @@
 			<div class="col-md-12">
 			<div style="border:4px solid #e3e3e3; width:100%; padding: 10px;">
 				<div class="text-center col-md-2" style="border-bottom:2px solid #eeeeee; position: relative; float: none; margin:0 auto; margin-bottom: 10px;"><h3 class="h3-18">INVOICE</h3></div>
-				<div><h4 class="h3-18">Invoice Number : 372857325897</h4></div>
+				<div><h4 class="h3-18">Invoice Number : <?php echo $invoice->invoice_number ?></h4></div>
 				<div><h4 class="h3-18">Detail Address</h4></div>
 				<div>
 				<div class="col-md-6 address box">

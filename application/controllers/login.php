@@ -34,12 +34,12 @@ class Login extends PX_Controller{
       				$data = array(
       					'id' => $row->id,
       					'email' => $row->email,
-	                    'nama_depan'=>$row->nama_depan,
-	                    'nama_belakang'=>$row->nama_belakang,
-	                    'validated' => true
-	                    );
-      				$this->session->set_userdata($data);
-                 	redirect('dashboard');
+                'nama_depan'=>$row->nama_depan,
+                'nama_belakang'=>$row->nama_belakang,
+                'validated' => TRUE
+              );
+      				$this->session->set_userdata('member', $data);
+             	redirect('dashboard');
       			}else{
       				$this->session->set_flashdata('msg','Password yang anda masukan salah');
                 	$this->session->set_flashdata('email',$this->input->post('email'));
@@ -55,7 +55,7 @@ class Login extends PX_Controller{
 	}
 
 	function logout(){
-		$this->session->sess_destroy();
+		$this->session->unset_userdata('member');
 		redirect('login');
 	}
 }
