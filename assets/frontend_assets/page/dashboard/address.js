@@ -1,8 +1,8 @@
 $(document).ready(function(){
 $("#list_shipp").change(function (){
-    var id=$(this).val();
-      $.ajax({
-    url:"cart/address/" + id,
+    var id = $(this).val();
+  $.ajax({
+    url:"cart/get_shipping_address/" + id,
     type: 'GET',
     success: function(response) {
       document.getElementById("form-shiiping").className = "";
@@ -17,33 +17,51 @@ $("#list_shipp").change(function (){
         $( "#tot_price_text" ).html("Rp. "+ totprice);
         $( "#tot_price" ).val(response.tot_price);
         $('#province_ship option[value='+response.province+']').attr('selected','selected'); 
-         $('#city_ship').html("");
-        $('#city_ship')
-         .append($("<option></option>")
+        $('#city_ship').html("");
+        $('#city_ship').append($("<option></option>")
                     .attr("value",response.city)
                     .text(response.name_city)); 
          $('#region_ship').html("");
-         $('#region_ship')
-         .append($("<option></option>")
+         $('#region_ship').append($("<option></option>")
                     .attr("value",response.region)
                     .text(response.name_region)); 
+         $( '#btn-proceed' ).removeAttr( 'disabled' );
     },
     dataType: "json",
   });
 });
 
 $("#newshipping").click(function (){
-  document.getElementById("form-shiiping").className = "";
-      $( "#name_ship" ).val('');
-      $( "#tujuan_ship" ).val('');
-       $( "#postcode_ship" ).val('');
-       $( "#address_ship" ).val('');
+  $.ajax({
+    url:"cart/get_new_address",
+    type: 'GET',
+    dataType: "json",
+    success: function(response)
+    {
+      $( "#cost" ).val(0);
+      var cost = idr(0);
+      $( "#cost_text" ).html("Rp. "+ cost);
+      $( "#tot_price" ).val(response);
+      var totprice = idr(response);
+      $( "#tot_price_text" ).html("Rp. "+ totprice);
+      $("#list_shipp").val('0');
+      $("#name_ship").val('');
+      $("#tujuan_ship").val('');
+      $("#postcode_ship").val('');
+      $("#address_ship").val('');
+      $("#province_ship").val('0'); 
+      $('#city_ship').html('');
+      $('#region_ship').html('');
+      $( '#btn-proceed' ).removeAttr( 'disabled' );
+      document.getElementById("form-shiiping").className = "";
+    }
+  });
 });
 
 $("#province_ship").change(function (){
     var id=$(this).val();
       $.ajax({
-    url:"dashboard/kabupaten/" + id,
+    url:"dashboard/get_city/" + id,
     type: 'GET',
     success: function(response) {
      $('#city_ship').html(response);
@@ -54,7 +72,7 @@ $("#province_ship").change(function (){
 $("#city_ship").change(function (){
     var id=$(this).val();
       $.ajax({
-    url:"dashboard/region/" + id,
+    url:"dashboard/get_region/" + id,
     type: 'GET',
     success: function(response) {
      $('#region_ship').html(response);

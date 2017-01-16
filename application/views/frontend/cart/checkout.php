@@ -6,90 +6,11 @@
 					
 					</div>
 				</div>
-				
+				<form id="form-checkout" method="post" action="cart/submit_order" enctype="multipart/form-data>
 				<div class="billing-details">
 					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-6">
-							<h3 class="h3-18">Billing Details</h3>
-							<form action="cart/submit_order" method="post" class="biling-info">
-								
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>First Name <abbr class="required" title="required">*</abbr></label>
-										<input readonly type="text" name="firstname" value="<?php echo $user->nama_depan?>"/>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Last Name <abbr class="required" title="required">*</abbr></label>
-										<input readonly type="text" name="lastname" value="<?php echo $user->nama_belakang?>"/>
-									</div>
-								</div>
-								
-								<div class="col-sm-12">
-									<div class="input-box m-b-10">
-										<label>Address <abbr class="required" title="required">*</abbr></label>
-										<textarea readonly name="note" id="note" cols="5" rows="2" placeholder="Notes about your order, e.g. special notes for delivery."><?php echo $useraddress->address?></textarea>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Provice <abbr class="required" title="required">*</abbr></label>
-										<select name="province">
-											
-											<option value="<?php echo $useraddress->province->id ?>"><?php echo $useraddress->province->name ?></option>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>City <abbr class="required" title="required">*</abbr></label>
-										<select name="city">
-											<option value="<?php echo $useraddress->city->id ?>"><?php echo $useraddress->city->name ?></option>
-											
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Region <abbr class="required" title="required">*</abbr></label>
-										<select name="region">
-											<option value="<?php echo $useraddress->region->id ?>"><?php echo $useraddress->region->name?></option>
-											
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Postcode / Zip <abbr class="required" title="required">*</abbr></label>
-										<input  readonlytype="text" name="Postcode" placeholder="Postcode / Zip" value="<?php echo $useraddress->postal_code?>"/>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Email Address <abbr class="required" title="required">*</abbr></label>
-										<input readonly type="email" name="Email" value="<?php echo $user->email?>" />
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-box">
-										<label>Phone <abbr class="required" title="required">*</abbr></label>
-										<input readonly type="text" name="Phone " placeholder="Phone" value="<?php echo $useraddress->phone?>"/>
-									</div>
-								</div>
-								<div class="col-sm-12">
-									
-									<div class="input-box m-b-10">
-										<label>Billing Address<abbr class="required" title="required">*</abbr></label>
-										<textarea readonly name="billing-address" id="address" cols="5" rows="2" placeholder=""><?php  echo $useraddress->address ?></textarea>
-									</div>
-
-								</div>
-						</div>
-
 						<div class="col-md-6">
 							<div class="shiping-address">
-								
 									<div class="col-sm-12">
 									<h3 class="h3-18">Choose shipping address</h3>
 									</div>
@@ -99,7 +20,7 @@
 									<div class="">
 										<label>Shipping Address Title</label>
 										<select name="shipping_id" id="list_shipp" class="ship">
-										<option value="">Choose Adress</option>
+											<option value="0">Pilih Alamat</option>
 											<?php foreach ($usershipping as $d_row) { ?>
 											<option value="<?php echo $d_row->id?>"><?php echo $d_row->title?></option>
 											<?php } ?>
@@ -118,7 +39,6 @@
 									</div>
 
 									<div class="hide" id="form-shiiping">
-										
 										<div class="col-sm-12">
 											<div class="input-box">
 												<label>Reciever Name <abbr class="required" title="required">*</abbr></label>
@@ -136,7 +56,7 @@
 									<div class="input-box">
 										<label>Province <abbr class="required" title="required">*</abbr></label>
 										<select name="province_ship" id="province_ship" class="province">
-											<option value="">Pilih Provinsi</option>
+											<option value="0">Pilih Provinsi</option>
 											<?php if ($province_list) {
 												foreach ($province_list as $data) { ?>
 													<option value="<?php echo $data->id_province ?>"><?php echo $data->name ?></option>
@@ -193,15 +113,14 @@
 									<tbody>
 									<?php $get_checkout = $this->cart->contents();?>
 										<?php if (!empty($get_checkout)) { ?>
-											<?php foreach ($get_checkout as $checkout) { 
-												if ($this->session->userdata('id') == $checkout['customer_id']) { ?>
+											<?php foreach ($get_checkout as $checkout) {  ?>
 										<tr class="cart_item">										
 											<td class="product-name">
 												<?php echo $checkout['name']?> <strong class="product-quantity">× <?php echo $checkout['qty']?></strong>
 											</td>
-											<td class="product-total"><span class="p-price"><?php echo indonesian_currency($checkout['price'])?></span></td>										
+											<td class="product-total"><span class="p-price"><?php echo indonesian_currency($checkout['price'] * $checkout['qty'])?></span></td>										
 										</tr>
-									<?php }}}?>
+									<?php }}?>
 									</tbody>
 									<tfoot>
 										<tr class="cart-subtotal">
@@ -222,7 +141,7 @@
 									</tfoot>
 								</table>
 								<div class="payment-method">
-									<button class="btnb floatright" type="submit">Proceed</button>
+									<button id="btn-proceed" class="btnb floatright" type="submit" disabled="disabled">Proceed</button>
 								</div>
 							</div>
 						</div>
