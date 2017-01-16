@@ -36,6 +36,12 @@
                                 <input type="text" class="form-control" name="name" id="px-editor-form-name" value="<?php if ($data) echo $data->name; ?>" placeholder="Event">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-editor-form-name">URL</label>
+                            <div class="col-md-9 col-xs-12">
+                                <input type="text" class="form-control" name="url" id="px-editor-form-url" value="<?php if ($data) echo $data->url; ?>" placeholder="Url">
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-footer">          
                         <!-- <button class="btn btn-info btn-preview" type="button">Preview</button>                       -->
