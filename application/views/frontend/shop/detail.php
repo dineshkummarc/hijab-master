@@ -29,7 +29,7 @@
 					</div>	
 				</div>
 				<div class=" col-lg-7 col-md-7 col-sm-7">
-				<form method="post" action="shop/addToCart" enctype="multipart/form-data">
+				<form id="form-product-detail" method="post" action="cart/add_to_cart" enctype="multipart/form-data">
 					<div class="product-details pro-right fashion">
 						<h1><?php echo $detail->name_product?></h1>
 						<div class="price-star">

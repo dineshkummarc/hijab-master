@@ -389,6 +389,18 @@
                 newVal = 0;
             }
         }
+        var id = $button.parent().find("input").attr('data-id');
+        $.ajax({
+            url: 'cart/count_total_price',
+            type: 'POST',
+            dataType: 'json',
+            data: {'rowid' : id, 'qty': newVal},
+            success: function(response) {
+                console.log(response);
+                $( ".subtotal_"+id ).html(response.data['subtotal']);
+                $( ".grand-total" ).html(response.data['total_price']);
+            }
+        });
         $button.parent().find("input").val(newVal);
     });
     /*-----------------------

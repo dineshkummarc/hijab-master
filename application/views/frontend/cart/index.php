@@ -27,41 +27,41 @@
 									<tbody>
 										<tr>
 										<?php if (!empty($cart)) { ?>
-											<?php $no=0; foreach ($cart as $d_row) {
+											<?php $no=0; foreach ($cart as $item) {
 												$no++;
-												if ($this->session->userdata('id') == $d_row['customer_id']) { ?>
+												$item_option = $this->cart->product_options($item['rowid']); ?>
 											<td class="product-Item">
 												<a href="#">
-													<img src="assets/uploads/product/<?php echo $d_row['product_id'] ?>/<?php echo $d_row['pict']?>" alt="" title="<?php echo $d_row['name'] ?>" />
+													<img src="assets/uploads/product/<?php echo $item_option['product_id'] ?>/<?php echo $item_option['pict'] ?>" alt="" title="<?php echo $item['name'] ?>" />
 												</a>												
 											</td>										
 											<td class="product-name">
-												<h3><a href="#"><?php echo $d_row['name']?> </a></h3>
+												<h3><a href="#"><?php echo $item['name']?> </a></h3>
 												<div class="price-star">
 													<div class="rating">
-														<h4>Color <span><?php echo $d_row['n_color']; ?></span></h4>
+														<h4>Color <span><?php echo $item_option['n_color']; ?></span></h4>
 													</div>
 													<div class="rating">
-														<h4>Size <span><?php echo $d_row['n_size']; ?></span></h4>
+														<h4>Size <span><?php echo $item_option['n_size']; ?></span></h4>
 													</div>
 												</div>											
 											</td>
 											<td class="product-price">
-												<h4><?php echo indonesian_currency($d_row['price'])?></h4>							
+												<h4><?php echo indonesian_currency($item['price'])?></h4>							
 											</td>
 											<td class="product-quantity">
 												<div class="quantity cart-plus-minus">
-													<input class="text" type="text" name="qty[<?php echo $no ?>]" value="<?php echo $d_row['qty']?>">
+													<input class="text" type="text" name="qty[<?php echo $no ?>]" data-id="<?php echo $item['rowid'] ?>" value="<?php echo $item['qty']?>">
 												</div>												
 											</td>
 											<td class="product-subtotal">
-												<h4><?php echo indonesian_currency($d_row['price'] * $d_row['qty'])?></h4>
+												<h4><span class="subtotal_<?php echo $item['rowid']?>"><?php echo indonesian_currency($item['price'] * $item['qty'])?></span></h4>
 												<div class="sub-icon">
-													<a class="trash" href="shop/updateToCart/<?php echo $d_row['rowid'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+													<a class="trash" href="shop/updateToCart/<?php echo $item['rowid'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 												</div>												
 											</td>
 										</tr>
-										<?php }}}?>
+										<?php }}?>
 									</tbody>
 								</table>
 							</div>
@@ -75,13 +75,8 @@
 						<div class="continue-shp">
 							<a href="shop">continue shopping</a>
 						</div>
-						<div class="action continue-shp update-cart">
-						<button name="update" class="btn-update">UPDATE SHOPPING CART</button>
-							
-
-						</div>
 						<div class="continue-shp clear-cart">
-							<a href="cart/clearAllCart">clear shopping cart</a>
+							<a href="cart/clear_all_cart">clear shopping cart</a>
 						</div>
 					</div>
 				</div>
@@ -110,14 +105,10 @@
 					</div>
 				</div>
 				<div class="col-lg-5 col-md-5 col-sm-6 pull-right">
-					<div class="shipping-tax grand-total">
-						<div class="sub-price">
-							<h5>Subtotal</h5>
-							<h5 class="right"><?php echo indonesian_currency($this->cart->total()); ?></h5>
-						</div>
+					<div class="shipping-tax">
 						<div class="sub-price">
 							<h4>Grand Total</h4>
-							<h4 class="right"><?php echo indonesian_currency($this->cart->total()); ?></h4>
+							<h4 class="right"><span class="grand-total"><?php echo indonesian_currency($this->cart->total()); ?></span></h4>
 						</div>
 						<div class="check-link">
 							<a href="cart/checkout">proceed to checkout</a>

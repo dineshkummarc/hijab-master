@@ -125,23 +125,22 @@
 									<li>
 										<h3><?php echo $this->cart->total_items(); ?> items in the shopping bag.</h3>
 									</li>
-										<?php foreach ($get_cart as $d_row){
-												if($this->session->userdata('member')['id'] == $d_row['customer_id']){
-												?>
+										<?php foreach ($get_cart as $item) {
+										$item_option = $this->cart->product_options($item['rowid']); ?>
 									<li>
 										<div class="cart-img">
-											<a href="#"><img src="assets/uploads/product/<?php echo $d_row['product_id'] ?>/<?php echo $d_row['pict'] ?>" alt="" /></a>
+											<a href="#"><img src="assets/uploads/product/<?php echo $item_option['product_id'] ?>/<?php echo $item_option['pict'] ?>" alt="" /></a>
 										</div>
 										<div class="cart-info">
-											<h5><a href="#"><?php echo $d_row['name'] ?></a></h5>
-											<span><strong><?php echo $d_row['qty'] ?></strong> x <?php echo indonesian_currency( $d_row['price']) ?></span>
+											<h5><a href="#"><?php echo $item['name'] ?></a></h5>
+											<span><strong><?php echo $item['qty'] ?></strong> x <?php echo indonesian_currency( $item['price']) ?></span>
 										</div>
 										<div class="del-icon">
-											<a class="fa fa-trash-o" aria-hidden="true" href="shop/updateToCart/<?php echo $d_row['rowid'] ?>"></a>
+											<a class="fa fa-trash-o" aria-hidden="true" href="shop/updateToCart/<?php echo $item['rowid'] ?>"></a>
 										
 										</div>
 									</li>
-									<?php }}} ?>
+									<?php }} ?>
 									<li>
 										<div class="cart-total">
 											<h4>Cart Subtotal: <span><?php echo indonesian_currency($this->cart->total()); ?></span></h4>
@@ -397,9 +396,11 @@
         <script src="assets/frontend_assets/js/jquery.scrollUp.js"></script>
         <!-- plugins.js -->
         <script src="assets/frontend_assets/js/plugins.js"></script>
+        <script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script>
         <!-- main.js -->
         <script src="assets/frontend_assets/js/main.js"></script>
         <script src="assets/frontend_assets/page/dashboard/address.js"></script>
         <script src="assets/frontend_assets/page/shop/shop.js"></script>
+        <script src="assets/frontend_assets/page/shop/cart.js"></script>
     </body>
 </html>	 

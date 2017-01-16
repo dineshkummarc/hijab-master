@@ -257,21 +257,32 @@ class Dashboard extends PX_Controller {
 		}
 	}
 
-	public function kabupaten($id){
-		$kabupaten=$this->model_basic->select_where($this->tbl_shipping_city,'id_province',$id)->result();
-		$data="<option value=''>Pilih Kota</option>";
-		foreach ($kabupaten as $key) {
-			$data.="<option value='".$key->id."'>".$key->name."</option>";
+	public function get_city($id){
+		$data = "";
+		$kabupaten = $this->model_basic->select_where($this->tbl_shipping_city,'id_province',$id);
+		if ($kabupaten->num_rows() > 0) 
+		{
+			$data .= "<option value=''>Pilih Kota</option>";
+			foreach ($kabupaten->result as $key) 
+			{
+				$data.="<option value='".$key->id."'>".$key->name."</option>";
+			}
 		}
+		
 		echo json_encode($data);
 	}
 
-	public function region($id){
+	public function get_region($id){
+		$data = "";
 		$kabupaten=$this->model_basic->select_where($this->tbl_shipping_region,'id_city',$id)->result();
-		$data="<option value=''>Pilih Kecamatan</option>";
-		foreach ($kabupaten as $key) {
-			$data.="<option value='".$key->id."'>".$key->name."</option>";
+		if ($kabupaten->num_rows() > 0) 
+		{
+			$data .= "<option value=''>Pilih Kecamatan</option>";
+			foreach ($kabupaten as $key) {
+				$data .= "<option value='".$key->id."'>".$key->name."</option>";
+			}
 		}
+
 		echo json_encode($data);
 	}
 }
