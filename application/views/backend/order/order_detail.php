@@ -185,7 +185,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-heading">
+                            <!-- <div class="panel-heading">
                                 <h3>Billing Address</h3>
                             </div>
                             <div class="panel-body">
@@ -225,7 +225,7 @@
                                         <span class="form-control"><?php echo $customer->billing_address->postal_code ?></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </form>
                     </div>
                     <!-- TAB SHIPPING ADDRESS -->

@@ -118,9 +118,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 col-xs-12 control-label" for="#px-product-form-barcode">Barcode</label>
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-product-form-barcode">SKU Code</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="barcode" id="px-product-form-barcode" value="<?php if ($data) echo $data->barcode; ?>" placeholder="Barcode Barang">
+                                <input type="text" class="form-control" name="sku_code" id="px-product-form-sku_code" value="<?php if ($data) echo $data->sku_code; ?>" placeholder="SKU Code">
                             </div>
                         </div>
                         <div class="form-group">

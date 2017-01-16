@@ -37,12 +37,18 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label" for="#px-brand-form-title">Deskripsi</label>
+                            <div class="col-md-9 col-xs-12">
+                                <input type="text" class="form-control" name="description" id="px-brand-form-title" value="<?php if ($data) echo $data->description; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-md-2 col-xs-12 control-label" for="#px-brand-form-title">Diskon(%)</label>
                             <div class="col-md-1 col-xs-2">
                                 <input type="text" class="form-control" name="diskon" id="px-brand-form-title" value="<?php if ($data) echo number_format($data->diskon, 2);?>">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label class="col-md-2 col-xs-12 control-label">Foto Brand</label>
                             <div class="col-md-9 col-xs-12">
                                 <input type="hidden" name="old_photo" value="<?php if ($data) echo $data->photo; ?>">
@@ -68,7 +74,7 @@
                                     <img src="<?php echo $photo_file ?>" alt="photo" id="original-image"/>                                                                                                           
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="panel-footer">          
                         <!-- <button class="btn btn-info btn-preview" type="button">Preview</button>                       -->

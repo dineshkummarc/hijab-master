@@ -46,7 +46,7 @@
 								<td class="text-center">
 									<form action="<?php echo $controller.'/'.$function_form; ?>" method="post">
 										<input type="hidden" name="id" value="<?php echo $d_row->id; ?>">
-										<!-- <a href="<?php echo $controller.'/album_image_product/'.$d_row->id; ?>" data-original-title="Data Gambar Produk" data-placement="top" data-toggle="tooltip" class="btn btn-xs btn-primary"><i class="fa fa-image"></i></a> -->
+										<a href="<?=base_url('admin_product/brand_image/'.$d_row->id)?>"><button  class="btn btn-info btn-xs btn-img" type="button" data-original-title="Image" data-placement="top" data-toggle="tooltip"><i class="fa fa-image"></i></button></a>
 										<button class="btn btn-info btn-xs btn-edit" type="submit" data-original-title="Ubah" data-placement="top" data-toggle="tooltip"><i class="fa fa-edit"></i></button>
 								 		<button class="btn btn-danger btn-xs btn-delete" type="button" data-original-title="Hapus" data-placement="top" data-toggle="tooltip" data-target-id="<?php echo $d_row->id; ?>"><i class="fa fa-trash-o"></i></button>
 								 	</form>

@@ -741,34 +741,34 @@ class Admin_product extends PX_Controller {
         $data += $this->get_menu();
         $this->check_userakses($data['function_id'], ACT_CREATE);
         $table_field = $this->db->list_fields($this->tbl_brand);
-        $img_name_crop = uniqid() . '-brand.jpg';
+        // $img_name_crop = uniqid() . '-brand.jpg';
         $insert = array();
         foreach ($table_field as $field) {
             $insert[$field] = $this->input->post($field);
         }
         $insert['url'] = str_replace(' ', '', $this->input->post('name'));
-        $insert['photo'] = $img_name_crop;
+        // $insert['photo'] = $img_name_crop;
         $insert['id_created'] = $this->session->userdata('admin')['admin_id'];
         $insert['id_modified'] = $this->session->userdata('admin')['admin_id'];
         $insert['date_created'] = date('Y-m-d H:i:s', now());
         $insert['date_modified'] = date('Y-m-d H:i:s', now());
 
-        if ($insert['name'] && $insert['diskon']) {
+        if ($insert['name'] && $insert['diskon'] && $insert['description']) {
             $do_insert = $this->model_basic->insert_all($this->tbl_brand, $insert);
             if ($do_insert) {
-                if ($this->input->post('photo')) {
-                    if (!is_dir(FCPATH . 'assets/uploads/brand/' . $do_insert->id))
-                        mkdir(FCPATH . 'assets/uploads/brand/' . $do_insert->id);
-                    if (basename($this->input->post('photo')) && $this->input->post('photo') != null) {
-                        $src = $this->input->post('photo');
-                    }
-                    copy($src, 'assets/uploads/brand/' . $do_insert->id . '/' . $img_name_crop);
-                    $this->makeThumbnails('assets/uploads/brand/' . $do_insert->id . '/', $img_name_crop, 500, 300);
-                    $this->delete_temp('temp_folder');
-                    $this->returnJson(array('status' => 'ok', 'msg' => 'Input data success', 'redirect' => $data['controller'] . '/' . $data['function']));
-                } else {
-                    $this->returnJson(array('status' => 'ok', 'msg' => 'Input data success', 'redirect' => $data['controller'] . '/' . $data['function']));
-                }
+                // if ($this->input->post('photo')) {
+                //     if (!is_dir(FCPATH . 'assets/uploads/brand/' . $do_insert->id))
+                //         mkdir(FCPATH . 'assets/uploads/brand/' . $do_insert->id);
+                //     if (basename($this->input->post('photo')) && $this->input->post('photo') != null) {
+                //         $src = $this->input->post('photo');
+                //     }
+                //     copy($src, 'assets/uploads/brand/' . $do_insert->id . '/' . $img_name_crop);
+                //     $this->makeThumbnails('assets/uploads/brand/' . $do_insert->id . '/', $img_name_crop, 500, 300);
+                //     $this->delete_temp('temp_folder');
+                //     $this->returnJson(array('status' => 'ok', 'msg' => 'Input data success', 'redirect' => $data['controller'] . '/' . $data['function']));
+                // } else {
+                //     $this->returnJson(array('status' => 'ok', 'msg' => 'Input data success', 'redirect' => $data['controller'] . '/' . $data['function']));
+                // }
             } else
                 $this->returnJson(array('status' => 'error', 'msg' => 'Form jangan Kosong'));
         }
@@ -781,9 +781,9 @@ class Admin_product extends PX_Controller {
         $data += $this->get_menu();
         $this->check_userakses($data['function_id'], ACT_UPDATE);
 
-        $img_name_crop = uniqid() . '-brand.jpg';
-        $foto = $this->input->post('photo');
-        $old_foto = $this->input->post('old_photo');
+        // $img_name_crop = uniqid() . '-brand.jpg';
+        // $foto = $this->input->post('photo');
+        // $old_foto = $this->input->post('old_photo');
         $table_field = $this->db->list_fields($this->tbl_brand);
         $update = array();
         foreach ($table_field as $field) {
@@ -794,30 +794,30 @@ class Admin_product extends PX_Controller {
         unset($update['id_created']);
         $update['date_modified'] = date('Y-m-d H:i:s', now());
         $update['id_modified'] = $this->session_admin['admin_id'];
-        if (($foto && (basename($foto) != $old_foto)))
-            $update['photo'] = $img_name_crop;
-        else
-            $update['photo'] = $this->input->post('old_photo');
+        // if (($foto && (basename($foto) != $old_foto)))
+        //     $update['photo'] = $img_name_crop;
+        // else
+        //     $update['photo'] = $this->input->post('old_photo');
 
-        if ($update['name'] && $update['diskon']) {
+        if ($update['name'] && $update['diskon'] && $update['description']) {
             $do_update = $this->model_basic->update($this->tbl_brand, $update, 'id', $update['id']);
             if ($do_update) {
-                if (($foto && (basename($foto) != $old_foto))) {
-                    if (!is_dir(FCPATH . 'assets/uploads/brand/' . $update['id']))
-                        mkdir(FCPATH . 'assets/uploads/brand/' . $update['id']);
-                    if (basename($this->input->post('photo')) && $this->input->post('photo') != null) {
-                        $src = $this->input->post('photo');
-                    }
-                    if (copy($src, 'assets/uploads/brand/' . $update['id'] . '/' . $img_name_crop)) {
-                        $this->makeThumbnails('assets/uploads/brand/' . $update['id'] . '/', $img_name_crop, 500, 300);
-                        @unlink('assets/uploads/brand/' . $update['id'] . '/' . $this->input->post('old_photo'));
-                        @unlink('assets/uploads/brand/' . $update['id'] . '/thumb' . $this->input->post('old_photo'));
-                        $this->delete_temp('temp_folder');
-                    } else {
-                        $this->delete_folder('brand/' . $update['id']);
-                        $this->returnJson(array('status' => 'error', 'msg' => 'Upload Falied'));
-                    }
-                }
+                // if (($foto && (basename($foto) != $old_foto))) {
+                //     if (!is_dir(FCPATH . 'assets/uploads/brand/' . $update['id']))
+                //         mkdir(FCPATH . 'assets/uploads/brand/' . $update['id']);
+                //     if (basename($this->input->post('photo')) && $this->input->post('photo') != null) {
+                //         $src = $this->input->post('photo');
+                //     }
+                //     if (copy($src, 'assets/uploads/brand/' . $update['id'] . '/' . $img_name_crop)) {
+                //         $this->makeThumbnails('assets/uploads/brand/' . $update['id'] . '/', $img_name_crop, 500, 300);
+                //         @unlink('assets/uploads/brand/' . $update['id'] . '/' . $this->input->post('old_photo'));
+                //         @unlink('assets/uploads/brand/' . $update['id'] . '/thumb' . $this->input->post('old_photo'));
+                //         $this->delete_temp('temp_folder');
+                //     } else {
+                //         $this->delete_folder('brand/' . $update['id']);
+                //         $this->returnJson(array('status' => 'error', 'msg' => 'Upload Falied'));
+                //     }
+                // }
                 $this->returnJson(array('status' => 'ok', 'msg' => 'Update success', 'redirect' => $data['controller'] . '/' . $data['function']));
             } else
                 $this->returnJson(array('status' => 'error', 'msg' => 'Failed when updating data'));
@@ -860,6 +860,158 @@ class Admin_product extends PX_Controller {
             $this->returnJson(array('status' => 'failed', 'msg' => 'Delete failed'));
         }
     }
+
+    function brand_image($id){
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Brand Image', 'brand_image');
+        $data += $this->get_menu();
+        //$this->check_userakses($data['function_id'], ACT_CREATE);
+        $data['id'] = $id;
+        $data['name'] = $this->model_basic->select_where($this->tbl_brand,'id',$id)->row()->name;
+        $data['image'] = $this->model_basic->select_where($this->tbl_brand,'id',$id)->row()->photo;
+        $data['content'] = $this->load->view('backend/product/brand_image',$data,true);
+        $this->load->view('backend/index',$data);
+    }
+
+    function brand_image_add(){
+        $data = $this->controller_attr;
+        $data += $this->get_function('Brand Image', 'brand_image');
+        //$menu = $this->get_menu_id($data['function']);$this->userakses($menu->id, 2);
+        $id = $this->input->post('brandimage-id');
+        $img_name_crop = uniqid().'-hijab.jpg';
+        if($this->input->post('image')) {
+            $origw = $this->input->post('origwidth');
+            $origh = $this->input->post('origheight');
+            $fakew = $this->input->post('fakewidth');
+            $fakeh = $this->input->post('fakeheight');
+            $x = $this->input->post('x') * $origw / $fakew;
+            $y = $this->input->post('y') * $origh / $fakeh;
+            # ambil width crop
+            $targ_w = $this->input->post('w') * $origw / $fakew;
+            # ambil heigth crop
+            $targ_h = $this->input->post('h') * $origh / $fakeh;
+            # rasio gambar crop
+            $jpeg_quality = 100;
+            if(!is_dir(FCPATH . "assets/uploads/brand/"))
+                mkdir(FCPATH . "assets/uploads/brand/");
+            if(!is_dir(FCPATH . "assets/uploads/brand/".$id))
+                mkdir(FCPATH . "assets/uploads/brand/".$id);
+            if(basename($this->input->post('image')) && $this->input->post('image') != null){
+                $src = $this->input->post('image');
+            }
+            # inisial handle copy gambar
+            $ext = pathinfo($src, PATHINFO_EXTENSION);
+
+            if($ext == 'jpg' || $ext == 'jpeg' || $ext == 'JPG' || $ext == 'JPEG')
+                $img_r = imagecreatefromjpeg($src);
+            if($ext == 'png' || $ext == 'PNG')
+                $img_r = imagecreatefrompng($src);
+            if($ext == 'gif' || $ext == 'GIF')
+                $img_r = imagecreatefromgif($src);
+
+            $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+            # simpan hasil croping pada folder lain
+            $path_img_crop = realpath(FCPATH . "assets/uploads/brand/".$id);
+            # nama gambar yg di crop
+            # proses copy
+            imagecopyresampled($dst_r,$img_r,0,0,$x,$y,$targ_w,$targ_h,$targ_w,$targ_h);
+            # buat gambar
+            imagejpeg($dst_r,$path_img_crop .'/'. $img_name_crop,$jpeg_quality);
+            $this->makeThumbnails($path_img_crop.'/', $img_name_crop, 300, 453);
+            $this->delete_temp('temp_folder');
+            $insert = $this->db->where('id', $id)->update($this->tbl_brand, array('image'=>$img_name_crop));
+            if($insert)
+                $this->returnJson(array('status' => 'ok','message' => 'Insert Success','redirect' => $data['controller'].'/'.$data['function'].'/'.$id));
+            else
+                $this->returnJson(array('status'=>'error','message'=>'Insert Failed'));
+        }
+        else
+            $this->returnJson(array('status' => 'error','message' => 'Please Complete The Form'));
+    }
+
+    function brand_image_get(){
+        $id = $this->input->post('id');
+        $data = $this->controller_attr;
+        $data += $this->get_function('Brand Image','brand_image');
+        $data_get = $this->model_basic->select_where($this->tbl_brand,'id',$id)->row();
+        if($data_get){
+            $this->returnJson(array('status'=>'ok','data'=>$data_get));
+        }
+        else{
+            $this->returnJson(array('status'=>'error','message'=>'Data Not Found'));
+        }
+    }
+
+    function brand_image_edit(){
+        $data = $this->controller_attr;
+        $data += $this->get_function('Brand Image','brand_image');
+        //$menu = $this->get_menu_id($data['function']);$this->userakses($menu->id, 3);
+        $id = $this->input->post('brandimage-id');
+        $img_name_crop = uniqid().'-hijab.jpg';
+        $foto = $this->input->post('image');
+        $old_foto = $this->input->post('old_image');
+        $data_update = array(
+            'id' => $id
+            );
+        if($foto && (basename($foto) != $old_foto))
+            $data_update['filename'] = $img_name_crop;
+        else if($this->input->post('x') || $this->input->post('y') || $this->input->post('w') || $this->input->post('h'))
+            $data_update['filename'] = $img_name_crop;
+
+        if(!$this->db->where('id', $id)->update($this->tbl_brand, array('photo'=>$img_name_crop)))
+        {
+            $this->returnJson(array('status' => 'error', 'message' => 'Update Failed'));
+        }
+        else
+        {
+            if(($foto && (basename($foto) != $old_foto)) || ($this->input->post('x') || $this->input->post('y') || $this->input->post('w') || $this->input->post('h')))
+            {
+                $origw = $this->input->post('origwidth');
+                $origh = $this->input->post('origheight');
+                $fakew = $this->input->post('fakewidth');
+                $fakeh = $this->input->post('fakeheight');
+                $x = $this->input->post('x') * $origw / $fakew;
+                $y = $this->input->post('y') * $origh / $fakeh;
+                # ambil width crop
+                $targ_w = $this->input->post('w') * $origw / $fakew;
+                # abmil heigth crop
+                $targ_h = $this->input->post('h') * $origh / $fakeh;
+                # rasio gambar crop
+                $jpeg_quality = 90;
+                if(!is_dir(FCPATH . "assets/uploads/brand/".$id))
+                    mkdir(FCPATH . "assets/uploads/brand/".$id);
+                if(basename($foto) && $foto != null){
+                    $src = $this->input->post('image');
+                }
+                else if($this->input->post('x')||$this->input->post('y')||$this->input->post('w')||$this->input->post('h'))
+                    $src = "assets/uploads/brand/".$id.'/'.$old_foto;
+                # inisial handle copy gambar
+                $ext = pathinfo($src, PATHINFO_EXTENSION);
+
+                if($ext == 'jpg' || $ext == 'jpeg' || $ext == 'JPG' || $ext == 'JPEG')
+                    $img_r = imagecreatefromjpeg($src);
+                if($ext == 'png' || $ext == 'PNG')
+                    $img_r = imagecreatefrompng($src);
+                if($ext == 'gif' || $ext == 'GIF')
+                    $img_r = imagecreatefromgif($src);
+
+                $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+                # simpan hasil croping pada folder lain
+                $path_img_crop = realpath(FCPATH . "assets/uploads/brand/".$id);
+                # nama gambar yg di crop
+                # proses copy
+                imagecopyresampled($dst_r,$img_r,0,0,$x,$y,$targ_w,$targ_h,$targ_w,$targ_h);
+                # buat gambar
+                imagejpeg($dst_r,$path_img_crop .'/'. $img_name_crop,$jpeg_quality);
+                $this->makeThumbnails($path_img_crop.'/', $img_name_crop, 300, 454);
+                @unlink(FCPATH."assets/uploads/category/".$id.'/'.$old_foto);
+                $this->delete_temp('temp_folder');
+            }
+            $this->returnJson(array('status' => 'ok', 'message' => 'Update Success','redirect' => $this->controller_attr['controller'].'/'.$data['function'].'/'.$id));
+        }
+    }
+
 
     public function image() {
         $data = $this->get_app_settings();

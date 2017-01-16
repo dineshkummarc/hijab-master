@@ -77,24 +77,24 @@ class Admin_customer extends PX_Controller {
         if ($insert['email'] && ($this->input->post('password') == $this->input->post('password_confirm'))) {
             $this->db->trans_begin();
             $do_insert = $this->model_basic->insert_all($this->tbl_customer, $insert);
-            $table_field_billing = $this->db->list_fields($this->tbl_customer_billing_address);
-            foreach ($table_field_billing as $field) {
-                $insert_billing[$field] = $this->input->post($field);
-            }
-            $insert_billing['customer_id'] = $do_insert->id;
-            $this->model_basic->insert_all($this->tbl_customer_billing_address,$insert_billing);
-            $insert_billing['receiver_name'] = $insert['nama_depan'].' '.$insert['nama_belakang'];
-            $this->model_basic->insert_all($this->tbl_shipping_address, $insert_billing);
-            if ($this->input->post('photo')) {
-                if (!is_dir(FCPATH . 'assets/uploads/customer/' . $do_insert->id))
-                    mkdir(FCPATH . 'assets/uploads/customer/' . $do_insert->id);
-                if (basename($this->input->post('photo')) && $this->input->post('photo') != null) {
-                    $src = $this->input->post('photo');
-                }
-                copy($src, 'assets/uploads/customer/' . $do_insert->id . '/' . $img_name_crop);
-                $this->makeThumbnails('assets/uploads/customer/' . $do_insert->id . '/', $img_name_crop, 500, 300);
-                $this->delete_temp('temp_folder');   
-            }
+            // $table_field_billing = $this->db->list_fields($this->tbl_customer_billing_address);
+            // foreach ($table_field_billing as $field) {
+            //     $insert_billing[$field] = $this->input->post($field);
+            // }
+            // $insert_billing['customer_id'] = $do_insert->id;
+            // $this->model_basic->insert_all($this->tbl_customer_billing_address,$insert_billing);
+            // $insert_billing['receiver_name'] = $insert['nama_depan'].' '.$insert['nama_belakang'];
+            // $this->model_basic->insert_all($this->tbl_shipping_address, $insert_billing);
+            // if ($this->input->post('photo')) {
+            //     if (!is_dir(FCPATH . 'assets/uploads/customer/' . $do_insert->id))
+            //         mkdir(FCPATH . 'assets/uploads/customer/' . $do_insert->id);
+            //     if (basename($this->input->post('photo')) && $this->input->post('photo') != null) {
+            //         $src = $this->input->post('photo');
+            //     }
+            //     copy($src, 'assets/uploads/customer/' . $do_insert->id . '/' . $img_name_crop);
+            //     $this->makeThumbnails('assets/uploads/customer/' . $do_insert->id . '/', $img_name_crop, 500, 300);
+            //     $this->delete_temp('temp_folder');   
+            // }
             if($this->db->trans_status() == TRUE)
             {
                 $this->db->trans_commit();
@@ -119,9 +119,9 @@ class Admin_customer extends PX_Controller {
         $data += $this->get_menu();
         $this->check_userakses($data['function_id'], ACT_UPDATE);
 
-        $img_name_crop = uniqid() . '-customer.jpg';
-        $foto = $this->input->post('photo');
-        $old_foto = $this->input->post('old_photo');
+        // $img_name_crop = uniqid() . '-customer.jpg';
+        // $foto = $this->input->post('photo');
+        // $old_foto = $this->input->post('old_photo');
         $table_field = $this->db->list_fields($this->tbl_customer);
         $update = array();
         foreach ($table_field as $field) {
@@ -130,36 +130,36 @@ class Admin_customer extends PX_Controller {
         $update['password'] = $this->encrypt->encode($update['password']);
         unset($update['date_created']);
         $update['date_modified'] = date('Y-m-d H:i:s', now());
-        if (($foto && (basename($foto) != $old_foto)))
-            $update['photo'] = $img_name_crop;
-        else
-            $update['photo'] = $this->input->post('old_photo');
+        // if (($foto && (basename($foto) != $old_foto)))
+        //     $update['photo'] = $img_name_crop;
+        // else
+        //     $update['photo'] = $this->input->post('old_photo');
 
         if ($update['email'] && ($this->input->post('password') == $this->input->post('password_confirm'))) {
             $this->db->trans_begin();
             $this->model_basic->update($this->tbl_customer, $update, 'id', $update['id']);
-            $table_field_billing = $this->db->list_fields($this->tbl_customer_billing_address);
-            foreach ($table_field_billing as $field) {
-                $update_billing[$field] = $this->input->post($field);
-            }
-            unset($update_billing['customer_id']);
-            $this->model_basic->update($this->tbl_customer_billing_address,$update_billing, 'customer_id', $update['id']);
-                if (($foto && (basename($foto) != $old_foto))) {
-                    if (!is_dir(FCPATH . 'assets/uploads/customer/' . $update['id']))
-                        mkdir(FCPATH . 'assets/uploads/customer/' . $update['id']);
-                    if (basename($this->input->post('photo')) && $this->input->post('photo') != null) {
-                        $src = $this->input->post('photo');
-                    }
-                    if (copy($src, 'assets/uploads/customer/' . $update['id'] . '/' . $img_name_crop)) {
-                        $this->makeThumbnails('assets/uploads/customer/' . $update['id'] . '/', $img_name_crop, 500, 300);
-                        @unlink('assets/uploads/customer/' . $update['id'] . '/' . $this->input->post('old_photo'));
-                        @unlink('assets/uploads/customer/' . $update['id'] . '/thumb' . $this->input->post('old_photo'));
-                        $this->delete_temp('temp_folder');
-                    } else {
-                        $this->delete_folder('customer/' . $update['id']);
-                        $this->returnJson(array('status' => 'error', 'msg' => 'Upload Falied'));
-                    }
-                }
+            // $table_field_billing = $this->db->list_fields($this->tbl_customer_billing_address);
+            // foreach ($table_field_billing as $field) {
+            //     $update_billing[$field] = $this->input->post($field);
+            // }
+            // unset($update_billing['customer_id']);
+            // $this->model_basic->update($this->tbl_customer_billing_address,$update_billing, 'customer_id', $update['id']);
+            //     if (($foto && (basename($foto) != $old_foto))) {
+            //         if (!is_dir(FCPATH . 'assets/uploads/customer/' . $update['id']))
+            //             mkdir(FCPATH . 'assets/uploads/customer/' . $update['id']);
+            //         if (basename($this->input->post('photo')) && $this->input->post('photo') != null) {
+            //             $src = $this->input->post('photo');
+            //         }
+            //         if (copy($src, 'assets/uploads/customer/' . $update['id'] . '/' . $img_name_crop)) {
+            //             $this->makeThumbnails('assets/uploads/customer/' . $update['id'] . '/', $img_name_crop, 500, 300);
+            //             @unlink('assets/uploads/customer/' . $update['id'] . '/' . $this->input->post('old_photo'));
+            //             @unlink('assets/uploads/customer/' . $update['id'] . '/thumb' . $this->input->post('old_photo'));
+            //             $this->delete_temp('temp_folder');
+            //         } else {
+            //             $this->delete_folder('customer/' . $update['id']);
+            //             $this->returnJson(array('status' => 'error', 'msg' => 'Upload Falied'));
+            //         }
+            //     }
             if($this->db->trans_status() == TRUE)
             {
                 $this->db->trans_commit();
