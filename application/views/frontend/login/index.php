@@ -60,7 +60,7 @@
                         <h4 style="color:red"><?php echo $this->session->flashdata('notif') ?></h4>
                         </div>
                         <?php } ?>
-						<form action="register/do_register" method="post">
+						<form action="register/do_register" method="post" enctype="multipart/form-data">
 							<div class="shipping-form">		
 								<div class="input-box m-b-20">
 									<h4>Nama Depan <span>*</span></h4>
@@ -96,7 +96,7 @@
 								</div>
 							</div>
 							<div class="btn-link">
-								<button class="btnb-l">Register</button>
+								<button type="submit" name="submit" class="btnb-l">Register</button>
 							</div>
 						</form>
 					</div>

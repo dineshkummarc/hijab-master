@@ -34,6 +34,8 @@ class Register extends PX_Controller {
 				redirect('login');
 			}else{
 				$insert = $this->db->insert('px_customer', $data);
+				echo $this->db->last_query($insert);
+				die();
 				if ($insert) {
 					$row=$this->model_basic->select_where($this->tbl_customer,'email',$this->input->post('email'))->row();
 					$data = array(
@@ -43,7 +45,7 @@ class Register extends PX_Controller {
 						'nama_belakang' => $row->nama_belakang,
 						'validated' => true
 					);
-					$this->session->set_userdata($data);
+					$this->session->set_userdata('member', $data);
 					redirect('dashboard');
 				}else{
 					echo "Failed";

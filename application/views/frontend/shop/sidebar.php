@@ -1,6 +1,17 @@
-
                 <div class="col-lg-3 col-md-3 col-sm-12">
-                    <div class="sidebar-widget">
+                    <div class="panel">
+                                <div id="headingNine" role="tab" class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <a aria-controls="collapseNine" aria-expanded="true" href="#collapseNine" data-parent="#accordion" data-toggle="collapse" role="button" class="border">
+                                        Search Items                                          
+                                        <span class="counter"><i class="fa fa-list-ol"></i></span>                      
+                                        <span class="opener"></span>                                        
+                                    </a>
+                                  </h4>
+                                </div>
+                                <div aria-labelledby="headingNine" role="tabpanel" class="panel-collapse collapse in" id="collapseNine" aria-expanded="true">
+                                  <div class="panel-body">
+                                  <div class="sidebar-widget">
                         <h4 class="side-title">Categories</h4>  
                         <div class="category-menu-area info-widget">
                             <div class="category-menu" id="cate-toggle">
@@ -41,7 +52,7 @@
                                     <div id="slider-range"></div>
                                     <div class="price_slider_amount">
                                     <div class="col-md-12 no-padding">
-                                    <input  name="price" type="text" id="amount"placeholder="" />
+                                    <input  name="price" type="text" id="amount" placeholder="" />
                                     </div>
                                             <button class="btnb-l box">apply</button>
                                     </div>
@@ -84,4 +95,7 @@
                        
                                       
                     </div>
+                                  </div>
+                                </div>                              
+                            </div>
                 </div>
