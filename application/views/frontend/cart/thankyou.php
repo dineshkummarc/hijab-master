@@ -157,6 +157,11 @@
 						</tr>
 						<tr>
 						<td colspan="7" class="text-right">
+							<h5>Discount : Rp. <?php echo number_format($invoice->total_discount,2,",",".") ?></h5>
+						</td>
+						</tr>
+						<tr>
+						<td colspan="7" class="text-right">
 							<h5>Code Random : Rp. <?php echo number_format($invoice->random_code,2,",",".") ?></h5>
 						</td>
 						</tr>

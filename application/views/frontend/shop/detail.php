@@ -73,9 +73,7 @@
 									
 								</div>				
 						</div>
-						<?php if( $this->session->set_flashdata('msg_stock')){ ?>
-							<h3><?php echo  $this->session->set_flashdata('msg_stock'); ?></h3>
-						<?php } ?>
+
 						<div class="actions">
 							<div class="plus-minus">
 								<div class="quantity cart-plus-minus">
@@ -89,6 +87,7 @@
 								<li><a data-toggle="tooltip" title="Add to Wishlist" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
 							</ul>
 						</div>
+						<p class="msg-status red"></p>
 					</div>	
 					</form>
 				</div>

@@ -56,6 +56,8 @@ $(document).ready(function(){
         success : function(response){
           if(response.status == 'ok'){
             window.location.href = response.redirect;
+          }else if(response.status == 'outofstock') {
+            $( ".msg-status" ).html(response.msg);
           }
         },
         error : function(jqXHR, textStatus, errorThrown) {
@@ -64,5 +66,43 @@ $(document).ready(function(){
       });
     }
   });
+
+   $('#form-voucher').validate({
+    ignore: [],
+    rules: {      
+      coupon: {
+        required: true
+      }
+    },
+    submitHandler: function(form) {
+      var target = $(form).attr('action');
+      $.ajax({
+        url : target,
+        type : 'POST',
+        dataType : 'json',
+        data : $(form).serialize(),
+        success : function(response){
+          if(response.status == 'ok'){
+            $( ".disc-total" ).html(response.data['disc']);
+            $( ".grand-total" ).html(response.data['total_price']);
+            $( ".msg-voucher" ).html(response.msg);
+            $( ".disc-percentage" ).html('('+response.data['disc_percentage']+'%)')
+            $( ".voucher-price" ).removeClass('hidden');
+          }else if(response.status == 'expired'){
+            $( ".msg-voucher" ).html(response.msg);
+          }else{
+            $( ".msg-voucher" ).html(response.msg);
+          }
+        },
+        error : function(jqXHR, textStatus, errorThrown) {
+          alert(textStatus, errorThrown);
+        }
+      });
+    }
+  });
+
+   $(".btn-voucher").click(function(event){
+        $('#form-voucher').submit();
+    });
 
 })

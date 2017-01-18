@@ -6,7 +6,7 @@
 					
 					</div>
 				</div>
-				<form id="form-checkout" method="post" action="cart/submit_order" enctype="multipart/form-data>
+				<form id="form-checkout" method="post" action="cart/submit_order" enctype="multipart/form-data">
 				<div class="billing-details">
 					<div class="row">
 						<div class="col-md-6">
@@ -127,16 +127,30 @@
 											<th>Subtotal</th>
 											<td><span class="t-price"><?php echo indonesian_currency($this->cart->total()); ?></span></td>
 										</tr>
-										
+										<tr>
+											<th>Discount</th>
+											<td>
+												<span class="price" id="discount-text">
+												<?php if ($this->session->userdata('voucher')) {
+													$discount = $this->cart->total() * ($this->session->userdata('voucher')['discount'] / 100);
+													echo indonesian_currency($discount);
+												}else{
+													$discount = 0;
+													echo "-";
+													} ?>
+												</span>
+											</td>
+										</tr>
 										<tr class="">
 											<th>Biaya Kirim</th>
 											<td>
 												<span class="price" id="cost_text">-</span>
 											</td>
 										</tr>
+
 										<tr class="order-total">
 											<th>Total</th>
-											<td><strong><span class="t-price" id="tot_price_text"><?php echo indonesian_currency($this->cart->total()); ?></span></strong> </td>
+											<td><strong><span class="t-price" id="tot_price_text"><?php echo indonesian_currency($this->cart->total() - $discount); ?></span></strong> </td>
 										</tr>
 									</tfoot>
 								</table>

@@ -12,7 +12,6 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="table-content">
-						<form action="cart/updateAllCart" method="post">
 							<div class="table-content table-responsive">
 								<table>
 									<thead>
@@ -81,7 +80,6 @@
 					</div>
 				</div>
 			</div>
-			</form>
 		</div>
 	</div>
 	<!-- cart-collaterals -->
@@ -90,22 +88,27 @@
 			<div class="row">
 				<div class="col-lg-4 col-md-4 col-sm-6">
 					<div class="shipping-tax discount">
-						<div class="content-title min">
-							<h4>Discount Codes</h4>
-						</div>
-						<label>Enter your coupon code if you have one.</label>
-						<div class="input-box">
-							<form action="#">
-								<input type="text" name="cupon" />
-							</form>							
-						</div>
-						<div class="btn-link">
-							<a href="#">apply coupon</a>
-						</div>						
+						<form action="cart/apply_voucher" id="form-voucher" method="post" enctype="multipart/form-data">
+							<div class="content-title min">
+								<h4>Discount Codes</h4>
+							</div>
+							<label>Enter your coupon code if you have one.</label>
+							<div class="input-box">
+								<input type="text" name="coupon" />								
+							</div>
+							<div class="msg-voucher red"></div>
+							<div class="btn-link">
+								<a class="btn-voucher">apply coupon</button>
+							</div>
+						</form>						
 					</div>
 				</div>
 				<div class="col-lg-5 col-md-5 col-sm-6 pull-right">
 					<div class="shipping-tax">
+						<div class="sub-price voucher-price hidden">
+							<h4>Discount Voucher <span class="disc-percentage"></span></h4>
+							<h4 class="right"><span class="disc-total"></span></h4>
+						</div>
 						<div class="sub-price">
 							<h4>Grand Total</h4>
 							<h4 class="right"><span class="grand-total"><?php echo indonesian_currency($this->cart->total()); ?></span></h4>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2017 at 07:25 PM
+-- Generation Time: Jan 18, 2017 at 06:50 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -251,7 +251,8 @@ CREATE TABLE `px_customer` (
 
 INSERT INTO `px_customer` (`id`, `nama_depan`, `nama_belakang`, `jenis_kelamin`, `email`, `password`, `tgl_lahir`, `photo`, `delete_flag`, `date_created`, `date_modified`) VALUES
 (9, 'Edo', 'Apriyadi', 'L', 'edoapriyadi@gmail.com', 'kzVh5TWgoDxx4Lz4YtLIjiZWoL68GsdyAro/UMfoyOA5qNC1LgeRdMwVmaaRl3q+bWXklhBSxQJe3Gf12NlFOQ==', '1991-10-10', '5869053f8a078-customer.jpg', 0, '2017-01-01 20:15:14', '2017-01-09 00:13:35'),
-(10, 'Edo', 'Apriyadi', 'L', 'edoapriyadic9@gmail.com', '4mbt4ERpYl68LtFNptKLY19yrZ4lAPopF1W06kVm3KrPZT+FoPRtreSIdbrOhZyhc/87KSQgBgmR3vmUJ5k4VQ==', '1991-10-10', '586917403d5c8-customer.jpg', 0, '2017-01-01 21:50:40', '2017-01-01 21:50:40');
+(10, 'Edo', 'Apriyadi', 'L', 'edoapriyadic9@gmail.com', '4mbt4ERpYl68LtFNptKLY19yrZ4lAPopF1W06kVm3KrPZT+FoPRtreSIdbrOhZyhc/87KSQgBgmR3vmUJ5k4VQ==', '1991-10-10', '586917403d5c8-customer.jpg', 0, '2017-01-01 21:50:40', '2017-01-01 21:50:40'),
+(11, 'Deni', 'Pratama', 'L', 'denipratamasaputra@gmail.com', 'xvw4Y4H9dnWLo9iJoegPNYDMmVjHIJj+852t7HUWOst+v0/yp9Leq3kTHO1tJI/yhUAowpBBH/aDHm5IEXg1Ig==', '2017-01-11', '587a0c7a0dd6e-customer.jpg', 0, '2017-01-14 18:33:14', '2017-01-14 21:55:40');
 
 -- --------------------------------------------------------
 
@@ -277,7 +278,8 @@ CREATE TABLE `px_customer_billing_address` (
 
 INSERT INTO `px_customer_billing_address` (`id`, `customer_id`, `address`, `province`, `city`, `region`, `postal_code`, `phone`, `title`) VALUES
 (6, 10, 'Jl. Blabla', 9, 79, 1065, '12127', '081290847470', 'Home'),
-(9, 9, 'Jalan Muara Gg. PD Hasan no 186, Bogor Timur, Kota Bogor', 9, 79, 1065, '12127', '081290847470', 'Home');
+(9, 9, 'Jalan Muara Gg. PD Hasan no 186, Bogor Timur, Kota Bogor', 9, 79, 1065, '12127', '081290847470', 'Home'),
+(10, 11, 'Jalan Kebahagiaan', 9, 78, 1027, '16720', '085313999010', 'Home');
 
 -- --------------------------------------------------------
 
@@ -308,7 +310,8 @@ INSERT INTO `px_customer_shipping_address` (`id`, `customer_id`, `receiver_name`
 (6, 9, 'Edo Apriyadi', 'Office', 'Jl. Bangka Raya No 31A Pela Mampang', 6, 153, 2107, 12125, '081290847470', 0),
 (7, 10, 'Edo Apriyadi', 'Home', 'Jl. Blabla', 9, 79, 1065, 12127, '081290847470', 0),
 (8, 9, 'Apriyadi Edo', 'New Address', 'Apartemen', 9, 79, 1063, 12720, '081290847470', 0),
-(9, 9, 'Apriyadi Edo', 'New Address', 'Apartemen', 6, 153, 2107, 12720, '081290847470', 0);
+(9, 9, 'Apriyadi Edo', 'New Address', 'Apartemen', 6, 153, 2107, 12720, '081290847470', 0),
+(10, 11, 'Deni Pratama', 'Home', 'Jalan Kebahagiaan', 9, 78, 1027, 16720, '085313999010', 0);
 
 -- --------------------------------------------------------
 
@@ -1113,8 +1116,10 @@ CREATE TABLE `px_order` (
   `id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `ship_address_id` int(11) NOT NULL,
+  `voucher_id` int(11) NOT NULL DEFAULT '0',
   `invoice_number` varchar(250) NOT NULL,
   `total_order` int(11) NOT NULL,
+  `total_discount` int(11) NOT NULL,
   `total_ship_price` int(15) NOT NULL,
   `random_code` int(11) NOT NULL,
   `total_payment` int(15) NOT NULL,
@@ -1127,15 +1132,19 @@ CREATE TABLE `px_order` (
 -- Dumping data for table `px_order`
 --
 
-INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `invoice_number`, `total_order`, `total_ship_price`, `random_code`, `total_payment`, `status`, `date_created`, `date_modified`) VALUES
-(1, 9, 5, 'HIJAB070120170001', 176000, 9000, 0, 185000, 3, '2017-01-07 17:00:00', '2017-01-07 17:00:00'),
-(2, 9, 5, 'HDINV20170109000001', 300000, 0, 466, 466, 1, '2017-01-09 00:16:21', '2017-01-09 00:16:21'),
-(3, 9, 5, 'HDINV20170109000002', 228000, 27000, 811, 255811, 1, '2017-01-09 00:17:45', '2017-01-09 00:17:45'),
-(4, 9, 5, 'HDINV20170109000003', 76000, 9000, 666, 85666, 3, '2017-01-09 00:32:43', '2017-01-09 00:32:43'),
-(5, 9, 8, 'HDINV20170110000001', 76000, 0, 547, 547, 1, '2017-01-10 21:53:04', '2017-01-10 21:53:04'),
-(6, 9, 8, 'HDINV20170110000002', 76000, 0, 392, 392, 1, '2017-01-10 22:04:30', '2017-01-10 22:04:30'),
-(7, 9, 9, 'HDINV20170110000003', 76000, 0, 337, 337, 1, '2017-01-10 23:15:51', '2017-01-10 23:15:51'),
-(8, 10, 7, 'HDINV20170110000004', 228000, 0, 645, 645, 1, '2017-01-10 23:17:41', '2017-01-10 23:17:41');
+INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `voucher_id`, `invoice_number`, `total_order`, `total_discount`, `total_ship_price`, `random_code`, `total_payment`, `status`, `date_created`, `date_modified`) VALUES
+(1, 9, 5, 0, 'HIJAB070120170001', 176000, 0, 9000, 0, 185000, 3, '2017-01-07 17:00:00', '2017-01-07 17:00:00'),
+(2, 9, 5, 0, 'HDINV20170109000001', 300000, 0, 0, 466, 466, 1, '2017-01-09 00:16:21', '2017-01-09 00:16:21'),
+(3, 9, 5, 0, 'HDINV20170109000002', 228000, 0, 27000, 811, 255811, 1, '2017-01-09 00:17:45', '2017-01-09 00:17:45'),
+(4, 9, 5, 0, 'HDINV20170109000003', 76000, 0, 9000, 666, 85666, 3, '2017-01-09 00:32:43', '2017-01-09 00:32:43'),
+(5, 9, 8, 0, 'HDINV20170110000001', 76000, 0, 0, 547, 547, 1, '2017-01-10 21:53:04', '2017-01-10 21:53:04'),
+(6, 9, 8, 0, 'HDINV20170110000002', 76000, 0, 0, 392, 392, 1, '2017-01-10 22:04:30', '2017-01-10 22:04:30'),
+(7, 9, 9, 0, 'HDINV20170110000003', 76000, 0, 0, 337, 337, 1, '2017-01-10 23:15:51', '2017-01-10 23:15:51'),
+(8, 10, 7, 0, 'HDINV20170110000004', 228000, 0, 0, 645, 645, 1, '2017-01-10 23:17:41', '2017-01-10 23:17:41'),
+(9, 11, 10, 0, 'HDINV20170114000001', 76000, 0, 9000, 603, 85603, 1, '2017-01-14 19:09:11', '2017-01-14 19:09:11'),
+(10, 11, 10, 0, 'HDINV20170117000001', 76000, 0, 9000, 643, 85643, 1, '2017-01-17 00:59:54', '0000-00-00 00:00:00'),
+(11, 11, 10, 0, 'HDINV20170117000002', 76000, 0, 9000, 396, 85396, 1, '2017-01-17 02:00:47', '0000-00-00 00:00:00'),
+(12, 11, 10, 4, 'HDINV20170119000001', 152000, 30400, 18000, 196, 139796, 1, '2017-01-19 00:48:24', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1305,7 +1314,11 @@ INSERT INTO `px_product_order` (`id`, `product_id`, `order_id`, `size_id`, `colo
 (3, 33, 3, 1, 1, 105, 76000, 3),
 (4, 33, 4, 4, 2, 114, 76000, 1),
 (5, 33, 7, 4, 2, 114, 76000, 1),
-(6, 33, 8, 2, 1, 109, 76000, 3);
+(6, 33, 8, 2, 1, 109, 76000, 3),
+(7, 33, 9, 4, 2, 114, 76000, 1),
+(8, 33, 10, 4, 2, 114, 76000, 1),
+(9, 33, 11, 4, 2, 114, 76000, 1),
+(10, 33, 12, 2, 2, 110, 76000, 2);
 
 -- --------------------------------------------------------
 
@@ -1333,11 +1346,11 @@ INSERT INTO `px_product_stock` (`id`, `product_id`, `color_id`, `size_id`, `stoc
 (105, 33, 1, 1, 9, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
 (106, 33, 2, 1, 100, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
 (109, 33, 1, 2, 17, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(110, 33, 2, 2, 3, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(110, 33, 2, 2, 1, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (111, 33, 1, 3, 50, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (112, 33, 2, 3, 20, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (113, 33, 1, 4, 10, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(114, 33, 2, 4, 7, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(114, 33, 2, 4, 4, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (115, 34, 1, 1, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
 (117, 34, 1, 2, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
 (121, 34, 1, 4, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
@@ -9121,7 +9134,11 @@ INSERT INTO `px_tracking_system` (`id`, `order_id`, `status_id`, `title`, `conte
 (12, 4, 2, 'Order Paid', 'Pembayaran Telah Diterima, Order Siap Dikirim', '2017-01-09 15:34:28'),
 (13, 4, 3, 'Order Shipped', 'Order Telah Dikirim ke Customer, Nomor Resi : 67rufjgut6867', '2017-01-09 15:34:38'),
 (14, 7, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-10 23:15:51'),
-(15, 8, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-10 23:17:42');
+(15, 8, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-10 23:17:42'),
+(16, 9, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-14 19:09:11'),
+(17, 10, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-17 00:59:54'),
+(18, 11, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-17 02:00:47'),
+(19, 12, 0, 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-19 00:48:24');
 
 -- --------------------------------------------------------
 
@@ -9252,6 +9269,7 @@ INSERT INTO `px_usergroup` (`id`, `usergroup_name`) VALUES
 CREATE TABLE `px_voucher` (
   `id` int(11) NOT NULL,
   `voucher` varchar(50) DEFAULT NULL,
+  `discount` int(11) NOT NULL,
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
@@ -9263,8 +9281,8 @@ CREATE TABLE `px_voucher` (
 -- Dumping data for table `px_voucher`
 --
 
-INSERT INTO `px_voucher` (`id`, `voucher`, `date_start`, `date_end`, `date_created`, `status`, `delete_flag`) VALUES
-(4, 'BOGORKEREN2016', '2017-01-01 00:00:00', '2017-01-19 00:00:00', '2017-01-10 21:59:21', 1, 0);
+INSERT INTO `px_voucher` (`id`, `voucher`, `discount`, `date_start`, `date_end`, `date_created`, `status`, `delete_flag`) VALUES
+(4, 'BOGORKEREN2016', 20, '2017-01-01 00:00:00', '2017-01-31 00:00:00', '2017-01-10 21:59:21', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -9603,17 +9621,17 @@ ALTER TABLE `px_color`
 -- AUTO_INCREMENT for table `px_customer`
 --
 ALTER TABLE `px_customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `px_customer_billing_address`
 --
 ALTER TABLE `px_customer_billing_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_customer_shipping_address`
 --
 ALTER TABLE `px_customer_shipping_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_editor_picks`
 --
@@ -9623,7 +9641,7 @@ ALTER TABLE `px_editor_picks`
 -- AUTO_INCREMENT for table `px_faq`
 --
 ALTER TABLE `px_faq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `px_flag`
 --
@@ -9663,7 +9681,7 @@ ALTER TABLE `px_news`
 -- AUTO_INCREMENT for table `px_order`
 --
 ALTER TABLE `px_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `px_order_confirmation`
 --
@@ -9693,7 +9711,7 @@ ALTER TABLE `px_product_image`
 -- AUTO_INCREMENT for table `px_product_order`
 --
 ALTER TABLE `px_product_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_product_stock`
 --
@@ -9748,7 +9766,7 @@ ALTER TABLE `px_tracking_status`
 -- AUTO_INCREMENT for table `px_tracking_system`
 --
 ALTER TABLE `px_tracking_system`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `px_underconstruct_status`
 --
@@ -9764,21 +9782,6 @@ ALTER TABLE `px_user`
 --
 ALTER TABLE `px_useraccess`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
---
--- AUTO_INCREMENT for table `px_usergroup`
---
-ALTER TABLE `px_usergroup`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `px_voucher`
---
-ALTER TABLE `px_voucher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `px_wishlist`
---
-ALTER TABLE `px_wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -56,6 +56,7 @@ class Login extends PX_Controller{
 
 	function logout(){
 		$this->session->unset_userdata('member');
+    $this->session->unset_userdata('voucher');
 		redirect('login');
 	}
 }

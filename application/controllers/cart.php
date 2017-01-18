@@ -37,7 +37,7 @@ class Cart extends PX_Controller {
         $stock=$this->model_basic->select_where_array($this->tbl_product_stock,$where)->row();
 
         if($stock->stock == 0){
-            $this->returnJson(array('status' => 'ok', 'msg' => 'Out of stock', 'redirect' => current_url()));
+            $this->returnJson(array('status' => 'outofstock', 'msg' => 'Sorry, this product currently out of stock.'));
         }
 
         $get_product = $this->model_basic->select_where($this->tbl_product,'id',$this->input->post('id_product'))->row();
@@ -92,11 +92,56 @@ class Cart extends PX_Controller {
         $this->load->view('frontend/index',$data); 
     }
 
+    function apply_voucher()
+    {
+        $now = date('Y-m-d H:i:s', now());
+        $code = $this->input->post('coupon');
+        $voucher = $this->model_basic->select_where($this->tbl_voucher, 'voucher', $code);
+        if ($voucher->num_rows() > 0) {
+            $voucher = $voucher->row();
+            if ($now >= $voucher->date_start && $now <= $voucher->date_end) {
+                $disc = ($this->cart->total() * $voucher->discount) / 100;
+                $total_price = $this->cart->total() - $disc;
+                $this->session->set_userdata('voucher', array('voucher_id' => $voucher->id, 'discount' => $voucher->discount));
+                $this->returnJson(array('status' => 'ok', 'msg' => '<p>Anda berhasil menggunakan voucher.</p>', 'data' => array('disc_percentage' => $voucher->discount, 'disc' => $this->indonesian_currency($disc), 'total_price' => $this->indonesian_currency($total_price))));
+            }
+            else
+            {
+                $this->returnJson(array('status' => 'expired', 'msg' => '<p>Voucher anda tidak berlaku.</p>'));
+            }
+        }
+        else
+        {
+            $this->returnJson(array('status' => 'error', 'msg' => '<p>Voucher tidak ditemukan.</p>'));
+        }
+
+
+    }
+
     function get_new_address()
     {
         $total_price = $this->cart->total();
 
         echo json_encode($total_price);
+    }
+
+    function check_product_stock()
+    {
+        foreach ($this->cart->contents() as $item) {
+            if ($item['rowid'] == $this->input->post('rowid')) {
+                $product_stock_id = $item['id'];
+            }
+        }
+        $stock = $this->model_basic->select_where($this->tbl_product_stock, 'id', $product_stock_id);
+        if ($stock->num_rows > 0) {
+            $stock = $stock->row()->stock;
+            $this->returnJson(array('status' => 'ok', 'stock' => $stock));
+        }
+        else
+        {
+            $this->returnJson(array('status' => 'outofstock', 'stock' => 0));
+        }
+
     }
 
     function count_total_price()
@@ -126,79 +171,10 @@ class Cart extends PX_Controller {
         
     }
 
-    function updateToCart($id)
-    {
-        $data = $this->get_app_settings();
-        $data += $this->controller_attr;
-        $data += $this->get_function('Shop','shop');
-//        $id = $this->session->userdata('id');
-//
-       // $get_customer = $this->model_basic->select_where($this->tbl_customer,'id',$id)->row();
-        //$get_product = $this->model_basic->select_where($this->tbl_product,'id',$product_id)->row();
-
-//        $insert =array(
-//            'total' => $this->input->post('total'),
-//            'product_id' => $get_product->id,
-//            'customer_id' => $get_customer->id
-//        );
-//        $this->model_basic->insert_all($this->tbl_cart, $insert);
-//        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
-//        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
-//        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
-//        $data['product'] = $this->model_basic->select_all($this->tbl_product);
-//        foreach ($data['product'] as $d_row) {
-//            $d_row->price = indonesian_currency($d_row->price);
-//            $d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->id, 'primary_status', '1')->row();
-//        };
-//        $data['content'] = $this->load->view('frontend/shop/index',$data,true);
-//        $this->load->view('frontend/index',$data);
-        $insert_data = array(
-            'rowid' => $id,
-            'qty' => 0
-        );
-       // var_dump($this->cart->contents());
-
-        $this->cart->update($insert_data);
-      
-         echo "<script>window.history.back()</script>";
-    }
-
-
-
-
-	function updateAllCart(){
-    	$data = $this->get_app_settings();
-        $data += $this->controller_attr;
-        $data += $this->get_function('Shop','shop');
-        $customer_id = $this->session->userdata('member')['id'];
-        $get_cart = $this->cart->contents();
-
-        $no=0;
-        foreach ($get_cart as $cart) {
-            $no++;
-        	$update_cart = array(
-        		'rowid' => $cart['rowid'],
-        		'qty' => $_POST['qty'][$no],
-        		);
-        	$this->cart->update($update_cart);
-        }
-
-        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
-        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
-        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
-        $data['product'] = $this->model_basic->select_all($this->tbl_product);
-        foreach ($data['product'] as $d_row) {
-            $d_row->price = indonesian_currency($d_row->price);
-            $d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->id, 'primary_status', '1')->row();
-        };
-
-        redirect('cart');
-    }
-
     function clear_all_cart(){
     	$data = $this->get_app_settings();
         $data += $this->controller_attr;
-        $data += $this->get_function('Shop','shop');
+        $data += $this->get_function('Cart','cart');
 
         $this->cart->destroy();
 
@@ -228,7 +204,14 @@ class Cart extends PX_Controller {
         $ongkir = ceil($berat/1000);
         $ongkir = $region->price * $berat;
         $address->cost = $ongkir;
-        $address->tot_price = $ongkir + $this->cart->total();
+        if ($this->session->userdata('voucher')) {
+            $discount = $this->cart->total() * ($this->session->userdata('voucher')['discount'] / 100);
+        }
+        else
+        {
+            $discount = 0;
+        }
+        $address->tot_price = $this->cart->total() - $discount + $ongkir;
 
         echo json_encode($address);
     }
@@ -244,7 +227,14 @@ class Cart extends PX_Controller {
         $ongkir=$region->price*$berat;
         $address = new stdClass();
         $address->cost= $ongkir;
-        $address->tot_price= $ongkir+$this->cart->total();
+        if ($this->session->userdata('voucher')) {
+            $discount = $this->cart->total() * ($this->session->userdata('voucher')['discount'] / 100);
+        }
+        else
+        {
+            $discount = 0;
+        }
+        $address->tot_price = $this->cart->total() - $discount + $ongkir;
 
         echo json_encode($address);
     }
@@ -253,6 +243,13 @@ class Cart extends PX_Controller {
         $invoice = $this->model_product->uniq_code();
         $customer_id = $this->session->userdata('member')['id'];;
         $shipping_id = $this->input->post('shipping_id');
+        if ($this->session->userdata('voucher')) {
+            $voucher_id = $this->session->userdata('voucher')['voucher_id'];
+        }
+        else
+        {
+            $voucher_id = 0;
+        }
         if ($shipping_id == "") {
             $customer_phone = $this->model_basic->select_where($this->tbl_shipping_address, 'customer_id', $customer_id)->row()->phone;
             $data_shipping_address = array(
@@ -274,9 +271,11 @@ class Cart extends PX_Controller {
         $data_order=array(
             'customer_id' => $customer_id,
             'ship_address_id' => $shipping_id,
+            'voucher_id' => $voucher_id,
             'invoice_number' => $invoice,
             'total_order' => $this->cart->total(),
             'total_ship_price' => $this->input->post('cost'),
+            'total_discount' => $this->cart->total() * ($this->session->userdata('voucher')['discount'] / 100),
             'total_payment' => $this->input->post('tot_price') + $random_code,
             'random_code' => $random_code,
             'status' => 1,
@@ -314,9 +313,9 @@ class Cart extends PX_Controller {
                                     'date_created' =>date('Y-m-d H:i:s', now()) 
                                 );
              $this->model_basic->insert_all($this->tbl_tracking_system, $data_tracking);
-
+             $this->session->unset_userdata('voucher');
              $this->cart->destroy();
-  
+            
              $this->returnJson(array('status' => 'ok', 'msg' => 'Insert Data success', 'redirect' => 'cart/thankyou/'.$invoice));
         }
         else
