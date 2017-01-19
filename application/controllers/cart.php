@@ -305,6 +305,12 @@ class Cart extends PX_Controller {
         }
         if($insert)
         {
+            //send order success email
+            $mail_data = new stdClass();
+            $mail_data->receiver = $this->model_basic->select_where($this->tbl_customer_shipping_address, 'id', $shipping_id)->row()->email;
+            $mail_data->subject = "Order Success";
+            $mail_data->message  = "";
+            
              //insert to tracking system
              $data_tracking = array('order_id' => $order_id,
                                     'status_id' => 0,

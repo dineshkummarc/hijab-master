@@ -378,30 +378,85 @@
     $(".cart-plus-minus").append('<div class="dec qtybutton">-</div><div class="inc qtybutton">+</div>');
     $(".qtybutton").on("click", function () {
         var $button = $(this);
+        var id = $button.parent().find("input").attr('data-id');
         var oldValue = $button.parent().find("input").val();
         if ($button.text() == "+") {
-            var newVal = parseFloat(oldValue) + 1;
+            $.ajax({
+                url: 'cart/check_product_stock',
+                type: 'POST',
+                dataType: 'json',
+                data: {'rowid' : id},
+                success: function(response) {
+                    if (oldValue == response.stock) {
+                        var newVal = parseFloat(response.stock);
+                    }else{
+                        var newVal = parseFloat(oldValue) + 1;
+                    }
+                    $.ajax({
+                        url: 'cart/count_total_price',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {'rowid' : id, 'qty': newVal},
+                        success: function(response) {
+                            $( ".subtotal_"+id ).html(response.data['subtotal']);
+                            $( ".grand-total" ).html(response.data['total_price']);
+                        }
+                    });
+                    $button.parent().find("input").val(newVal);
+                }
+            });
+            
         } else {
             // Don't allow decrementing below zero
-            if (oldValue > 0) {
+            if (oldValue > 1) {
                 var newVal = parseFloat(oldValue) - 1;
             } else {
-                newVal = 0;
+                newVal = 1;
             }
         }
-        var id = $button.parent().find("input").attr('data-id');
         $.ajax({
             url: 'cart/count_total_price',
             type: 'POST',
             dataType: 'json',
             data: {'rowid' : id, 'qty': newVal},
             success: function(response) {
-                console.log(response);
                 $( ".subtotal_"+id ).html(response.data['subtotal']);
                 $( ".grand-total" ).html(response.data['total_price']);
             }
         });
         $button.parent().find("input").val(newVal);
+    });
+    $('.cart-plus-minus').find("input").focusout(function () {
+         var $field = $(this);
+         var id = $field.attr('data-id');
+         var oldValue = this.value;
+         $.ajax({
+                url: 'cart/check_product_stock',
+                type: 'POST',
+                dataType: 'json',
+                data: {'rowid' : id},
+                success: function(response) {
+                    if (parseFloat(oldValue) > parseFloat(response.stock)) {
+                        var newVal = parseFloat(response.stock);
+                    }else if(oldValue == 0 || oldValue < 0){
+                        var newVal = 1;
+                    }else{
+                        var newVal = parseFloat(oldValue);
+                    }
+                    $.ajax({
+                        url: 'cart/count_total_price',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {'rowid' : id, 'qty': newVal},
+                        success: function(response) {
+                            $( ".subtotal_"+id ).html(response.data['subtotal']);
+                            $( ".grand-total" ).html(response.data['total_price']);
+                        }
+                    });
+                    $field.val(newVal);
+                }
+            });
+
     });
     /*-----------------------
      meanmenu 
