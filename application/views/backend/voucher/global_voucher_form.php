@@ -47,6 +47,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Diskon(%)</label>
+                            <div class="col-md-9 col-xs-12">
+                                <input type="text" class="form-control" name="diskon" id="px-voucher-form-diskon" value="<?php if($data) echo $data->diskon ;else '0.00';?>"  placeholder="0.00" required>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="panel-footer">
                         <!-- <button class="btn btn-info btn-preview" type="button">Preview</button>                       -->

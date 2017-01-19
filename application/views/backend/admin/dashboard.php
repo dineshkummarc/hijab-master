@@ -17,11 +17,11 @@
                 <div class="owl-carousel" id="owl-example">
                     <div>                                    
                         <div class="widget-title">Total Order</div>
-                        <div class="widget-int">3,548</div>
+                        <div class="widget-int"><?=$total_order?></div>
                     </div>
                     <div>                                    
                         <div class="widget-title">Total Member</div>
-                        <div class="widget-int">1,695</div>
+                        <div class="widget-int"><?=$total_customer?></div>
                     </div>
                     <div>                                    
                         <div class="widget-title">Product Sold</div>
@@ -38,7 +38,7 @@
                     <span class="fa fa-shopping-cart"></span>
                 </div>                             
                 <div class="widget-data">
-                    <div class="widget-int num-count">48</div>
+                    <div class="widget-int num-count"><?=$unconfirmed?></div>
                     <div class="widget-title">Unprocessed Order</div>
                     <div class="widget-subtitle">In your Order List</div>
                 </div>
@@ -54,7 +54,7 @@
                     <span class="fa fa-dollar"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">375</div>
+                    <div class="widget-int num-count"><?=$paid?></div>
                     <div class="widget-title">Order Success</div>
                     <div class="widget-subtitle">In your Order List</div>
                 </div>

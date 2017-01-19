@@ -24,7 +24,10 @@ class Admin extends PX_Controller {
         $data += $this->get_function('Admin', 'admin');
         $data += $this->get_menu();
         if ($this->session->userdata('admin') != FALSE) {
-            //$data['total_order'] = $this->model_basic->select_where($this->tbl_order, '');
+            $data['total_order'] = $this->db->get($this->tbl_order)->num_rows();
+            $data['total_customer'] = $this->db->get($this->tbl_customer)->num_rows();
+            $data['unconfirmed'] = $this->model_basic->select_where($this->tbl_order, 'status', 0)->num_rows();
+            $data['paid'] = $this->model_basic->select_where($this->tbl_order, 'status', 3)->num_rows();
             $data['content'] = $this->load->view('backend/admin/dashboard', $data, true);
             $this->load->view('backend/index', $data);
         } else

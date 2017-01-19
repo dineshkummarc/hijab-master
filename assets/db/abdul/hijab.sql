@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2017-01-08 22:11:33
+Date: 2017-01-19 22:15:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -108,6 +108,7 @@ DROP TABLE IF EXISTS `px_brand`;
 CREATE TABLE `px_brand` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `url` varchar(100) NOT NULL,
   `photo` varchar(250) NOT NULL,
   `promo_status` tinyint(1) NOT NULL,
@@ -117,16 +118,16 @@ CREATE TABLE `px_brand` (
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_brand
 -- ----------------------------
-INSERT INTO `px_brand` VALUES ('1', 'Nike', '', '58244a7a61750-brand.jpg', '0', '0.00', '7', '2016-11-10 17:07:15', '7', '2016-11-10 17:22:50');
-INSERT INTO `px_brand` VALUES ('3', 'Adidas', '', '58244b6eb530f-brand.jpg', '0', '0.00', '7', '2016-11-10 17:24:05', '7', '2016-11-10 17:26:54');
-INSERT INTO `px_brand` VALUES ('4', 'Puma', '', '58244b515ab17-brand.jpg', '0', '0.00', '7', '2016-11-10 17:26:25', '7', '2016-11-10 17:26:25');
-INSERT INTO `px_brand` VALUES ('5', 'Yonex', '', '58244b94d14fb-brand.jpg', '0', '0.00', '7', '2016-11-10 17:27:32', '7', '2016-11-10 17:27:32');
-INSERT INTO `px_brand` VALUES ('6', 'el-zatta', '', '58580d6424404-brand.jpg', '0', '0.00', '7', '2016-12-19 23:40:04', '7', '2016-12-19 23:40:04');
+INSERT INTO `px_brand` VALUES ('1', 'Nike', '', '', '587d3b15d5afd-hijab.jpg', '0', '0.00', '7', '2016-11-10 17:07:15', '7', '2016-11-10 17:22:50');
+INSERT INTO `px_brand` VALUES ('3', 'Adidas', '', '', '58244b6eb530f-brand.jpg', '0', '0.00', '7', '2016-11-10 17:24:05', '7', '2016-11-10 17:26:54');
+INSERT INTO `px_brand` VALUES ('4', 'Puma', '', '', '58244b515ab17-brand.jpg', '0', '0.00', '7', '2016-11-10 17:26:25', '7', '2016-11-10 17:26:25');
+INSERT INTO `px_brand` VALUES ('5', 'Yonex', '', '', '58244b94d14fb-brand.jpg', '0', '0.00', '7', '2016-11-10 17:27:32', '7', '2016-11-10 17:27:32');
+INSERT INTO `px_brand` VALUES ('6', 'el-zatta', '', '', '58580d6424404-brand.jpg', '0', '0.00', '7', '2016-12-19 23:40:04', '7', '2016-12-19 23:40:04');
 
 -- ----------------------------
 -- Table structure for px_cart
@@ -165,19 +166,15 @@ CREATE TABLE `px_category` (
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_category
 -- ----------------------------
-INSERT INTO `px_category` VALUES ('1', 'Baju', '', '', '0', '7', '2016-11-03 16:29:21', '7', '2016-11-03 16:29:21');
-INSERT INTO `px_category` VALUES ('2', 'Celana', '', '', '0', '7', '2016-11-08 17:34:52', '7', '2016-11-08 17:34:52');
-INSERT INTO `px_category` VALUES ('3', 'Hijab', '', '', '0', '7', '2016-11-08 17:34:59', '7', '2016-11-08 17:34:59');
-INSERT INTO `px_category` VALUES ('4', 'Scraf', '', '', '0', '7', '2016-12-19 23:39:02', '7', '2016-12-19 23:39:02');
-INSERT INTO `px_category` VALUES ('5', 'Gamis', '', '', '0', '7', '2016-12-19 23:39:13', '7', '2016-12-19 23:39:13');
-INSERT INTO `px_category` VALUES ('6', 'Bergo', '', '', '0', '7', '2016-12-19 23:39:22', '7', '2016-12-19 23:39:22');
-INSERT INTO `px_category` VALUES ('7', 'Khimar', '', '', '0', '7', '2016-12-19 23:39:33', '7', '2016-12-19 23:39:33');
-INSERT INTO `px_category` VALUES ('8', 'Tunik', '', '', '0', '7', '2016-12-19 23:39:43', '7', '2016-12-19 23:39:43');
+INSERT INTO `px_category` VALUES ('3', 'Hijab', '58751e561b12c-hijab.jpg', '58751e4c78b90-hijab.jpg', '0', '7', '2016-11-08 17:34:59', '7', '2016-11-08 17:34:59');
+INSERT INTO `px_category` VALUES ('8', 'Tunic', '58751eade0094-hijab.jpg', '58751ea38f8ed-hijab.jpg', '0', '7', '2016-12-19 23:39:43', '7', '2017-01-11 00:49:03');
+INSERT INTO `px_category` VALUES ('9', 'Blouse', '58751e0790e34-hijab.jpg', '58751dfb471ae-hijab.jpg', '0', '7', '2017-01-11 00:36:30', '7', '2017-01-11 00:36:30');
+INSERT INTO `px_category` VALUES ('10', 'Pants', '58751e7feeb7d-hijab.jpg', '58751e7693e8d-hijab.jpg', '0', '7', '2017-01-11 00:48:22', '7', '2017-01-11 00:48:22');
 
 -- ----------------------------
 -- Table structure for px_color
@@ -217,13 +214,14 @@ CREATE TABLE `px_customer` (
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_customer
 -- ----------------------------
-INSERT INTO `px_customer` VALUES ('9', 'Edo', 'Apriyadi', 'L', 'edoapriyadi@gmail.com', 'gy9z/AZfa08SE7E4xSpWKzuDN+hyzddZSKE3JI61GdIrqSapNUgLouc24fJlovn7gINGJRK4L+gDY3bHt9Zg+w==', '1991-10-10', '5869053f8a078-customer.jpg', '0', '2017-01-01 20:15:14', '2017-01-01 20:48:52');
+INSERT INTO `px_customer` VALUES ('9', 'Edo', 'Apriyadi', 'L', 'edoapriyadi@gmail.com', 'kzVh5TWgoDxx4Lz4YtLIjiZWoL68GsdyAro/UMfoyOA5qNC1LgeRdMwVmaaRl3q+bWXklhBSxQJe3Gf12NlFOQ==', '1991-10-10', '5869053f8a078-customer.jpg', '0', '2017-01-01 20:15:14', '2017-01-09 00:13:35');
 INSERT INTO `px_customer` VALUES ('10', 'Edo', 'Apriyadi', 'L', 'edoapriyadic9@gmail.com', '4mbt4ERpYl68LtFNptKLY19yrZ4lAPopF1W06kVm3KrPZT+FoPRtreSIdbrOhZyhc/87KSQgBgmR3vmUJ5k4VQ==', '1991-10-10', '586917403d5c8-customer.jpg', '0', '2017-01-01 21:50:40', '2017-01-01 21:50:40');
+INSERT INTO `px_customer` VALUES ('11', 'tesr', 'reer', 'P', 'asdads@dasd.ds', 'pEoNaHfLhsdmNsGATyeOxg8+jBtl6f0n7oOiUzuB/eRrv/kvJFgfH1wa9tXQG/UXA777uFKgVpdGSkEkwXiN9g==', '2017-01-01', '0', '0', '2017-01-17 03:46:23', '2017-01-17 03:47:31');
 
 -- ----------------------------
 -- Table structure for px_customer_billing_address
@@ -265,7 +263,7 @@ CREATE TABLE `px_customer_shipping_address` (
   `phone` varchar(20) NOT NULL,
   `is_deleted` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_customer_shipping_address
@@ -273,6 +271,8 @@ CREATE TABLE `px_customer_shipping_address` (
 INSERT INTO `px_customer_shipping_address` VALUES ('5', '9', 'Edo Apriyadi', 'Home', 'Jl. Muara Gg PD Hasan no 186 Bogor Timur', '9', '79', '1065', '12127', '081290847470', '0');
 INSERT INTO `px_customer_shipping_address` VALUES ('6', '9', 'Edo Apriyadi', 'Office', 'Jl. Bangka Raya No 31A Pela Mampang', '6', '153', '2107', '12125', '081290847470', '0');
 INSERT INTO `px_customer_shipping_address` VALUES ('7', '10', 'Edo Apriyadi', 'Home', 'Jl. Blabla', '9', '79', '1065', '12127', '081290847470', '0');
+INSERT INTO `px_customer_shipping_address` VALUES ('8', '9', 'Apriyadi Edo', 'New Address', 'Apartemen', '9', '79', '1063', '12720', '081290847470', '0');
+INSERT INTO `px_customer_shipping_address` VALUES ('9', '9', 'Apriyadi Edo', 'New Address', 'Apartemen', '6', '153', '2107', '12720', '081290847470', '0');
 
 -- ----------------------------
 -- Table structure for px_editor_picks
@@ -281,15 +281,43 @@ DROP TABLE IF EXISTS `px_editor_picks`;
 CREATE TABLE `px_editor_picks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
+  `url` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_editor_picks
 -- ----------------------------
-INSERT INTO `px_editor_picks` VALUES ('1', 'Natal', '');
-INSERT INTO `px_editor_picks` VALUES ('2', 'Tahun Baru', '');
+INSERT INTO `px_editor_picks` VALUES ('1', 'Casual and Street Style', 'test', '587d332304a58-hijab.jpg');
+INSERT INTO `px_editor_picks` VALUES ('2', 'Party Outfit', '', '58751b08860f4-hijab.jpg');
+INSERT INTO `px_editor_picks` VALUES ('3', 'Travelling Style', '', '58751b54b6b2d-hijab.jpg');
+INSERT INTO `px_editor_picks` VALUES ('4', 'Work Outfit', '', '58751b6737c3f-hijab.jpg');
+
+-- ----------------------------
+-- Table structure for px_faq
+-- ----------------------------
+DROP TABLE IF EXISTS `px_faq`;
+CREATE TABLE `px_faq` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `content` text,
+  `date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of px_faq
+-- ----------------------------
+INSERT INTO `px_faq` VALUES ('1', 'DO YOU SHIP INTERNATIONALLY?', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:07:23');
+INSERT INTO `px_faq` VALUES ('2', 'WHO SHOULD I TO CONTACT IF I HAVE ANY QUESTION?', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:11:35');
+INSERT INTO `px_faq` VALUES ('3', 'HOW CAN I CANCEL OR CHANGE MY ORDER?', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:13:38');
+INSERT INTO `px_faq` VALUES ('4', 'HOW CAN I RETURN A PRODUCT?', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:14:12');
+INSERT INTO `px_faq` VALUES ('5', 'HOW LONG WILLIT TAKE TO GET MY PACKAGE?', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:14:46');
+INSERT INTO `px_faq` VALUES ('6', 'WHAT SHIPPING METHODS ARE AVAILABLE?', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:15:12');
+INSERT INTO `px_faq` VALUES ('7', 'DO YOU PROVIDE ANY WARRANTY', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:15:40');
+INSERT INTO `px_faq` VALUES ('8', 'DO YOU HAVE REPLACEMENT GUARANTEE?', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:16:08');
+INSERT INTO `px_faq` VALUES ('9', 'HOW CAN I CANCEL OR CHANGE MY ORDER?', '<p><span style=\"color: rgb(85, 85, 85); font-family: Lato, sans-serif; font-size: 13px;\">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Foosd truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim ke ffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. Nihil anim keffiyeh helvetica, craft beer labore wes ande rso cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farmto-tab le,</span><br></p>', '2017-01-10 14:16:52');
 
 -- ----------------------------
 -- Table structure for px_flag
@@ -322,6 +350,29 @@ CREATE TABLE `px_group` (
 -- Records of px_group
 -- ----------------------------
 INSERT INTO `px_group` VALUES ('2', 'New');
+
+-- ----------------------------
+-- Table structure for px_guest_book
+-- ----------------------------
+DROP TABLE IF EXISTS `px_guest_book`;
+CREATE TABLE `px_guest_book` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(225) NOT NULL,
+  `email` varchar(225) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `subject` varchar(250) NOT NULL,
+  `content` text NOT NULL,
+  `status` int(11) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_read` datetime NOT NULL,
+  `date_replied` datetime NOT NULL,
+  `id_parent` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of px_guest_book
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for px_jasa_pengiriman
@@ -934,13 +985,13 @@ CREATE TABLE `px_menu` (
   `icon` varchar(225) NOT NULL,
   `orders` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_menu
 -- ----------------------------
 INSERT INTO `px_menu` VALUES ('1', 'Dashboard', 'admin', '0', 'fa-dashboard', '1');
-INSERT INTO `px_menu` VALUES ('2', 'System', 'admin_system', '0', 'fa-cog', '7');
+INSERT INTO `px_menu` VALUES ('2', 'System', 'admin_system', '0', 'fa-cog', '8');
 INSERT INTO `px_menu` VALUES ('3', 'User', 'user', '2', 'fa-user', '3');
 INSERT INTO `px_menu` VALUES ('4', 'User Group', 'usergroup', '2', 'fa-users', '5');
 INSERT INTO `px_menu` VALUES ('5', 'Master Data', 'master_data', '2', 'fa-database', '8');
@@ -948,7 +999,7 @@ INSERT INTO `px_menu` VALUES ('6', 'Menu', 'menu', '2', 'fa-link', '6');
 INSERT INTO `px_menu` VALUES ('7', 'Pengaturan', 'settings', '2', 'fa-cogs', '9');
 INSERT INTO `px_menu` VALUES ('8', 'Urutan Menu', 'menu_orders', '2', 'fa-list', '7');
 INSERT INTO `px_menu` VALUES ('9', 'User Akses', 'useraccess', '2', 'fa-check-circle', '4');
-INSERT INTO `px_menu` VALUES ('11', 'Site Content', 'admin_site_content', '0', 'fa-globe', '6');
+INSERT INTO `px_menu` VALUES ('11', 'Site Content', 'admin_site_content', '0', 'fa-globe', '7');
 INSERT INTO `px_menu` VALUES ('12', 'Static Content', 'static_content', '11', 'fa-book', '13');
 INSERT INTO `px_menu` VALUES ('13', 'Banner', 'banner', '11', 'fa-image', '1');
 INSERT INTO `px_menu` VALUES ('17', 'News', 'news', '11', 'fa-globe', '11');
@@ -966,8 +1017,11 @@ INSERT INTO `px_menu` VALUES ('63', 'Order', 'admin_order', '0', 'fa-shopping-ca
 INSERT INTO `px_menu` VALUES ('64', 'Order List', 'order_list', '63', 'fa-shopping-cart', '2');
 INSERT INTO `px_menu` VALUES ('67', 'Editor Pick', 'editor_picks', '53', 'fa-calendar', '5');
 INSERT INTO `px_menu` VALUES ('68', 'Product Grup', 'product_group_list', '53', 'fa-list', '6');
-INSERT INTO `px_menu` VALUES ('69', 'Shipping Cost', 'admin_shipping_cost', '0', 'fa-cube', '5');
+INSERT INTO `px_menu` VALUES ('69', 'Shipping Cost', 'admin_shipping_cost', '0', 'fa-cube', '6');
 INSERT INTO `px_menu` VALUES ('70', 'Shipping Cost List', 'shipping_cost_list', '69', 'fa-adjust', '0');
+INSERT INTO `px_menu` VALUES ('71', 'faq', 'faq', '11', 'fa-question', '0');
+INSERT INTO `px_menu` VALUES ('72', 'Voucher', 'admin_voucher', '0', 'fa-tag', '5');
+INSERT INTO `px_menu` VALUES ('73', 'Global Voucher', 'global_voucher', '72', 'fa-adjust', '0');
 
 -- ----------------------------
 -- Table structure for px_news
@@ -1004,17 +1058,48 @@ CREATE TABLE `px_order` (
   `invoice_number` varchar(250) NOT NULL,
   `total_order` int(11) NOT NULL,
   `total_ship_price` int(15) NOT NULL,
+  `random_code` int(11) NOT NULL,
   `total_payment` int(15) NOT NULL,
   `status` tinyint(3) NOT NULL,
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_order
 -- ----------------------------
-INSERT INTO `px_order` VALUES ('1', '9', '5', 'HIJAB070120170001', '176000', '9000', '185000', '0', '2017-01-07 17:00:00', '2017-01-07 17:00:00');
+INSERT INTO `px_order` VALUES ('1', '9', '5', 'HIJAB070120170001', '176000', '9000', '0', '185000', '3', '2017-01-07 17:00:00', '2017-01-07 17:00:00');
+INSERT INTO `px_order` VALUES ('2', '9', '5', 'HDINV20170109000001', '300000', '0', '466', '466', '1', '2017-01-09 00:16:21', '2017-01-09 00:16:21');
+INSERT INTO `px_order` VALUES ('3', '9', '5', 'HDINV20170109000002', '228000', '27000', '811', '255811', '0', '2017-01-09 00:17:45', '2017-01-09 00:17:45');
+INSERT INTO `px_order` VALUES ('4', '9', '5', 'HDINV20170109000003', '76000', '9000', '666', '85666', '2', '2017-01-09 00:32:43', '2017-01-09 00:32:43');
+INSERT INTO `px_order` VALUES ('5', '9', '8', 'HDINV20170110000001', '76000', '0', '547', '547', '1', '2017-01-10 21:53:04', '2017-01-10 21:53:04');
+INSERT INTO `px_order` VALUES ('6', '9', '8', 'HDINV20170110000002', '76000', '0', '392', '392', '1', '2017-01-10 22:04:30', '2017-01-10 22:04:30');
+INSERT INTO `px_order` VALUES ('7', '9', '9', 'HDINV20170110000003', '76000', '0', '337', '337', '1', '2017-01-10 23:15:51', '2017-01-10 23:15:51');
+INSERT INTO `px_order` VALUES ('8', '10', '7', 'HDINV20170110000004', '228000', '0', '645', '645', '1', '2017-01-10 23:17:41', '2017-01-10 23:17:41');
+
+-- ----------------------------
+-- Table structure for px_order_confirmation
+-- ----------------------------
+DROP TABLE IF EXISTS `px_order_confirmation`;
+CREATE TABLE `px_order_confirmation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `account_name` varchar(250) NOT NULL,
+  `account_bank` varchar(250) NOT NULL,
+  `bank_target` varchar(250) NOT NULL,
+  `total_payment` int(11) NOT NULL,
+  `date_transfer` date NOT NULL,
+  `date_created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of px_order_confirmation
+-- ----------------------------
+INSERT INTO `px_order_confirmation` VALUES ('1', '1', 'EDO APRIYADI', 'BCA', 'MANDIRI', '185000', '2017-01-07', '2017-01-07 21:00:00');
+INSERT INTO `px_order_confirmation` VALUES ('2', '2', 'EDO APRIYADI', 'BCA', 'BCA', '100000', '2016-12-31', '2017-01-10 11:39:41');
+INSERT INTO `px_order_confirmation` VALUES ('3', '2', 'EDO APRIYADI', 'BCA', 'BCA', '100000', '2017-01-19', '2017-01-10 11:40:10');
 
 -- ----------------------------
 -- Table structure for px_product
@@ -1029,7 +1114,7 @@ CREATE TABLE `px_product` (
   `discount` int(11) NOT NULL,
   `description` text NOT NULL,
   `weight` int(11) NOT NULL,
-  `barcode` varchar(100) NOT NULL,
+  `sku_code` varchar(100) NOT NULL,
   `show_flag` tinyint(4) NOT NULL,
   `delete_flag` tinyint(1) NOT NULL,
   `id_created` int(11) NOT NULL,
@@ -1037,13 +1122,15 @@ CREATE TABLE `px_product` (
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_product
 -- ----------------------------
-INSERT INTO `px_product` VALUES ('33', '4', '6', 'Scarf Elzatta Kaila Lamarsya', '76000', '0', '<p><span style=\"font-weight: bold;\">Scarf Elzatta Kaila Lamarsya</span><br></p><p><br></p><p>Jilbab segi empat yang baru dirilis oleh <span style=\"font-weight: bold;\">elzatta </span>katalog terbaru katalog 3 2016 yaitu model kaila lamarsya. </p><p><span style=\"font-weight: bold;\">Scarf Elzatta Kaila Lamarsya</span> merupakan kerudung segi empat memiliki tema <span style=\"font-weight: bold;\">grunge &nbsp;</span>dengan &nbsp;<span style=\"font-weight: bold;\">motif bunga yang cantik</span>, terbuat dari bahan katun paris (<span style=\"font-weight: bold;\">polyspun</span>) khas elzatta yang <span style=\"font-weight: bold;\">nyaman </span>dipakai.</p><p><br></p><p>Kerudung segi 4 seperti ini sangat <span style=\"font-weight: bold;\">diminati </span>oleh para <span style=\"font-weight: bold;\">hijabers </span>yang <span style=\"font-weight: bold;\">hoby berkreasi</span> membentuk kerudung dalam berbagai gaya baik klasik ataupun modern sehingga terlihat sangat <span style=\"font-weight: bold;\">fashionable</span>.</p>', '1', '234243242', '1', '0', '7', '2016-12-20 15:39:21', '7', '2017-01-01 19:03:22');
-INSERT INTO `px_product` VALUES ('34', '4', '4', 'Test Product 11', '100000', '0', '<p>Test123<br></p>', '100', '123456666', '0', '0', '7', '2017-01-01 22:03:46', '7', '2017-01-01 22:05:24');
+INSERT INTO `px_product` VALUES ('33', '9', '6', 'Blue Blouse', '76000', '0', '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm</p><p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', '1', '234243242', '1', '0', '7', '2016-12-20 15:39:21', '7', '2017-01-11 01:10:57');
+INSERT INTO `px_product` VALUES ('34', '9', '4', 'Olive Top', '100000', '0', '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', '100', '123456666', '1', '0', '7', '2017-01-01 22:03:46', '7', '2017-01-11 01:13:31');
+INSERT INTO `px_product` VALUES ('35', '10', '1', 'Indij Black Long Kimono', '200000', '0', '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', '100', '123123', '1', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product` VALUES ('36', '3', '3', 'Indij Cream Layered Tunic', '300000', '0', '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', '100', '1231231', '1', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
 
 -- ----------------------------
 -- Table structure for px_product_editor_picks
@@ -1054,14 +1141,25 @@ CREATE TABLE `px_product_editor_picks` (
   `product_id` int(11) NOT NULL,
   `editor_picks_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_product_editor_picks
 -- ----------------------------
-INSERT INTO `px_product_editor_picks` VALUES ('72', '33', '2');
-INSERT INTO `px_product_editor_picks` VALUES ('77', '34', '1');
-INSERT INTO `px_product_editor_picks` VALUES ('78', '34', '2');
+INSERT INTO `px_product_editor_picks` VALUES ('87', '33', '1');
+INSERT INTO `px_product_editor_picks` VALUES ('88', '33', '2');
+INSERT INTO `px_product_editor_picks` VALUES ('89', '33', '3');
+INSERT INTO `px_product_editor_picks` VALUES ('90', '33', '4');
+INSERT INTO `px_product_editor_picks` VALUES ('91', '34', '1');
+INSERT INTO `px_product_editor_picks` VALUES ('92', '34', '2');
+INSERT INTO `px_product_editor_picks` VALUES ('93', '35', '1');
+INSERT INTO `px_product_editor_picks` VALUES ('94', '35', '2');
+INSERT INTO `px_product_editor_picks` VALUES ('95', '35', '3');
+INSERT INTO `px_product_editor_picks` VALUES ('96', '35', '4');
+INSERT INTO `px_product_editor_picks` VALUES ('97', '36', '1');
+INSERT INTO `px_product_editor_picks` VALUES ('98', '36', '2');
+INSERT INTO `px_product_editor_picks` VALUES ('99', '36', '3');
+INSERT INTO `px_product_editor_picks` VALUES ('100', '36', '4');
 
 -- ----------------------------
 -- Table structure for px_product_group
@@ -1072,13 +1170,15 @@ CREATE TABLE `px_product_group` (
   `product_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_product_group
 -- ----------------------------
-INSERT INTO `px_product_group` VALUES ('13', '33', '2');
-INSERT INTO `px_product_group` VALUES ('16', '34', '2');
+INSERT INTO `px_product_group` VALUES ('20', '33', '2');
+INSERT INTO `px_product_group` VALUES ('21', '34', '2');
+INSERT INTO `px_product_group` VALUES ('22', '35', '2');
+INSERT INTO `px_product_group` VALUES ('23', '36', '2');
 
 -- ----------------------------
 -- Table structure for px_product_image
@@ -1094,13 +1194,15 @@ CREATE TABLE `px_product_image` (
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_product_image
 -- ----------------------------
-INSERT INTO `px_product_image` VALUES ('17', '33', '5858ee51b025f-product.jpg', '1', '7', '2016-12-20 15:39:45', '7', '2016-12-20 15:39:45');
-INSERT INTO `px_product_image` VALUES ('18', '33', '58666fdd8e101-product.jpg', '0', '7', '2016-12-30 21:31:57', '7', '2016-12-30 21:31:57');
+INSERT INTO `px_product_image` VALUES ('17', '33', '587523cac5b1d-product.jpg', '1', '7', '2016-12-20 15:39:45', '7', '2017-01-11 01:11:22');
+INSERT INTO `px_product_image` VALUES ('19', '34', '5875245f348ec-product.jpg', '1', '7', '2017-01-08 23:56:17', '7', '2017-01-11 01:13:51');
+INSERT INTO `px_product_image` VALUES ('21', '35', '587524c3901ee-product.jpg', '1', '7', '2017-01-11 01:15:31', '7', '2017-01-11 01:15:31');
+INSERT INTO `px_product_image` VALUES ('22', '36', '587524dae6a67-product.jpg', '0', '7', '2017-01-11 01:15:54', '7', '2017-01-11 01:15:54');
 
 -- ----------------------------
 -- Table structure for px_product_order
@@ -1116,13 +1218,17 @@ CREATE TABLE `px_product_order` (
   `price` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_product_order
 -- ----------------------------
 INSERT INTO `px_product_order` VALUES ('1', '33', '1', '1', '1', '105', '76000', '1');
 INSERT INTO `px_product_order` VALUES ('2', '34', '1', '2', '2', '124', '100000', '1');
+INSERT INTO `px_product_order` VALUES ('3', '33', '3', '1', '1', '105', '76000', '3');
+INSERT INTO `px_product_order` VALUES ('4', '33', '4', '4', '2', '114', '76000', '1');
+INSERT INTO `px_product_order` VALUES ('5', '33', '7', '4', '2', '114', '76000', '1');
+INSERT INTO `px_product_order` VALUES ('6', '33', '8', '2', '1', '109', '76000', '3');
 
 -- ----------------------------
 -- Table structure for px_product_stock
@@ -1139,25 +1245,41 @@ CREATE TABLE `px_product_stock` (
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_product_stock
 -- ----------------------------
-INSERT INTO `px_product_stock` VALUES ('105', '33', '1', '1', '11', '7', '2016-12-20 15:39:21', '7', '2016-12-20 15:39:21');
+INSERT INTO `px_product_stock` VALUES ('105', '33', '1', '1', '9', '7', '2016-12-20 15:39:21', '7', '2016-12-20 15:39:21');
 INSERT INTO `px_product_stock` VALUES ('106', '33', '2', '1', '100', '7', '2016-12-20 15:39:21', '7', '2016-12-20 15:39:21');
-INSERT INTO `px_product_stock` VALUES ('109', '33', '1', '2', '20', '7', '2017-01-01 19:03:22', '7', '2017-01-01 19:03:22');
+INSERT INTO `px_product_stock` VALUES ('109', '33', '1', '2', '17', '7', '2017-01-01 19:03:22', '7', '2017-01-01 19:03:22');
 INSERT INTO `px_product_stock` VALUES ('110', '33', '2', '2', '3', '7', '2017-01-01 19:03:22', '7', '2017-01-01 19:03:22');
 INSERT INTO `px_product_stock` VALUES ('111', '33', '1', '3', '50', '7', '2017-01-01 19:03:22', '7', '2017-01-01 19:03:22');
 INSERT INTO `px_product_stock` VALUES ('112', '33', '2', '3', '20', '7', '2017-01-01 19:03:22', '7', '2017-01-01 19:03:22');
 INSERT INTO `px_product_stock` VALUES ('113', '33', '1', '4', '10', '7', '2017-01-01 19:03:22', '7', '2017-01-01 19:03:22');
-INSERT INTO `px_product_stock` VALUES ('114', '33', '2', '4', '9', '7', '2017-01-01 19:03:22', '7', '2017-01-01 19:03:22');
+INSERT INTO `px_product_stock` VALUES ('114', '33', '2', '4', '7', '7', '2017-01-01 19:03:22', '7', '2017-01-01 19:03:22');
 INSERT INTO `px_product_stock` VALUES ('115', '34', '1', '1', '0', '7', '2017-01-01 22:03:46', '7', '2017-01-01 22:03:46');
 INSERT INTO `px_product_stock` VALUES ('117', '34', '1', '2', '0', '7', '2017-01-01 22:03:46', '7', '2017-01-01 22:03:46');
 INSERT INTO `px_product_stock` VALUES ('121', '34', '1', '4', '0', '7', '2017-01-01 22:03:46', '7', '2017-01-01 22:03:46');
 INSERT INTO `px_product_stock` VALUES ('123', '34', '2', '1', '0', '7', '2017-01-01 22:05:25', '7', '2017-01-01 22:05:25');
-INSERT INTO `px_product_stock` VALUES ('124', '34', '2', '2', '0', '7', '2017-01-01 22:05:25', '7', '2017-01-01 22:05:25');
+INSERT INTO `px_product_stock` VALUES ('124', '34', '2', '2', '1', '7', '2017-01-01 22:05:25', '7', '2017-01-01 22:05:25');
 INSERT INTO `px_product_stock` VALUES ('125', '34', '2', '4', '0', '7', '2017-01-01 22:05:25', '7', '2017-01-01 22:05:25');
+INSERT INTO `px_product_stock` VALUES ('126', '35', '1', '1', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product_stock` VALUES ('127', '35', '2', '1', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product_stock` VALUES ('128', '35', '1', '2', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product_stock` VALUES ('129', '35', '2', '2', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product_stock` VALUES ('130', '35', '1', '3', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product_stock` VALUES ('131', '35', '2', '3', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product_stock` VALUES ('132', '35', '1', '4', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product_stock` VALUES ('133', '35', '2', '4', '0', '7', '2017-01-11 01:14:40', '7', '2017-01-11 01:14:40');
+INSERT INTO `px_product_stock` VALUES ('134', '36', '1', '1', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
+INSERT INTO `px_product_stock` VALUES ('135', '36', '2', '1', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
+INSERT INTO `px_product_stock` VALUES ('136', '36', '1', '2', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
+INSERT INTO `px_product_stock` VALUES ('137', '36', '2', '2', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
+INSERT INTO `px_product_stock` VALUES ('138', '36', '1', '3', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
+INSERT INTO `px_product_stock` VALUES ('139', '36', '2', '3', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
+INSERT INTO `px_product_stock` VALUES ('140', '36', '1', '4', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
+INSERT INTO `px_product_stock` VALUES ('141', '36', '2', '4', '0', '7', '2017-01-11 01:15:16', '7', '2017-01-11 01:15:16');
 
 -- ----------------------------
 -- Table structure for px_shipping_city
@@ -8855,7 +8977,7 @@ CREATE TABLE `px_tracking_status` (
   `status_id` int(11) DEFAULT '0',
   `class_text` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_tracking_status
@@ -8878,12 +9000,18 @@ CREATE TABLE `px_tracking_system` (
   `content` text NOT NULL,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_tracking_system
 -- ----------------------------
 INSERT INTO `px_tracking_system` VALUES ('5', '1', '0', 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-07 17:00:00');
+INSERT INTO `px_tracking_system` VALUES ('10', '1', '2', 'Order Paid', 'Pembayaran Telah Diterima, Order Siap Dikirim', '2017-01-08 01:52:29');
+INSERT INTO `px_tracking_system` VALUES ('11', '1', '3', 'Order Shipped', 'Order Telah Dikirim ke Customer, Nomor Resi : 123123123123', '2017-01-08 01:53:41');
+INSERT INTO `px_tracking_system` VALUES ('12', '4', '2', 'Order Paid', 'Pembayaran Telah Diterima, Order Siap Dikirim', '2017-01-09 15:34:28');
+INSERT INTO `px_tracking_system` VALUES ('13', '4', '3', 'Order Shipped', 'Order Telah Dikirim ke Customer, Nomor Resi : 67rufjgut6867', '2017-01-09 15:34:38');
+INSERT INTO `px_tracking_system` VALUES ('14', '7', '0', 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-10 23:15:51');
+INSERT INTO `px_tracking_system` VALUES ('15', '8', '0', 'Menunggu Konfirmasi', 'Menunggu Konfirmasi Pembayaran dari Customer', '2017-01-10 23:17:42');
 
 -- ----------------------------
 -- Table structure for px_underconstruct_status
@@ -8934,7 +9062,7 @@ CREATE TABLE `px_useraccess` (
   `act_update` int(11) NOT NULL,
   `act_delete` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_useraccess
@@ -8973,6 +9101,9 @@ INSERT INTO `px_useraccess` VALUES ('158', '1', '67', '1', '1', '1', '1');
 INSERT INTO `px_useraccess` VALUES ('159', '1', '68', '1', '1', '1', '1');
 INSERT INTO `px_useraccess` VALUES ('160', '1', '69', '1', '1', '1', '1');
 INSERT INTO `px_useraccess` VALUES ('161', '1', '70', '1', '1', '1', '1');
+INSERT INTO `px_useraccess` VALUES ('162', '1', '71', '1', '1', '1', '1');
+INSERT INTO `px_useraccess` VALUES ('163', '1', '72', '1', '1', '1', '1');
+INSERT INTO `px_useraccess` VALUES ('164', '1', '73', '1', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for px_usergroup
@@ -8991,6 +9122,28 @@ INSERT INTO `px_usergroup` VALUES ('1', 'Super Admin');
 INSERT INTO `px_usergroup` VALUES ('4', 'Admin');
 
 -- ----------------------------
+-- Table structure for px_voucher
+-- ----------------------------
+DROP TABLE IF EXISTS `px_voucher`;
+CREATE TABLE `px_voucher` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `voucher` varchar(50) DEFAULT NULL,
+  `date_start` datetime DEFAULT NULL,
+  `date_end` datetime DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `diskon` decimal(5,2) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `delete_flag` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of px_voucher
+-- ----------------------------
+INSERT INTO `px_voucher` VALUES ('4', 'BOGORKEREN2016', '2017-01-01 00:00:00', '2017-01-19 00:00:00', '2017-01-10 21:59:21', null, '1', '0');
+INSERT INTO `px_voucher` VALUES ('5', 'rewt', '2016-12-30 00:00:00', '2016-12-31 00:00:00', '0000-00-00 00:00:00', '10.00', '0', '0');
+
+-- ----------------------------
 -- Table structure for px_wishlist
 -- ----------------------------
 DROP TABLE IF EXISTS `px_wishlist`;
@@ -8999,9 +9152,11 @@ CREATE TABLE `px_wishlist` (
   `product_id` int(11) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of px_wishlist
 -- ----------------------------
 INSERT INTO `px_wishlist` VALUES ('1', '23', '3');
+INSERT INTO `px_wishlist` VALUES ('6', '33', '9');
+INSERT INTO `px_wishlist` VALUES ('8', '34', '9');
