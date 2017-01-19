@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2017 at 06:50 PM
+-- Generation Time: Jan 19, 2017 at 08:15 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -291,6 +291,7 @@ CREATE TABLE `px_customer_shipping_address` (
   `id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `receiver_name` varchar(250) NOT NULL,
+  `email` varchar(225) NOT NULL,
   `title` text NOT NULL,
   `address` text NOT NULL,
   `province` int(11) NOT NULL,
@@ -305,13 +306,13 @@ CREATE TABLE `px_customer_shipping_address` (
 -- Dumping data for table `px_customer_shipping_address`
 --
 
-INSERT INTO `px_customer_shipping_address` (`id`, `customer_id`, `receiver_name`, `title`, `address`, `province`, `city`, `region`, `postal_code`, `phone`, `is_deleted`) VALUES
-(5, 9, 'Edo Apriyadi', 'Home', 'Jl. Muara Gg PD Hasan no 186 Bogor Timur', 9, 79, 1065, 12127, '081290847470', 0),
-(6, 9, 'Edo Apriyadi', 'Office', 'Jl. Bangka Raya No 31A Pela Mampang', 6, 153, 2107, 12125, '081290847470', 0),
-(7, 10, 'Edo Apriyadi', 'Home', 'Jl. Blabla', 9, 79, 1065, 12127, '081290847470', 0),
-(8, 9, 'Apriyadi Edo', 'New Address', 'Apartemen', 9, 79, 1063, 12720, '081290847470', 0),
-(9, 9, 'Apriyadi Edo', 'New Address', 'Apartemen', 6, 153, 2107, 12720, '081290847470', 0),
-(10, 11, 'Deni Pratama', 'Home', 'Jalan Kebahagiaan', 9, 78, 1027, 16720, '085313999010', 0);
+INSERT INTO `px_customer_shipping_address` (`id`, `customer_id`, `receiver_name`, `email`, `title`, `address`, `province`, `city`, `region`, `postal_code`, `phone`, `is_deleted`) VALUES
+(5, 9, 'Edo Apriyadi', '', 'Home', 'Jl. Muara Gg PD Hasan no 186 Bogor Timur', 9, 79, 1065, 12127, '081290847470', 0),
+(6, 9, 'Edo Apriyadi', '', 'Office', 'Jl. Bangka Raya No 31A Pela Mampang', 6, 153, 2107, 12125, '081290847470', 0),
+(7, 10, 'Edo Apriyadi', '', 'Home', 'Jl. Blabla', 9, 79, 1065, 12127, '081290847470', 0),
+(8, 9, 'Apriyadi Edo', '', 'New Address', 'Apartemen', 9, 79, 1063, 12720, '081290847470', 0),
+(9, 9, 'Apriyadi Edo', '', 'New Address', 'Apartemen', 6, 153, 2107, 12720, '081290847470', 0),
+(10, 11, 'Deni Pratama', '', 'Home', 'Jalan Kebahagiaan', 9, 78, 1027, 16720, '085313999010', 0);
 
 -- --------------------------------------------------------
 
