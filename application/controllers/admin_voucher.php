@@ -130,4 +130,17 @@ class admin_voucher extends PX_Controller
             $this->returnJson(array('status' => 'failed', 'msg' => 'Update Status Failed'));
         }
     }
+
+    public function history_voucher() {
+        $this->load->model('model_voucher');
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Voucher History', 'history_voucher');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+
+        $data['list'] = $this->model_voucher->history_voucher_get()->result();
+        $data['content'] = $this->load->view('backend/voucher/history_voucher', $data, true);
+        $this->load->view('backend/index', $data);
+    }
 }
