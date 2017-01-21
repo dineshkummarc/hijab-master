@@ -48,9 +48,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 col-xs-12 control-label">Diskon(%)</label>
+                            <label class="col-md-2 col-xs-12 control-label">Discount(%)</label>
                             <div class="col-md-9 col-xs-12">
-                                <input type="text" class="form-control" name="diskon" id="px-voucher-form-diskon" value="<?php if($data) echo $data->diskon ;else '0.00';?>"  placeholder="0.00" required>
+                                <input type="text" class="form-control" name="discount" id="px-voucher-form-diskon" value="<?php if($data) echo $data->discount ;else '0.00';?>"  placeholder="0.00" required>
                             </div>
                         </div>
 

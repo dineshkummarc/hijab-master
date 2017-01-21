@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2017 at 08:15 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Generation Time: Jan 21, 2017 at 05:12 AM
+-- Server version: 5.6.21
+-- PHP Version: 5.5.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `hijab`
@@ -26,15 +26,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `px_adm_config`
 --
 
-CREATE TABLE `px_adm_config` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_adm_config` (
+`id` int(10) unsigned NOT NULL,
   `login_logo` varchar(255) NOT NULL,
   `mini_logo` varchar(255) NOT NULL,
   `single_logo` text NOT NULL,
   `favicon_logo` text NOT NULL,
   `title` varchar(255) NOT NULL,
   `desc` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_adm_config`
@@ -49,12 +49,12 @@ INSERT INTO `px_adm_config` (`id`, `login_logo`, `mini_logo`, `single_logo`, `fa
 -- Table structure for table `px_album`
 --
 
-CREATE TABLE `px_album` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_album` (
+`id` int(10) unsigned NOT NULL,
   `name` varchar(225) NOT NULL,
   `description` text NOT NULL,
   `date` varchar(225) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_album`
@@ -70,12 +70,12 @@ INSERT INTO `px_album` (`id`, `name`, `description`, `date`) VALUES
 -- Table structure for table `px_album_files`
 --
 
-CREATE TABLE `px_album_files` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_album_files` (
+`id` int(10) unsigned NOT NULL,
   `id_album` int(11) NOT NULL,
   `file` text NOT NULL,
   `caption` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_album_files`
@@ -96,8 +96,8 @@ INSERT INTO `px_album_files` (`id`, `id_album`, `file`, `caption`) VALUES
 -- Table structure for table `px_banner`
 --
 
-CREATE TABLE `px_banner` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_banner` (
+`id` int(10) unsigned NOT NULL,
   `banner` text NOT NULL,
   `title` varchar(225) NOT NULL,
   `content` text NOT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE `px_banner` (
   `id_modifier` int(11) NOT NULL,
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_banner`
@@ -124,9 +124,10 @@ INSERT INTO `px_banner` (`id`, `banner`, `title`, `content`, `link`, `status`, `
 -- Table structure for table `px_brand`
 --
 
-CREATE TABLE `px_brand` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_brand` (
+`id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `url` varchar(100) NOT NULL,
   `photo` varchar(250) NOT NULL,
   `promo_status` tinyint(1) NOT NULL,
@@ -135,18 +136,18 @@ CREATE TABLE `px_brand` (
   `date_created` datetime NOT NULL,
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_brand`
 --
 
-INSERT INTO `px_brand` (`id`, `name`, `url`, `photo`, `promo_status`, `diskon`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(1, 'Nike', '', '58244a7a61750-brand.jpg', 0, '0.00', 7, '2016-11-10 17:07:15', 7, '2016-11-10 17:22:50'),
-(3, 'Adidas', '', '58244b6eb530f-brand.jpg', 0, '0.00', 7, '2016-11-10 17:24:05', 7, '2016-11-10 17:26:54'),
-(4, 'Puma', '', '58244b515ab17-brand.jpg', 0, '0.00', 7, '2016-11-10 17:26:25', 7, '2016-11-10 17:26:25'),
-(5, 'Yonex', '', '58244b94d14fb-brand.jpg', 0, '0.00', 7, '2016-11-10 17:27:32', 7, '2016-11-10 17:27:32'),
-(6, 'el-zatta', '', '58580d6424404-brand.jpg', 0, '0.00', 7, '2016-12-19 23:40:04', 7, '2016-12-19 23:40:04');
+INSERT INTO `px_brand` (`id`, `name`, `description`, `url`, `photo`, `promo_status`, `diskon`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
+(1, 'Nike', NULL, '', '58244a7a61750-brand.jpg', 0, '0.00', 7, '2016-11-10 17:07:15', 7, '2016-11-10 17:22:50'),
+(3, 'Adidas', NULL, '', '58244b6eb530f-brand.jpg', 0, '0.00', 7, '2016-11-10 17:24:05', 7, '2016-11-10 17:26:54'),
+(4, 'Puma', NULL, '', '58244b515ab17-brand.jpg', 0, '0.00', 7, '2016-11-10 17:26:25', 7, '2016-11-10 17:26:25'),
+(5, 'Yonex', NULL, '', '58244b94d14fb-brand.jpg', 0, '0.00', 7, '2016-11-10 17:27:32', 7, '2016-11-10 17:27:32'),
+(6, 'el-zatta', NULL, '', '58580d6424404-brand.jpg', 0, '0.00', 7, '2016-12-19 23:40:04', 7, '2016-12-19 23:40:04');
 
 -- --------------------------------------------------------
 
@@ -154,12 +155,12 @@ INSERT INTO `px_brand` (`id`, `name`, `url`, `photo`, `promo_status`, `diskon`, 
 -- Table structure for table `px_cart`
 --
 
-CREATE TABLE `px_cart` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_cart` (
+`id` int(11) NOT NULL,
   `total` int(11) DEFAULT '1',
   `product_id` int(11) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_cart`
@@ -179,8 +180,8 @@ INSERT INTO `px_cart` (`id`, `total`, `product_id`, `customer_id`) VALUES
 -- Table structure for table `px_category`
 --
 
-CREATE TABLE `px_category` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_category` (
+`id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `potrait_image` varchar(255) NOT NULL,
   `landscape_image` varchar(255) NOT NULL,
@@ -189,7 +190,7 @@ CREATE TABLE `px_category` (
   `date_created` datetime NOT NULL,
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_category`
@@ -207,15 +208,15 @@ INSERT INTO `px_category` (`id`, `name`, `potrait_image`, `landscape_image`, `de
 -- Table structure for table `px_color`
 --
 
-CREATE TABLE `px_color` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_color` (
+`id` int(11) NOT NULL,
   `name` varchar(40) NOT NULL,
   `kode` varchar(20) NOT NULL,
   `id_created` int(11) NOT NULL,
   `date_created` datetime NOT NULL,
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_color`
@@ -231,8 +232,8 @@ INSERT INTO `px_color` (`id`, `name`, `kode`, `id_created`, `date_created`, `id_
 -- Table structure for table `px_customer`
 --
 
-CREATE TABLE `px_customer` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_customer` (
+`id` int(11) NOT NULL,
   `nama_depan` text NOT NULL,
   `nama_belakang` text NOT NULL,
   `jenis_kelamin` varchar(10) NOT NULL,
@@ -243,7 +244,7 @@ CREATE TABLE `px_customer` (
   `delete_flag` tinyint(1) NOT NULL,
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_customer`
@@ -260,8 +261,8 @@ INSERT INTO `px_customer` (`id`, `nama_depan`, `nama_belakang`, `jenis_kelamin`,
 -- Table structure for table `px_customer_billing_address`
 --
 
-CREATE TABLE `px_customer_billing_address` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_customer_billing_address` (
+`id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `address` text NOT NULL,
   `province` int(11) NOT NULL,
@@ -270,7 +271,7 @@ CREATE TABLE `px_customer_billing_address` (
   `postal_code` varchar(20) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `title` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_customer_billing_address`
@@ -287,8 +288,8 @@ INSERT INTO `px_customer_billing_address` (`id`, `customer_id`, `address`, `prov
 -- Table structure for table `px_customer_shipping_address`
 --
 
-CREATE TABLE `px_customer_shipping_address` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_customer_shipping_address` (
+`id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `receiver_name` varchar(250) NOT NULL,
   `email` varchar(225) NOT NULL,
@@ -300,7 +301,7 @@ CREATE TABLE `px_customer_shipping_address` (
   `postal_code` int(11) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `is_deleted` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_customer_shipping_address`
@@ -320,21 +321,22 @@ INSERT INTO `px_customer_shipping_address` (`id`, `customer_id`, `receiver_name`
 -- Table structure for table `px_editor_picks`
 --
 
-CREATE TABLE `px_editor_picks` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_editor_picks` (
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
   `image` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_editor_picks`
 --
 
-INSERT INTO `px_editor_picks` (`id`, `name`, `image`) VALUES
-(1, 'Casual and Street Style', '58751ad99fc31-hijab.jpg'),
-(2, 'Party Outfit', '58751b08860f4-hijab.jpg'),
-(3, 'Travelling Style', '58751b54b6b2d-hijab.jpg'),
-(4, 'Work Outfit', '58751b6737c3f-hijab.jpg');
+INSERT INTO `px_editor_picks` (`id`, `name`, `url`, `image`) VALUES
+(1, 'Casual and Street Style', 'tes', '0'),
+(2, 'Party Outfit', NULL, '58751b08860f4-hijab.jpg'),
+(3, 'Travelling Style', NULL, '58751b54b6b2d-hijab.jpg'),
+(4, 'Work Outfit', NULL, '58751b6737c3f-hijab.jpg');
 
 -- --------------------------------------------------------
 
@@ -342,12 +344,12 @@ INSERT INTO `px_editor_picks` (`id`, `name`, `image`) VALUES
 -- Table structure for table `px_faq`
 --
 
-CREATE TABLE `px_faq` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_faq` (
+`id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text,
   `date_modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_faq`
@@ -370,10 +372,10 @@ INSERT INTO `px_faq` (`id`, `title`, `content`, `date_modified`) VALUES
 -- Table structure for table `px_flag`
 --
 
-CREATE TABLE `px_flag` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_flag` (
+`id` int(11) NOT NULL,
   `desc` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_flag`
@@ -390,10 +392,10 @@ INSERT INTO `px_flag` (`id`, `desc`) VALUES
 -- Table structure for table `px_group`
 --
 
-CREATE TABLE `px_group` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_group` (
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_group`
@@ -408,8 +410,8 @@ INSERT INTO `px_group` (`id`, `name`) VALUES
 -- Table structure for table `px_guest_book`
 --
 
-CREATE TABLE `px_guest_book` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_guest_book` (
+`id` int(10) unsigned NOT NULL,
   `name` varchar(225) NOT NULL,
   `email` varchar(225) NOT NULL,
   `phone` varchar(50) NOT NULL,
@@ -428,11 +430,11 @@ CREATE TABLE `px_guest_book` (
 -- Table structure for table `px_jasa_pengiriman`
 --
 
-CREATE TABLE `px_jasa_pengiriman` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_jasa_pengiriman` (
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `photo` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_jasa_pengiriman`
@@ -447,11 +449,11 @@ INSERT INTO `px_jasa_pengiriman` (`id`, `name`, `photo`) VALUES
 -- Table structure for table `px_master_data`
 --
 
-CREATE TABLE `px_master_data` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_master_data` (
+`id` int(10) unsigned NOT NULL,
   `content` text NOT NULL,
   `id_parent` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=603 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_master_data`
@@ -1033,14 +1035,14 @@ INSERT INTO `px_master_data` (`id`, `content`, `id_parent`) VALUES
 -- Table structure for table `px_menu`
 --
 
-CREATE TABLE `px_menu` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_menu` (
+`id` int(10) unsigned NOT NULL,
   `name` varchar(225) NOT NULL,
   `target` varchar(225) NOT NULL,
   `id_parent` int(11) NOT NULL,
   `icon` varchar(225) NOT NULL,
   `orders` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_menu`
@@ -1078,7 +1080,8 @@ INSERT INTO `px_menu` (`id`, `name`, `target`, `id_parent`, `icon`, `orders`) VA
 (70, 'Shipping Cost List', 'shipping_cost_list', 69, 'fa-adjust', 0),
 (71, 'faq', 'faq', 11, 'fa-question', 0),
 (72, 'Voucher', 'admin_voucher', 0, 'fa-tag', 5),
-(73, 'Global Voucher', 'global_voucher', 72, 'fa-adjust', 0);
+(73, 'Global Voucher', 'global_voucher', 72, 'fa-adjust', 0),
+(74, 'Voucher History', 'history_voucher', 72, 'fa-file', 0);
 
 -- --------------------------------------------------------
 
@@ -1086,8 +1089,8 @@ INSERT INTO `px_menu` (`id`, `name`, `target`, `id_parent`, `icon`, `orders`) VA
 -- Table structure for table `px_news`
 --
 
-CREATE TABLE `px_news` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_news` (
+`id` int(10) unsigned NOT NULL,
   `type_id` int(11) NOT NULL,
   `title` varchar(225) NOT NULL,
   `content` text NOT NULL,
@@ -1097,7 +1100,7 @@ CREATE TABLE `px_news` (
   `id_creator` int(11) NOT NULL,
   `id_modifier` int(11) NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_news`
@@ -1113,8 +1116,8 @@ INSERT INTO `px_news` (`id`, `type_id`, `title`, `content`, `photo_landscape`, `
 -- Table structure for table `px_order`
 --
 
-CREATE TABLE `px_order` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_order` (
+`id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `ship_address_id` int(11) NOT NULL,
   `voucher_id` int(11) NOT NULL DEFAULT '0',
@@ -1127,7 +1130,7 @@ CREATE TABLE `px_order` (
   `status` tinyint(3) NOT NULL,
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_order`
@@ -1145,7 +1148,7 @@ INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `voucher_id`, `i
 (9, 11, 10, 0, 'HDINV20170114000001', 76000, 0, 9000, 603, 85603, 1, '2017-01-14 19:09:11', '2017-01-14 19:09:11'),
 (10, 11, 10, 0, 'HDINV20170117000001', 76000, 0, 9000, 643, 85643, 1, '2017-01-17 00:59:54', '0000-00-00 00:00:00'),
 (11, 11, 10, 0, 'HDINV20170117000002', 76000, 0, 9000, 396, 85396, 1, '2017-01-17 02:00:47', '0000-00-00 00:00:00'),
-(12, 11, 10, 4, 'HDINV20170119000001', 152000, 30400, 18000, 196, 139796, 1, '2017-01-19 00:48:24', '0000-00-00 00:00:00');
+(12, 11, 10, 4, 'HDINV20170119000001', 152000, 30400, 18000, 196, 139796, 3, '2017-01-19 00:48:24', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1153,8 +1156,8 @@ INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `voucher_id`, `i
 -- Table structure for table `px_order_confirmation`
 --
 
-CREATE TABLE `px_order_confirmation` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_order_confirmation` (
+`id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `account_name` varchar(250) NOT NULL,
   `account_bank` varchar(250) NOT NULL,
@@ -1162,7 +1165,7 @@ CREATE TABLE `px_order_confirmation` (
   `total_payment` int(11) NOT NULL,
   `date_transfer` date NOT NULL,
   `date_created` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_order_confirmation`
@@ -1179,8 +1182,8 @@ INSERT INTO `px_order_confirmation` (`id`, `order_id`, `account_name`, `account_
 -- Table structure for table `px_product`
 --
 
-CREATE TABLE `px_product` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_product` (
+`id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `brand_id` int(11) NOT NULL,
   `name_product` text NOT NULL,
@@ -1188,20 +1191,20 @@ CREATE TABLE `px_product` (
   `discount` int(11) NOT NULL,
   `description` text NOT NULL,
   `weight` int(11) NOT NULL,
-  `barcode` varchar(100) NOT NULL,
+  `sku_code` varchar(100) NOT NULL,
   `show_flag` tinyint(4) NOT NULL,
   `delete_flag` tinyint(1) NOT NULL,
   `id_created` int(11) NOT NULL,
   `date_created` datetime NOT NULL,
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_product`
 --
 
-INSERT INTO `px_product` (`id`, `category_id`, `brand_id`, `name_product`, `price`, `discount`, `description`, `weight`, `barcode`, `show_flag`, `delete_flag`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
+INSERT INTO `px_product` (`id`, `category_id`, `brand_id`, `name_product`, `price`, `discount`, `description`, `weight`, `sku_code`, `show_flag`, `delete_flag`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
 (33, 9, 6, 'Blue Blouse', 76000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm</p><p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', 1, '234243242', 1, 0, 7, '2016-12-20 15:39:21', 7, '2017-01-11 01:10:57'),
 (34, 9, 4, 'Olive Top', 100000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', 100, '123456666', 1, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-11 01:13:31'),
 (35, 10, 1, 'Indij Black Long Kimono', 200000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', 100, '123123', 1, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
@@ -1213,11 +1216,11 @@ INSERT INTO `px_product` (`id`, `category_id`, `brand_id`, `name_product`, `pric
 -- Table structure for table `px_product_editor_picks`
 --
 
-CREATE TABLE `px_product_editor_picks` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_product_editor_picks` (
+`id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `editor_picks_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_product_editor_picks`
@@ -1245,11 +1248,11 @@ INSERT INTO `px_product_editor_picks` (`id`, `product_id`, `editor_picks_id`) VA
 -- Table structure for table `px_product_group`
 --
 
-CREATE TABLE `px_product_group` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_product_group` (
+`id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_product_group`
@@ -1267,8 +1270,8 @@ INSERT INTO `px_product_group` (`id`, `product_id`, `group_id`) VALUES
 -- Table structure for table `px_product_image`
 --
 
-CREATE TABLE `px_product_image` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_product_image` (
+`id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `photo` varchar(250) NOT NULL,
   `primary_status` tinyint(1) NOT NULL,
@@ -1276,7 +1279,7 @@ CREATE TABLE `px_product_image` (
   `date_created` datetime NOT NULL,
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_product_image`
@@ -1294,8 +1297,8 @@ INSERT INTO `px_product_image` (`id`, `product_id`, `photo`, `primary_status`, `
 -- Table structure for table `px_product_order`
 --
 
-CREATE TABLE `px_product_order` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_product_order` (
+`id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `size_id` int(11) NOT NULL,
@@ -1303,7 +1306,7 @@ CREATE TABLE `px_product_order` (
   `product_stock_id` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_product_order`
@@ -1327,8 +1330,8 @@ INSERT INTO `px_product_order` (`id`, `product_id`, `order_id`, `size_id`, `colo
 -- Table structure for table `px_product_stock`
 --
 
-CREATE TABLE `px_product_stock` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_product_stock` (
+`id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `color_id` int(11) NOT NULL,
   `size_id` int(11) NOT NULL,
@@ -1337,7 +1340,7 @@ CREATE TABLE `px_product_stock` (
   `date_created` datetime NOT NULL,
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_product_stock`
@@ -1381,13 +1384,13 @@ INSERT INTO `px_product_stock` (`id`, `product_id`, `color_id`, `size_id`, `stoc
 -- Table structure for table `px_shipping_city`
 --
 
-CREATE TABLE `px_shipping_city` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_shipping_city` (
+`id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `type` varchar(100) NOT NULL,
   `id_province` int(11) NOT NULL,
   `id_city` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=502 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_shipping_city`
@@ -1902,10 +1905,10 @@ INSERT INTO `px_shipping_city` (`id`, `name`, `type`, `id_province`, `id_city`) 
 -- Table structure for table `px_shipping_flag`
 --
 
-CREATE TABLE `px_shipping_flag` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_shipping_flag` (
+`id` int(11) NOT NULL,
   `desc` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_shipping_flag`
@@ -1925,11 +1928,11 @@ INSERT INTO `px_shipping_flag` (`id`, `desc`) VALUES
 -- Table structure for table `px_shipping_province`
 --
 
-CREATE TABLE `px_shipping_province` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_shipping_province` (
+`id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `id_province` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_shipping_province`
@@ -1977,15 +1980,15 @@ INSERT INTO `px_shipping_province` (`id`, `name`, `id_province`) VALUES
 -- Table structure for table `px_shipping_region`
 --
 
-CREATE TABLE `px_shipping_region` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_shipping_region` (
+`id` int(11) NOT NULL,
   `name` varchar(250) NOT NULL,
   `id_province` int(11) NOT NULL,
   `id_city` int(11) NOT NULL,
   `id_region` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `service` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6995 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_shipping_region`
@@ -8999,10 +9002,10 @@ INSERT INTO `px_shipping_region` (`id`, `name`, `id_province`, `id_city`, `id_re
 -- Table structure for table `px_shipping_service`
 --
 
-CREATE TABLE `px_shipping_service` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_shipping_service` (
+`id` int(11) NOT NULL,
   `name` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_shipping_service`
@@ -9019,14 +9022,14 @@ INSERT INTO `px_shipping_service` (`id`, `name`) VALUES
 -- Table structure for table `px_size`
 --
 
-CREATE TABLE `px_size` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_size` (
+`id` int(11) NOT NULL,
   `name` varchar(40) NOT NULL,
   `id_created` int(11) NOT NULL,
   `date_created` datetime NOT NULL,
   `id_modified` int(11) NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_size`
@@ -9044,15 +9047,15 @@ INSERT INTO `px_size` (`id`, `name`, `id_created`, `date_created`, `id_modified`
 -- Table structure for table `px_static_content`
 --
 
-CREATE TABLE `px_static_content` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_static_content` (
+`id` int(10) unsigned NOT NULL,
   `title` varchar(225) NOT NULL,
   `content` text NOT NULL,
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   `id_creator` int(11) NOT NULL,
   `id_modifier` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_static_content`
@@ -9076,8 +9079,8 @@ INSERT INTO `px_static_content` (`id`, `title`, `content`, `date_created`, `date
 -- Table structure for table `px_tracking_history`
 --
 
-CREATE TABLE `px_tracking_history` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_tracking_history` (
+`id` int(11) NOT NULL,
   `invoice_id` int(11) NOT NULL,
   `tracking_system_id` int(11) NOT NULL,
   `tracking_status_id` int(11) NOT NULL,
@@ -9091,12 +9094,12 @@ CREATE TABLE `px_tracking_history` (
 -- Table structure for table `px_tracking_status`
 --
 
-CREATE TABLE `px_tracking_status` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_tracking_status` (
+`id` int(11) NOT NULL,
   `title` text NOT NULL,
   `status_id` int(11) DEFAULT '0',
   `class_text` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_tracking_status`
@@ -9115,14 +9118,14 @@ INSERT INTO `px_tracking_status` (`id`, `title`, `status_id`, `class_text`) VALU
 -- Table structure for table `px_tracking_system`
 --
 
-CREATE TABLE `px_tracking_system` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_tracking_system` (
+`id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
   `title` text NOT NULL,
   `content` text NOT NULL,
   `date_created` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_tracking_system`
@@ -9147,10 +9150,10 @@ INSERT INTO `px_tracking_system` (`id`, `order_id`, `status_id`, `title`, `conte
 -- Table structure for table `px_underconstruct_status`
 --
 
-CREATE TABLE `px_underconstruct_status` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_underconstruct_status` (
+`id` int(11) NOT NULL,
   `underconstruct_status` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_underconstruct_status`
@@ -9165,15 +9168,15 @@ INSERT INTO `px_underconstruct_status` (`id`, `underconstruct_status`) VALUES
 -- Table structure for table `px_user`
 --
 
-CREATE TABLE `px_user` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_user` (
+`id` int(10) unsigned NOT NULL,
   `username` varchar(225) NOT NULL,
   `password` varchar(225) NOT NULL,
   `realname` varchar(225) NOT NULL,
   `email` varchar(225) NOT NULL,
   `photo` text NOT NULL,
   `id_usergroup` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_user`
@@ -9189,15 +9192,15 @@ INSERT INTO `px_user` (`id`, `username`, `password`, `realname`, `email`, `photo
 -- Table structure for table `px_useraccess`
 --
 
-CREATE TABLE `px_useraccess` (
-  `id` int(11) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_useraccess` (
+`id` int(11) unsigned NOT NULL,
   `id_usergroup` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL,
   `act_create` int(11) NOT NULL,
   `act_read` int(11) NOT NULL,
   `act_update` int(11) NOT NULL,
   `act_delete` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `px_useraccess`
@@ -9240,7 +9243,8 @@ INSERT INTO `px_useraccess` (`id`, `id_usergroup`, `id_menu`, `act_create`, `act
 (161, 1, 70, 1, 1, 1, 1),
 (162, 1, 71, 1, 1, 1, 1),
 (163, 1, 72, 1, 1, 1, 1),
-(164, 1, 73, 1, 1, 1, 1);
+(164, 1, 73, 1, 1, 1, 1),
+(165, 1, 74, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -9248,8 +9252,8 @@ INSERT INTO `px_useraccess` (`id`, `id_usergroup`, `id_menu`, `act_create`, `act
 -- Table structure for table `px_usergroup`
 --
 
-CREATE TABLE `px_usergroup` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `px_usergroup` (
+  `id` int(10) unsigned NOT NULL,
   `usergroup_name` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -9267,10 +9271,10 @@ INSERT INTO `px_usergroup` (`id`, `usergroup_name`) VALUES
 -- Table structure for table `px_voucher`
 --
 
-CREATE TABLE `px_voucher` (
+CREATE TABLE IF NOT EXISTS `px_voucher` (
   `id` int(11) NOT NULL,
   `voucher` varchar(50) DEFAULT NULL,
-  `discount` int(11) NOT NULL,
+  `discount` decimal(5,2) DEFAULT NULL,
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
@@ -9283,7 +9287,7 @@ CREATE TABLE `px_voucher` (
 --
 
 INSERT INTO `px_voucher` (`id`, `voucher`, `discount`, `date_start`, `date_end`, `date_created`, `status`, `delete_flag`) VALUES
-(4, 'BOGORKEREN2016', 20, '2017-01-01 00:00:00', '2017-01-31 00:00:00', '2017-01-10 21:59:21', 1, 0);
+(4, 'BOGORKEREN2016', '20.00', '2017-01-01 00:00:00', '2017-01-31 00:00:00', '2017-01-10 21:59:21', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -9291,7 +9295,7 @@ INSERT INTO `px_voucher` (`id`, `voucher`, `discount`, `date_start`, `date_end`,
 -- Table structure for table `px_wishlist`
 --
 
-CREATE TABLE `px_wishlist` (
+CREATE TABLE IF NOT EXISTS `px_wishlist` (
   `id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL
@@ -9314,265 +9318,265 @@ INSERT INTO `px_wishlist` (`id`, `product_id`, `customer_id`) VALUES
 -- Indexes for table `px_adm_config`
 --
 ALTER TABLE `px_adm_config`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_album`
 --
 ALTER TABLE `px_album`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_album_files`
 --
 ALTER TABLE `px_album_files`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_banner`
 --
 ALTER TABLE `px_banner`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_brand`
 --
 ALTER TABLE `px_brand`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_cart`
 --
 ALTER TABLE `px_cart`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_category`
 --
 ALTER TABLE `px_category`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_color`
 --
 ALTER TABLE `px_color`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_customer`
 --
 ALTER TABLE `px_customer`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_customer_billing_address`
 --
 ALTER TABLE `px_customer_billing_address`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_customer_shipping_address`
 --
 ALTER TABLE `px_customer_shipping_address`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_editor_picks`
 --
 ALTER TABLE `px_editor_picks`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_faq`
 --
 ALTER TABLE `px_faq`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_flag`
 --
 ALTER TABLE `px_flag`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_group`
 --
 ALTER TABLE `px_group`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_guest_book`
 --
 ALTER TABLE `px_guest_book`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_jasa_pengiriman`
 --
 ALTER TABLE `px_jasa_pengiriman`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_master_data`
 --
 ALTER TABLE `px_master_data`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_menu`
 --
 ALTER TABLE `px_menu`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_news`
 --
 ALTER TABLE `px_news`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_order`
 --
 ALTER TABLE `px_order`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_order_confirmation`
 --
 ALTER TABLE `px_order_confirmation`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_product`
 --
 ALTER TABLE `px_product`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_product_editor_picks`
 --
 ALTER TABLE `px_product_editor_picks`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_product_group`
 --
 ALTER TABLE `px_product_group`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_product_image`
 --
 ALTER TABLE `px_product_image`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_product_order`
 --
 ALTER TABLE `px_product_order`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_product_stock`
 --
 ALTER TABLE `px_product_stock`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_shipping_city`
 --
 ALTER TABLE `px_shipping_city`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_shipping_flag`
 --
 ALTER TABLE `px_shipping_flag`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_shipping_province`
 --
 ALTER TABLE `px_shipping_province`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_shipping_region`
 --
 ALTER TABLE `px_shipping_region`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_shipping_service`
 --
 ALTER TABLE `px_shipping_service`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_size`
 --
 ALTER TABLE `px_size`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_static_content`
 --
 ALTER TABLE `px_static_content`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_tracking_history`
 --
 ALTER TABLE `px_tracking_history`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_tracking_status`
 --
 ALTER TABLE `px_tracking_status`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_tracking_system`
 --
 ALTER TABLE `px_tracking_system`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_underconstruct_status`
 --
 ALTER TABLE `px_underconstruct_status`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_user`
 --
 ALTER TABLE `px_user`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_useraccess`
 --
 ALTER TABLE `px_useraccess`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_usergroup`
 --
 ALTER TABLE `px_usergroup`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_voucher`
 --
 ALTER TABLE `px_voucher`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `px_wishlist`
 --
 ALTER TABLE `px_wishlist`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -9582,207 +9586,207 @@ ALTER TABLE `px_wishlist`
 -- AUTO_INCREMENT for table `px_adm_config`
 --
 ALTER TABLE `px_adm_config`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `px_album`
 --
 ALTER TABLE `px_album`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `px_album_files`
 --
 ALTER TABLE `px_album_files`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `px_banner`
 --
 ALTER TABLE `px_banner`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `px_brand`
 --
 ALTER TABLE `px_brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `px_cart`
 --
 ALTER TABLE `px_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `px_category`
 --
 ALTER TABLE `px_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_color`
 --
 ALTER TABLE `px_color`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `px_customer`
 --
 ALTER TABLE `px_customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `px_customer_billing_address`
 --
 ALTER TABLE `px_customer_billing_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_customer_shipping_address`
 --
 ALTER TABLE `px_customer_shipping_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_editor_picks`
 --
 ALTER TABLE `px_editor_picks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `px_faq`
 --
 ALTER TABLE `px_faq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `px_flag`
 --
 ALTER TABLE `px_flag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `px_group`
 --
 ALTER TABLE `px_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `px_guest_book`
 --
 ALTER TABLE `px_guest_book`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `px_jasa_pengiriman`
 --
 ALTER TABLE `px_jasa_pengiriman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `px_master_data`
 --
 ALTER TABLE `px_master_data`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=603;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=603;
 --
 -- AUTO_INCREMENT for table `px_menu`
 --
 ALTER TABLE `px_menu`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `px_news`
 --
 ALTER TABLE `px_news`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `px_order`
 --
 ALTER TABLE `px_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `px_order_confirmation`
 --
 ALTER TABLE `px_order_confirmation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `px_product`
 --
 ALTER TABLE `px_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `px_product_editor_picks`
 --
 ALTER TABLE `px_product_editor_picks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `px_product_group`
 --
 ALTER TABLE `px_product_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `px_product_image`
 --
 ALTER TABLE `px_product_image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `px_product_order`
 --
 ALTER TABLE `px_product_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_product_stock`
 --
 ALTER TABLE `px_product_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=142;
 --
 -- AUTO_INCREMENT for table `px_shipping_city`
 --
 ALTER TABLE `px_shipping_city`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=502;
 --
 -- AUTO_INCREMENT for table `px_shipping_flag`
 --
 ALTER TABLE `px_shipping_flag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `px_shipping_province`
 --
 ALTER TABLE `px_shipping_province`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `px_shipping_region`
 --
 ALTER TABLE `px_shipping_region`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6995;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6995;
 --
 -- AUTO_INCREMENT for table `px_shipping_service`
 --
 ALTER TABLE `px_shipping_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `px_size`
 --
 ALTER TABLE `px_size`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `px_static_content`
 --
 ALTER TABLE `px_static_content`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_tracking_history`
 --
 ALTER TABLE `px_tracking_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `px_tracking_status`
 --
 ALTER TABLE `px_tracking_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `px_tracking_system`
 --
 ALTER TABLE `px_tracking_system`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `px_underconstruct_status`
 --
 ALTER TABLE `px_underconstruct_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `px_user`
 --
 ALTER TABLE `px_user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `px_useraccess`
 --
 ALTER TABLE `px_useraccess`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=166;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
