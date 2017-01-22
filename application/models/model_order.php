@@ -30,4 +30,15 @@ class Model_order extends PX_Model {
         $this->db->where($this->tbl_order.'.customer_id', $customer_id);
         return $this->db->get()->result();
     }
+
+    function order_by_city(){
+        return
+        $this->db->select('c.name city_name, count(c.name) city_total')
+                 ->from($this->tbl_order.' a')
+                 ->join($this->tbl_customer_shipping_address.' b', 'a.ship_address_id = b.id')
+                 ->join($this->tbl_shipping_city.' c', 'b.city = c.id_city')
+                 ->group_by('c.name')
+                 ->order_by('city_total', 'desc')
+                 ->get();
+    }
 }

@@ -187,13 +187,14 @@ class Admin_product extends PX_Controller {
             $this->returnJson(array('status' => 'error','message' => 'Please Complete The Form'));
     }
 
-    function category_image_get(){
+    function category_image_get($type){
         $id = $this->input->post('id');
         $data = $this->controller_attr;
         $data += $this->get_function('Category Image','category_image');
         $data_get = $this->model_basic->select_where($this->tbl_category,'id',$id)->row();
         if($data_get){
-            $filename = $this->model_basic->select_where($this->tbl_category,'id',$id)->row()->potrait_image;
+            $type = $type.'_image';
+            $filename = $this->model_basic->select_where($this->tbl_category,'id',$id)->row()->$type;
             $this->returnJson(array('status'=>'ok','data'=>$data_get, 'filename'=>$filename));
         }
         else{
@@ -264,7 +265,7 @@ class Admin_product extends PX_Controller {
                 imagecopyresampled($dst_r,$img_r,0,0,$x,$y,$targ_w,$targ_h,$targ_w,$targ_h);
                 # buat gambar
                 imagejpeg($dst_r,$path_img_crop .'/'. $img_name_crop,$jpeg_quality);
-                $this->makeThumbnails($path_img_crop.'/', $img_name_crop, 300, 454);
+                $this->makeThumbnails($path_img_crop.'/', $img_name_crop, 519, 491);
                 @unlink(FCPATH."assets/uploads/category/".$id.'/'.$old_foto);
                 $this->delete_temp('temp_folder');
             }

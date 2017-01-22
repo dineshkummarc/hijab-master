@@ -115,52 +115,20 @@
                                     <th width="60%">Result</th>
                                 </tr>
                             </thead>
-                            <tbody>                                               
+                            <tbody>     
+                                <?php foreach($city as $c){
+                                    $percen = number_format($c->city_total/$total_order * 100, 2);
+                                    ?>                                          
                                 <tr>
-                                    <td><strong>Jakarta</strong></td>
-                                    <td>1234 Orders</td>
+                                    <td><strong><?=$c->city_name?></strong></td>
+                                    <td><?=$c->city_total?> Orders</td>
                                     <td>
                                         <div class="progress progress-small progress-striped active">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 72%;">72%</div>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: <?=$percen?>%;"><?=$percen?>%</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td><strong>Jakarta</strong></td>
-                                    <td>1234 Orders</td>
-                                    <td>
-                                        <div class="progress progress-small progress-striped active">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 72%;">72%</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Jakarta</strong></td>
-                                    <td>1234 Orders</td>
-                                    <td>
-                                        <div class="progress progress-small progress-striped active">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 72%;">72%</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Jakarta</strong></td>
-                                    <td>1234 Orders</td>
-                                    <td>
-                                        <div class="progress progress-small progress-striped active">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 72%;">72%</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Jakarta</strong></td>
-                                    <td>1234 Orders</td>
-                                    <td>
-                                        <div class="progress progress-small progress-striped active">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 72%;">72%</div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -193,7 +161,7 @@
                     </ul>
                 </div>
                 <div class="panel-body padding-0">
-                    <div class="chart-holder" id="dashboard-line-1" style="height: 200px;"></div>
+                    <div class="chart-holder" id="total-income" style="height: 200px;"></div>
                 </div>
             </div>
             <!-- END SALES & EVENTS BLOCK -->
@@ -267,6 +235,33 @@
 <script type="text/javascript" src="assets/backend_assets/js/plugins.js"></script>        
 <script type="text/javascript" src="assets/backend_assets/js/actions.js"></script>
 
-<script type="text/javascript" src="assets/backend_assets/js/demo_dashboard.js"></script>
+<script type="text/javascript" src="assets/backend_assets/page/dashboard/dashboard.js"></script>
 <!-- END TEMPLATE -->
 <!-- END SCRIPTS -->  
+
+<script type="text/javascript">
+     /* Line dashboard chart */
+    $.ajax({
+            url : "admin/get_total_income_chart/",
+            type: "GET",
+            dataType: "JSON",
+            success: function(json)
+            {
+              Morris.Line({
+                element: 'total-income',
+                data: json,
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['Income'],
+                resize: true,
+                hideHover: true,
+                xLabels: 'day',
+                gridTextSize: '10px',
+                lineColors: ['#3FBAE4'],
+                gridLineColor: '#E5E5E5'
+              });   
+            }
+          });
+    /* EMD Line dashboard chart */
+    
+</script>

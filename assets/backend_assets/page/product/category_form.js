@@ -37,7 +37,8 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-    $('#pixel-warehouse-productimage-form').bootstrapValidator({
+    //potrait-form
+    $('#category-image-potrait-form').bootstrapValidator({
         excluded: [':disabled', ':hidden', ':not(:visible)'],
         feedbackIcons: {
             valid: '',
@@ -46,7 +47,7 @@ $(document).ready(function(){
         },
         live: 'enabled',
         message: 'Form tidak valid',
-        submitButtons: '#pixel-warehouse-productimage-add-button',
+        submitButtons: '#category-image-potrait-upload-button',
         fields: {
             'productimage-caption': {
                 validators: {
@@ -57,9 +58,9 @@ $(document).ready(function(){
             }
         }
     }).on('success.form.bv', function(e) {
-        $('#pixel-warehouse-productimage-form .alert-danger').addClass('hidden').text('');
-        $('#pixel-warehouse-productimage-form .alert-success').addClass('hidden').text('');
-        $('#pixel-warehouse-productimage-form .alert-warning').removeClass('hidden').text('Please Wait');
+        $('#category-image-potrait-form .alert-danger').addClass('hidden').text('');
+        $('#category-image-potrait-form .alert-success').addClass('hidden').text('');
+        $('#category-image-potrait-form .alert-warning').removeClass('hidden').text('Please Wait');
         e.preventDefault();
         var $form = $(e.target);
         var bv = $form.data('bootstrapValidator');
@@ -69,36 +70,36 @@ $(document).ready(function(){
             data : $form.serialize(),
             type : 'POST',
             success : function(result){
-                $('#pixel-warehouse-productimage-form .alert-warning').addClass('hidden').text('');
+                $('#category-image-potrait-form .alert-warning').addClass('hidden').text('');
                 if(result.status == 'ok'){
-                    $('#pixel-warehouse-productimage-form .alert-danger').addClass('hidden').text('');
-                    $('#pixel-warehouse-productimage-form .alert-success').removeClass('hidden').text(result.message);
+                    $('#category-image-potrait-form .alert-danger').addClass('hidden').text('');
+                    $('#category-image-potrait-form .alert-success').removeClass('hidden').text(result.message);
                     window.location.href = result.redirect;
                 }
                 else {
-                    $('#pixel-warehouse-productimage-form .alert-success').addClass('hidden').text('');
-                    $('#pixel-warehouse-productimage-form .alert-danger').removeClass('hidden').text(result.message);
+                    $('#category-image-potrait-form .alert-success').addClass('hidden').text('');
+                    $('#category-image-potrait-form .alert-danger').removeClass('hidden').text(result.message);
                 }
             }
         })
     });
     $('.btn-pop').click(function(){
         target = $(this).attr('data-target-add');
-        $('#pixel-warehouse-productimage-form .alert-danger').addClass('hidden').text('');
-        $('#pixel-warehouse-productimage-form .alert-success').addClass('hidden').text('');
-        $('#pixel-warehouse-productimage-form .alert-warning').addClass('hidden').text('');
-        $('#pixel-warehouse-productimage-form').attr('action',target);
+        $('#category-image-potrait-form .alert-danger').addClass('hidden').text('');
+        $('#category-image-potrait-form .alert-success').addClass('hidden').text('');
+        $('#category-image-potrait-form .alert-warning').addClass('hidden').text('');
+        $('#category-image-potrait-form').attr('action',target);
         $('#warehouse-productimage-id').val('');
         $('#warehouse-productimage-caption').val('');
         $('#image').val('');
         $('#old-image').val('');
         $('.image-original-preview').html('');
-        $('.image-productimage-crop-preview').html('');
+        $('.category-image-crop-preview-potrait').html('');
     });
     $('body').delegate('.btn-edit','click',function(){
-        $('#pixel-warehouse-productimage-form .alert-danger').addClass('hidden').text('');
-        $('#pixel-warehouse-productimage-form .alert-success').addClass('hidden').text('');
-        $('#pixel-warehouse-productimage-form .alert-warning').addClass('hidden').text('');
+        $('#category-image-potrait-form .alert-danger').addClass('hidden').text('');
+        $('#category-image-potrait-form .alert-success').addClass('hidden').text('');
+        $('#category-image-potrait-form .alert-warning').addClass('hidden').text('');
         var target = $(this).attr('data-target-edit');
         var target_get = $(this).attr('data-target-get-data');
         var id = $(this).attr('data-target-id');
@@ -108,12 +109,12 @@ $(document).ready(function(){
             dataType : 'json',
             data : {'id':id},
             success : function(result){
-                $('#pixel-warehouse-productimage-form').attr('action',target);
+                $('#category-image-potrait-form').attr('action',target);
                 $('#warehouse-productimage-id').val(result.data.id);
                 $('#warehouse-productimage-caption').val(result.data.caption);
                 $('#old-image').val(result.filename);
                 $('.image-original-preview').html('<img src="assets/uploads/category/'+result.data.id+'/'+result.filename+'" alt="images" id="original-image"/>');
-                $('.image-productimage-crop-preview').html('<img src="assets/uploads/category/'+result.data.id+'/'+result.filename+'" alt="images" id="crop-image"/>');
+                $('.category-image-crop-preview-potrait').html('<img src="assets/uploads/category/'+result.data.id+'/'+result.filename+'" alt="images" id="crop-image"/>');
                 origImageVal();
                 $('#upload-potrait').modal('show');
             },  
@@ -123,7 +124,94 @@ $(document).ready(function(){
         })
     });
 
-    $("#file-upload").fileupload({
+    //landscape-form
+     $('#category-image-landscape-form').bootstrapValidator({
+        excluded: [':disabled', ':hidden', ':not(:visible)'],
+        feedbackIcons: {
+            valid: '',
+            invalid: '',
+            validating: ''
+        },
+        live: 'enabled',
+        message: 'Form tidak valid',
+        submitButtons: '#category-image-landscape-upload-button',
+        fields: {
+            'productimage-caption': {
+                validators: {
+                    notEmpty: {
+                        message: 'Required'
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function(e) {
+        $('#category-image-landscape-form .alert-danger').addClass('hidden').text('');
+        $('#category-image-landscape-form .alert-success').addClass('hidden').text('');
+        $('#category-image-landscape-form .alert-warning').removeClass('hidden').text('Please Wait');
+        e.preventDefault();
+        var $form = $(e.target);
+        var bv = $form.data('bootstrapValidator');
+        $.ajax({
+            url : $form.attr('action'),
+            dataType : 'json',
+            data : $form.serialize(),
+            type : 'POST',
+            success : function(result){
+                $('#category-image-landscape-form .alert-warning').addClass('hidden').text('');
+                if(result.status == 'ok'){
+                    $('#category-image-landscape-form .alert-danger').addClass('hidden').text('');
+                    $('#category-image-landscape-form .alert-success').removeClass('hidden').text(result.message);
+                    window.location.href = result.redirect;
+                }
+                else {
+                    $('#category-image-landscape-form .alert-success').addClass('hidden').text('');
+                    $('#category-image-landscape-form .alert-danger').removeClass('hidden').text(result.message);
+                }
+            }
+        })
+    });
+    $('.btn-pop').click(function(){
+        target = $(this).attr('data-target-add');
+        $('#category-image-landscape-form .alert-danger').addClass('hidden').text('');
+        $('#category-image-landscape-form .alert-success').addClass('hidden').text('');
+        $('#category-image-landscape-form .alert-warning').addClass('hidden').text('');
+        $('#category-image-landscape-form').attr('action',target);
+        $('#warehouse-productimage-id').val('');
+        $('#warehouse-productimage-caption').val('');
+        $('#image').val('');
+        $('#old-image').val('');
+        $('.image-original-preview').html('');
+        $('.category-image-crop-preview-landscape').html('');
+    });
+    $('body').delegate('.btn-edit','click',function(){
+        $('#category-image-landscape-form .alert-danger').addClass('hidden').text('');
+        $('#category-image-landscape-form .alert-success').addClass('hidden').text('');
+        $('#category-image-landscape-form .alert-warning').addClass('hidden').text('');
+        var target = $(this).attr('data-target-edit');
+        var target_get = $(this).attr('data-target-get-data');
+        var id = $(this).attr('data-target-id');
+        $.ajax({
+            url : target_get,
+            type : 'POST',
+            dataType : 'json',
+            data : {'id':id},
+            success : function(result){
+                $('#category-image-landscape-form').attr('action',target);
+                $('#warehouse-productimage-id').val(result.data.id);
+                $('#warehouse-productimage-caption').val(result.data.caption);
+                $('#old-image').val(result.filename);
+                $('.image-original-preview').html('<img src="assets/uploads/category/'+result.data.id+'/'+result.filename+'" alt="images" id="original-image"/>');
+                $('.category-image-crop-preview-landscape').html('<img src="assets/uploads/category/'+result.data.id+'/'+result.filename+'" alt="images" id="crop-image"/>');
+                origImageVal();
+                $('#upload-landscape').modal('show');
+            },  
+            error : function(){
+                alert('Error, Please Try Again');
+            }
+        })
+    });
+
+    $("#file-upload-potrait").fileupload({
         dataType: 'text',
         autoUpload: false,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -140,11 +228,11 @@ $(document).ready(function(){
         }).on('fileuploadprogressall', function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#warehouse-productimage-progress .progress-bar').attr('aria-valuenow',progress).attr('style','width:'+progress+'%');
-            $('#warehouse-productimage-upload-button').attr('disabled',true);
+            $('#category-image-potrait-upload-button').attr('disabled',true);
         }).on('fileuploaddone', function (e, data) {
-            $('#warehouse-productimage-upload-button').removeAttr('disabled');
+            $('#category-image-potrait-upload-button').removeAttr('disabled');
             $('.image-original-preview').html('<img src="'+data.result+'" alt="preview" id="original-image">');
-            $('.image-productimage-crop-preview').html('<img src="'+data.result+'" alt="preview" id="crop-image">');
+            $('.category-image-crop-preview-potrait').html('<img src="'+data.result+'" alt="preview" id="crop-image">');
             $('#image').val(data.result);
             origImageVal();
             $('#original-image').Jcrop({
@@ -155,9 +243,47 @@ $(document).ready(function(){
             });
         }).on('fileuploadfail', function (e, data) {
             alert('File upload failed.');
-            $('#warehouse-productimage-upload-button').removeAttr('disabled');
+            $('#category-image-potrait-upload-button').removeAttr('disabled');
         }).on('fileuploadalways', function() {
     });
+
+        $("#file-upload-landscape").fileupload({
+        dataType: 'text',
+        autoUpload: false,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        maxFileSize: 5000000 // 5 MB
+        }).on('fileuploadadd', function(e, data) {
+            data.process();
+        }).on('fileuploadprocessalways', function (e, data) {
+        if (data.files.error) {
+            data.abort();
+            alert('Image file must be jpeg/jpg, png or gif with less than 5MB');
+        } else {
+            data.submit();
+        }
+        }).on('fileuploadprogressall', function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#warehouse-productimage-progress .progress-bar').attr('aria-valuenow',progress).attr('style','width:'+progress+'%');
+            $('#category-image-landscape-upload-button').attr('disabled',true);
+        }).on('fileuploaddone', function (e, data) {
+            $('#category-image-landscape-upload-button').removeAttr('disabled');
+            $('.image-original-preview').html('<img src="'+data.result+'" alt="preview" id="original-image">');
+            $('.category-image-crop-preview-landscape').html('<img src="'+data.result+'" alt="preview" id="crop-image">');
+            $('#image').val(data.result);
+            origImageVal();
+            $('#original-image').Jcrop({
+                onChange: showPreview,
+                onSelect: showPreview,
+                aspectRatio: 1.171 / 1,
+                setSelect:  [ 0, 12, 569, 227.6 ]
+            });
+        }).on('fileuploadfail', function (e, data) {
+            alert('File upload failed.');
+            $('#category-image-landscape-upload-button').removeAttr('disabled');
+        }).on('fileuploadalways', function() {
+    });
+
+
     $('#upload-potrait').on('shown.bs.modal', function (e) {
         var imgwidth = $('#original-image').width();
         var imgheight = $('#original-image').height();
@@ -166,9 +292,22 @@ $(document).ready(function(){
         $('#original-image').Jcrop({
             onChange: showPreview,
             onSelect: showPreview,
-            aspectRatio: 1.171 / 1
+            aspectRatio: 575 / 491
         });
     });
+
+    $('#upload-landscape').on('shown.bs.modal', function (e) {
+        var imgwidth = $('#original-image').width();
+        var imgheight = $('#original-image').height();
+        $('#fakeheight').val(imgheight);
+        $('#fakewidth').val(imgwidth);
+        $('#original-image').Jcrop({
+            onChange: showPreview,
+            onSelect: showPreview,
+            aspectRatio: 575 / 491
+        });
+    });
+
     function origImageVal(){
         var origImg = new Image();
         origImg.src = $('#original-image').attr('src');
@@ -186,12 +325,14 @@ $(document).ready(function(){
         var imgheight = $('#original-image').height();
         $('#fakeheight').val(imgheight);
         $('#fakewidth').val(imgwidth);
-        var rx = 117.1 / coords.w;
-        var ry = 100 / coords.h;
+        var rx = 575 / coords.w;
+        var ry = 491 / coords.h;
 
         $('#crop-image').attr('src',image_asli).css({
-            width: Math.round(rx * imgwidth) + 'px',
-            height: Math.round(ry * imgheight) + 'px',
+            // width: Math.round(rx * imgwidth) + 'px',
+            // height: Math.round(ry * imgheight) + 'px',
+            width: '575' + 'px',
+            height: '491' + 'px',
             marginLeft: '-' + Math.round(rx * coords.x) + 'px',
             marginTop: '-' + Math.round(ry * coords.y) + 'px'
         });

@@ -48,5 +48,7 @@ class PX_Model extends CI_Model {
         $this->tbl_underconstruct_status = $this->tbl_prefix. 'underconstruct_status';
         $this->tbl_tracking_status = $this->tbl_prefix.'tracking_status';
         $this->tbl_flag = $this->tbl_prefix. 'flag';
+        $this->tbl_customer_shipping_address = $this->tbl_prefix. 'customer_shipping_address';
+        $this->tbl_shipping_city = $this->tbl_prefix. 'shipping_city';
     }
 }

@@ -181,15 +181,42 @@
 }
 
 /*ABDUL*/
-/*thumbnail*/
+/*thumbnail-potrait*/
+#upload-potrait .modal-dialog
+{
+  width: 90%;
+}
+#upload-landscape .modal-dialog
+{
+  width: 90%;
+}
+
 .category-image-thumbnail {
 	position: relative;
-}
-.category-image-thumbnail img {
 	width: 250px;
 	height: 300px ;
 }
-.category-image-thumbnail span {
+.category-image-thumbnail-potrait img {
+	/*width: 575px;
+	height: 491px ;*/
+	width: 287px;
+	height: 245px ;
+}
+.category-image-thumbnail-landscape img {
+	width: 287px;
+	height: 115px ;
+}
+.category-image-crop-preview-potrait {
+	width: 575px;
+	height: 491px ;
+	overflow: hidden;
+}
+.category-image-crop-preview-landscape {
+	width: 575px;
+	height: 231px ;
+	overflow: hidden;
+}
+.category-image-thumbnail-potrait span {
 	position: absolute;
 	z-index: 1;
 	bottom: 10px;
