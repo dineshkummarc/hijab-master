@@ -409,6 +409,21 @@ img.zoom_01 {
     box-shadow: none;
     margin-bottom: 20px;
 }
+.widget-dash{
+    border:2px solid #eee; border-radius:10px;
+}
+.col-left{
+    border-right:2px solid #eee;
+}
+.widget-dash .fa{
+    font-size: 100px;
+}
+.widget-dash h5{
+    color: #ff5555
+}
+.con-dash{
+    padding-top: 15px
+}
 /*media screen////////////*/
 @media (max-width: 767px) {
     .container,.box-layout {

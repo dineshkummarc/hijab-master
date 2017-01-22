@@ -58,12 +58,17 @@
 								<div class="col-sm-12">
 									<div class="input-box bithtday">
 										<label>Date of Birth</label>
-										<input type="text" name="tgl_lahir" value="<?php echo $user->tgl_lahir?>" />
+										<input type="date" name="tgl_lahir" value="<?php echo $user->tgl_lahir?>" />
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="input-radio">
-										<label>Jenis Kelamin</label> : <span><?php echo $user->jenis_kelamin?></span>
+									<label>Jenis Kelamin</label>
+									<select name="gender" class="form-control">
+										<option value="L" <?php if($user->jenis_kelamin=='L'){echo"selected";} ?>>Male</option>
+										<option value="P" <?php if($user->jenis_kelamin=='P'){echo"selected";} ?>>Female</option>
+									</select>
+										
 									</div>
 								</div>								
 								<div class="col-sm-12">

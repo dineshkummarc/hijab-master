@@ -34,8 +34,7 @@ class Register extends PX_Controller {
 				redirect('login');
 			}else{
 				$insert = $this->db->insert('px_customer', $data);
-				echo $this->db->last_query($insert);
-				die();
+				
 				if ($insert) {
 					$row=$this->model_basic->select_where($this->tbl_customer,'email',$this->input->post('email'))->row();
 					$data = array(

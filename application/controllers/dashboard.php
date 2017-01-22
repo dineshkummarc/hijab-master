@@ -13,14 +13,11 @@ class Dashboard extends PX_Controller {
 	}
 
 	public function index(){
-		$customer_id = $this->session->userdata('member')['id'];
-		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$customer_id)->num_rows();
-		if($user<=0){
-			redirect('dashboard/photo_profile');
-		}
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('User','User');
+		$customer_id = $this->session->userdata('member')['id'];
+		$data['order_count']=$this->model_basic->select_where($this->tbl_order,'customer_id',$customer_id)->num_rows();
 		$data['content'] = $this->load->view('frontend/dashboard/index',$data,true);
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
@@ -148,7 +145,7 @@ class Dashboard extends PX_Controller {
 		$data += $this->controller_attr;
 		$data += $this->get_function('User Profile','User');
 		$customer_id = $this->session->userdata('member')['id'];
-		$data['user'] = $this->model_basic->select_where('px_customer','id',$customer_id)->row();
+		$data['user'] = $this->model_basic->select_where($this->tbl_customer,'id',$customer_id)->row();
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
@@ -162,6 +159,7 @@ class Dashboard extends PX_Controller {
 			'nama_depan'=>$this->input->post('nama_depan'),
 			'nama_belakang'=>$this->input->post('nama_belakang'),
 			'tgl_lahir' => $this->input->post('tgl_lahir'),
+			'jenis_kelamin' => $this->input->post('gender'),
 			'email'=>$this->input->post('email'),
 			'date_modified'=>date('Y-m-d H:i:s',now()),
 			);
@@ -217,6 +215,30 @@ class Dashboard extends PX_Controller {
 		$this->load->view('frontend/index',$data);
 	}
 
+	function update_pass(){
+		$old=$this->input->post('oldpassword');
+		$pass=$this->input->post('password');
+		$cpass=$this->input->post('cpassword');
+		$data=array(
+			'password'=>$this->encrypt->encode($pass),
+		);
+		$user=$this->model_basic->select_where($this->tbl_customer,'id',$this->session->userdata('member')['id'])->row();
+		if($this->encrypt->decode($user->password)==$old){
+			if($pass==$cpass){
+				$query=$this->model_basic->update($this->tbl_customer,$data,'id',$this->session->userdata('member')['id']);
+				$this->session->set_flashdata('msg','Password berhasil di update');
+				redirect('dashboard/changepassword');
+			}else{
+				$this->session->set_flashdata('msg','Password dan Confirmation Password tidak sama');
+				redirect('dashboard/changepassword');
+			}
+		}else{
+			$this->session->set_flashdata('msg','Password Lama tidak sama');
+			redirect('dashboard/changepassword');
+		}
+		
+	}
+
 	public function address(){
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
@@ -263,7 +285,7 @@ class Dashboard extends PX_Controller {
 		if ($kabupaten->num_rows() > 0) 
 		{
 			$data .= "<option value=''>Pilih Kota</option>";
-			foreach ($kabupaten->result as $key) 
+			foreach ($kabupaten->result() as $key) 
 			{
 				$data.="<option value='".$key->id."'>".$key->name."</option>";
 			}
@@ -274,11 +296,11 @@ class Dashboard extends PX_Controller {
 
 	public function get_region($id){
 		$data = "";
-		$kabupaten=$this->model_basic->select_where($this->tbl_shipping_region,'id_city',$id)->result();
+		$kabupaten=$this->model_basic->select_where($this->tbl_shipping_region,'id_city',$id);
 		if ($kabupaten->num_rows() > 0) 
 		{
 			$data .= "<option value=''>Pilih Kecamatan</option>";
-			foreach ($kabupaten as $key) {
+			foreach ($kabupaten->result() as $key) {
 				$data .= "<option value='".$key->id."'>".$key->name."</option>";
 			}
 		}

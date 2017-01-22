@@ -37,16 +37,6 @@
 							<div class="panel">
 								<div id="headingThree" role="tab" class="panel-heading">
 								  <h4 class="panel-title">
-									<a  href="dashboard/address" class="collapsed">
-									  Billing Address          									
-										<span class="counter"><i class="fa fa-home"></i></span>
-									</a>
-								  </h4>
-								</div>							
-							</div>
-							<div class="panel">
-								<div id="headingThree" role="tab" class="panel-heading">
-								  <h4 class="panel-title">
 									<a  href="#" class="collapsed">
 									  Shipping Address          									
 										<span class="counter"><i class="fa fa-truck"></i></span>

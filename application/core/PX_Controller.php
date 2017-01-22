@@ -36,6 +36,7 @@ class PX_Controller extends CI_Controller {
         $this->tbl_menu = $this->tbl_prefix . 'menu';
         $this->tbl_news = $this->tbl_prefix . 'news';
         $this->tbl_shipping_address = $this->tbl_prefix. 'customer_shipping_address';
+        $this->tbl_customer_shipping_address = $this->tbl_prefix. 'customer_shipping_address';
         $this->tbl_shipping_city = $this->tbl_prefix. 'shipping_city';
         $this->tbl_shipping_province = $this->tbl_prefix. 'shipping_province';
         $this->tbl_shipping_region = $this->tbl_prefix. 'shipping_region';

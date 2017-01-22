@@ -21,6 +21,7 @@
 			
 				<div class="col-lg-6 col-md-6 col-sm-6">
 					<div class="shipping-tax">
+					
 						<div class="content-title">
 							<h4>Login Customers</h4>
 						</div>
@@ -48,6 +49,10 @@
 								<button class="btnb-l">login</button>
 							</div>
 						</form>
+						<div class="text-center">
+						<h3>OR</h3>
+						<a href="<?php echo $login_url ?>"><img src="assets/frontend_assets/img/login_fb.png" width="50%"></a>
+					</div>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6">

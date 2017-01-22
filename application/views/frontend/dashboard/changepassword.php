@@ -30,11 +30,17 @@
 					<div class="col-lg-6 col-xs-6 col-sm-6">
 						  <div class="panel-body">
 						  <h3>Ganti Password bila Anda perlu</h3>
-							<form action="#" class="biling-info">
+						   <?php if($this->session->flashdata('msg')){ ?>
+	                        <div class="form-group text-center" >
+	                        <h4 style="color:red"><?php echo $this->session->flashdata('msg') ?></h4>
+	                        </div>
+	                        <?php } ?>
+
+							<form action="dashboard/update_pass" method="post" class="biling-info">
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Old Password<span>*</span></label>
-										<input type="password" name="oldpassword" value="<?php echo $user->password?>" />
+										<input type="password" name="oldpassword"/>
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -51,7 +57,7 @@
 								</div>								
 								<div class="col-sm-12">
 									<div class="input-box mt-10">
-										<button class="btnb-l">Save</button>
+										<button type="submit" class="btnb-l">Save</button>
 									</div>
 								</div>
 							</form>

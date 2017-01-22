@@ -7,6 +7,11 @@ $(document).ready(function(){
     var id = '';
     var stock = '';
 
+    $('input[type=date]')
+        .datepicker({
+            format: 'yyyy-mm-dd'
+        });
+
     $('body').delegate('.btn-quick-view','click',function(){
         // $('#px-shop').addClass('open');
          id = $(this).attr('data-target-id');

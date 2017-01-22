@@ -40,6 +40,8 @@
         <link rel="stylesheet" href="assets/frontend_assets/css/responsive.css">
         <link rel="stylesheet" href="assets/frontend_assets/css/hijab.css">
         <!-- modernizr css -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
         <script src="assets/frontend_assets/js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
@@ -402,5 +404,6 @@
         <script src="assets/frontend_assets/page/dashboard/address.js"></script>
         <script src="assets/frontend_assets/page/shop/shop.js"></script>
         <script src="assets/frontend_assets/page/shop/cart.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
     </body>
 </html>	 
