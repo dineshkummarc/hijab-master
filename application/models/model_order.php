@@ -41,4 +41,14 @@ class Model_order extends PX_Model {
                  ->order_by('city_total', 'desc')
                  ->get();
     }
+
+    function get_monthly_income(){
+        $query = "SELECT MONTHNAME(date_created) month,YEAR(date_created) year, SUM(total_payment) total
+                  FROM px_order
+                  GROUP BY YEAR(date_created), MONTH(date_created)
+                  limit 12
+                 ";
+        return $this->db->query($query);
+        // ->get();
+    }
 }
