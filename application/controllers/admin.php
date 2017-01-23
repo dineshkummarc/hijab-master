@@ -49,7 +49,7 @@ class Admin extends PX_Controller {
             // $month[] = $d->month;
             // $total[] = $d->total;
             // die($d->month);
-            $datax[] = array('y' => $d->month,
+            $datax[] = array('y' => $d->month.' - '.$d->year,
             'a' => $d->total);
 
         }
