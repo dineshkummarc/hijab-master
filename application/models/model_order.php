@@ -52,4 +52,13 @@ class Model_order extends PX_Model {
         return $this->db->query($query);
         // ->get();
     }
+
+    function get_total_order(){
+        $query = "SELECT b.title status, sum(status) total
+                  FROM px_order a, px_tracking_status b
+                                    where a.status = b.status_id
+                  GROUP BY b.title";
+
+        return $this->db->query($query);
+    }
 }

@@ -38,25 +38,23 @@ class Admin extends PX_Controller {
 
     function get_total_income_chart(){
         $this->load->model('model_order');
-        // for($i=6;$i>0;$i--){
-        //     $d = new dateTime("$i month ago");
-        //     $month[] = $d->format('M-Y');
-        //     $income[] = die(print_r($income));
-        //     // print_r($this->db->last_query());
-        // }
         $data = $this->model_order->get_monthly_income()->result();
         foreach ($data as $d) {  
-            // $month[] = $d->month;
-            // $total[] = $d->total;
-            // die($d->month);
             $datax[] = array('y' => $d->month.' - '.$d->year,
             'a' => $d->total);
 
         }
-        // $income
+        echo json_encode($datax,true);
+    }
 
-        // print_r($data);die();
+    function get_total_order(){
+        $this->load->model('model_order');
+        $data = $this->model_order->get_total_order()->result();
+        foreach ($data as $d) {
+            $datax[] = array('label' => $d->status,
+            'value' => $d->total);
 
+        }
         echo json_encode($datax,true);
     }
 

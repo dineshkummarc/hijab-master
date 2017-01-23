@@ -240,28 +240,5 @@
 <!-- END SCRIPTS -->  
 
 <script type="text/javascript">
-     /* Line dashboard chart */
-    $.ajax({
-            url : "admin/get_total_income_chart/",
-            type: "GET",
-            dataType: "JSON",
-            success: function(json)
-            {
-              Morris.Line({
-                element: 'total-income',
-                data: json,
-                xkey: 'y',
-                ykeys: ['a'],
-                labels: ['Income'],
-                resize: true,
-                hideHover: true,
-                xLabels: 'day',
-                gridTextSize: '10px',
-                lineColors: ['#3FBAE4'],
-                gridLineColor: '#E5E5E5'
-              });   
-            }
-          });
-    /* EMD Line dashboard chart */
-    
+   
 </script>
