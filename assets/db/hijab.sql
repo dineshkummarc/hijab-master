@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2017 at 05:12 AM
+-- Generation Time: Jan 23, 2017 at 05:32 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.5.19
 
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `px_category` (
 --
 
 INSERT INTO `px_category` (`id`, `name`, `potrait_image`, `landscape_image`, `delete_flag`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(3, 'Hijab', '58751e561b12c-hijab.jpg', '58751e4c78b90-hijab.jpg', 0, 7, '2016-11-08 17:34:59', 7, '2016-11-08 17:34:59'),
+(3, 'Hijab', '588424cc626cb-hijab.jpg', '58751e4c78b90-hijab.jpg', 0, 7, '2016-11-08 17:34:59', 7, '2016-11-08 17:34:59'),
 (8, 'Tunic', '58751eade0094-hijab.jpg', '58751ea38f8ed-hijab.jpg', 0, 7, '2016-12-19 23:39:43', 7, '2017-01-11 00:49:03'),
 (9, 'Blouse', '58751e0790e34-hijab.jpg', '58751dfb471ae-hijab.jpg', 0, 7, '2017-01-11 00:36:30', 7, '2017-01-11 00:36:30'),
 (10, 'Pants', '58751e7feeb7d-hijab.jpg', '58751e7693e8d-hijab.jpg', 0, 7, '2017-01-11 00:48:22', 7, '2017-01-11 00:48:22');
@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `px_editor_picks` (
 --
 
 INSERT INTO `px_editor_picks` (`id`, `name`, `url`, `image`) VALUES
-(1, 'Casual and Street Style', 'tes', '0'),
+(1, 'Casual and Street Style', 'tes', '58862f4897511-hijab.jpg'),
 (2, 'Party Outfit', NULL, '58751b08860f4-hijab.jpg'),
 (3, 'Travelling Style', NULL, '58751b54b6b2d-hijab.jpg'),
 (4, 'Work Outfit', NULL, '58751b6737c3f-hijab.jpg');
@@ -1148,7 +1148,7 @@ INSERT INTO `px_order` (`id`, `customer_id`, `ship_address_id`, `voucher_id`, `i
 (9, 11, 10, 0, 'HDINV20170114000001', 76000, 0, 9000, 603, 85603, 1, '2017-01-14 19:09:11', '2017-01-14 19:09:11'),
 (10, 11, 10, 0, 'HDINV20170117000001', 76000, 0, 9000, 643, 85643, 1, '2017-01-17 00:59:54', '0000-00-00 00:00:00'),
 (11, 11, 10, 0, 'HDINV20170117000002', 76000, 0, 9000, 396, 85396, 1, '2017-01-17 02:00:47', '0000-00-00 00:00:00'),
-(12, 11, 10, 4, 'HDINV20170119000001', 152000, 30400, 18000, 196, 139796, 3, '2017-01-19 00:48:24', '0000-00-00 00:00:00');
+(12, 11, 10, 4, 'HDINV20170119000001', 152000, 30400, 18000, 196, 139796, 2, '2017-01-19 00:48:24', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1191,7 +1191,6 @@ CREATE TABLE IF NOT EXISTS `px_product` (
   `discount` int(11) NOT NULL,
   `description` text NOT NULL,
   `weight` int(11) NOT NULL,
-  `sku_code` varchar(100) NOT NULL,
   `show_flag` tinyint(4) NOT NULL,
   `delete_flag` tinyint(1) NOT NULL,
   `id_created` int(11) NOT NULL,
@@ -1204,11 +1203,11 @@ CREATE TABLE IF NOT EXISTS `px_product` (
 -- Dumping data for table `px_product`
 --
 
-INSERT INTO `px_product` (`id`, `category_id`, `brand_id`, `name_product`, `price`, `discount`, `description`, `weight`, `sku_code`, `show_flag`, `delete_flag`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(33, 9, 6, 'Blue Blouse', 76000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm</p><p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', 1, '234243242', 1, 0, 7, '2016-12-20 15:39:21', 7, '2017-01-11 01:10:57'),
-(34, 9, 4, 'Olive Top', 100000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', 100, '123456666', 1, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-11 01:13:31'),
-(35, 10, 1, 'Indij Black Long Kimono', 200000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', 100, '123123', 1, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(36, 3, 3, 'Indij Cream Layered Tunic', 300000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', 100, '1231231', 1, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16');
+INSERT INTO `px_product` (`id`, `category_id`, `brand_id`, `name_product`, `price`, `discount`, `description`, `weight`, `show_flag`, `delete_flag`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
+(33, 9, 6, 'Blue Blouse', 76000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm</p><p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', 1, 1, 0, 7, '2016-12-20 15:39:21', 7, '2017-01-11 01:10:57'),
+(34, 9, 4, 'Olive Top', 100000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul>', 100, 1, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-11 01:13:31'),
+(35, 10, 1, 'Indij Black Long Kimono', 200000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', 100, 1, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(36, 3, 3, 'Indij Cream Layered Tunic', 300000, 0, '<p>Rincian Ukuran &amp; Fit<br>Ukuran :<br></p><ul><li>Lebar Bahu: 35 Cm</li><li>Lingkar Dada: 76 Cm</li><li>Panjang Tangan: 54 Cm</li><li>Lingkar Pinggang: 72 Cm</li><li>Panjang Baju: 58 Cm</li><li>Ukuran Yang Dikenakan Model:</li><li>Size: One Size</li></ul>Tinggi Model: 176 Cm<p>Perawatan<br>Bahan: Rayon<br>Perawatan :<br></p><ul><li>Cuci Terpisah</li><li>Gunakan Detergen Yang Lembut</li><li>Jangan Diputar Dalam Mesin Cuci Saat Pengeringan</li><li>Jangan Gunakan Pemutih</li><li>Setrika Suhu Rendah</li></ul><p><br></p>', 100, 1, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16');
 
 -- --------------------------------------------------------
 
@@ -1336,6 +1335,7 @@ CREATE TABLE IF NOT EXISTS `px_product_stock` (
   `color_id` int(11) NOT NULL,
   `size_id` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
+  `sku_code` varchar(255) NOT NULL,
   `id_created` int(11) NOT NULL,
   `date_created` datetime NOT NULL,
   `id_modified` int(11) NOT NULL,
@@ -1346,37 +1346,37 @@ CREATE TABLE IF NOT EXISTS `px_product_stock` (
 -- Dumping data for table `px_product_stock`
 --
 
-INSERT INTO `px_product_stock` (`id`, `product_id`, `color_id`, `size_id`, `stock`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(105, 33, 1, 1, 9, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
-(106, 33, 2, 1, 100, 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
-(109, 33, 1, 2, 17, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(110, 33, 2, 2, 1, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(111, 33, 1, 3, 50, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(112, 33, 2, 3, 20, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(113, 33, 1, 4, 10, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(114, 33, 2, 4, 4, 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
-(115, 34, 1, 1, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
-(117, 34, 1, 2, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
-(121, 34, 1, 4, 0, 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
-(123, 34, 2, 1, 0, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
-(124, 34, 2, 2, 1, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
-(125, 34, 2, 4, 0, 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
-(126, 35, 1, 1, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(127, 35, 2, 1, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(128, 35, 1, 2, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(129, 35, 2, 2, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(130, 35, 1, 3, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(131, 35, 2, 3, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(132, 35, 1, 4, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(133, 35, 2, 4, 0, 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
-(134, 36, 1, 1, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
-(135, 36, 2, 1, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
-(136, 36, 1, 2, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
-(137, 36, 2, 2, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
-(138, 36, 1, 3, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
-(139, 36, 2, 3, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
-(140, 36, 1, 4, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
-(141, 36, 2, 4, 0, 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16');
+INSERT INTO `px_product_stock` (`id`, `product_id`, `color_id`, `size_id`, `stock`, `sku_code`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
+(105, 33, 1, 1, 9, '123', 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
+(106, 33, 2, 1, 100, '3434', 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
+(109, 33, 1, 2, 17, '545', 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(110, 33, 2, 2, 1, '6767', 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(111, 33, 1, 3, 50, '', 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(112, 33, 2, 3, 20, '434', 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(113, 33, 1, 4, 10, '545', 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(114, 33, 2, 4, 4, '233', 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
+(115, 34, 1, 1, 0, '', 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
+(117, 34, 1, 2, 0, '', 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
+(121, 34, 1, 4, 0, '', 7, '2017-01-01 22:03:46', 7, '2017-01-01 22:03:46'),
+(123, 34, 2, 1, 0, '', 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
+(124, 34, 2, 2, 1, '', 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
+(125, 34, 2, 4, 0, '', 7, '2017-01-01 22:05:25', 7, '2017-01-01 22:05:25'),
+(126, 35, 1, 1, 0, '', 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(127, 35, 2, 1, 0, '', 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(128, 35, 1, 2, 0, '', 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(129, 35, 2, 2, 0, '', 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(130, 35, 1, 3, 0, '', 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(131, 35, 2, 3, 0, '', 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(132, 35, 1, 4, 0, '', 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(133, 35, 2, 4, 0, '', 7, '2017-01-11 01:14:40', 7, '2017-01-11 01:14:40'),
+(134, 36, 1, 1, 0, '', 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(135, 36, 2, 1, 0, '', 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(136, 36, 1, 2, 0, '', 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(137, 36, 2, 2, 0, '', 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(138, 36, 1, 3, 0, '', 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(139, 36, 2, 3, 0, '', 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(140, 36, 1, 4, 0, '', 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16'),
+(141, 36, 2, 4, 0, '', 7, '2017-01-11 01:15:16', 7, '2017-01-11 01:15:16');
 
 -- --------------------------------------------------------
 
