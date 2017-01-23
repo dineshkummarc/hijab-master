@@ -41,7 +41,7 @@
                         <?php $no=1; foreach ($list as $r) { ?>
                             <tr>
                                 <td class="text-center"><?php echo $no; ?></td>
-                                <td class="text-center"><?php echo $r->invoice_number; ?></td>
+                                <td class="text-center"><a href="<?=base_url('admin_order/order_detail/'.$r->order_id)?>"><?php echo $r->invoice_number; ?></a></td>
                                 <td class="text-center"><?php echo $r->voucher; ?></td>
                             </tr>
                             <?php $no++; } ?>

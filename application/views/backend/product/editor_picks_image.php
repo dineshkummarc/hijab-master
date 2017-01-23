@@ -1,9 +1,9 @@
-<div class="modal fade" id="pixel-modal-warehouse-productimage" tabindex="-1" role="dialog" aria-labelledby="pixel-modal-warehouse-productimage-label" aria-hidden="true">
+<div class="modal fade" id="editor-image" tabindex="-1" role="dialog" aria-labelledby="editor-image-label" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="pixel-modal-warehouse-productimage-label"><?php echo $function_name; ?> of <?php echo $name; ?></h4>
+				<h4 class="modal-title" id="editor-image-label"><?php echo $function_name; ?> of <?php echo $name; ?></h4>
 			</div>
 			<form id="pixel-warehouse-productimage-form" class="form-horizontal" action="<?php echo $controller.'/editor_picks_image_add'; ?>" method="POST">
 			<input type="hidden" name="id" id="warehouse-productimage-id">
@@ -114,7 +114,7 @@
 						</div><!-- /.box -->
 					</div><!-- /.col -->
 					<?php }else{?>
-						<button class="btn btn-success btn-pop" data-target-add="<?php echo $controller.'/'.$function_add; ?>" data-toggle="modal" data-target="#pixel-modal-warehouse-productimage"><i class="fa fa-plus"></i> Add New</button>
+						<button class="btn btn-success btn-pop" data-target-add="<?php echo $controller.'/'.$function_add; ?>" data-toggle="modal" data-target="#editor-image"><i class="fa fa-plus"></i> Add New</button>
 					 <?php } ?>
 					</div>
 					</div><!-- /.box-body -->

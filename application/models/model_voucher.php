@@ -12,10 +12,10 @@ class Model_voucher extends PX_Model {
     function history_voucher_get()
     {
         return
-        $this->db->select('a.invoice_number, b.voucher')
+        $this->db->select('a.id order_id, a.invoice_number, b.voucher')
                  ->from($this->tbl_order.' a')
                  ->join($this->tbl_voucher.' b', 'a.voucher_id = b.id')
-                 ->where('a.status', 3)
+                 ->where('a.status', 2)
                  ->get();
     }
 }

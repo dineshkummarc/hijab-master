@@ -31,7 +31,7 @@ class Model_product extends PX_Model {
         return $this->db->get();
     }
 
-    function search_product($category,$brand,$color,$price,$size){
+    function search_product($category,$brand,$color,$price,$size,$name_product){
         $price = explode(",", $price);
         // die(print_r($price));
         $this->db->select($this->tbl_product.'.*');
@@ -43,6 +43,7 @@ class Model_product extends PX_Model {
         $this->db->join($this->tbl_size,$this->tbl_size.'.id='.$this->tbl_product_stock.'.size_id');
         $this->db->where($this->tbl_product.'.price >=',$price[0]);
         $this->db->where($this->tbl_product.'.price <=',$price[1]);
+        $this->db->like($this->tbl_product.'.name_product',$name_product);
         if($category!=''){
         $a=0;
         foreach ($category as $key) {

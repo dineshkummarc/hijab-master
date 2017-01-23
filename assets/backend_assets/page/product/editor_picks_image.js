@@ -77,7 +77,7 @@ $(document).ready(function(){
 				$('.image-original-preview').html('<img src="assets/uploads/editor_picks/'+result.data.id+'/'+result.data.image+'" alt="images" id="original-image"/>');
 				$('.image-productimage-crop-preview').html('<img src="assets/uploads/editor_picks/'+result.data.id+'/'+result.data.image+'" alt="images" id="crop-image"/>');
 				origImageVal();
-				$('#pixel-modal-warehouse-productimage').modal('show');
+				$('#editor-image').modal('show');
 			},	
 			error : function(){
 				alert('Error, Please Try Again');
@@ -120,7 +120,7 @@ $(document).ready(function(){
 			$('#warehouse-productimage-upload-button').removeAttr('disabled');
 		}).on('fileuploadalways', function() {
 	});
-	$('#pixel-modal-warehouse-productimage').on('shown.bs.modal', function (e) {
+	$('#editor-image').on('shown.bs.modal', function (e) {
 		var imgwidth = $('#original-image').width();
 		var imgheight = $('#original-image').height();
 		$('#fakeheight').val(imgheight);

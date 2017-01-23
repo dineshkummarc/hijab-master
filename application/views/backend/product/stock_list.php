@@ -36,6 +36,7 @@
                                     <th class="text-center">Color</th>
                                     <th class="text-center">Size</th>
                                     <th class="text-center">Stock</th>
+                                    <th class="text-center">SKU Code</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,6 +48,7 @@
                                         <td class="text-center"><?php echo $d_row->color->name; ?></td>
                                         <td class="text-center"><?php echo $d_row->size->name; ?></td>
                                         <td class="text-center"><input type="number" value="<?php echo $d_row->stock; ?>" name="stock[]" id="stock-<?php echo $d_row->id ?>"><br><input type="hidden" value="<?php echo $d_row->id; ?>" name="id[]" id="id-<?php echo $d_row->id ?>"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="sku_code[]" value="<?php echo $d_row->sku_code; ?>"></td>
                                     </tr>
                                     <?php $no++;
                                 } ?>

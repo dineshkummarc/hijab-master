@@ -19,6 +19,7 @@ class Admin extends PX_Controller {
     }
 
     function dashboard() {
+        $this->load->model('model_order', 'order');
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
         $data += $this->get_function('Admin', 'admin');
@@ -28,10 +29,23 @@ class Admin extends PX_Controller {
             $data['total_customer'] = $this->db->get($this->tbl_customer)->num_rows();
             $data['unconfirmed'] = $this->model_basic->select_where($this->tbl_order, 'status', 0)->num_rows();
             $data['paid'] = $this->model_basic->select_where($this->tbl_order, 'status', 3)->num_rows();
+            $data['city'] = $this->order->order_by_city()->result();
             $data['content'] = $this->load->view('backend/admin/dashboard', $data, true);
             $this->load->view('backend/index', $data);
         } else
             redirect('admin');
+    }
+
+    function get_total_income_chart(){
+
+        
+        // $data[] = array('y' => '2014-10-10',
+            // 'a' => '72');
+         $data[] = array('y' => '2014-10-11',
+            'a' => '70');
+
+        // print_r($data);die();
+        echo json_encode($data,true);
     }
 
     function login() {

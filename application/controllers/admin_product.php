@@ -1289,9 +1289,13 @@ class Admin_product extends PX_Controller {
         $ids = $this->input->post('id');
         $product_id = $this->input->post('product_id');
         $stock = $this->input->post('stock');
+        $sku_code = $this->input->post('sku_code');
         $this->db->trans_begin();
         foreach ($ids as $key => $id) {
-            $update = array('stock' => $stock[$key]);
+            $update = array(
+                'stock' => $stock[$key],
+                'sku_code' => $sku_code[$key],
+                );
             $do_update = $this->model_basic->update($this->tbl_product_stock, $update, 'id', $id);
         }
         $this->db->trans_complete();
