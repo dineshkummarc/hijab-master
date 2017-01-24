@@ -18,12 +18,43 @@ class Shop extends PX_Controller {
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
-		$data['product'] = $this->model_basic->select_all($this->tbl_product);
-		foreach ($data['product'] as $d_row) {
+
+        if(isset($_GET['sortby']))
+        {
+            $sortby = $_GET['sortby'] ;
+            $url_sortby = 'sortby='.$_GET['sortby'];
+        }
+        else
+        {
+            $sortby = "";
+            $url_sortby = "";
+        }
+        if(isset($_GET['show']))
+        {
+            $show = $_GET['show'] ;
+            $url_show = '&show='.$_GET['show'];
+        }
+        else
+        {
+            $show = 9;
+            $url_show = "";
+        }
+        $per_page = $show;
+        if(isset($_GET['per_page']))
+        {
+            $start = $_GET['per_page'] ;
+        }
+        else
+        {
+            $start = 0;
+        }
+        $data['product'] = $this->model_shop->get_product_where($sortby, $per_page, $start);
+        //print_r($this->db->last_query());
+		foreach ($data['product']->result() as $d_row) {
             $price_disc= $d_row->price/100*$d_row->discount;
             $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
 			$d_row->price = indonesian_currency($d_row->price);
-            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id);
+            $image = $this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id);
             if ($image->num_rows() > 0) {
                     $d_row->image=$image->row()->photo;
                 }else{
@@ -36,6 +67,41 @@ class Shop extends PX_Controller {
         $data['color']=$this->model_basic->select_all($this->tbl_color);
         $data['brand']=$this->model_basic->select_all($this->tbl_brand);
         $data['size']=$this->model_basic->select_all($this->tbl_size);
+
+        $this->load->library('pagination');
+        
+        $config['base_url'] = base_url().'shop?'.$url_sortby.$url_show;
+        $config['total_rows'] = $this->model_shop->get_product_count();
+        $config['per_page'] = $per_page;
+        $config['uri_segment'] = 3;
+        $config['num_links'] = 3;
+        $config['page_query_string'] = TRUE;
+        $config['full_tag_open'] = '<ul>';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['next_link'] = '&gt;';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_link'] = '&lt;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a>';
+        $config['cur_tag_close'] = '</a></li>';
+   
+        $this->pagination->initialize($config);
+        
+        $data["links"] = $this->pagination->create_links();
+
+        $data['start_items'] = $start + 1;
+        $data['to_items'] = $start + $data['product']->num_rows();
+        $data['total_items'] = $config['total_rows'];
 		$data['content'] = $this->load->view('frontend/shop/index',$data,true);
 		$this->load->view('frontend/index',$data); 
 	}

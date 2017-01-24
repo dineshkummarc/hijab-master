@@ -13,31 +13,27 @@
                                 
                                 <div class="sort-by hidden-xs">
                                     <label>Sort by</label>
-                                    <select>
-                                        <option value="#" selected>Position</option>
-                                        <option value="#">Name</option>
-                                        <option value="#">Price</option>
+                                    <select id="sort-by">
+                                        <!-- <option value="#" selected>Position</option> -->
+                                        <option value="">-</option>
+                                        <option value="name_product">Name</option>
+                                        <option value="price">Price</option>
                                     </select>
                                     <span><a href="#" title="Set Descending Direction"><i class="fa fa-long-arrow-down"></i></a></span>
                                 </div>                                                                                              
                                 <div class="show hidden-xs">
                                     <label>Show</label>
-                                    <select>
-                                        <option value="#" selected>9</option>
-                                        <option value="#">12</option>
-                                        <option value="#">15</option>
+                                    <select id="show-per-page">
+                                        <option value="9" selected>9</option>
+                                        <option value="12">12</option>
+                                        <option value="15">15</option>
                                     </select>
                                 </div>
                                 <div class="pager-item-right">
                                     <div class="item-right">
-                                        <ul>
-                                            <li class="active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                        </ul>
+                                        <?php echo $links ?>
                                     </div>
-                                    <p class="amount item-right  hidden-xs">Items 1 to 9 of 22 total</p>
+                                    <p class="amount item-right  hidden-xs">Items <?php echo $start_items ?> to <?php echo $to_items ?> of <?php echo $total_items ?> total</p>
                                 </div>
                             </div>
                             </div>
@@ -49,7 +45,7 @@
                                     <div class="fashion-grid-view">
 
                                         <div class="row" id="">
-                                            <?php foreach ($product as $d_row) {
+                                            <?php foreach ($product->result() as $d_row) {
 //                                                $id = $d_row->id;
 //                                                $name = $d_row->name_product;
 //                                                $price = $d_row->price;
@@ -138,14 +134,9 @@
                         </div>
                         <div class="pager-item-right">
                             <div class="item-right">
-                                <ul>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                </ul>
+                                <?php echo $links ?>
                             </div>
-                            <p class="amount item-right  hidden-xs">Items 1 to 9 of 22 total</p>
+                            <p class="amount item-right  hidden-xs">Items <?php echo $start_items ?> to <?php echo $to_items ?> of <?php echo $total_items ?> total</p>
                         </div>
                     </div>                         
                                                 </div>

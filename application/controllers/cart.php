@@ -68,6 +68,28 @@ class Cart extends PX_Controller {
         }
     }
 
+    function add_to_wishlist()
+    {
+        if (!$this->session->userdata('member')) {
+            $this->returnJson(array('status' => 'noncustomer', 'msg' => 'You must login to add this item.', 'redirect' => 'login'));
+        }
+        $data = array(
+            'product_id' => $this->input->post('id'),
+            'customer_id' => $this->session->userdata('member')['id']
+            );
+        $exist_wishlist = $this->model_basic->select_where_array($this->tbl_wishlist, $data);
+        if ($exist_wishlist->num_rows() > 0) 
+        {
+            $this->returnJson(array('status' => 'failed', 'msg' => 'This item is already in your wishlist.'));
+        }
+        else
+        {
+            $insert = $this->model_basic->insert_all($this->tbl_wishlist, $data);
+            $this->returnJson(array('status' => 'ok', 'msg' => 'Your item has been added to your wishlist.'));
+        }
+
+    }
+
     function checkout(){
         if($this->session->userdata('member')['validated'] == FALSE)
         {
@@ -307,7 +329,7 @@ class Cart extends PX_Controller {
         {
             //send order success email
             $mail_data = new stdClass();
-            $mail_data->receiver = $this->model_basic->select_where($this->tbl_customer_shipping_address, 'id', $shipping_id)->row()->email;
+            $mail_data->receiver = $this->model_basic->select_where($this->tbl_shipping_address, 'id', $shipping_id)->row()->email;
             $mail_data->subject = "Order Success";
             $mail_data->message  = "";
             

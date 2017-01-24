@@ -70,6 +70,7 @@ class PX_Controller extends CI_Controller {
         $this->load->model('model_rajaongkir');
         $this->load->model('model_shipping_cost');
         $this->load->model('model_order');
+        $this->load->model('model_shop');
         // sessions
         if ($this->session->userdata('admin') != FALSE)
             $this->session_admin = $this->session->userdata('admin');

@@ -399,6 +399,7 @@
         <!-- plugins.js -->
         <script src="assets/frontend_assets/js/plugins.js"></script>
         <script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script>
+        <script src="assets/frontend_assets/js/jquery.pjax.js"></script>
         <!-- main.js -->
         <script src="assets/frontend_assets/js/main.js"></script>
         <script src="assets/frontend_assets/page/dashboard/address.js"></script>

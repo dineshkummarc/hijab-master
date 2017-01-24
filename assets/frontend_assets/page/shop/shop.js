@@ -7,6 +7,23 @@ $(document).ready(function(){
     var id = '';
     var stock = '';
 
+    if (getUrlParameter('sortby')) {
+      $('#sort-by').val(getUrlParameter('sortby'));
+    }
+
+    $('#sort-by').on('change', function(e) {
+      e.preventDefault();
+      setGetParameter('sortby', this.value);
+    });
+
+    if (getUrlParameter('show')) {
+      $('#show-per-page').val(getUrlParameter('show'));
+    }
+    $('#show-per-page').on('change', function(e) {
+      e.preventDefault();
+      setGetParameter('show', this.value);
+    });
+
     $('input[type=date]')
         .datepicker({
             format: 'yyyy-mm-dd'
@@ -138,7 +155,7 @@ $(document).ready(function(){
     var price = value_price.replace("Rp.","");
     var price= price.replace(" - ",",");
      var price= price.replace("Rp.","");
-     console.log(this);
+
      if(this.checked){
       var category = $('input[name="category[]"]:checked').serialize();
       var brand = $('input[name="brand[]"]:checked').serialize();
@@ -173,4 +190,48 @@ $(document).ready(function(){
   });
     });
 })
+
+/*
+* Adds or changes a GET parameter
+* See http://stackoverflow.com/a/13064060/703581
+* Adapted to handle '#' in the URL 
+*/
+function setGetParameter(paramName, paramValue)
+{
+  var url = window.location.href;
+  var splitAtAnchor = url.split('#');
+  url = splitAtAnchor[0];
+  var anchor = typeof splitAtAnchor[1] === 'undefined' ? '' : '#' + splitAtAnchor[1];
+    if (url.indexOf(paramName + "=") >= 0)
+    {
+        var prefix = url.substring(0, url.indexOf(paramName));
+        var suffix = url.substring(url.indexOf(paramName));
+        suffix = suffix.substring(suffix.indexOf("=") + 1);
+        suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
+        url = prefix + paramName + "=" + paramValue + suffix;
+    }
+    else
+    {
+    if (url.indexOf("?") < 0)
+        url += "?" + paramName + "=" + paramValue;
+    else
+        url += "&" + paramName + "=" + paramValue;
+    }
+    window.location.href = url + anchor;
+}
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
 

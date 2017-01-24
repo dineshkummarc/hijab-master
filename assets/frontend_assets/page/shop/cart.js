@@ -106,3 +106,25 @@ $(document).ready(function(){
     });
 
 })
+
+$('body').delegate('.btn-add-wishlist','click',function(e){
+  e.preventDefault();
+  var $button = $(this);
+
+  $.ajax({
+    url : 'cart/add_to_wishlist',
+    type : 'POST',
+    dataType : 'json',
+    data : {id: $button.attr('data-id')},
+    success: function(response) {
+      if (response.status == 'noncustomer') {
+        window.location.href = response.redirect;
+      }else{
+        
+        $('#wishlist-msg').html(response.msg);
+        $('#wishlist-modal').modal('show');
+        //alert(response.msg);
+      }
+    }
+  })
+});

@@ -1359,6 +1359,7 @@ ul.features-nav li a {
   transition:0.3s;
 }
 .product-pic:hover .pro-cart-bottom {
+  cursor: pointer;
 	opacity:1;
 	bottom:40%;
 }
