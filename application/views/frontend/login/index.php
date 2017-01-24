@@ -52,6 +52,7 @@
 						<div class="text-center">
 						<h3>OR</h3>
 						<a href="<?php echo $login_url ?>"><img src="assets/frontend_assets/img/login_fb.png" width="50%"></a>
+						<a href="<?php echo $login_google ?>"><img src="assets/frontend_assets/img/login_g.png" width="50%"></a>
 					</div>
 					</div>
 				</div>

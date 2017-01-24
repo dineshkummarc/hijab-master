@@ -89,6 +89,21 @@ class Shop extends PX_Controller {
 		foreach ($data['detail']->color as $data_row) {
 			$data_row->color = $this->model_basic->select_where($this->tbl_color, 'id', $data_row->color_id)->row();
 		}
+
+        $data['product'] = $this->model_basic->select_where($this->tbl_product,'category_id',$data['detail']->category_id)->result();
+        foreach ($data['product'] as $d_row) {
+            $price_disc= $d_row->price/100*$d_row->discount;
+            $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
+            $d_row->price = indonesian_currency($d_row->price);
+            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id);
+            if ($image->num_rows() > 0) {
+                    $d_row->image=$image->row()->photo;
+                }else{
+                    $d_row->image="";
+                }
+            $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
+            
+        }
 		$data['content'] = $this->load->view('frontend/shop/detail',$data,true);
 		$this->load->view('frontend/index',$data); 
 	}

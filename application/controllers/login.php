@@ -7,6 +7,7 @@ class Login extends PX_Controller{
 		$this->controller_attr = array('controller' => 'login','controller_name' => 'Login');
                 $this->do_underconstruct();
     $this->load->library('facebook');
+    $this->load->library('googleplus');
 	}
 
 	public function index(){
@@ -20,6 +21,7 @@ class Login extends PX_Controller{
                 'redirect_uri' => site_url('login/login_fb'), 
                  'scope'         => 'email, user_birthday, user_location, user_work_history, user_hometown, user_photos,'
             ));
+    $data['login_google'] = $this->googleplus->loginURL();
 		$data['content'] = $this->load->view('frontend/login/index',$data,true);
 		$this->load->view('frontend/index',$data);
 	}
@@ -86,7 +88,6 @@ class Login extends PX_Controller{
                     'password' => $row->password,
                     'nama_depan'=>$row->nama_depan,
                     'nama_belakang'=>$row->nama_belakang,
-                    'photo'=>$row->profile_pict,
                     'phone'=>$row->phone,
                     'validated' => true
                     );
@@ -107,11 +108,8 @@ class Login extends PX_Controller{
       $data = array(
                     'id' => $row->id,
                     'email' => $row->email,
-                    'password' => $row->password,
-                    'firstname'=>$row->first_name,
-                    'lastname'=>$row->last_name,
-                    'photo'=>$row->profile_pict,
-                    'phone'=>$row->phone,
+                    'nama_depan'=>$row->nama_depan,
+                    'nama_belakang'=>$row->nama_belakang,
                     'validated' => true
                     );
 
@@ -125,12 +123,60 @@ class Login extends PX_Controller{
         }
    
   }
+     public function login_google(){
+            if (isset($_GET['code'])) {
+      
+      $this->googleplus->getAuthenticate();
+     $user_profile=$this->googleplus->getUserInfo();
+          $this->db->where('email', $user_profile['email']);
+          $query = $this->db->get($this->tbl_customer);
+          if($query->num_rows() == 1)
+    {
+      $row = $query->row();
+      $data = array(
+         'id' => $row->id,
+                    'email' => $row->email,
+                    'password' => $row->password,
+                    'nama_depan'=>$row->nama_depan,
+                    'nama_belakang'=>$row->nama_belakang,
+                    'validated' => true
+                    );
+
+           $this->session->set_userdata('member',$data);
+         }else{
+        $data_new = array(
+        'nama_depan' => $user_profile['name'],
+        'email' => $user_profile['email'],
+        'date_created' => date('Y-m-d h:i:s', now()),
+      );
+      $insert = $this->db->insert($this->tbl_customer, $data_new);
+      $this->db->where('email', $user_profile['email']);
+          $query = $this->db->get($this->tbl_customer);
+          $row = $query->row();
+      $data = array(
+          'id' => $row->id,
+                    'email' => $row->email,
+                    'password' => $row->password,
+                    'nama_depan'=>$row->nama_depan,
+                    'nama_belakang'=>$row->nama_belakang,
+                    'validated' => true
+                    );
+
+           $this->session->set_userdata('member',$data);
+         }redirect('dashboard');
+    } 
+   
+  }
 
 	function logout(){
     $this->load->library('facebook');
-    $this->facebook->destroySession();
-		$this->session->unset_userdata('member');
-    $this->session->unset_userdata('voucher');
-		redirect('login');
+        $this->load->library('googleplus');
+        $this->googleplus->revokeToken();
+        // Logs off session from website
+        $this->facebook->destroySession();
+        $this->session->sess_destroy();
+        // Make sure you destory website session as well.
+
+        redirect('login');
 	}
 }
