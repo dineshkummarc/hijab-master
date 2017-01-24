@@ -100,14 +100,78 @@
 				<div class="col-sm-12">
 					<div class="pro-tab-all">
 						<ul class="pro-desc-tab-menu">
-							<li class="active"><a href="#pro-des" data-toggle="tab">Product Description</a></li>
+							<li class="active"><a href="#pro-des" data-toggle="tab">The same products</a></li>
 							
 <!--							<li><a href="#tag" data-toggle="tab">Tags</a></li>-->
 <!--							<li><a href="#cus-tab" data-toggle="tab">Custom Tab</a></li>-->
 						</ul>							
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active m-mb" id="pro-des">
-								<p><?php echo $detail->description?>. </p>
+								 <?php foreach ($product as $d_row) {
+//                                                $id = $d_row->id;
+//                                                $name = $d_row->name_product;
+//                                                $price = $d_row->price;
+
+                                                ?>
+                                            <div class="col-lg-3 col-md-3 col-sm-4">
+                                                <div class="single-product2">
+                                                    <div class="product-pic">
+                                                        <a href="shop/detail/<?php echo $d_row->id?>">
+                                                            <img src="assets/uploads/product/<?php echo $d_row->id ?>/<?php echo $d_row->image?>" alt="" />
+                                                            <img class="secondary-img" src="assets/uploads/product/<?php echo $d_row->id?>/<?php echo $d_row->image?>" alt="" />
+                                                        </a>
+                                                        <div class="pro-cart-bottom">
+                                                            <a type="button" data-target-id="<?php echo $d_row->id ?>" data-toggle="modal" class="btn-quick-view"  data-target="#shopModal" title="Quick View" ><i class="fa fa-search" aria-hidden="true"></i></a>
+                                                            <!-- <a data-toggle="tooltip" title="Add to Compare" href="#"><i class="fa fa-exchange"></i></a> -->
+                                                            <input type="hidden" value="<?php echo $this->session->userdata('id') ?>" name="session_id" id="session_id" />
+                                                            <?php if($this->session->userdata('validated')) { ?>
+                                                            <a data-toggle="tooltip" title="Add to Wishlist" href="wishlist/wishlist_add/<?php echo $this->session->userdata('id') ?>/<?php echo $d_row->id?>" class="whishlist-true"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                            <?php }else{ ?>
+                                                            <a type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                            <?php } ?>
+                                                            
+                                                            <!--class="whishlist-true"-->
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="product-details">
+<!--                                                        --><?php
+//                                                        echo form_open('shop/addToCart');
+//                                                        echo form_hidden('id', $id);
+//                                                        echo form_hidden('name', $name);
+//                                                        echo form_hidden('price', $price);
+//                                                        ?>
+                                                        <h3><a href="shop/detail/<?php echo $d_row->id?>"><?php echo $d_row->name_product?></a></h3>
+<!--                                                        --><?php
+//                                                        $btn = array(
+//                                                            'class' => 'fa fa-shopping-cart',
+//                                                            'value' => 'add to cart',
+//                                                            'name' => 'action'
+//                                                        );
+//
+//                                                        // Submit Button.
+//                                                        echo form_submit($btn);
+//                                                        echo form_close();
+//                                                        ?><!-- 
+                                                        <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a> -->
+                                                        <div class="price-star">
+                                                            
+                                                            <div class="price">
+                                                            <?php if($d_row->discount>0){
+                                                                ?>
+                                                                <span class="discount-price"><?php echo $d_row->price?></span>
+                                                                <span><?php echo $d_row->price_disc ?></span>
+                                                                <?php }else{ ?>
+                                                                <span><?php echo $d_row->price?></span>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>                          
+                                                </div>
+                                            </div>
+
+
+                                            <?php } ?>
 							</div>
 <!--							<div role="tabpanel" class="tab-pane" id="tag">-->
 <!--								<div class="add-review sub-form m-mb">-->
