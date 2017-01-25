@@ -84,44 +84,47 @@ class Dashboard extends PX_Controller {
 			}
         }
 	}
-
-	public function bil_address(){
+	public function shipping_address(){
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('User Address Shipping','User');
 		$customer_id = $this->session->userdata('member')['id'];
-		$user=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$customer_id)->num_rows();
-		if($user<=0){
-			$data['count_bil']=0;
-		}else{
-			$data['count_bil']=0;
-		}
-		$data['province_list'] = $this->model_basic->select_all($this->tbl_shipping_province);
-        $data['city_list'] = $this->model_basic->select_all($this->tbl_shipping_city);
-        $data['region_list'] = $this->model_basic->select_all($this->tbl_shipping_region);
-        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+		$datas=array(
+			"customer_id"=>$customer_id,
+			"is_deleted"=>0,
+			);
+		$data['shipping_address']=$this->model_basic->select_where_array($this->tbl_customer_shipping_address,$datas)->result();
+		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
-		$data['content'] = $this->load->view('frontend/dashboard/bil_address',$data,true);
+		$data['content'] = $this->load->view('frontend/dashboard/list_address',$data,true);
+		$this->load->view('frontend/index',$data);
+	}
+	public function detail_address($id=null){
+		$data = $this->get_app_settings();
+		$data += $this->controller_attr;
+		$data += $this->get_function('User Address Shipping','User');
+		$customer_id = $this->session->userdata('member')['id'];
+		if($id!=null){
+			$data['shipping']=$this->model_basic->select_where($this->tbl_customer_shipping_address,'id',$id)->row();
+			$data['city'] = $this->model_basic->select_where($this->tbl_shipping_city,'id',$data['shipping']->city)->row();
+			$data['region'] = $this->model_basic->select_where($this->tbl_shipping_region,'id',$data['shipping']->region)->row();
+		}else{
+			$data['shipping']='';
+		}
+		$data['province_list'] = $this->model_basic->select_all($this->tbl_shipping_province);
+       $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+		$data['content'] = $this->load->view('frontend/dashboard/ship_address',$data,true);
 		$this->load->view('frontend/index',$data);
 	}
 
-	public function register_biladdress(){
+	public function update_ship(){
 		$customer_id = $this->session->userdata('member')['id'];
-		$user=$this->model_basic->select_where($this->tbl_customer,'id',$customer_id)->row();
-		$data_bil=array(
-				"customer_id"=>$customer_id,
-				"address"=>$this->input->post('address'),
-				"province"=>$this->input->post('province'),
-				"city"=>$this->input->post('city'),
-				"region"=>$this->input->post('region'),
-				"postal_code"=>$this->input->post('postal_code'),
-				"phone"=>$this->input->post('phone'),
-				"title"=>$this->input->post('title'),
-			);
-		$insert=$this->db->insert($this->tbl_customer_billing_address,$data_bil);
+		$id=$this->input->post('id');
 		$data_ship=array(
-				"receiver_name"=>$user->nama_depan." ".$user->nama_belakang,
+				"receiver_name"=>$this->input->post('receiver_name'),
 				"customer_id"=>$customer_id,
 				"address"=>$this->input->post('address'),
 				"province"=>$this->input->post('province'),
@@ -131,10 +134,28 @@ class Dashboard extends PX_Controller {
 				"phone"=>$this->input->post('phone'),
 				"title"=>$this->input->post('title'),
 			);
-		$insert=$this->db->insert($this->tbl_shipping_address,$data_bil);
+		if($id!=''){
+		$insert=$this->db->update($this->tbl_customer_shipping_address,$data_ship, "id = $id");
+		}else{
+		$insert=$this->db->insert($this->tbl_customer_shipping_address,$data_ship);
+		}
 		if($insert){
-			$this->session->set_flashdata('msg','congratulations, you have been registered in our system');
-			redirect('dashboard');
+			$this->session->set_flashdata('msg','congratulations, your data have been saved');
+			redirect('dashboard/shipping_address');
+		}else{
+			echo"error";
+		}
+
+	}
+	public function del_address($id){
+		$data_ship=array(
+				"is_deleted"=>1,
+			);
+		$insert=$this->db->update($this->tbl_customer_shipping_address,$data_ship, "id = $id");
+		
+		if($insert){
+			$this->session->set_flashdata('msg','congratulations, your data have been saved');
+			redirect('dashboard/shipping_address');
 		}else{
 			echo"error";
 		}
