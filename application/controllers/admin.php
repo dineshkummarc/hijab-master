@@ -27,6 +27,7 @@ class Admin extends PX_Controller {
         if ($this->session->userdata('admin') != FALSE) {
             $data['total_order'] = $this->db->get($this->tbl_order)->num_rows();
             $data['total_customer'] = $this->db->get($this->tbl_customer)->num_rows();
+            $data['product_sold'] = $this->order->get_product_sold()->row()->total;
             $data['unconfirmed'] = $this->model_basic->select_where($this->tbl_order, 'status', 0)->num_rows();
             $data['paid'] = $this->model_basic->select_where($this->tbl_order, 'status', 3)->num_rows();
             $data['city'] = $this->order->order_by_city()->result();
@@ -53,6 +54,17 @@ class Admin extends PX_Controller {
         foreach ($data as $d) {
             $datax[] = array('label' => $d->status,
             'value' => $d->total);
+
+        }
+        echo json_encode($datax,true);
+    }
+
+    function get_total_customer(){
+        $this->load->model('model_order');
+        $data = $this->model_order->get_monthly_income()->result();
+        foreach ($data as $d) {  
+            $datax[] = array('y' => $d->month.' - '.$d->year,
+            'a' => $d->total);
 
         }
         echo json_encode($datax,true);

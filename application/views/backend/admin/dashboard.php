@@ -25,7 +25,7 @@
                     </div>
                     <div>                                    
                         <div class="widget-title">Product Sold</div>
-                        <div class="widget-int">1,977</div>
+                        <div class="widget-int"><?=$product_sold?></div>
                     </div>
                 </div>                            
             </div>

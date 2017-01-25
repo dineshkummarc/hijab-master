@@ -42,6 +42,14 @@ class Model_order extends PX_Model {
                  ->get();
     }
 
+    function get_product_sold(){
+      return $this->db->select('count(a.id) total')
+                      ->from('px_product_order a')
+                      ->join('px_order b', 'a.order_id = b.id')
+                      ->where('b.status = 2')
+                      ->get();
+    }
+
     function get_monthly_income(){
         $query = "SELECT MONTHNAME(date_created) month,YEAR(date_created) year, SUM(total_payment) total
                   FROM px_order
@@ -58,6 +66,15 @@ class Model_order extends PX_Model {
                   FROM px_order a, px_tracking_status b
                                     where a.status = b.status_id
                   GROUP BY b.title";
+
+        return $this->db->query($query);
+    }
+
+    function get_total_customer(){
+        $query = "SELECT MONTHNAME(date_created) month,YEAR(date_created) year, count(id) total
+                  FROM px_customer
+                  GROUP BY YEAR(date_created), MONTH(date_created)
+                  limit 12";
 
         return $this->db->query($query);
     }
