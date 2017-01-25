@@ -424,6 +424,9 @@ img.zoom_01 {
 .con-dash{
     padding-top: 15px
 }
+.single-product2{
+    max-height: 435px;
+}
 /*media screen////////////*/
 @media (max-width: 767px) {
     .container,.box-layout {
