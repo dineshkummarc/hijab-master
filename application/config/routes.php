@@ -41,6 +41,8 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
+$route['shop/(:any)'] = "shop";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
