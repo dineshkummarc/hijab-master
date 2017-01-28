@@ -19,6 +19,7 @@ class Admin extends PX_Controller {
     }
 
     function dashboard() {
+        //test
         $this->load->model('model_order', 'order');
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
