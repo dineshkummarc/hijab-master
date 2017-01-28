@@ -25,7 +25,7 @@
       <div class="col-md-6 grid no-padding-left">
         <div class="grid-large" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center center; background-size: cover">
           <div class="caption-right">
-            <div class="caption-grid"><?php echo $data_row->name ?></div>
+            <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
       <div class="col-md-3 grid no-padding-right">
         <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center; background-size: cover">
           <div class="caption-left">
-            <div class="caption-grid"><?php echo $data_row->name ?></div>
+            <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
       <div class="col-md-6 grid no-padding-right">
         <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->landscape_image ?>') center; background-size: cover">
           <div class="caption-right">
-            <div class="caption-grid"><?php echo $data_row->name ?></div>
+            <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="caption-grid-bottom">
           <h4><b><?php echo $data_row->name ?></b></h4>
-          <a href="#" class="link-shop">shop now</a>
+          <a href="shop?editorspicks=<?php echo $data_row->id ?>" class="link-shop">shop now</a>
         </div>
       </div>
        <?php } ?>

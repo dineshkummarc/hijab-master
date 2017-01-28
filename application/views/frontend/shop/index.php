@@ -45,12 +45,7 @@
                                     <div class="fashion-grid-view">
 
                                         <div class="row" id="">
-                                            <?php foreach ($product->result() as $d_row) {
-//                                                $id = $d_row->id;
-//                                                $name = $d_row->name_product;
-//                                                $price = $d_row->price;
-
-                                                ?>
+                                            <?php foreach ($product->result() as $d_row) { ?>
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="single-product2">
                                                     <div class="product-pic">
@@ -73,27 +68,9 @@
 
                                                     </div>
                                                     <div class="product-details">
-<!--                                                        --><?php
-//                                                        echo form_open('shop/addToCart');
-//                                                        echo form_hidden('id', $id);
-//                                                        echo form_hidden('name', $name);
-//                                                        echo form_hidden('price', $price);
-//                                                        ?>
                                                         <h3><a href="shop/detail/<?php echo $d_row->id?>"><?php echo $d_row->name_product?></a></h3>
-<!--                                                        --><?php
-//                                                        $btn = array(
-//                                                            'class' => 'fa fa-shopping-cart',
-//                                                            'value' => 'add to cart',
-//                                                            'name' => 'action'
-//                                                        );
-//
-//                                                        // Submit Button.
-//                                                        echo form_submit($btn);
-//                                                        echo form_close();
-//                                                        ?><!-- 
                                                         <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a> -->
                                                         <div class="price-star">
-                                                            
                                                             <div class="price">
                                                             <?php if($d_row->discount>0){
                                                                 ?>
@@ -107,29 +84,26 @@
                                                     </div>                          
                                                 </div>
                                             </div>
-
-
                                             <?php } ?>
                                         </div>
 
 
                     <div class="topbar-category">
-                        
                         <div class="sort-by  hidden-xs">
                             <label>Sort by</label>
-                            <select>
-                                <option value="#" selected>Position</option>
-                                <option value="#">Name</option>
-                                <option value="#">Price</option>
+                            <select id="sort-by-bot">
+                                <option value="">-</option>
+                                <option value="name_product">Name</option>
+                                <option value="price">Price</option>
                             </select>
                             <span><a href="#" title="Set Descending Direction"><i class="fa fa-long-arrow-down"></i></a></span>
                         </div>                                                                                              
                         <div class="show hidden-xs">
                             <label>Show</label>
-                            <select>
-                                <option value="#" selected>9</option>
-                                <option value="#">12</option>
-                                <option value="#">15</option>
+                            <select id="show-per-page-bot">
+                                <option value="9" selected>9</option>
+                                <option value="12">12</option>
+                                <option value="15">15</option>
                             </select>
                         </div>
                         <div class="pager-item-right">
