@@ -47,7 +47,7 @@
 							<div class="panel">
 								<div id="headingThree" role="tab" class="panel-heading">
 								  <h4 class="panel-title">
-									<a  href="#" class="collapsed">
+									<a  href="wishlist" class="collapsed">
 									   My wishlists                									
 										<span class="counter"><i class="fa fa-heart"></i></span>						
 																		

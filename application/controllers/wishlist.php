@@ -5,6 +5,11 @@ class Wishlist extends PX_Controller{
 		parent::__construct();
 		$this->controller_attr = array('controller' => 'wishlist','controller_name' => 'Wishlist');
                 $this->do_underconstruct();
+                if($this->session->userdata('member')['validated']===FALSE)
+		{
+			redirect('login');
+		}
+		$this->do_underconstruct();
 	}
 
 	public function index(){
@@ -15,7 +20,7 @@ class Wishlist extends PX_Controller{
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
 
-		$data['wishlist'] = $this->model_basic->select_where($this->tbl_wishlist, 'customer_id', $this->session->userdata('id'))->result();
+		$data['wishlist'] = $this->model_basic->select_where($this->tbl_wishlist, 'customer_id', $this->session->userdata('member')['id'])->result();
 		foreach ($data['wishlist'] as $d_row) {
 			$d_row->image = $this->model_basic->select_where_double($this->tbl_product_image, 'product_id', $d_row->product_id, 'primary_status', '1')->row();
 			$d_row->product = $this->model_basic->select_where($this->tbl_product, 'id', $d_row->product_id)->row();			
@@ -26,14 +31,14 @@ class Wishlist extends PX_Controller{
 		$this->load->view('frontend/index',$data);
 	}
 
-	function wishlist_add($customer_id, $product_id){
+	function wishlist_add($product_id){
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('Wishlist','wishlist');
-
+		$customer_id=$this->session->userdata('member')['id'];
 		$insert_wishlist = array(
 			'product_id' => $product_id,
-			'customer_id' => $customer_id
+			'customer_id' => $this->session->userdata('member')['id']
 			);
 		$this->model_basic->insert_all($this->tbl_wishlist, $insert_wishlist);
 		redirect('wishlist');

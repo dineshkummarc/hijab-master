@@ -75,7 +75,7 @@ class Cart extends PX_Controller {
         }
         $data = array(
             'product_id' => $this->input->post('id'),
-            'customer_id' => $this->session->userdata('member')['id']
+            'customer_id' => $this->session->userdata('member')['id'],
             );
         $exist_wishlist = $this->model_basic->select_where_array($this->tbl_wishlist, $data);
         if ($exist_wishlist->num_rows() > 0) 

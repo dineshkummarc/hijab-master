@@ -1,14 +1,34 @@
-	<div class="shopping-area label-down">
+	<div class="breadcrumb">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="content-box-heading">
-						<h5>Wishlist</h5>
-					</div>					
+					<div class="grid-full">
+						<ul>
+							<li>
+								<a href="#">Home</a>
+								<span> / </span>
+							</li>
+							<li>My Account</li>
+						</ul>
+					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<!-- faq-area -->
+	<div class="faq-area my-account">
+		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
+				<div class="col-sm-12">
+					<div class="faq-title">
+						<h4><?php echo $function_name;?></h4>
+					</div>
+					
+					<?php
+						$this->load->view('frontend/dashboard/side-menu'); 
+					?>
+					<div class="col-lg-8 col-xs-12 col-sm-12">
+					<div class="row">
 					<div class="table-content">
 						<form action="#">
 							<div class="table-content table-responsive">
@@ -16,9 +36,8 @@
 									<thead>
 										<tr>
 											<th class="product-Item">ITEM</th>
-											<th class="product-name">PRODUCT NAME</th>
+											<th class="	" style="width: 200px">PRODUCT NAME</th>
 											<th class="product-price">UNIT PRICE</th>
-											<th class="product-quantity">STOCK STATUS</th>
 											<th class="product-subtotal"></th>
 										</tr>										
 									</thead>
@@ -30,27 +49,14 @@
 													<img src="assets/uploads/product/<?php echo $data_wish->image->product_id ?>/<?php echo $data_wish->image->photo ?>" alt="" title="Simple Product With Their Price" />
 												</a>												
 											</td>										
-											<td class="product-name">
-												<h3><a href="#"><?php echo $data_wish->product->name_product?> </a></h3>
-												<div class="price-star">
-													<div class="rating">
-														<h4>Color <span>Green</span></h4>
-													</div>
-													<div class="rating">
-														<h4>Size <span>Medium</span></h4>
-													</div>
-												</div>											
+											<td class="product-name" style="width: 200px">
+												<h3 style="padding-top: 25px;"><a href="#"><?php echo $data_wish->product->name_product?> </a></h3>
+																					
 											</td>
 											<td class="product-price">
-												<h4 class="mbt-30"><?php echo $data_wish->product->price;?></h4>							
-											</td>
-											<td class="product-quantity">
-												<div class="quantity mbt-30">
-													In Stock
-												</div>												
+												<h4 class=""><?php echo $data_wish->product->price;?></h4>							
 											</td>
 											<td class="product-subtotal">
-												<a class="btnb mbt-30" href="shop/addToCart/<?php echo $data_wish->product_id ?>">Add to cart</a>
 												<div class="sub-icon">
 													<a class="trash" href="wishlist/wishlist_delete/<?php echo $data_wish->id?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 												</div>												
@@ -64,18 +70,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="shopping-link">
-						<div class="continue-shp">
-							<a href="#">continue shopping</a>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 	</div>
-	<!-- cart-collaterals -->
-	<div class="devider mt-70">
-		<hr />
-	</div>	
+</div>

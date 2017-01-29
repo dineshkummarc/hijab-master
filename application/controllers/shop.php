@@ -289,13 +289,56 @@ class Shop extends PX_Controller {
 		$this->load->view('frontend/index',$data); 
 	}
 
+function quick_view($id){
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Shop','shop');
+        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+
+        $data['detail'] = $this->model_basic->select_where($this->tbl_product, 'id', $id)->row();
+        $data['detail']->price = indonesian_currency($data['detail']->price);
+        $data['detail']->size = $this->model_stock->select_size($this->tbl_product_stock, 'product_id', $id)->result();
+        $data['detail']->color = $this->model_stock->select_color($this->tbl_product_stock, 'product_id', $id)->result();
+        $data['detail']->image = $this->model_basic->select_where_order($this->tbl_product_image, 'product_id', $data['detail']->id, 'primary_status', '1')->result();
+        $stock = '';
+        if((int)$this->model_stock->sum_stock($id)->row()->stock > 0)
+            $stock = 'In Stock';
+                else
+                    $stock = 'Out of Stock';
+        $data['detail']->stock = $stock;
+        foreach ($data['detail']->size as $d_row) {
+            $d_row->size = $this->model_basic->select_where($this->tbl_size, 'id', $d_row->size_id)->row();
+        }
+        foreach ($data['detail']->color as $data_row) {
+            $data_row->color = $this->model_basic->select_where($this->tbl_color, 'id', $data_row->color_id)->row();
+        }
+
+        $data['product'] = $this->model_basic->select_where($this->tbl_product,'category_id',$data['detail']->category_id)->result();
+        foreach ($data['product'] as $d_row) {
+            $price_disc= $d_row->price/100*$d_row->discount;
+            $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
+            $d_row->price = indonesian_currency($d_row->price);
+            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id);
+            if ($image->num_rows() > 0) {
+                    $d_row->image=$image->row()->photo;
+                }else{
+                    $d_row->image="";
+                }
+            $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
+            
+        }
+        $content = $this->load->view('frontend/shop/detail',$data);
+        echo json_encode($content);
+    }
 
 
      function addToWishList($product_id){
          $data = $this->get_app_settings();
          $data += $this->controller_attr;
          $data += $this->get_function('Shop','shop');
-         $id = $this->session->userdata('id');
+         $id = $this->session->userdata('member','id');
 
          $select= array(
              'product_id' => $product_id,
