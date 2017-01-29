@@ -98,9 +98,9 @@
 <!--                                                        <!--                                                        <a data-toggle="tooltip" title="Add to Compare" href="#"><i class="fa fa-exchange"></i></a>-->
                                                         <a type="button" data-target-user="<?php echo $this->session->userdata('id') ?>" data-target-id="<?php echo $prod->id ?>" data-toggle="modal" class="btn-quick-view"  data-target="#shopModal" title="Quick View" ><i class="fa fa-search" aria-hidden="true"></i></a>
 
-                                                        <?php if($this->session->userdata('validated')) { ?>
+                                                        <?php if($this->session->userdata('member','validated')) { ?>
 
-                                                            <a data-toggle="tooltip" title="Add to Wishlist" data-id="<?php echo $prod->id ?>" data-user="<?php  echo $this->session->userdata('id') ?>" class="whishlist-true click-wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                            <a data-toggle="tooltip" title="Add to Wishlist" data-id="<?php echo $prod->id ?>" data-user="<?php  echo $this->session->userdata('member')['id'] ?>" class="btn-add-wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                                         <?php }else{ ?>
                                                             <a type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                                         <?php } ?>
@@ -145,8 +145,7 @@
             <div class="modal-dialog vertical-align-center">
 
                 <div class="modal-content" id="shop-detail">
-
-                    <a  type="button" class="btn btn-default"  href="login" >Login / Register</a>
+                        
                 </div>
             </div>
         </div>
@@ -154,12 +153,12 @@
 
 </div>
 
-<div class="modal-wish fade" id="modal" role="dialog">
+<div class="modal-wish fade" id="wishlist-modal" role="dialog">
     <div class="modal-dialog-wish">
         <div class="modal-content-wish">
             <div class="modal-header-wish">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal add</h4>
+                <h4 class="modal-title" id="wishlist-msg">Modal add</h4>
             </div>
         </div>
     </div>
