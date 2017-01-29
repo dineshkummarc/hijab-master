@@ -98,12 +98,8 @@
 <!--                                                        <!--                                                        <a data-toggle="tooltip" title="Add to Compare" href="#"><i class="fa fa-exchange"></i></a>-->
                                                         <a type="button" data-target-user="<?php echo $this->session->userdata('id') ?>" data-target-id="<?php echo $prod->id ?>" data-toggle="modal" class="btn-quick-view"  data-target="#shopModal" title="Quick View" ><i class="fa fa-search" aria-hidden="true"></i></a>
 
-                                                        <?php if($this->session->userdata('member','validated')) { ?>
-
-                                                            <a data-toggle="tooltip" title="Add to Wishlist" data-id="<?php echo $prod->id ?>" data-user="<?php  echo $this->session->userdata('member')['id'] ?>" class="btn-add-wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                        <?php }else{ ?>
-                                                            <a type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                        <?php } ?>
+                                                        <a data-toggle="tooltip" title="Add to Wishlist" data-id="<?php echo $prod->id ?>" data-user="<?php  echo $this->session->userdata('member')['id'] ?>" class="btn-add-wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                        
 <!--                                                        <a data-toggle="tooltip" title="Add to Wishlist" href="shop/addToWishList(--><?php //$prod->id ?><!--)"><i class="fa fa-heart" aria-hidden="true"></i></a>-->
                                                     </div>
                                                 </div>
