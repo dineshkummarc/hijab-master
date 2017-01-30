@@ -97,9 +97,7 @@ class Login extends PX_Controller{
         $data_new = array(
         'nama_depan' => $user_profile['name'],
         'email' => $user_profile['email'],
-        'profile_pict' => "https://graph.facebook.com/".$user_profile['id']."/picture?type=large",
         'date_created' => date('Y-m-d h:i:s', now()),
-        'verified_account'=>0
       );
       $insert = $this->db->insert($this->tbl_customer, $data_new);
       $this->db->where('email', $user_profile['email']);

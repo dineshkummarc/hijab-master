@@ -25,7 +25,7 @@
       <div class="col-md-6 grid no-padding-left">
         <div class="grid-large" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center center; background-size: cover">
           <div class="caption-right">
-            <div class="caption-grid"><?php echo $data_row->name ?></div>
+            <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
       <div class="col-md-3 grid no-padding-right">
         <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center; background-size: cover">
           <div class="caption-left">
-            <div class="caption-grid"><?php echo $data_row->name ?></div>
+            <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
       <div class="col-md-6 grid no-padding-right">
         <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->landscape_image ?>') center; background-size: cover">
           <div class="caption-right">
-            <div class="caption-grid"><?php echo $data_row->name ?></div>
+            <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="caption-grid-bottom">
           <h4><b><?php echo $data_row->name ?></b></h4>
-          <a href="#" class="link-shop">shop now</a>
+          <a href="shop?editorspicks=<?php echo $data_row->id ?>" class="link-shop">shop now</a>
         </div>
       </div>
        <?php } ?>
@@ -98,12 +98,8 @@
 <!--                                                        <!--                                                        <a data-toggle="tooltip" title="Add to Compare" href="#"><i class="fa fa-exchange"></i></a>-->
                                                         <a type="button" data-target-user="<?php echo $this->session->userdata('id') ?>" data-target-id="<?php echo $prod->id ?>" data-toggle="modal" class="btn-quick-view"  data-target="#shopModal" title="Quick View" ><i class="fa fa-search" aria-hidden="true"></i></a>
 
-                                                        <?php if($this->session->userdata('validated')) { ?>
-
-                                                            <a data-toggle="tooltip" title="Add to Wishlist" data-id="<?php echo $prod->id ?>" data-user="<?php  echo $this->session->userdata('id') ?>" class="whishlist-true click-wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                        <?php }else{ ?>
-                                                            <a type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                        <?php } ?>
+                                                        <a data-toggle="tooltip" title="Add to Wishlist" data-id="<?php echo $prod->id ?>" data-user="<?php  echo $this->session->userdata('member')['id'] ?>" class="btn-add-wishlist"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                        
 <!--                                                        <a data-toggle="tooltip" title="Add to Wishlist" href="shop/addToWishList(--><?php //$prod->id ?><!--)"><i class="fa fa-heart" aria-hidden="true"></i></a>-->
                                                     </div>
                                                 </div>
@@ -145,8 +141,7 @@
             <div class="modal-dialog vertical-align-center">
 
                 <div class="modal-content" id="shop-detail">
-
-                    <a  type="button" class="btn btn-default"  href="login" >Login / Register</a>
+                        
                 </div>
             </div>
         </div>
@@ -154,12 +149,12 @@
 
 </div>
 
-<div class="modal-wish fade" id="modal" role="dialog">
+<div class="modal-wish fade" id="wishlist-modal" role="dialog">
     <div class="modal-dialog-wish">
         <div class="modal-content-wish">
             <div class="modal-header-wish">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal add</h4>
+                <h4 class="modal-title" id="wishlist-msg">Modal add</h4>
             </div>
         </div>
     </div>

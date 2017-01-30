@@ -19,6 +19,112 @@ class Shop extends PX_Controller {
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
 
+        if(isset($_GET['search']))
+        {
+            $search = $_GET['search'] ;
+            $url_search = 'search='.$_GET['search'];
+        }
+        else
+        {
+            $search = 0;
+            $url_search = "";
+        }
+        if(isset($_GET['category']))
+        {
+            if ($_GET['category']) {
+                $category = explode(",", $_GET['category']);
+                $url_category = '&category='.$_GET['category'];
+            }else{
+                $category = 0;
+                $url_category = "";
+            }
+            
+        }
+        else
+        {
+            $category = 0;
+            $url_category = "";
+        }
+        if(isset($_GET['brand']))
+        {
+            if ($_GET['brand']) {
+                $brand = explode(",", $_GET['brand']);
+                $url_brand = '&brand='.$_GET['brand'];
+            }else{
+                $brand = 0;
+                $url_brand = "";
+            }
+            
+        }
+        else
+        {
+            $brand = 0;
+            $url_brand = "";
+        }
+        if(isset($_GET['editorspicks']))
+        {
+            if ($_GET['editorspicks']) {
+                $editorspicks = explode(",", $_GET['editorspicks']);
+                $url_editorspicks = '&editorspicks='.$_GET['editorspicks'];
+            }else{
+                $editorspicks = 0;
+                $url_editorspicks = "";
+            }
+            
+        }
+        else
+        {
+            $editorspicks = 0;
+            $url_editorspicks = "";
+        }
+        if(isset($_GET['price']))
+        {
+            if ($_GET['price']) {
+                $price = explode(",", $_GET['price']);
+                $url_price = '&price='.$_GET['price'];
+            }else{
+                $price = 0;
+                $url_price = "";
+            }
+            
+        }
+        else
+        {
+            $price = 0;
+            $url_price = "";
+        }
+        if(isset($_GET['color']))
+        {
+            if ($_GET['color']) {
+                $color = explode(",", $_GET['color']);
+                $url_color = '&color='.$_GET['color'];
+            }else{
+                $color = 0;
+                $url_color = "";
+            }
+            
+        }
+        else
+        {
+            $color = 0;
+            $url_color = "";
+        }
+        if(isset($_GET['size']))
+        {
+            if ($_GET['size']) {
+                $size = explode(",", $_GET['size']);
+                $url_size = '&size='.$_GET['size'];
+            }else{
+                $size = 0;
+                $url_size = "";
+            }
+            
+        }
+        else
+        {
+            $size = 0;
+            $url_size = "";
+        }
         if(isset($_GET['sortby']))
         {
             $sortby = $_GET['sortby'] ;
@@ -48,8 +154,17 @@ class Shop extends PX_Controller {
         {
             $start = 0;
         }
-        $data['product'] = $this->model_shop->get_product_where($sortby, $per_page, $start);
-        //print_r($this->db->last_query());
+        if ($search OR $category OR $brand OR $price OR $color OR $editorspicks) 
+        {
+            $data['product'] = $this->model_shop->get_product_where_search($search, $category, $brand, $editorspicks, $price, $color, $size, $sortby, $per_page, $start);
+            $data['product_count'] = $this->model_shop->get_product_where_search_count($search, $category, $brand, $editorspicks, $price, $color, $size, $sortby);
+        }
+        else
+        {
+            $data['product'] = $this->model_shop->get_product_where($sortby, $per_page, $start);
+            $data['product_count'] = $this->model_shop->get_product_count();
+        }
+        
 		foreach ($data['product']->result() as $d_row) {
             $price_disc= $d_row->price/100*$d_row->discount;
             $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
@@ -70,8 +185,8 @@ class Shop extends PX_Controller {
 
         $this->load->library('pagination');
         
-        $config['base_url'] = base_url().'shop?'.$url_sortby.$url_show;
-        $config['total_rows'] = $this->model_shop->get_product_count();
+        $config['base_url'] = base_url().'shop?'.$url_sortby.$url_category.$url_brand.$url_editorspicks.$url_price.$url_color.$url_size.$url_show;
+        $config['total_rows'] = $data['product_count'];
         $config['per_page'] = $per_page;
         $config['uri_segment'] = 3;
         $config['num_links'] = 3;
@@ -101,7 +216,7 @@ class Shop extends PX_Controller {
 
         $data['start_items'] = $start + 1;
         $data['to_items'] = $start + $data['product']->num_rows();
-        $data['total_items'] = $config['total_rows'];
+        $data['total_items'] = $data['product_count'];
 		$data['content'] = $this->load->view('frontend/shop/index',$data,true);
 		$this->load->view('frontend/index',$data); 
 	}
@@ -174,13 +289,56 @@ class Shop extends PX_Controller {
 		$this->load->view('frontend/index',$data); 
 	}
 
+function quick_view($id){
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Shop','shop');
+        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+
+        $data['detail'] = $this->model_basic->select_where($this->tbl_product, 'id', $id)->row();
+        $data['detail']->price = indonesian_currency($data['detail']->price);
+        $data['detail']->size = $this->model_stock->select_size($this->tbl_product_stock, 'product_id', $id)->result();
+        $data['detail']->color = $this->model_stock->select_color($this->tbl_product_stock, 'product_id', $id)->result();
+        $data['detail']->image = $this->model_basic->select_where_order($this->tbl_product_image, 'product_id', $data['detail']->id, 'primary_status', '1')->result();
+        $stock = '';
+        if((int)$this->model_stock->sum_stock($id)->row()->stock > 0)
+            $stock = 'In Stock';
+                else
+                    $stock = 'Out of Stock';
+        $data['detail']->stock = $stock;
+        foreach ($data['detail']->size as $d_row) {
+            $d_row->size = $this->model_basic->select_where($this->tbl_size, 'id', $d_row->size_id)->row();
+        }
+        foreach ($data['detail']->color as $data_row) {
+            $data_row->color = $this->model_basic->select_where($this->tbl_color, 'id', $data_row->color_id)->row();
+        }
+
+        $data['product'] = $this->model_basic->select_where($this->tbl_product,'category_id',$data['detail']->category_id)->result();
+        foreach ($data['product'] as $d_row) {
+            $price_disc= $d_row->price/100*$d_row->discount;
+            $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
+            $d_row->price = indonesian_currency($d_row->price);
+            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id);
+            if ($image->num_rows() > 0) {
+                    $d_row->image=$image->row()->photo;
+                }else{
+                    $d_row->image="";
+                }
+            $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
+            
+        }
+        $content = $this->load->view('frontend/shop/detail',$data);
+        echo json_encode($content);
+    }
 
 
      function addToWishList($product_id){
          $data = $this->get_app_settings();
          $data += $this->controller_attr;
          $data += $this->get_function('Shop','shop');
-         $id = $this->session->userdata('id');
+         $id = $this->session->userdata('member','id');
 
          $select= array(
              'product_id' => $product_id,

@@ -155,8 +155,8 @@
 							</div>
 						</div>				
                             <div class="header-search hidden-xs hidden-sm">
-                                <form action="#">
-                                    <input type="text" placeholder="" value="Search entire store here" 
+                                <form action="shop" id="form-search">
+                                    <input type="text" name="search" placeholder="" value="Search entire store here" 
                                            onblur="if (this.value == '') {
                                                        this.value = 'Search entire store here';
                                                    }" 

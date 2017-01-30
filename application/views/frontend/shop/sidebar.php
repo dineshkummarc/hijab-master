@@ -19,7 +19,7 @@
                                 <?php foreach ($category as $key) {
                                 ?>
                                     <li>
-                                        <input value="<?php echo $key->id ?>" name="category[]" id="category<?php echo $key->id ?>" class="box" type="checkbox" />
+                                        <input value="<?php echo $key->id ?>" name="category" id="category<?php echo $key->id ?>" class="box box-category" type="checkbox" />
                                         <label for="category<?php echo $key->id ?>"><?php echo $key->name  ?></label>
                                     </li>  
                                     <?php  }?>    
@@ -35,7 +35,7 @@
                                 <?php foreach ($brand as $key) {
                                 ?>
                                     <li>
-                                        <input value="<?php echo $key->id ?>"  name="brand[]" id="brand<?php echo $key->id ?>" class="box" type="checkbox" />
+                                        <input value="<?php echo $key->id ?>"  name="brand" id="brand<?php echo $key->id ?>" class="box box-brand" type="checkbox" />
                                         <label for="brand<?php echo $key->id ?>"><?php echo $key->name  ?></label>
                                     </li>  
                                     <?php  }?>    
@@ -44,7 +44,7 @@
                         </div>                      
                     </div>
                     <div class="sidebar-widget shop-filter">
-                            <h4 class="side-title">Shop By</h4>
+                        <h4 class="side-title">Shop By</h4>
                         <div class="info-widget">
                             <h4>Price</h4>
                             <div class="info_widget">
@@ -52,9 +52,9 @@
                                     <div id="slider-range"></div>
                                     <div class="price_slider_amount">
                                     <div class="col-md-12 no-padding">
-                                    <input  name="price" type="text" id="amount" placeholder="" />
+                                        <input name="price" type="text" id="amount" placeholder="" />
                                     </div>
-                                            <button class="btnb-l box">apply</button>
+                                    <button id="btn-price-range" class="btnb-l box">apply</button>
                                     </div>
                                 </div>
                             </div>  
@@ -68,7 +68,7 @@
                                     <?php foreach ($color as $key) {
                                 ?>
                                     <li>
-                                        <input value="<?php echo $key->id ?>" name="color[]" id="color<?php echo $key->id ?>" class="box" type="checkbox" />
+                                        <input value="<?php echo $key->id ?>" name="color" id="color<?php echo $key->id ?>" class="box box-color" type="checkbox" />
                                         <label for="color<?php echo $key->id ?>"><?php echo $key->name  ?></label>
                                         <div style="background: <?php echo $key->kode ?>;" class="color-box"></div>
                                     </li>  
@@ -85,7 +85,7 @@
                                     <?php foreach ($size as $key) {
                                 ?>
                                     <li>
-                                        <input  value="<?php echo $key->id ?>" name="size[]" id="size<?php echo $key->id ?>" class="box" type="checkbox" />
+                                        <input  value="<?php echo $key->id ?>" name="size" id="size<?php echo $key->id ?>" class="box box-size" type="checkbox" />
                                         <label for="size<?php echo $key->id ?>"><?php echo $key->name  ?></label>
                                     </li>  
                                     <?php  }?>
