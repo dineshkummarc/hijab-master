@@ -61,12 +61,21 @@ class Admin extends PX_Controller {
 
     function get_total_customer(){
         $this->load->model('model_order');
-        $data = $this->model_order->get_monthly_income()->result();
+        $data = $this->model_order->get_total_customer()->result();
         foreach ($data as $d) {  
-            $datax[] = array('y' => $d->month.' - '.$d->year,
-            'a' => $d->total);
+            $cust_list = $this->model_order->get_customer($d->month, $d->year)->result_array();
+            foreach ($cust_list as $key => $v) {
+                $c[] = $v['id'];
+            }
+            
+            $datax[] = array(
+                            'y' => $d->month.' - '.$d->year,
+                            'a' => $d->total,
+                            'b' =>$this->model_order->get_total_customer_active($d->month, $d->year, $c)->num_rows(),
+                            );
 
         }
+        
         echo json_encode($datax,true);
     }
 

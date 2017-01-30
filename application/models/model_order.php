@@ -78,4 +78,24 @@ class Model_order extends PX_Model {
 
         return $this->db->query($query);
     }
+
+     function get_customer($month, $year){
+        $query = "select id
+                  FROM px_customer
+                  where MONTHNAME(date_created) = '$month'
+                  and YEAR(date_created)  = '$year'";
+
+        return $this->db->query($query);die($this->db->last_query());
+    }
+
+    function get_total_customer_active($month, $year, $cust_id = array()){
+      $c = implode(',',$cust_id);
+        $query = "SELECT distinct customer_id
+                  FROM px_order
+                  where MONTHNAME(date_created) = '$month'
+                  and YEAR(date_created)  = '$year'
+                  and customer_id in ($c)";
+
+        return $this->db->query($query);
+    }
 }
