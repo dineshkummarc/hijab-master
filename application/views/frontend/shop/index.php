@@ -57,11 +57,9 @@
                                                             <a type="button" data-target-id="<?php echo $d_row->id ?>" data-toggle="modal" class="btn-quick-view"  data-target="#shopModal" title="Quick View" ><i class="fa fa-search" aria-hidden="true"></i></a>
                                                             <!-- <a data-toggle="tooltip" title="Add to Compare" href="#"><i class="fa fa-exchange"></i></a> -->
                                                             <input type="hidden" value="<?php echo $this->session->userdata('id') ?>" name="session_id" id="session_id" />
-                                                            <?php if($this->session->userdata('validated')) { ?>
+                                                           
                                                             <a data-toggle="tooltip" title="Add to Wishlist" href="wishlist/wishlist_add/<?php echo $this->session->userdata('id') ?>/<?php echo $d_row->id?>" class="whishlist-true"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                            <?php }else{ ?>
-                                                            <a type="button"  data-toggle="modal" data-target="#myModal"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                            <?php } ?>
+                                                            
                                                             
                                                             <!--class="whishlist-true"-->
                                                         </div>
