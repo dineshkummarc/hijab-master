@@ -432,6 +432,9 @@ img.zoom_01 {
 }
 /*media screen////////////*/
 @media (max-width: 767px) {
+    .single-product2{
+        max-height: none;
+    }
     .container,.box-layout {
         width:100%
     }

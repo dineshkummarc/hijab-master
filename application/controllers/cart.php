@@ -300,7 +300,7 @@ class Cart extends PX_Controller {
             'total_discount' => $this->cart->total() * ($this->session->userdata('voucher')['discount'] / 100),
             'total_payment' => $this->input->post('tot_price') + $random_code,
             'random_code' => $random_code,
-            'status' => 1,
+            'status' => 0,
             'date_created' => date('Y-m-d H:i:s', now())
         );
         $order_id = $this->model_basic->insert_all($this->tbl_order, $data_order)->id;

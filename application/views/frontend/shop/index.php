@@ -69,7 +69,7 @@
                                                     </div>
                                                     <div class="product-details">
                                                         <h3><a href="shop/detail/<?php echo $d_row->id?>"><?php echo $d_row->name_product?></a></h3>
-                                                        <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a> -->
+                                                        <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a> 
                                                         <div class="price-star">
                                                             <div class="price">
                                                             <?php if($d_row->discount>0){
