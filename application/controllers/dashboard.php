@@ -24,6 +24,18 @@ class Dashboard extends PX_Controller {
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
 		$this->load->view('frontend/index',$data);
 	}
+	public function order_confirm(){
+		$data = $this->get_app_settings();
+		$data += $this->controller_attr;
+		$data += $this->get_function('Order Confirmation','order_confirm');
+		$customer_id = $this->session->userdata('member')['id'];
+		$data['order_count']=$this->model_basic->select_where($this->tbl_order,'customer_id',$customer_id)->num_rows();
+		$data['content'] = $this->load->view('frontend/dashboard/order_confirm',$data,true);
+		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+		$this->load->view('frontend/index',$data);
+	}
 
 	public function photo_profile(){
 		$data = $this->get_app_settings();
@@ -144,6 +156,46 @@ class Dashboard extends PX_Controller {
 			redirect('dashboard/shipping_address');
 		}else{
 			echo"error";
+		}
+
+	}
+
+	public function submit_confirm(){
+		$invoice=$this->input->post('code');
+		$order=$this->model_basic->select_where($this->tbl_order,'invoice_number',$invoice);
+		if($order->num_rows() <1){
+			$this->session->set_flashdata('msg','Sorry, your Invoice Number not found');
+			redirect('dashboard/order_confirm');
+		}else{
+		$order=$order->row();
+		if($order->status>1){
+			$this->session->set_flashdata('msg','Your order has been confirmed previously');
+			redirect('dashboard/order_confirm');
+		}
+		else{
+		$data_confirm=array(
+				"order_id"=>$order->id,
+				"account_name"=>$this->input->post('acc_name'),
+				"account_bank"=>$this->input->post('acc_bank'),
+				"bank_target"=>$this->input->post('bank_target'),
+				"total_payment"=>$this->input->post('tot_payment'),
+				"date_transfer"=>$this->input->post('date_tf'),
+				'date_created'=>date('Y-m-d H:i:s',now()),
+			);
+		$data_order=array(
+				"status"=>1,
+				'date_modified'=>date('Y-m-d H:i:s',now()),
+			);
+		
+		$insert=$this->db->update($this->tbl_order,$data_order, "id = $order->id");
+		$insert=$this->db->insert($this->tbl_order_confirmation,$data_confirm);
+		if($insert){
+			$this->session->set_flashdata('msg','congratulations, your data have been saved');
+			redirect('dashboard/order_confirm');
+		}else{
+			echo"error";
+		}
+		}
 		}
 
 	}

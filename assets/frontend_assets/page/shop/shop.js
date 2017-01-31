@@ -88,10 +88,8 @@ $(document).ready(function(){
         });
 
     $('body').delegate('.btn-quick-view','click',function(){
-          // $('#px-shop').addClass('open');
-           id = $(this).attr('data-target-id');
+          id = $(this).attr('data-target-id');
            $.ajax({
-    //url : "<?php echo site_url('groups/ajax_edit/')?>/" + id,
     url: "shop/quick_view/" + id,
     type: "GET",
     dataType: "html",

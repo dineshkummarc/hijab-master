@@ -360,7 +360,9 @@ function quick_view($id){
             $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
             
         }
-        $content = $this->load->view('frontend/shop/detail',$data);
+        $content = $this->load->view('frontend/shop/quick_view',$data);
+        $content=str_replace('null','', $content);
+         $content=str_replace('""','', $content);
         echo json_encode($content);
     }
 

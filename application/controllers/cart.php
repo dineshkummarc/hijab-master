@@ -361,12 +361,9 @@ class Cart extends PX_Controller {
         }
         $customer_id = $this->session->userdata('member')['id'];
         $data['invoice']=$this->model_basic->select_where($this->tbl_order,'invoice_number',$invoice)->row();
-        $data['bil_address']=$this->model_basic->select_where($this->tbl_customer_billing_address,'customer_id',$data['invoice']->customer_id)->row();
         $data['customer']=$this->model_basic->select_where($this->tbl_customer,'id',$data['invoice']->customer_id)->row();
         $data['ship_address']=$this->model_basic->select_where($this->tbl_shipping_address,'id',$data['invoice']->ship_address_id)->row();
-        $data['prov_bil']=$this->model_basic->select_where($this->tbl_shipping_province,'id',$data['bil_address']->province)->row();
-        $data['city_bil']=$this->model_basic->select_where($this->tbl_shipping_city,'id',$data['bil_address']->city)->row();
-        $data['region_bil']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['bil_address']->region)->row();
+       
         $data['prov_ship']=$this->model_basic->select_where($this->tbl_shipping_province,'id',$data['ship_address']->province)->row();
         $data['city_ship']=$this->model_basic->select_where($this->tbl_shipping_city,'id',$data['ship_address']->city)->row();
         $data['region_ship']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['ship_address']->region)->row();

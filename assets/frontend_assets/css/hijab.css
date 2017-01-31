@@ -11,6 +11,9 @@
     padding-right: 0px!important;
     padding-left:10px;
 }
+#shop-detail{
+    height: 600px;
+}
 .center{
     clear:both;
     position:relative;

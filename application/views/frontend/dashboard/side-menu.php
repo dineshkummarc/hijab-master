@@ -68,6 +68,16 @@
 							<div class="panel">
 								<div id="headingThree" role="tab" class="panel-heading">
 								  <h4 class="panel-title">
+									<a  href="dashboard/order_confirm" class="collapsed">
+									   Order Confirmation                									
+										<span class="counter"><i class="fa fa-money"></i></span>
+									</a>
+								  </h4>
+								</div>							
+							</div>
+							<div class="panel">
+								<div id="headingThree" role="tab" class="panel-heading">
+								  <h4 class="panel-title">
 									<a  href="login/logout" class="collapsed">
 									   Logout             									
 										<span class="counter"><i class="fa fa-share-square-o"></i></span>

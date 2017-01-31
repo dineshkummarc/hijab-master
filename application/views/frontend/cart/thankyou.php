@@ -21,58 +21,8 @@
 				<div><h4 class="h3-18">Invoice Number : <?php echo $invoice->invoice_number ?></h4></div>
 				<div><h4 class="h3-18">Detail Address</h4></div>
 				<div>
-				<div class="col-md-6 address box">
-					<div><h5 class="h3-18">Billing Address</h5></div>
-					<table>
-						<tr>
-							<td>First Name</td>
-							<td> : </td>
-							<td><?php echo $customer->nama_depan ?></td>
-						</tr>
-						<tr>
-							<td>Last Name</td>
-							<td> : </td>
-							<td><?php echo $customer->nama_belakang ?></td>
-						</tr>
-						<tr>
-							<td>Phone</td>
-							<td> : </td>
-							<td><?php echo $bil_address->phone ?></td>
-						</tr>
-						<tr>
-							<td>Gender</td>
-							<td> : </td>
-							<td><?php echo $customer->jenis_kelamin ?></td>
-						</tr>
-						<tr>
-							<td>Province</td>
-							<td> : </td>
-							<td><?php echo $prov_bil->name ?></td>
-						</tr>
-						<tr>
-							<td>City</td>
-							<td> : </td>
-							<td><?php echo $city_bil->name ?></td>
-						</tr>
-						<tr>
-							<td>Region</td>
-							<td> : </td>
-							<td><?php echo $region_bil->name ?></td>
-						</tr>
-						<tr>
-							<td>Postal Code</td>
-							<td> : </td>
-							<td><?php echo $bil_address->postal_code ?></td>
-						</tr>
-						<tr>
-							<td>Address</td>
-							<td> : </td>
-							<td><?php echo $bil_address->address ?></td>
-						</tr>
-					</table>
-				</div>
 
-				<div class="col-md-6 address box">
+				<div class="col-md-12 address box">
 					<div><h5 class="h3-18">Shipping Address</h5></div>
 					<table>
 						<tr>

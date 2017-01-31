@@ -44,11 +44,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="desc-std p-details">
-							<h5><strong>PRODUCT DESCRIPTION</strong></h5>
-							<p><?php echo $detail->description?>. 
-							
-						</div>
 						<div class="product-size">
 										
 								<div class="input-box">
