@@ -95,6 +95,18 @@ footer li{
     list-style: outside none disc;
     padding-left: 0px;
 }
+.brand-header{
+    border-bottom: 2px solid #ec4445;
+    padding-bottom: 10px;
+}
+.brand-image{
+    width:100; 
+    height:300px; 
+    background-position:center; 
+}
+.brand-title{
+    font-size:35px
+}
 .caption-right{
     background: #fff; 
     padding:3px; 

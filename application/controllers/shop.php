@@ -310,8 +310,10 @@ class Shop extends PX_Controller {
         $arr_param = $this->input->post('value');
         if (count($arr_param) == 1) {
             $brand = $this->model_basic->select_where($this->tbl_brand, 'id', $arr_param[0])->row();  
-            $ret = "<img src=".base_url()."assets/uploads/brand/".$brand->id."/".$brand->photo.">";
-            $ret .= "<h1>".$brand->name."</h1>";
+            $koma='"';
+            $ret = "<div class='brand-image' style='background-image: url(".$koma."".base_url()."assets/uploads/brand/".$brand->id."/".$brand->photo."".$koma.");'></div>";
+            $ret.="<br>";
+            $ret .= "<h1 class='brand-title'>".$brand->name."</h1>";
             $ret .= "<p>".$brand->description."</p>";
         }else{
             $ret = "";
