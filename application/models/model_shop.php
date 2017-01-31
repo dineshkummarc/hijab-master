@@ -29,7 +29,7 @@ class Model_shop extends PX_Model {
 		return $query;
 	}
 
-	function get_product_where_search_count($search, $category, $brand, $editorspicks, $price, $color, $size, $sortby)
+	function get_product_where_search_count($search, $category, $brand, $editorspicks, $group, $price, $color, $size, $sortby)
 	{
 		$this->db->select('d.product_id AS id, a.category_id, a.brand_id, a.name_product, a.price, a.discount, a.description');
 		$this->db->join($this->tbl_category.' b', 'b.id = a.category_id', 'left');
@@ -37,6 +37,7 @@ class Model_shop extends PX_Model {
 		$this->db->join($this->tbl_product_stock.' d', 'd.product_id = a.id', 'left');
 		$this->db->join($this->tbl_color.' e', 'e.id = d.color_id', 'left');
                 $this->db->join($this->tbl_product_editor_picks.' f', 'f.product_id = a.id', 'left');
+                $this->db->join($this->tbl_product_group.' g', 'g.product_id = a.id', 'left');
 		$this->db->where('a.delete_flag', 0);
                 $where = "a.price BETWEEN ".$price[0]." AND ".$price[1];
                 if ($price) {
@@ -69,6 +70,16 @@ class Model_shop extends PX_Model {
                                         $this->db->where('f.editor_picks_id', $value);
                                 }else{
                                         $this->db->or_where('f.editor_picks_id', $value);
+                                }
+                                
+                        }
+                }
+                if ($group) {
+                        foreach ($group as $key => $value) {
+                                if ($key == 0) {
+                                        $this->db->where('g.group_id', $value);
+                                }else{
+                                        $this->db->or_where('g.group_id', $value);
                                 }
                                 
                         }
@@ -109,7 +120,7 @@ class Model_shop extends PX_Model {
         		return $query->num_rows();
 	}
 
-	function get_product_where_search($search, $category, $brand, $editorspicks, $price, $color, $size, $sortby, $per_page, $start)
+	function get_product_where_search($search, $category, $brand, $editorspicks, $group, $price, $color, $size, $sortby, $per_page, $start)
 	{
 		$this->db->select('d.product_id AS id, a.category_id, a.brand_id, a.name_product, a.price, a.discount, a.description');
 		$this->db->join($this->tbl_category.' b', 'b.id = a.category_id', 'left');
@@ -117,6 +128,7 @@ class Model_shop extends PX_Model {
 		$this->db->join($this->tbl_product_stock.' d', 'd.product_id = a.id', 'left');
 		$this->db->join($this->tbl_color.' e', 'e.id = d.color_id', 'left');
                 $this->db->join($this->tbl_product_editor_picks.' f', 'f.product_id = a.id', 'left');
+                $this->db->join($this->tbl_product_group.' g', 'g.product_id = a.id', 'left');
 		$this->db->where('a.delete_flag', 0);
                 $where = "a.price BETWEEN ".$price[0]." AND ".$price[1];
                 if ($price) {
@@ -150,6 +162,16 @@ class Model_shop extends PX_Model {
                                         $this->db->where('f.editor_picks_id', $value);
                                 }else{
                                         $this->db->or_where('f.editor_picks_id', $value);
+                                }
+                                
+                        }
+                }
+                if ($group) {
+                        foreach ($group as $key => $value) {
+                                if ($key == 0) {
+                                        $this->db->where('g.group_id', $value);
+                                }else{
+                                        $this->db->or_where('g.group_id', $value);
                                 }
                                 
                         }

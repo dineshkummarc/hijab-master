@@ -77,6 +77,22 @@ class Shop extends PX_Controller {
             $editorspicks = 0;
             $url_editorspicks = "";
         }
+        if(isset($_GET['group']))
+        {
+            if ($_GET['group']) {
+                $group = explode(",", $_GET['group']);
+                $url_group = '&group='.$_GET['group'];
+            }else{
+                $group = 0;
+                $url_group = "";
+            }
+            
+        }
+        else
+        {
+            $group = 0;
+            $url_group = "";
+        }
         if(isset($_GET['price']))
         {
             if ($_GET['price']) {
@@ -154,10 +170,10 @@ class Shop extends PX_Controller {
         {
             $start = 0;
         }
-        if ($search OR $category OR $brand OR $price OR $color OR $editorspicks) 
+        if ($search OR $category OR $brand OR $price OR $color OR $editorspicks OR $group) 
         {
-            $data['product'] = $this->model_shop->get_product_where_search($search, $category, $brand, $editorspicks, $price, $color, $size, $sortby, $per_page, $start);
-            $data['product_count'] = $this->model_shop->get_product_where_search_count($search, $category, $brand, $editorspicks, $price, $color, $size, $sortby);
+            $data['product'] = $this->model_shop->get_product_where_search($search, $category, $brand, $editorspicks, $group, $price, $color, $size, $sortby, $per_page, $start);
+            $data['product_count'] = $this->model_shop->get_product_where_search_count($search, $category, $brand, $editorspicks, $group, $price, $color, $size, $sortby);
         }
         else
         {
@@ -185,7 +201,7 @@ class Shop extends PX_Controller {
 
         $this->load->library('pagination');
         
-        $config['base_url'] = base_url().'shop?'.$url_sortby.$url_category.$url_brand.$url_editorspicks.$url_price.$url_color.$url_size.$url_show;
+        $config['base_url'] = base_url().'shop?'.$url_sortby.$url_category.$url_brand.$url_editorspicks.$url_group.$url_price.$url_color.$url_size.$url_show;
         $config['total_rows'] = $data['product_count'];
         $config['per_page'] = $per_page;
         $config['uri_segment'] = 3;
@@ -288,6 +304,21 @@ class Shop extends PX_Controller {
 		$data['content'] = $this->load->view('frontend/shop/detail',$data,true);
 		$this->load->view('frontend/index',$data); 
 	}
+
+    function brand_only()
+    {
+        $arr_param = $this->input->post('value');
+        if (count($arr_param) == 1) {
+            $brand = $this->model_basic->select_where($this->tbl_brand, 'id', $arr_param[0])->row();  
+            $ret = "<img src=".base_url()."assets/uploads/brand/".$brand->id."/".$brand->photo.">";
+            $ret .= "<h1>".$brand->name."</h1>";
+            $ret .= "<p>".$brand->description."</p>";
+        }else{
+            $ret = "";
+        }
+
+        $this->returnJson(array('data' => $ret));
+    }
 
 function quick_view($id){
         $data = $this->get_app_settings();

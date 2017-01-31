@@ -39,7 +39,7 @@
                             </div>
                             <div class="tab-content no-margin">
                                 <!-- gried-view -->
-
+                                <div class="brand-header"></div>
                                 <div role="tabpanel" class="tab-pane active" id="gried_view">
 
                                     <div class="fashion-grid-view">

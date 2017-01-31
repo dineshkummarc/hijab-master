@@ -4,6 +4,21 @@ $(document).ready(function(){
     var id = '';
     var stock = '';
 
+    var url_param = getUrlVars();
+    if (url_param.length == 1 && url_param == 'brand') {
+      var arrValue = getUrlParameter('brand').split(",");
+      $.ajax({
+        url: 'shop/brand_only',
+        method: 'post',
+        dataType: 'json',
+        data: {value : arrValue},
+        success: function(response){
+          //console.log(response);
+          $('.brand-header').html(response.data);
+        }
+      })
+    }
+
     if (getUrlParameter('sortby')) {
       $('#sort-by').val(getUrlParameter('sortby'));
     }
@@ -201,6 +216,7 @@ function setGetParameterFilter(url, paramName, paramValue)
   var splitAtAnchor = url.split('#');
   url = splitAtAnchor[0];
   var anchor = typeof splitAtAnchor[1] === 'undefined' ? '' : '#' + splitAtAnchor[1];
+
     if (url.indexOf(paramName + "=") >= 0)
     {
         var prefix = url.substring(0, url.indexOf(paramName));
@@ -211,10 +227,12 @@ function setGetParameterFilter(url, paramName, paramValue)
     }
     else
     {
+      console.log(url.indexOf(paramName + "="));
     if (url.indexOf("?") < 0)
         url += "?" + paramName + "=" + paramValue;
     else
         url += "&" + paramName + "=" + paramValue;
+
     }
     if (!paramValue) {
       url = removeURLParameter(url, paramName);
@@ -240,12 +258,11 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 function removeURLParameter(url, parameter) {
     //prefer to use l.search if you have a location/link object
-    var urlparts= url.split('?');   
+    var urlparts= url.split('?');  
     if (urlparts.length>=2) {
 
         var prefix= encodeURIComponent(parameter)+'=';
         var pars= urlparts[1].split(/[&;]/g);
-
         //reverse iteration as may be destructive
         for (var i= pars.length; i-- > 0;) {    
             //idiom for string.startsWith
@@ -253,11 +270,28 @@ function removeURLParameter(url, parameter) {
                 pars.splice(i, 1);
             }
         }
-
         url= urlparts[0]+'?'+pars.join('&');
+        if ($.isEmptyObject(pars)) {
+          url = url.replace('?','');
+        }
+
         return url;
     } else {
         return url;
     }
-};
+}
+
+// Read a page's GET URL variables and return them as an associative array.
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
 
