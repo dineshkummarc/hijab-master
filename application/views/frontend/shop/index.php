@@ -49,6 +49,7 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="single-product2">
                                                     <div class="product-pic">
+
                                                         <a href="shop/detail/<?php echo $d_row->id?>">
                                                             <img src="assets/uploads/product/<?php echo $d_row->id ?>/<?php echo $d_row->image?>" alt="" />
                                                             <img class="secondary-img" src="assets/uploads/product/<?php echo $d_row->id?>/<?php echo $d_row->image?>" alt="" />
@@ -63,7 +64,7 @@
                                                             
                                                             <!--class="whishlist-true"-->
                                                         </div>
-
+                                                         <div class="text-center out-ofstock">Out of stock</div>
                                                     </div>
                                                     <div class="product-details">
                                                         <h3><a href="shop/detail/<?php echo $d_row->id?>"><?php echo $d_row->name_product?></a></h3>

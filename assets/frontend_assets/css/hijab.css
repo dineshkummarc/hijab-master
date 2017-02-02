@@ -441,6 +441,18 @@ img.zoom_01 {
 }
 .single-product2{
     max-height: 435px;
+    margin-bottom: 10px;
+}
+.out-ofstock{
+    font-size: 15px; 
+    position: absolute; 
+    bottom:0px; 
+    padding: 5px; 
+    text-align: center; 
+    width: 100px; 
+    background: #ec4445; 
+    color: #fff; 
+    right: 0px;
 }
 /*media screen////////////*/
 @media (max-width: 767px) {
