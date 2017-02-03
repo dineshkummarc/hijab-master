@@ -30,12 +30,12 @@
 												$no++;
 												$item_option = $this->cart->product_options($item['rowid']); ?>
 											<td class="product-Item">
-												<a href="#">
+												<a href="shop/detail/<?php echo $item_option['product_id'] ?>">
 													<img src="assets/uploads/product/<?php echo $item_option['product_id'] ?>/<?php echo $item_option['pict'] ?>" alt="" title="<?php echo $item['name'] ?>" />
 												</a>												
 											</td>										
 											<td class="product-name">
-												<h3><a href="#"><?php echo $item['name']?> </a></h3>
+												<h3><a href="shop/detail/<?php echo $item_option['product_id'] ?>"><?php echo $item['name']?> </a></h3>
 												<div class="price-star">
 													<div class="rating">
 														<h4>Color <span><?php echo $item_option['n_color']; ?></span></h4>

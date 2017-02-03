@@ -131,10 +131,10 @@
 										$item_option = $this->cart->product_options($item['rowid']); ?>
 									<li>
 										<div class="cart-img">
-											<a href="#"><img src="assets/uploads/product/<?php echo $item_option['product_id'] ?>/<?php echo $item_option['pict'] ?>" alt="" /></a>
+											<a href="shop/detail/<?php echo $item_option['product_id'] ?>"><img src="assets/uploads/product/<?php echo $item_option['product_id'] ?>/<?php echo $item_option['pict'] ?>" alt="" /></a>
 										</div>
 										<div class="cart-info">
-											<h5><a href="#"><?php echo $item['name'] ?></a></h5>
+											<h5><a href="shop/detail/<?php echo $item_option['product_id'] ?>"><?php echo $item['name'] ?></a></h5>
 											<span><strong><?php echo $item['qty'] ?></strong> x <?php echo indonesian_currency( $item['price']) ?></span>
 										</div>
 										<div class="del-icon">

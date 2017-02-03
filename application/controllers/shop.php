@@ -271,19 +271,26 @@ class Shop extends PX_Controller {
 
 		$data['detail'] = $this->model_basic->select_where($this->tbl_product, 'id', $id)->row();
 		$data['detail']->price = indonesian_currency($data['detail']->price);
-		$data['detail']->size = $this->model_stock->select_size($this->tbl_product_stock, 'product_id', $id)->result();
-		$data['detail']->color = $this->model_stock->select_color($this->tbl_product_stock, 'product_id', $id)->result();
+        $data['detail']->color = $this->model_stock->select_color($this->tbl_product_stock, 'product_id', $id);
+		$data['detail']->size = $this->model_stock->select_size_color($id, $data['detail']->color->row()->color_id);
 		$data['detail']->image = $this->model_basic->select_where_order($this->tbl_product_image, 'product_id', $data['detail']->id, 'primary_status', '1')->result();
         $stock = '';
-        if((int)$this->model_stock->sum_stock($id)->row()->stock > 0)
-            $stock = 'In Stock';
-                else
-                    $stock = 'Out of Stock';
+        if((int)$this->model_stock->check_stock($id, $data['detail']->color->row()->color_id, $data['detail']->size->row()->size_id)->row()->stock > 0)
+        {
+            $stock = '<span class="stock">In Stock</span>';
+            $default_qty = 1;
+        }
+        else
+        {
+            $stock = '<span class="out-stock">Out of Stock</span>';
+            $default_qty = 0;
+        }
         $data['detail']->stock = $stock;
-		foreach ($data['detail']->size as $d_row) {
+        $data['detail']->default_qty = $default_qty;
+		foreach ($data['detail']->size->result() as $d_row) {
 			$d_row->size = $this->model_basic->select_where($this->tbl_size, 'id', $d_row->size_id)->row();
 		}
-		foreach ($data['detail']->color as $data_row) {
+		foreach ($data['detail']->color->result() as $data_row) {
 			$data_row->color = $this->model_basic->select_where($this->tbl_color, 'id', $data_row->color_id)->row();
 		}
 
@@ -304,6 +311,43 @@ class Shop extends PX_Controller {
 		$data['content'] = $this->load->view('frontend/shop/detail',$data,true);
 		$this->load->view('frontend/index',$data); 
 	}
+
+    function select_color()
+    {
+        $size = $this->model_stock->select_size_color($this->input->post('product_id'), $this->input->post('color_id'))->result();
+        $stock = $this->model_stock->check_stock($this->input->post('product_id'), $this->input->post('color_id'), $this->input->post('size_id'))->row()->stock;
+        if ($stock > 0)
+            $stock_status = '<span class="stock">In Stock</span>';
+        else
+            $stock_status = '<span class="out-stock">Out of Stock</span>';
+        
+        $this->returnJson(array('status' => 'ok', 'data' => array('stock' => $stock, 'stock_status' => $stock_status, 'size' => $size)));
+    }
+
+    function checking_stock()
+    {
+        $stock = $this->model_stock->check_stock($this->input->post('product_id'), $this->input->post('color_id'), $this->input->post('size_id'))->row()->stock;
+        if ($stock > 0)
+            $stock_status = '<span class="stock">In Stock</span>';
+        else
+            $stock_status = '<span class="out-stock">Out of Stock</span>';
+        
+        $this->returnJson(array('status' => 'ok', 'data' => array('stock' => $stock, 'stock_status' => $stock_status)));
+    }
+
+    function check_product_stock()
+    {
+        $stock = $this->model_stock->check_stock($this->input->post('product_id'), $this->input->post('color_id'), $this->input->post('size_id'));
+        if ($stock->num_rows > 0) {
+            $stock = $stock->row()->stock;
+            $this->returnJson(array('status' => 'ok', 'stock' => $stock));
+        }
+        else
+        {
+            $this->returnJson(array('status' => 'outofstock', 'stock' => 0));
+        }
+
+    }
 
     function brand_only()
     {

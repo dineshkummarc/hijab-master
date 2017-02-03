@@ -5267,6 +5267,11 @@ span.stock {
   font-weight: bold;
   text-decoration: none !important;
 }
+span.out-stock {
+  color: #ff5555 !important;
+  font-weight: bold;
+  text-decoration: none !important;
+}
 .desc-std.p-details {
   border-bottom: 1px solid #ececec;
   margin-bottom: 30px;

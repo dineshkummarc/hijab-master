@@ -62,4 +62,25 @@ class Model_stock extends PX_Model {
         $data = $this->db->get($this->tbl_product_stock);
         return $data;
     }
+
+    function check_stock($product_id, $color_id, $size_id)
+    {
+    	$this->db->select('stock');
+    	$this->db->where('product_id', $product_id);
+    	$this->db->where('color_id', $color_id);
+    	$this->db->where('size_id', $size_id);
+
+    	$data = $this->db->get($this->tbl_product_stock);
+    	return $data;
+    }
+
+    	function select_size_color($product, $color){
+		$this->db->select('distinct(a.size_id), b.name, a.stock');
+		$this->db->from($this->tbl_product_stock.' a');
+		$this->db->join($this->tbl_size.' b', 'b.id = a.size_id', 'left');
+		$this->db->where('a.product_id',$product);
+		$this->db->where('a.color_id', $color);
+		$data = $this->db->get();
+		return $data;
+	}
 }

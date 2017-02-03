@@ -469,3 +469,32 @@ img.zoom_01 {
         float: none!important
     }
 }
+
+.detail-qtybutton {
+  border: 1px solid #ececec;
+  color: #666;
+  cursor: pointer;
+  display: block;
+  font-size: 12px;
+  height: 21px;
+  line-height: 19px;
+  position: absolute;
+  right: 23px;
+  text-align: center;
+  top: 20px;
+  width: 24px;
+}
+
+.detail-plus-minus .detail-qtybutton {
+  top: 0;
+}
+
+.detail-plus-minus .detail-inc {
+  top: 20px;
+}
+
+.detail-inc {
+  height: 20px;
+  line-height: 16px;
+  top: 40px;
+}

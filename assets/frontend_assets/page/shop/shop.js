@@ -53,6 +53,117 @@ $(document).ready(function(){
       setGetParameter('', 'show', this.value);
     });
 
+    $('#select-color').change(function() {
+      var product_id = $('input[name=id_product]').val();
+      var color_id = this.value;
+      var size_id = $('#select-size option:selected').val();
+      $.ajax({
+        url : 'shop/select_color',
+        method: 'post',
+        data: {product_id: product_id, color_id: color_id, size_id: size_id},
+        dataType: 'json',
+        success: function(response){
+          $('#select-size').find('option').remove();
+          $.each(response.data.size, function (i, item) {
+              $('#select-size').append($('<option>', { 
+                  value: item.size_id,
+                  text : item.name+' ('+item.stock+' Left)'
+              }));
+          });
+          $('#availability').html(response.data.stock_status);
+          if (response.data.stock == 0) {
+            $('input[name=qty]').val(0);
+            $('.btn-add-cart').attr('disabled', 'disabled');
+          }else{
+            $('input[name=qty]').val(1);
+            $('.btn-add-cart').removeAttr('disabled');
+          }
+        },
+      })
+    });
+
+    $('#select-size').change(function() {
+      var product_id = $('input[name=id_product]').val();
+      var color_id = $('#select-color option:selected').val();
+      var size_id = this.value;
+      $.ajax({
+        url : 'shop/checking_stock',
+        method: 'post',
+        data: {product_id: product_id, color_id: color_id, size_id: size_id},
+        dataType: 'json',
+        success: function(response){
+          $('#availability').html(response.data.stock_status);
+          if (response.data.stock == 0) {
+            $('input[name=qty]').val(0);
+            $('.btn-add-cart').attr('disabled', 'disabled');
+          }else{
+            $('input[name=qty]').val(1);
+            $('.btn-add-cart').removeAttr('disabled');
+          }
+        },
+      })
+    });
+
+    /*-----------------------
+     cart-plus-minus-button 
+     -------------------------*/
+    $(".detail-plus-minus").append('<div class="dec detail-qtybutton">-</div><div class="detail-inc detail-qtybutton">+</div>');
+    $(".detail-qtybutton").on("click", function () {
+        var product_id = $('input[name=id_product]').val();
+        var size_id = $('#select-size option:selected').val();
+        var color_id = $('#select-color option:selected').val();
+        var $button = $(this);
+        var oldValue = $button.parent().find("input").val();
+        if ($button.text() == "+") {
+            $.ajax({
+                url: 'shop/check_product_stock',
+                type: 'POST',
+                dataType: 'json',
+                data: {'product_id' : product_id, 'size_id': size_id, 'color_id': color_id},
+                success: function(response) {
+                    if (oldValue == response.stock) {
+                        var newVal = parseFloat(response.stock);
+                    }else{
+                        var newVal = parseFloat(oldValue) + 1;
+                    }
+                    $button.parent().find("input").val(newVal);
+                }
+            });
+            
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 0;
+            }
+        }
+        $button.parent().find("input").val(newVal);
+    });
+    $('.detail-plus-minus').find("input").focusout(function () {
+         var product_id = $('input[name=id_product]').val();
+         var size_id = $('#select-size option:selected').val();
+         var color_id = $('#select-color option:selected').val();
+         var $field = $(this);
+         var oldValue = this.value;
+         $.ajax({
+                url: 'shop/check_product_stock',
+                type: 'POST',
+                dataType: 'json',
+                data: {'product_id' : product_id, 'size_id': size_id, 'color_id': color_id},
+                success: function(response) {
+                    if (parseFloat(oldValue) > parseFloat(response.stock)) {
+                        var newVal = parseFloat(response.stock);
+                    }else if(oldValue == 0 || oldValue < 0){
+                        var newVal = 1;
+                    }else{
+                        var newVal = parseFloat(oldValue);
+                    }
+                    $field.val(newVal);
+                }
+            });
+    });
+
     $('#form-search').validate({
       ignore: [],
       rules: {},
@@ -292,4 +403,6 @@ function getUrlVars()
     }
     return vars;
 }
+
+
 
