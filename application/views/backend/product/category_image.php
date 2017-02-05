@@ -1,5 +1,3 @@
-
-
 <!-- UPLOAD POTRAIT MODAL -->
 <div class="modal fade" id="upload-potrait" tabindex="-1" role="dialog" aria-labelledby="category-image-potrait-form-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -60,7 +58,6 @@
 </div><!-- /.modal -->
 <!-- E.O UPLOAD POTRAIT MODAL -->
 
-<!-- UPLOAD landscape MODAL -->
 <div class="modal fade" id="upload-landscape" tabindex="-1" role="dialog" aria-labelledby="category-image-landscape-form-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -69,7 +66,7 @@
                 <h4 class="modal-title" id="category-image-landscape-form-label">Category Image landscape</h4>
             </div>
             <form id="category-image-landscape-form" class="form-horizontal" action="<?php echo $controller.'/upload_landscape/'.$id; ?>" method="POST">
-            <input type="hidden" name="id" id="warehouse-productimage-id" value="<?=$id?>">
+            <input type="hidden" name="id" id="landscape-productimage-id" value="<?=$id?>">
             <div class="modal-body">
                 <div class="alert alert-danger hidden"></div>
                 <div class="alert alert-warning hidden"></div>
@@ -78,21 +75,21 @@
                     <label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="warehouse-productimage-image">Image</label>
                     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
                         <label class="btn btn-primary" id="category-image-landscape-upload-button" for="file-upload-landscape">Upload</label>
-                        <input type="hidden" name="x" id="x">
-                        <input type="hidden" name="y" id="y">
-                        <input type="hidden" name="w" id="w">
-                        <input type="hidden" name="h" id="h">
-                        <input type="hidden" name="origwidth" id="origwidth">
-                        <input type="hidden" name="origheight" id="origheight">
-                        <input type="hidden" name="fakewidth" id="fakewidth">
-                        <input type="hidden" name="fakeheight" id="fakeheight">
-                        <input type="hidden" name="image" id="image">
-                        <input type="hidden" name="old_image" id="old-image">
+                        <input type="hidden" name="x" id="x-l">
+                        <input type="hidden" name="y" id="y-l">
+                        <input type="hidden" name="w" id="w-l">
+                        <input type="hidden" name="h" id="h-l">
+                        <input type="hidden" name="origwidth" id="origwidth-l">
+                        <input type="hidden" name="origheight" id="origheight-l">
+                        <input type="hidden" name="fakewidth" id="fakewidth-l">
+                        <input type="hidden" name="fakeheight" id="fakeheight-l">
+                        <input type="hidden" name="image" id="image-l">
+                        <input type="hidden" name="old_image" id="old-image-l">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="progress" id="warehouse-productimage-progress">
+                        <div class="progress" id="landscape-productimage-progress">
                             <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                                 <span class="sr-only">0% Complete (success)</span>
                             </div>
@@ -101,7 +98,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 warehouse-productimage-preview">
-                        <div class="image-original-preview">
+                        <div class="image-original-preview-l">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -229,9 +226,9 @@
     <input type="hidden" name="old" id="old-foto">
     <input type="file" name="image" id="file-upload-potrait">
 </form>
-<form id="file-upload-landscape" action="upload/image" method="POST" enctype="multipart/form-data" class="hidden">
+<form id="file-upload" action="upload/image" method="POST" enctype="multipart/form-data" class="hidden">
     <input type="hidden" name="old" id="old-foto">
-    <input type="file" name="image" id="file-upload-landscape-file">
+    <input type="file" name="image" id="file-upload-landscape">
 </form>
 <!-- START SCRIPTS -->               
 <!-- THIS PAGE PLUGINS -->
