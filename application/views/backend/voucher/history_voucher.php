@@ -33,6 +33,7 @@
                         <tr>
                             <th width="6%" class="text-center">No</th>
                             <th class="text-center">No Invoice</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center">Voucher</th>
                             <!-- <th width="15%" class="text-center">Action</th> -->
                         </tr>
@@ -42,6 +43,8 @@
                             <tr>
                                 <td class="text-center"><?php echo $no; ?></td>
                                 <td class="text-center"><a href="<?=base_url('admin_order/order_detail/'.$r->order_id)?>"><?php echo $r->invoice_number; ?></a></td>
+                                <td class="text-center"><?php echo $r->status; ?></td>
+
                                 <td class="text-center"><?php echo $r->voucher; ?></td>
                             </tr>
                             <?php $no++; } ?>
