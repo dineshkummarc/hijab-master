@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2017 at 08:59 AM
+-- Generation Time: Feb 07, 2017 at 07:16 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -197,7 +197,7 @@ CREATE TABLE `px_category` (
 --
 
 INSERT INTO `px_category` (`id`, `name`, `potrait_image`, `landscape_image`, `delete_flag`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(3, 'Hijab', '588424cc626cb-hijab.jpg', '58751e4c78b90-hijab.jpg', 0, 7, '2016-11-08 17:34:59', 7, '2016-11-08 17:34:59'),
+(3, 'Hijab', '5899e6e9830b6-hijab.jpg', '5899ec223fe86-hijab.jpg', 0, 7, '2016-11-08 17:34:59', 7, '2016-11-08 17:34:59'),
 (8, 'Tunic', '58751eade0094-hijab.jpg', '58751ea38f8ed-hijab.jpg', 0, 7, '2016-12-19 23:39:43', 7, '2017-01-11 00:49:03'),
 (9, 'Blouse', '58751e0790e34-hijab.jpg', '58751dfb471ae-hijab.jpg', 0, 7, '2017-01-11 00:36:30', 7, '2017-01-11 00:36:30'),
 (10, 'Pants', '58751e7feeb7d-hijab.jpg', '58751e7693e8d-hijab.jpg', 0, 7, '2017-01-11 00:48:22', 7, '2017-01-11 00:48:22');
@@ -1365,7 +1365,7 @@ CREATE TABLE `px_product_stock` (
 --
 
 INSERT INTO `px_product_stock` (`id`, `product_id`, `color_id`, `size_id`, `stock`, `sku_code`, `id_created`, `date_created`, `id_modified`, `date_modified`) VALUES
-(105, 33, 1, 1, 9, '123', 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
+(105, 33, 1, 1, 0, '123', 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
 (106, 33, 2, 1, 100, '3434', 7, '2016-12-20 15:39:21', 7, '2016-12-20 15:39:21'),
 (109, 33, 1, 2, 17, '545', 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
 (110, 33, 2, 2, 1, '6767', 7, '2017-01-01 19:03:22', 7, '2017-01-01 19:03:22'),
