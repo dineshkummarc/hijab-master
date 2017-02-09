@@ -31,7 +31,7 @@
       </div>
         <?php } else if($no != 4) { ?>
 
-      <div class="col-md-3 grid no-padding-right">
+      <div class="col-md-3 grid no-padding-right2">
         <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center; background-size: cover">
           <div class="caption-left">
             <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>
@@ -48,8 +48,11 @@
         </div>
       </div>
         <?php }$no++;} ?>
-       <?php foreach($editor_pick as $data_row) { ?>
-       <div class="col-md-6 grid no-padding-left">
+       <?php
+        $no=0; foreach($editor_pick as $data_row) { 
+        $no++; 
+        ?>
+       <div class="col-md-6 grid <?php if(($no % 2)==0){ echo"no-padding-right"; }else{ echo"no-padding-left";} ?>">
         <div class="grid-large" style="background: url('<?php echo "assets/uploads/editor_picks/".$data_row->id."/".$data_row->image ?>') center; background-size: cover">
         </div>
         <div class="caption-grid-bottom">
