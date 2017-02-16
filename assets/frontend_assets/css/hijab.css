@@ -524,3 +524,7 @@ img.zoom_01 {
   line-height: 16px;
   top: 40px;
 }
+
+.btn-voucher {
+    cursor: pointer;
+}

@@ -5,7 +5,7 @@ class Dashboard extends PX_Controller {
 		parent::__construct();
 
 		$this->controller_attr = array('controller' => 'dashboard','controller_name' => 'Dashboard');
-		if($this->session->userdata('member')['validated']===FALSE)
+		if($this->session->userdata('member')['validated']==FALSE)
 		{
 			redirect('login');
 		}

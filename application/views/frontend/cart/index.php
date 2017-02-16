@@ -56,7 +56,7 @@
 											<td class="product-subtotal">
 												<h4><span class="subtotal_<?php echo $item['rowid']?>"><?php echo indonesian_currency($item['price'] * $item['qty'])?></span></h4>
 												<div class="sub-icon">
-													<a class="trash" href="shop/updateToCart/<?php echo $item['rowid'] ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+													<a class="trash btn-clear-cart-item" data-id="<?php echo $item['rowid'] ?>" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 												</div>												
 											</td>
 										</tr>
@@ -98,7 +98,7 @@
 							</div>
 							<div class="msg-voucher red"></div>
 							<div class="btn-link">
-								<a class="btn-voucher">apply coupon</button>
+								<a class="btn-voucher">apply coupon</a>
 							</div>
 						</form>						
 					</div>

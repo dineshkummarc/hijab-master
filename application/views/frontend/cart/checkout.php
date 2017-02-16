@@ -83,7 +83,7 @@
 								</div>
 								<div class="col-sm-6">
 									<div class="input-box">
-										<label>Postcode / Zip <abbr class="required" title="required">*</abbr></label>
+										<label>Postcode / Zip</label>
 										<input type="text" name="postcode_ship" id="postcode_ship" placeholder="Postcode / Zip" value=""/>
 									</div>
 								</div>

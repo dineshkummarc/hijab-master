@@ -168,13 +168,13 @@ class Login extends PX_Controller{
 
 	function logout(){
     $this->load->library('facebook');
-        $this->load->library('googleplus');
-        $this->googleplus->revokeToken();
-        // Logs off session from website
-        $this->facebook->destroySession();
-        $this->session->sess_destroy();
-        // Make sure you destory website session as well.
+    //$this->load->library('googleplus');
+    //$this->googleplus->revokeToken();
+    // Logs off session from website
+    //$this->facebook->destroySession();
+    $this->session->unset_userdata('member');
+    // Make sure you destory website session as well.
 
-        redirect('login');
+    redirect('login');
 	}
 }

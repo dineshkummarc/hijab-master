@@ -119,7 +119,7 @@
 								<?php $get_cart = $this->cart->contents();
 //								var_dump($get_cart);
 								?>
-								<a class="cart" href="#">My Cart <span><?php echo indonesian_currency($this->cart->total()); ?></span></a>
+								<a class="cart" href="cart">My Cart <span><?php echo indonesian_currency($this->cart->total()); ?></span></a>
 								<ul>
 									<?php if(!empty($get_cart)){
 
@@ -138,7 +138,7 @@
 											<span><strong><?php echo $item['qty'] ?></strong> x <?php echo indonesian_currency( $item['price']) ?></span>
 										</div>
 										<div class="del-icon">
-											<a class="fa fa-trash-o" aria-hidden="true" href="shop/updateToCart/<?php echo $item['rowid'] ?>"></a>
+											<a class="fa fa-trash-o btn-clear-cart-item" data-id="<?php echo $item['rowid'] ?>" aria-hidden="true" href="#"></a>
 										
 										</div>
 									</li>

@@ -16,9 +16,6 @@ $(document).ready(function(){
       },
       region_ship: {
         required: true
-      },
-      postcode_ship: {
-        required: true
       }
     },
     submitHandler: function(form) {
@@ -104,6 +101,28 @@ $(document).ready(function(){
    $(".btn-voucher").click(function(event){
         $('#form-voucher').submit();
     });
+
+  $(".btn-clear-cart-item").click(function(e) {
+    e.preventDefault();
+    var $button = $(this);
+    var rowid = $button.attr('data-id');
+    console.log(rowid);
+    $.ajax({
+      url : 'cart/clear_cart_item',
+      type : 'POST',
+      dataType : 'json',
+      data : {id: rowid},
+      success : function(response){
+        console.log(response);
+        if (response.status = 'ok') {
+          window.location.href = response.redirect;
+        }
+      },
+      error : function(jqXHR, textStatus, errorThrown) {
+          alert(textStatus, errorThrown);
+      }
+    })
+  });
 
 })
 

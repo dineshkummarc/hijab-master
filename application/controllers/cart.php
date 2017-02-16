@@ -118,7 +118,8 @@ class Cart extends PX_Controller {
     {
         $now = date('Y-m-d H:i:s', now());
         $code = $this->input->post('coupon');
-        $voucher = $this->model_basic->select_where($this->tbl_voucher, 'voucher', $code);
+        $filter = array('voucher' => $code, 'status' => 1);
+        $voucher = $this->model_basic->select_where_array($this->tbl_voucher, $filter);
         if ($voucher->num_rows() > 0) {
             $voucher = $voucher->row();
             if ($now >= $voucher->date_start && $now <= $voucher->date_end) {
@@ -211,6 +212,24 @@ class Cart extends PX_Controller {
             redirect('cart');
     }
 
+    function clear_cart_item(){
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Cart','cart');
+
+        //update cart
+        $data_update = array(
+            'rowid' => $this->input->post('id'), 
+            'qty' => 0
+            );
+        $update = $this->cart->update($data_update);
+        if ($update) {
+             $this->returnJson(array('status' => 'ok', 'redirect' => 'cart'));
+         } else {
+            $this->returnJson(array('status' => 'failed', 'redirect' => 'cart'));
+         }
+    }
+
     function get_shipping_address($id){
         $address=$this->model_basic->select_where($this->tbl_shipping_address,'id',$id)->row();
         $province=$this->model_basic->select_where($this->tbl_shipping_province,'id',$address->province)->row();
@@ -243,7 +262,7 @@ class Cart extends PX_Controller {
         $region=$this->model_basic->select_where($this->tbl_shipping_region,'id',$region_id)->row();
         $berat=0;
         foreach ($this->cart->contents() as $cart) {
-            $berat+=$cart['weight']*$cart['qty'];
+            $berat += $this->cart->product_options($cart['rowid'])['weight'] * $cart['qty'];
         }
         $ongkir=ceil($berat/1000);
         $ongkir=$region->price*$berat;
@@ -272,7 +291,7 @@ class Cart extends PX_Controller {
         {
             $voucher_id = 0;
         }
-        if ($shipping_id == "") {
+        if ($shipping_id == 0) {
             $customer_phone = $this->model_basic->select_where($this->tbl_shipping_address, 'customer_id', $customer_id)->row()->phone;
             $data_shipping_address = array(
                     'customer_id' => $customer_id,
@@ -290,7 +309,7 @@ class Cart extends PX_Controller {
             $shipping_id = $this->input->post('shipping_id');
         }
         $random_code=rand(100,999);
-        $data_order=array(
+        $data_order = array(
             'customer_id' => $customer_id,
             'ship_address_id' => $shipping_id,
             'voucher_id' => $voucher_id,
@@ -329,7 +348,7 @@ class Cart extends PX_Controller {
         {
             //send order success email
             $mail_data = new stdClass();
-            $mail_data->receiver = $this->model_basic->select_where($this->tbl_shipping_address, 'id', $shipping_id)->row()->email;
+            $mail_data->receiver = $this->model_basic->select_where($this->tbl_customer, 'id', $customer_id)->row()->email;
             $mail_data->subject = "Order Success";
             $mail_data->message  = "";
             

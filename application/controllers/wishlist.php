@@ -5,7 +5,7 @@ class Wishlist extends PX_Controller{
 		parent::__construct();
 		$this->controller_attr = array('controller' => 'wishlist','controller_name' => 'Wishlist');
                 $this->do_underconstruct();
-                if($this->session->userdata('member')['validated']===FALSE)
+                if($this->session->userdata('member')['validated']==FALSE)
 		{
 			redirect('login');
 		}
