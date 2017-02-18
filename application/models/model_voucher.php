@@ -17,6 +17,8 @@ class Model_voucher extends PX_Model {
                  ->join($this->tbl_voucher.' b', 'a.voucher_id = b.id', 'left')
                  ->join($this->tbl_tracking_status.' c', 'a.status = c.id', 'left')
                  ->where('a.status', 3)
+                 ->or_where('a.status', 1)
+                 ->or_where('a.status', 2)
                  ->or_where('a.status', 4)
                  ->or_where('a.status', 5)
                  ->get();

@@ -7,6 +7,7 @@ class Admin_order extends PX_Controller {
     function __construct() {
         parent:: __construct();
         $this->controller_attr = array('controller' => 'admin_order', 'controller_name' => 'Admin Order', 'controller_id' => 0);
+        $this->load->model('model_order');
         $this->check_login();
     }
 
@@ -44,6 +45,41 @@ class Admin_order extends PX_Controller {
         $this->load->view('backend/index', $data);
     }
 
+    public function order_list_ajax()
+    {
+        // permissionUser();
+        $list = $this->model_order->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $r) {
+            $url = base_url('admin_order/order_detail/'.$r->id);
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $r->invoice_number;
+            $row[] = $r->nama_depan;
+            $row[] = number_format($r->total_payment);
+            $row[] = date('d M Y H:i:s', strtotime($r->date_created));
+            $row[] = "<span class='btn $r->class_text'>$r->status</span>";
+            $row[] = "<a class='btn btn-default btn-xs' href=
+            '$url' data-original-title='Detail Order' data-placement='top' data-toggle='tooltip'><i class='fa fa-eye'></i></a>";
+            /*
+            $row[] = '<span class="btn <?php echo $d_row->status->class_text ?>"><?php echo $d_row->status->title ?></span>';
+            $row[] = '<a class="btn btn-default btn-xs" href="<?php echo $controller.'/order_detail/'.$d_row->id ?>" data-original-title="Detail Order" data-placement="top" data-toggle="tooltip"><i class="fa fa-eye"></i></a>';
+            */
+            $data[] = $row;
+        }
+
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->model_order->count_all(),
+                        "recordsFiltered" => $this->model_order->count_filtered(),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);
+    }
+
     public function order_detail($id) {
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
@@ -70,7 +106,9 @@ class Admin_order extends PX_Controller {
         $order->total_order = $this->indonesian_currency($order->total_order);
         $order->total_payment = $this->indonesian_currency($order->total_payment);
         $order->total_ship_price = $this->indonesian_currency($order->total_ship_price);
+        $order->total_discount = $this->indonesian_currency($order->total_discount);
         $order->random_code = $this->indonesian_currency($order->random_code);
+        $order->voucher = $this->model_basic->select_where($this->tbl_voucher, 'id', $order->voucher_id)->row()->voucher;
         $order->date_created = date('d M Y H:i:s', strtotime($order->date_created));
         //customer
         $customer = $this->model_basic->select_where($this->tbl_customer, 'id', $order->customer_id)->row();

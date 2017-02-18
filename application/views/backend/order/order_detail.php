@@ -59,6 +59,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-md-2 col-xs-12 control-label">Discount</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <span class="form-control"><?php echo $order->total_discount ?></span>
+                                    </div>
+                                </div>
+                                <?php if(!empty($order->voucher_id)){?>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-12 control-label">Voucher</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <span class="form-control"><?php echo $order->voucher ?></span>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                                <div class="form-group">
                                     <label class="col-md-2 col-xs-12 control-label">Random Code</label>
                                     <div class="col-md-9 col-xs-12">
                                         <span class="form-control"><?php echo $order->random_code ?></span>
@@ -116,6 +130,10 @@
                                         <tr>
                                             <td colspan="5" class="text-right">Shipping Cost</td>
                                             <td class="text-right"><?php echo $order->total_ship_price ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-right">Discount</td>
+                                            <td class="text-right"><?php echo $order->total_discount ?></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5" class="text-right">Random Code</td>

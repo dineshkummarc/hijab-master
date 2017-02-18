@@ -42,7 +42,7 @@
                         <?php } else { ?>
                             <div class="alert alert-danger"><strong>Order Status Update Failed</strong><span></span></div>
                     <?php } } ?>
-                    <table class="table datatable table-bordered">
+                    <table class="table datatable table-bordered" id="table">
                         <thead>
                             <tr>
                                 <th width="6%" class="text-center">No</th>
@@ -55,19 +55,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php $no = 1; foreach ($order_list as $d_row) { ?>
-                            <tr>
-                                <td class="text-center"><?php echo $no ?></td>
-                                <td class="text-center"><?php echo $d_row->invoice_number ?></td>
-                                <td class="text-center"><?php echo $d_row->customer ?></td>
-                                <td class="text-center"><?php echo $d_row->total_payment ?></td>
-                                <td class="text-center"><?php echo $d_row->date_created ?></td>
-                                <td class="text-center"><span class="btn <?php echo $d_row->status->class_text ?>"><?php echo $d_row->status->title ?></span></td>
-                                <td class="text-center">
-                                    <a class="btn btn-default btn-xs" href="<?php echo $controller.'/order_detail/'.$d_row->id ?>" data-original-title="Detail Order" data-placement="top" data-toggle="tooltip"><i class="fa fa-eye"></i></a>
-                                </td>
-                            </tr>
-                        <?php $no++; } ?>
+                        
                         </tbody>
                     </table>
                 </div>
@@ -103,15 +91,15 @@
 
 <!-- START SCRIPTS -->               
 <!-- THIS PAGE PLUGINS -->
-<script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script>
+<!-- <script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script> -->
 <script type="text/javascript" src="assets/backend_assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="assets/backend_assets/js/plugins/summernote/summernote.js"></script>   
-<script type="text/javascript" src="assets/backend_assets/js/plugins/dropzone/dropzone.min.js"></script>
-<script type="text/javascript" src="assets/backend_assets/js/plugins/icheck/icheck.min.js"></script> 
 <!-- END PAGE PLUGINS -->
 <!-- START TEMPLATE -->
-<script type="text/javascript" src="assets/backend_assets/js/settings.js"></script>
+<!-- <script type="text/javascript" src="assets/backend_assets/js/settings.js"></script>
 
 <script type="text/javascript" src="assets/backend_assets/js/plugins.js"></script>        
 <script type="text/javascript" src="assets/backend_assets/js/actions.js"></script>
+ -->
+<!-- page js -->
+<script type="text/javascript" src="assets/backend_assets/page/order/order_list.js"></script>
 
