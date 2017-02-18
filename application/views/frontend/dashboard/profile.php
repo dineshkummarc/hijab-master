@@ -52,7 +52,7 @@
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>E-mail address<span>*</span></label>
-										<input type="email" name="email" value="<?php echo $user->email?>" />
+										<input type="email" name="email" value="<?php echo $user->email?>" disabled />
 									</div>
 								</div>	
 								<div class="col-sm-12">

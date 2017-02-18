@@ -78,9 +78,9 @@
                                 <!--								</ul>-->
                                 <!--							</div>-->
                                 <div class="header-account hidden-xs">
-                                    <h3>My Account</h3>
-                                    <ul>
+                                    
                                         <?php if ($this->session->userdata('member')['validated']) { ?>
+                                        <h3>My Account</h3>
                                             <ul>
                                                 <li><a href="dashboard">Hello, <?php echo $this->session->userdata('member')['nama_depan']; ?></a></li>
                                                 <li><a href="#" >Profile</a></li>
@@ -92,12 +92,8 @@
                                                 <li><a href="login/logout">Logout</a></li>
                                             </ul>
                                         <?php } else { ?>
-                                            <!--							<li><a href="cart">My Cart</a></li>-->
-                                            <!--									<li><a href="cart">Cart </a></li>-->
-                                            <li><a href="login">Login</a></li>
-                                        <?php } ?>
-
-                                    </ul>							
+                                            <a href="login"><h3>Login</h3></a>
+                                        <?php } ?>						
                                 </div>
                             </div>
                         </div>
