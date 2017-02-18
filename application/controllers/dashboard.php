@@ -233,7 +233,6 @@ class Dashboard extends PX_Controller {
 			'nama_belakang'=>$this->input->post('nama_belakang'),
 			'tgl_lahir' => $this->input->post('tgl_lahir'),
 			'jenis_kelamin' => $this->input->post('gender'),
-			'email'=>$this->input->post('email'),
 			'date_modified'=>date('Y-m-d H:i:s',now()),
 			);
 		$query=$this->model_basic->update($this->tbl_customer,$data,'id',$customer_id);

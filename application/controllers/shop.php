@@ -15,6 +15,7 @@ class Shop extends PX_Controller {
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('Shop','shop');
+        $customer_id = $this->session->userdata('member')['id'];
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
@@ -192,6 +193,17 @@ class Shop extends PX_Controller {
                     $d_row->image="";
                 }
             $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
+
+            $customer_wishlist = $this->model_basic->select_where_array($this->tbl_wishlist, array('product_id' => $d_row->id, 'customer_id' => $customer_id));
+
+            if ($customer_wishlist->num_rows() > 0) 
+            {
+                $d_row->wishlist_true = "<a data-toggle=\"tooltip\" title=\"Already in your Wishlist\" href=\"wishlist/wishlist_add/".$d_row->id."\" class=\"whishlist-true\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i></a>";
+            }
+            else
+            {
+                $d_row->wishlist_true = "<a data-toggle=\"tooltip\" title=\"Add to Wishlist\" href=\"wishlist/wishlist_add/".$d_row->id."\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i></a>";
+            }
             
 		}
         $data['category']=$this->model_basic->select_where($this->tbl_category,'delete_flag','0')->result();
@@ -447,7 +459,7 @@ function quick_view($id){
 
      function process_checkout()
      {
-         $customer_id = $this->session->userdata('id');
+         $customer_id = $this->session->userdata('member')['id'];
          $shipping_id = $this->input->post('shipping_id');
          $kurir = $this->input->post('jasa_pengiriman_id');
          $get_cart = $this->cart->contents();
