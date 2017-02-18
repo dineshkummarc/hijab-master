@@ -42,7 +42,7 @@
 					</ul>  -->
 				</div>
 				<div class="panel-body">
-					<table class="table datatable table-bordered">
+					<table class="table datatable table-bordered" id="table">
 						<thead>
 							<tr>
 								<th width="6%" class="text-center">No</th>
@@ -53,13 +53,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php $no=1; foreach ($customer_list as $d_row) { ?>
-							<tr>
+							<?php //$no=1; foreach ($customer_list as $d_row) { ?>
+							<!-- <tr>
 								<td class="text-center"><?php echo $no; ?></td>
 								<td class="text-center"><?php echo $d_row->email?></td>
 								<td class="text-center"><?php echo $d_row->nama_depan.' '. $d_row->nama_belakang?></td>
 								<!-- <td class="text-center"><button id="status_customer<?php echo $d_row->id ?>" class="btn btn-change-status <?php if($d_row->status_customer == 0) echo 'btn-danger'; else echo 'btn-success' ?>" row_id="<?php echo $d_row->id ?>"><?php if($d_row->status_customer == 0) echo "No"; else echo "Yes" ?></button></td> -->
-								<td class="text-center">
+								<!-- <td class="text-center">
 									<form action="<?php echo $controller.'/'.$function_form; ?>" method="post">
 										<input type="hidden" name="id" value="<?php echo $d_row->id; ?>">
 										<a href="<?php echo $controller ?>/shipping_address_list/<?php echo $d_row->id; ?>" class="btn btn-default btn-xs" data-original-title="Alamat Pengiriman" data-placement="top" data-toggle="tooltip"><i class="fa fa-home"></i></a>
@@ -68,8 +68,8 @@
 								 		<button class="btn btn-danger btn-xs btn-delete" type="button" data-original-title="Hapus" data-placement="top" data-toggle="tooltip" data-target-id="<?php echo $d_row->id; ?>"><i class="fa fa-trash-o"></i></button>
 								 	</form>
 								 </td>
-							</tr>
-							<?php $no++; } ?>
+							</tr> -->
+							<?php //$no++; } ?>
 						</tbody>
 					</table>
 
@@ -118,15 +118,15 @@
 
 <!-- START SCRIPTS -->               
 	<!-- THIS PAGE PLUGINS -->
-	<script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script>
+	<!-- <script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script> -->
 	<script type="text/javascript" src="assets/backend_assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="assets/backend_assets/js/plugins/summernote/summernote.js"></script>   
+	<!-- <script type="text/javascript" src="assets/backend_assets/js/plugins/summernote/summernote.js"></script>   
     <script type="text/javascript" src="assets/backend_assets/js/plugins/dropzone/dropzone.min.js"></script>
-    <script type="text/javascript" src="assets/backend_assets/js/plugins/icheck/icheck.min.js"></script> 
+    <script type="text/javascript" src="assets/backend_assets/js/plugins/icheck/icheck.min.js"></script>  -->
 	<!-- END PAGE PLUGINS -->
 	<!-- START TEMPLATE -->
-	<script type="text/javascript" src="assets/backend_assets/js/settings.js"></script>
+	<!-- <script type="text/javascript" src="assets/backend_assets/js/settings.js"></script> -->
 	
-	<script type="text/javascript" src="assets/backend_assets/js/plugins.js"></script>        
-	<script type="text/javascript" src="assets/backend_assets/js/actions.js"></script>
+	<!-- <script type="text/javascript" src="assets/backend_assets/js/plugins.js"></script>         -->
+	<!-- <script type="text/javascript" src="assets/backend_assets/js/actions.js"></script> -->
 	<script type="text/javascript" src="assets/backend_assets/page/customer/customer_list.js"></script>

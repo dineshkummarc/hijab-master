@@ -57,16 +57,13 @@ class Admin_order extends PX_Controller {
             $row = array();
             $row[] = $no;
             $row[] = $r->invoice_number;
-            $row[] = $r->nama_depan;
+            $row[] = $r->nama_depan.' '.$r->nama_belakang;
             $row[] = number_format($r->total_payment);
             $row[] = date('d M Y H:i:s', strtotime($r->date_created));
             $row[] = "<span class='btn $r->class_text'>$r->status</span>";
             $row[] = "<a class='btn btn-default btn-xs' href=
             '$url' data-original-title='Detail Order' data-placement='top' data-toggle='tooltip'><i class='fa fa-eye'></i></a>";
-            /*
-            $row[] = '<span class="btn <?php echo $d_row->status->class_text ?>"><?php echo $d_row->status->title ?></span>';
-            $row[] = '<a class="btn btn-default btn-xs" href="<?php echo $controller.'/order_detail/'.$d_row->id ?>" data-original-title="Detail Order" data-placement="top" data-toggle="tooltip"><i class="fa fa-eye"></i></a>';
-            */
+            
             $data[] = $row;
         }
 

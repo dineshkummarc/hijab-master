@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 class Model_order extends PX_Model {
     // var $table = $this->tbl_order;
-    var $column = array('o.id', 'invoice_number', 'nama_depan', 'total_payment', 'date_created', 'status'); //set column field database for order and search
+    var $column = array('o.id', 'invoice_number', 'nama_depan', 'total_payment', 'o.date_created', 'status'); //set column field database for order and search
     var $order = array('o.id' => 'desc'); // default order 
 
     public function __construct() {
@@ -19,6 +19,7 @@ class Model_order extends PX_Model {
         'o.id as id,
          o.invoice_number,
          c.nama_depan as nama_depan,
+         c.nama_belakang,
          o.total_payment,
          o.date_created,
          t.title as status,
@@ -37,7 +38,11 @@ class Model_order extends PX_Model {
           if($item == 'invoice_number'){
             $item ='o.invoice_number';
           }elseif($item == 'total_payment'){
-            $item = 'a.total_payment';
+            $item = 'o.total_payment';
+          }elseif($item == 'nama_depan'){
+            $item = 'c.nama_depan';
+          }elseif($item == 'date_created'){
+            $item = 'o.nama_depan';
           }
 
           ($i===0) ? $this->db->like($item, $_POST['search']['value']) : $this->db->or_like($item, $_POST['search']['value']);

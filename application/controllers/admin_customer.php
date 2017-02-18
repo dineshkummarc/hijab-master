@@ -33,6 +33,43 @@ class Admin_customer extends PX_Controller {
         $this->load->view('backend/index', $data);
     }
 
+    public function customer_list_ajax()
+    {
+        // permissionUser();
+        $list = $this->model_customer->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $r) {
+            $url = base_url('admin_customer/customer_list_form/'.$r->id);
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $r->email;
+            $row[] = $r->nama_depan.' '.$r->nama_belakang;
+            
+            $row[] = "
+                <form action='$url' method='post'>
+                <input type='hidden' name='id' value='$r->id'>
+                <a href='admin_customer/shipping_address_list/$r->id' class='btn btn-default btn-xs' data-original-title='Alamat Pengiriman' data-placement='top' data-toggle='tooltip'><i class='fa fa-home'></i></a>
+                <a href='admin_customer/customer_billing_address_form/$r->id' class='btn btn-default btn-xs hidden' data-original-title='Alamat Pembayaran' data-placement='top' data-toggle='tooltip'><i class='fa fa-home'></i></a>
+                <button class='btn btn-info btn-xs btn-edit' type='submit' data-original-title='Ubah' data-placement='top' data-toggle='tooltip'><i class='fa fa-edit'></i></button>
+                <button class='btn btn-danger btn-xs btn-delete' type='button' data-original-title='Hapus' data-placement='top' data-toggle='tooltip' data-target-id='$r->id'><i class='fa fa-trash-o'></i></button>
+            </form>
+            ";
+            
+            $data[] = $row;
+        }
+
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->model_customer->count_all(),
+                        "recordsFiltered" => $this->model_customer->count_filtered(),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);
+    }
+
     public function customer_list_form() {
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
