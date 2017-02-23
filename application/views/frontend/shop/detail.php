@@ -84,7 +84,7 @@
 							<ul class="add-to-link">
 <!--								<li><a data-toggle="tooltip" title="Quick View" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>-->
 <!--								<li><a data-toggle="tooltip" title="Add to Compare" href="#"><i class="fa fa-retweet" aria-hidden="true"></i></a></li>-->
-								<li><a class="btn-add-wishlist" data-id="<?php echo $detail->id ?>" title="Add to Wishlist" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+								<li></a><?php echo $detail->wishlist_true ?></li>
 							</ul>
 						</div>
 						<p class="msg-status red"></p>
@@ -135,27 +135,8 @@
 
                                                     </div>
                                                     <div class="product-details">
-<!--                                                        --><?php
-//                                                        echo form_open('shop/addToCart');
-//                                                        echo form_hidden('id', $id);
-//                                                        echo form_hidden('name', $name);
-//                                                        echo form_hidden('price', $price);
-//                                                        ?>
                                                         <h3><a href="shop/detail/<?php echo $d_row->id?>"><?php echo $d_row->name_product?></a></h3>
-<!--                                                        --><?php
-//                                                        $btn = array(
-//                                                            'class' => 'fa fa-shopping-cart',
-//                                                            'value' => 'add to cart',
-//                                                            'name' => 'action'
-//                                                        );
-//
-//                                                        // Submit Button.
-//                                                        echo form_submit($btn);
-//                                                        echo form_close();
-//                                                        ?><!-- 
-                                                        <a href="shop/addToCart/<?php echo $d_row->id ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a> -->
-                                                        <div class="price-star">
-                                                            
+                                                        <div class="price-star">               
                                                             <div class="price">
                                                             <?php if($d_row->discount>0){
                                                                 ?>
@@ -173,26 +154,6 @@
 
                                             <?php } ?>
 							</div>
-<!--							<div role="tabpanel" class="tab-pane" id="tag">-->
-<!--								<div class="add-review sub-form m-mb">-->
-<!--									<h2>Product Tags</h2>-->
-<!--									<form action="#">-->
-<!--										<div class="input-box">-->
-<!--											<h4>Add Your Tags: </h4>-->
-<!--											<input type="text" name="tag" id="tag2" />-->
-<!--											<button class="btnb-l ml-10">Add Tag</button>-->
-<!--										</div>-->
-<!--										<p>Use spaces to separate tags. Use single quotes (') for phrases</p>-->
-<!--									</form>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							<div role="tabpanel" class="tab-pane" id="cus-tab">-->
-<!--								<div class="add-review">-->
-<!--									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>-->
-<!--									<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>-->
-<!--									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>-->
-<!--								</div>-->
-<!--							</div>-->
 						</div>
 					</div>
 				</div>

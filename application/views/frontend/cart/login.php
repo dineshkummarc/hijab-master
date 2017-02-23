@@ -30,7 +30,7 @@
                         <h4 class="login-msg" style="color:red"></h4>
                         </div>
 
-						<form id="form-login" action="login/do_login" method="post">
+						<form id="form-login" action="cart/do_login" method="post">
 							<div class="shipping-form">						
 								<div class="input-box m-b-20">
 									<h4>Email Address <span>*</span></h4>

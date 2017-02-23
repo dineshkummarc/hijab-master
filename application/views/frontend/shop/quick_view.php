@@ -40,7 +40,7 @@
 									<h4><span><?php echo $detail->price?></span></h4>
 								</div>
 								<div class="availability floatright">
-									<label>Availability:</label> <span class="stock"><?php echo $detail->stock; ?></span>
+									<label>Availability:</label> <span id="availability" class="stock"><?php echo $detail->stock; ?></span>
 								</div>
 							</div>
 						</div>
@@ -48,8 +48,8 @@
 										
 								<div class="input-box">
 									<h4>Color <span>*</span></h4>							
-									<select name="color">
-										<?php foreach ($detail->color as $list_color) { ?>
+									<select id="select-color" name="color">
+										<?php foreach ($detail->color->result() as $list_color) { ?>
 										<option value="<?php echo $list_color->color_id?>" selected><?php echo $list_color->color->name?></option>
 										<?php } ?>
 									</select>							
@@ -58,9 +58,9 @@
 									<h4>Size <span>*</span></h4>
 									<div class="input-box">
 									
-										<select name="size">
-										<?php foreach ($detail->size as $list_size) { ?>
-											<option value="<?php echo $list_size->size_id;?>" selected><?php echo $list_size->size->name?></option>
+										<select id="select-size" name="size">
+										<?php foreach ($detail->size->result() as $list_size) { ?>
+											<option value="<?php echo $list_size->size_id;?>"><?php echo $list_size->size->name.' ('.$list_size->stock.' Left)'?></option>
 										<?php } ?>
 										</select>								
 									</div>
@@ -70,15 +70,15 @@
 
 						<div class="actions">
 							<div class="plus-minus">
-								<div class="quantity cart-plus-minus">
-									<input class="text" name="qty" type="text" value="1"/>
+								<div class="quantity detail-plus-minus">
+									<input class="text" name="qty" type="text" value="<?php echo $detail->default_qty ?>"/>
 								</div>							
 							</div>	
 							<button type="submit" class="btn">Add To Cart</button>
 							<ul class="add-to-link">
 <!--								<li><a data-toggle="tooltip" title="Quick View" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>-->
 <!--								<li><a data-toggle="tooltip" title="Add to Compare" href="#"><i class="fa fa-retweet" aria-hidden="true"></i></a></li>-->
-								<li><a class="btn-add-wishlist" data-id="<?php echo $detail->id ?>" title="Add to Wishlist" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+							<li></a><?php echo $detail->wishlist_true ?></li>
 							</ul>
 						</div>
 						<p class="msg-status red"></p>

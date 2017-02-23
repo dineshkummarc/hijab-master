@@ -6,6 +6,15 @@ class Model_shop extends PX_Model {
 		parent::__construct();
 	}
 
+        function get_product_stock($product_id)
+        {
+                $this->db->select('SUM(stock) AS stock');
+                $this->db->where('product_id', $product_id);
+                $query = $this->db->get($this->tbl_product_stock);
+
+                return $query;
+        }
+
 	function get_product_count()
 	{
 		$this->db->select('*');
@@ -104,13 +113,14 @@ class Model_shop extends PX_Model {
                                 
                         }
                 }
-                //$this->db->where('d.stock >','0');
+                
                 if ($search) {
                 	$this->db->or_like('a.name_product', $search);
         	        $this->db->or_like('b.name', $search);
         	        $this->db->or_like('c.name', $search);
         	        $this->db->or_like('e.name', $search);
                 }
+                $this->db->where('d.stock >','0');
                 $this->db->group_by('a.id');
                 if ($sortby) {
                 	$this->db->order_by($sortby, 'asc');
@@ -203,6 +213,7 @@ class Model_shop extends PX_Model {
         	        $this->db->or_like('c.name', $search);
         	        $this->db->or_like('e.name', $search);
                 }
+                $this->db->where('d.stock >','0');
                 $this->db->group_by('a.id');
                 if ($sortby) {
                 	$this->db->order_by($sortby, 'asc');

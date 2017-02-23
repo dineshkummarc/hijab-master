@@ -53,6 +53,144 @@ $(document).ready(function(){
       setGetParameter('', 'show', this.value);
     });
 
+    //modal jquery
+    $('#shopModal').on('shown.bs.modal', function (e) {
+      $('#form-product-detail').validate({
+        ignore: [],
+        rules: {},
+        submitHandler: function(form) {
+          var target = $(form).attr('action');
+          $.ajax({
+            url : target,
+            type : 'POST',
+            dataType : 'json',
+            data : $(form).serialize(),
+            success : function(response){
+              if(response.status == 'ok'){
+                window.location.href = response.redirect;
+              }else if(response.status == 'outofstock') {
+                $( ".msg-status" ).html(response.msg);
+              }
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+              alert(textStatus, errorThrown);
+            }
+          });
+        }
+      });
+      
+      $('#select-color').change(function() {
+        var product_id = $('input[name=id_product]').val();
+        var color_id = this.value;
+        var size_id = $('#select-size option:selected').val();
+        $.ajax({
+          url : 'shop/select_color',
+          method: 'post',
+          data: {product_id: product_id, color_id: color_id, size_id: size_id},
+          dataType: 'json',
+          success: function(response){
+            $('#select-size').find('option').remove();
+            $.each(response.data.size, function (i, item) {
+                $('#select-size').append($('<option>', { 
+                    value: item.size_id,
+                    text : item.name+' ('+item.stock+' Left)'
+                }));
+            });
+            $('#availability').html(response.data.stock_status);
+            if (response.data.stock == 0) {
+              $('input[name=qty]').val(0);
+              $('.btn-add-cart').attr('disabled', 'disabled');
+            }else{
+              $('input[name=qty]').val(1);
+              $('.btn-add-cart').removeAttr('disabled');
+            }
+          },
+        })
+      });
+
+      $('#select-size').change(function() {
+        var product_id = $('input[name=id_product]').val();
+        var color_id = $('#select-color option:selected').val();
+        var size_id = this.value;
+        $.ajax({
+          url : 'shop/checking_stock',
+          method: 'post',
+          data: {product_id: product_id, color_id: color_id, size_id: size_id},
+          dataType: 'json',
+          success: function(response){
+            $('#availability').html(response.data.stock_status);
+            if (response.data.stock == 0) {
+              $('input[name=qty]').val(0);
+              $('.btn-add-cart').attr('disabled', 'disabled');
+            }else{
+              $('input[name=qty]').val(1);
+              $('.btn-add-cart').removeAttr('disabled');
+            }
+          },
+        })
+      });
+
+      /*-----------------------
+       cart-plus-minus-button 
+       -------------------------*/
+      $(".detail-plus-minus").append('<div class="dec detail-qtybutton">-</div><div class="detail-inc detail-qtybutton">+</div>');
+      $(".detail-qtybutton").on("click", function () {
+          var product_id = $('input[name=id_product]').val();
+          var size_id = $('#select-size option:selected').val();
+          var color_id = $('#select-color option:selected').val();
+          var $button = $(this);
+          var oldValue = $button.parent().find("input").val();
+          if ($button.text() == "+") {
+              $.ajax({
+                  url: 'shop/check_product_stock',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {'product_id' : product_id, 'size_id': size_id, 'color_id': color_id},
+                  success: function(response) {
+                      if (oldValue == response.stock) {
+                          var newVal = parseFloat(response.stock);
+                      }else{
+                          var newVal = parseFloat(oldValue) + 1;
+                      }
+                      $button.parent().find("input").val(newVal);
+                  }
+              });
+              
+          } else {
+              // Don't allow decrementing below zero
+              if (oldValue > 1) {
+                  var newVal = parseFloat(oldValue) - 1;
+              } else {
+                  newVal = 0;
+              }
+          }
+          $button.parent().find("input").val(newVal);
+      });
+      $('.detail-plus-minus').find("input").focusout(function () {
+           var product_id = $('input[name=id_product]').val();
+           var size_id = $('#select-size option:selected').val();
+           var color_id = $('#select-color option:selected').val();
+           var $field = $(this);
+           var oldValue = this.value;
+           $.ajax({
+                  url: 'shop/check_product_stock',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {'product_id' : product_id, 'size_id': size_id, 'color_id': color_id},
+                  success: function(response) {
+                      if (parseFloat(oldValue) > parseFloat(response.stock)) {
+                          var newVal = parseFloat(response.stock);
+                      }else if(oldValue == 0 || oldValue < 0){
+                          var newVal = 1;
+                      }else{
+                          var newVal = parseFloat(oldValue);
+                      }
+                      $field.val(newVal);
+                  }
+              });
+      });
+    });
+
     $('#select-color').change(function() {
       var product_id = $('input[name=id_product]').val();
       var color_id = this.value;
@@ -173,11 +311,18 @@ $(document).ready(function(){
       }
     });
 
+    if (getUrlParameter('price')) {
+      var val_min = getUrlParameter('price').split(',')[0];
+      var val_max = getUrlParameter('price').split(',')[1];
+    } else {
+      var val_min = 0;
+      var val_max = 1000000;
+    }
     $( "#slider-range" ).slider({
       range: true,
       min: 0,
       max: 1000000,
-      values: [ 0, 1000000 ],
+      values: [ val_min , val_max ],
       slide: function( event, ui ) {
         $( "#amount" ).val( "Rp." + ui.values[ 0 ] + " - Rp." + ui.values[ 1 ] );
       }
@@ -199,20 +344,21 @@ $(document).ready(function(){
         });
 
     $('body').delegate('.btn-quick-view','click',function(){
-          id = $(this).attr('data-target-id');
-           $.ajax({
-    url: "shop/quick_view/" + id,
-    type: "GET",
-    dataType: "html",
-    success: function(data) {
-      $('#shop-detail').html(data);
-    },
-    
-  });
-          
+      id = $(this).attr('data-target-id');
+      $.ajax({
+        url: "shop/quick_view/" + id,
+        type: "GET",
+        dataType: "html",
+        success: function(data) {
+          $('#shop-detail').html(data);
+        }
+      });
     });
 
-
+    if (getUrlParameter('search')) {
+      var value = getUrlParameter('search').split(",");
+        $('input[name="search"]').val(value);
+    }
     if (getUrlParameter('category')) {
       var arrValue = getUrlParameter('category').split(",");
       $.each(arrValue, function(key, value){

@@ -61,10 +61,10 @@
                                                            
                                                             <?php echo $d_row->wishlist_true ?>
                                                             
-                                                            
-                                                            <!--class="whishlist-true"-->
                                                         </div>
-                                                         <div class="text-center out-ofstock">Out of stock</div>
+                                                        <?php if ($d_row->all_size_stock == 0) { ?>
+                                                            <div class="text-center out-ofstock">Out of stock</div>
+                                                        <?php } ?>
                                                     </div>
                                                     <div class="product-details">
                                                         <h3><a href="shop/detail/<?php echo $d_row->id?>"><?php echo $d_row->name_product?></a></h3>
@@ -127,13 +127,10 @@
     <div class="modal-dialog">
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center">
-     
-        <div class="modal-content" id="shop-detail">
-
-                <a  type="button" class="btn btn-default"  href="login" >Login / Register</a>
-            </div>
-        </div>
+                <div class="modal-content" id="shop-detail">
+                    <a  type="button" class="btn btn-default"  href="login" >Login / Register</a>
                 </div>
             </div>
-
+        </div>
     </div>
+</div>

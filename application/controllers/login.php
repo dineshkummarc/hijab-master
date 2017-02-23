@@ -28,37 +28,32 @@ class Login extends PX_Controller{
 
 	function do_login(){
 		$this->form_validation->set_rules('email', 'EMAIL', 'trim|required|valid_email');
-    	$this->form_validation->set_rules('password', 'PASSWORD', 'trim|required');
-    	if ($this->form_validation->run() == FALSE) {
-      		$this->index();
-      	}else{
-      		$this->db->where('email', $this->input->post('email'));
-      		$query = $this->db->get('px_customer');
-      		if ($query->num_rows() == 1) {
-      			$row = $query->row();
-      			$pass = $this->encrypt->decode($row->password);
-      			if ($pass == $this->input->post('password')) {
-      				$data = array(
-      					'id' => $row->id,
-      					'email' => $row->email,
-                'nama_depan'=>$row->nama_depan,
-                'nama_belakang'=>$row->nama_belakang,
-                'validated' => TRUE
-              );
-      				$this->session->set_userdata('member', $data);
-             	redirect('dashboard');
-      			}else{
-      				$this->session->set_flashdata('msg','Password yang anda masukan salah');
-                	$this->session->set_flashdata('email',$this->input->post('email'));
-
-                    redirect('login');
-      			}
-      		}else{
-      			$this->session->set_flashdata('msg','Email yang anda masukan belum terdaftar');
-                $this->session->set_flashdata('email',$this->input->post('email'));
-                redirect('login');
-      		}
-      	}
+  	$this->form_validation->set_rules('password', 'PASSWORD', 'trim|required');
+  	if ($this->form_validation->run() == FALSE) {
+    		$this->index();
+    	}else{
+    		$this->db->where('email', $this->input->post('email'));
+    		$query = $this->db->get('px_customer');
+    		if ($query->num_rows() == 1) {
+    			$row = $query->row();
+    			$pass = $this->encrypt->decode($row->password);
+    			if ($pass == $this->input->post('password')) {
+    				$data = array(
+    					'id' => $row->id,
+    					'email' => $row->email,
+              'nama_depan'=>$row->nama_depan,
+              'nama_belakang'=>$row->nama_belakang,
+              'validated' => TRUE
+            );
+    				$this->session->set_userdata('member', $data);
+            $this->returnJson(array('status' => 'ok', 'redirect' => 'dashboard'));
+    			}else{
+    				$this->returnJson(array('status' => 'wrongpass', 'msg' => 'Password yang anda masukan salah.', 'redirect' => 'login'));
+    			}
+    		}else{
+          $this->returnJson(array('status' => 'wrongpass', 'msg' => 'Email yang anda masukan belum terdaftar.', 'redirect' => 'login'));
+    		}
+    	}
 	}
 
   function login_fb(){

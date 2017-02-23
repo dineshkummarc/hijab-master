@@ -8,6 +8,8 @@ class Cart extends PX_Controller {
 		$this->controller_attr = array('controller' => 'cart','controller_name' => 'Cart','controller_id' => 0);
                 $this->do_underconstruct();
         $this->load->model('model_product');
+        $this->load->library('facebook');
+        $this->load->library('googleplus');
 	}
 
 
@@ -93,8 +95,7 @@ class Cart extends PX_Controller {
     function checkout(){
         if($this->session->userdata('member')['validated'] == FALSE)
         {
-            $this->session->set_flashdata('msg_check','Anda harus login atau register untuk melakukan step berikutnya.');
-            redirect('login');
+            redirect('cart/login');
         }
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
@@ -112,6 +113,53 @@ class Cart extends PX_Controller {
         $data['kurir'] = $this->model_basic->select_all($this->tbl_jasa_pengiriman);
         $data['content'] = $this->load->view('frontend/cart/checkout',$data,true);
         $this->load->view('frontend/index',$data); 
+    }
+
+    function login()
+    {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Login','login');
+        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+        $data['login_url'] = $this->facebook->getLoginUrl(array(
+                    'redirect_uri' => site_url('login/login_fb'), 
+                     'scope'         => 'email, user_birthday, user_location, user_work_history, user_hometown, user_photos,'
+                ));
+        $data['login_google'] = $this->googleplus->loginURL();
+            $data['content'] = $this->load->view('frontend/cart/login',$data,true);
+        $this->load->view('frontend/index',$data);
+    }
+
+    function do_login(){
+        $this->form_validation->set_rules('email', 'EMAIL', 'trim|required|valid_email');
+        $this->form_validation->set_rules('password', 'PASSWORD', 'trim|required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->login();
+        }else{
+            $this->db->where('email', $this->input->post('email'));
+            $query = $this->db->get('px_customer');
+            if ($query->num_rows() == 1) {
+                $row = $query->row();
+                $pass = $this->encrypt->decode($row->password);
+                if ($pass == $this->input->post('password')) {
+                    $data = array(
+                        'id' => $row->id,
+                        'email' => $row->email,
+                        'nama_depan'=>$row->nama_depan,
+                        'nama_belakang'=>$row->nama_belakang,
+                        'validated' => TRUE
+                    );
+                    $this->session->set_userdata('member', $data);
+                    $this->returnJson(array('status' => 'ok', 'redirect' => 'cart/checkout'));
+                }else{
+                    $this->returnJson(array('status' => 'wrongpass', 'msg' => 'Password yang anda masukan salah.', 'redirect' => 'cart/login'));
+                }
+            }else{
+          $this->returnJson(array('status' => 'wrongpass', 'msg' => 'Email yang anda masukan belum terdaftar.', 'redirect' => 'login'));
+            }
+        }
     }
 
     function apply_voucher()
@@ -369,6 +417,42 @@ class Cart extends PX_Controller {
         {
             $this->returnJson(array('status' => 'error', 'msg' => 'Insert Data failed', 'redirect' => 'checkout'));
         }
+    }
+
+    function invoice($invoice)
+    {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Cart','cart');
+        if($invoice==null){
+            redirect('login');
+        }
+        $customer_id = $this->session->userdata('member')['id'];
+        $data['invoice']=$this->model_basic->select_where($this->tbl_order,'invoice_number',$invoice)->row();
+        $data['customer']=$this->model_basic->select_where($this->tbl_customer,'id',$data['invoice']->customer_id)->row();
+        $data['ship_address']=$this->model_basic->select_where($this->tbl_shipping_address,'id',$data['invoice']->ship_address_id)->row();
+       
+        $data['prov_ship']=$this->model_basic->select_where($this->tbl_shipping_province,'id',$data['ship_address']->province)->row();
+        $data['city_ship']=$this->model_basic->select_where($this->tbl_shipping_city,'id',$data['ship_address']->city)->row();
+        $data['region_ship']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['ship_address']->region)->row();
+        $order_prod=$this->model_basic->select_where($this->tbl_product_order,'order_id',$data['invoice']->id)->result();
+        foreach ($order_prod as $key) {
+            $product=$this->model_basic->select_where($this->tbl_product,'id',$key->product_id)->row();
+            $size=$this->model_basic->select_where($this->tbl_size,'id',$key->size_id)->row();
+            $color=$this->model_basic->select_where($this->tbl_color,'id',$key->color_id)->row();
+            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $key->product_id)->row();
+            $key->image = $image->photo;
+            $key->name=$product->name_product;
+            $key->price=$product->price;
+            $key->color=$color->name;
+            $key->size=$size->name;
+        }
+        $data['product']=$order_prod;
+        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+        $data['content'] = $this->load->view('frontend/cart/invoice',$data,true);
+        $this->load->view('frontend/index',$data); 
     }
 
     function thankyou($invoice){

@@ -187,6 +187,8 @@ class Shop extends PX_Controller {
             $d_row->price_disc=indonesian_currency($d_row->price-$price_disc);
 			$d_row->price = indonesian_currency($d_row->price);
             $image = $this->model_basic->select_where($this->tbl_product_image, 'product_id', $d_row->id);
+            $d_row->all_size_stock = $this->model_shop->get_product_stock($d_row->id)->row()->stock;
+            
             if ($image->num_rows() > 0) {
                     $d_row->image=$image->row()->photo;
                 }else{
@@ -277,6 +279,7 @@ class Shop extends PX_Controller {
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('Shop','shop');
+        $customer_id = $this->session->userdata('member')['id'];
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
@@ -306,6 +309,17 @@ class Shop extends PX_Controller {
 			$data_row->color = $this->model_basic->select_where($this->tbl_color, 'id', $data_row->color_id)->row();
 		}
 
+        $customer_wishlist = $this->model_basic->select_where_array($this->tbl_wishlist, array('product_id' => $id, 'customer_id' => $customer_id));
+
+        if ($customer_wishlist->num_rows() > 0) 
+        {
+             $data['detail']->wishlist_true = "<a data-toggle=\"tooltip\" title=\"Already in your Wishlist\" href=\"wishlist/wishlist_add/".$id."\" class=\"btn-add-wishlist whishlist-true\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i></a>";
+        }
+        else
+        {
+             $data['detail']->wishlist_true = "<a data-toggle=\"tooltip\" title=\"Add to Wishlist\" href=\"wishlist/wishlist_add/".$id."\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i></a>";
+        }
+
         $data['product'] = $this->model_basic->select_where($this->tbl_product,'category_id',$data['detail']->category_id)->result();
         foreach ($data['product'] as $d_row) {
             $price_disc= $d_row->price/100*$d_row->discount;
@@ -320,6 +334,7 @@ class Shop extends PX_Controller {
             $d_row->brand = $this->model_basic->select_where($this->tbl_brand, 'id', $d_row->brand_id)->row();
             
         }
+
 		$data['content'] = $this->load->view('frontend/shop/detail',$data,true);
 		$this->load->view('frontend/index',$data); 
 	}
@@ -378,30 +393,49 @@ class Shop extends PX_Controller {
         $this->returnJson(array('data' => $ret));
     }
 
-function quick_view($id){
+    function quick_view($id){
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
         $data += $this->get_function('Shop','shop');
+         $customer_id = $this->session->userdata('member')['id'];
         $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
         $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
         $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
 
         $data['detail'] = $this->model_basic->select_where($this->tbl_product, 'id', $id)->row();
         $data['detail']->price = indonesian_currency($data['detail']->price);
-        $data['detail']->size = $this->model_stock->select_size($this->tbl_product_stock, 'product_id', $id)->result();
-        $data['detail']->color = $this->model_stock->select_color($this->tbl_product_stock, 'product_id', $id)->result();
+        $data['detail']->color = $this->model_stock->select_color($this->tbl_product_stock, 'product_id', $id);
+        $data['detail']->size = $this->model_stock->select_size_color($id, $data['detail']->color->row()->color_id);
         $data['detail']->image = $this->model_basic->select_where_order($this->tbl_product_image, 'product_id', $data['detail']->id, 'primary_status', '1')->result();
         $stock = '';
-        if((int)$this->model_stock->sum_stock($id)->row()->stock > 0)
-            $stock = 'In Stock';
-                else
-                    $stock = 'Out of Stock';
+        if((int)$this->model_stock->check_stock($id, $data['detail']->color->row()->color_id, $data['detail']->size->row()->size_id)->row()->stock > 0)
+        {
+            $stock = '<span class="stock">In Stock</span>';
+            $default_qty = 1;
+        }
+        else
+        {
+            $stock = '<span class="out-stock">Out of Stock</span>';
+            $default_qty = 0;
+        }
         $data['detail']->stock = $stock;
-        foreach ($data['detail']->size as $d_row) {
+        $data['detail']->default_qty = $default_qty;
+        foreach ($data['detail']->size->result() as $d_row) {
             $d_row->size = $this->model_basic->select_where($this->tbl_size, 'id', $d_row->size_id)->row();
         }
-        foreach ($data['detail']->color as $data_row) {
+        foreach ($data['detail']->color->result() as $data_row) {
             $data_row->color = $this->model_basic->select_where($this->tbl_color, 'id', $data_row->color_id)->row();
+        }
+
+        $customer_wishlist = $this->model_basic->select_where_array($this->tbl_wishlist, array('product_id' => $id, 'customer_id' => $customer_id));
+
+        if ($customer_wishlist->num_rows() > 0) 
+        {
+             $data['detail']->wishlist_true = "<a data-toggle=\"tooltip\" title=\"Already in your Wishlist\" href=\"wishlist/wishlist_add/".$id."\" class=\"btn-add-wishlist whishlist-true\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i></a>";
+        }
+        else
+        {
+             $data['detail']->wishlist_true = "<a data-toggle=\"tooltip\" title=\"Add to Wishlist\" href=\"wishlist/wishlist_add/".$id."\"><i class=\"fa fa-heart\" aria-hidden=\"true\"></i></a>";
         }
 
         $data['product'] = $this->model_basic->select_where($this->tbl_product,'category_id',$data['detail']->category_id)->result();

@@ -10,8 +10,22 @@
                                   </h4>
                                 </div>
                                 <div aria-labelledby="headingNine" role="tabpanel" class="panel-collapse collapse in" id="collapseNine" aria-expanded="true">
-                                  <div class="panel-body">
-                                  <div class="sidebar-widget">
+                  <div class="panel-body">
+                  <div class="sidebar-widget">
+                        <div class="info-widget">
+                                <form action="shop" id="form-search">
+                                    <input type="text" name="search" placeholder="" value="Search entire store here" 
+                                           onblur="if (this.value == '') {
+                                                       this.value = 'Search entire store here';
+                                                   }" 
+                                           onfocus="if (this.value == 'Search entire store here') {
+                                                       this.value = '';
+                                                   }"/>
+                                    <button type="submit"><i class="fa fa-search"></i></button>                         
+                                </form>
+                        </div>                      
+                    </div>
+                    <div class="sidebar-widget">
                         <h4 class="side-title">Categories</h4>  
                         <div class="category-menu-area info-widget">
                             <div class="category-menu" id="cate-toggle">

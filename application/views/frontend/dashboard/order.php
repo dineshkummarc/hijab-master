@@ -56,7 +56,7 @@
 									
 								</div>
 								<br>
-								<a href="cart/thankyou/<?php echo $d_row->invoice_number?>" class="link-shop">DETAIL</a>
+								<a href="cart/invoice/<?php echo $d_row->invoice_number?>" class="link-shop">DETAIL</a>
 
 							</div>
 							<div class="clearfix"></div>

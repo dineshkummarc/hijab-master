@@ -255,9 +255,7 @@ class Dashboard extends PX_Controller {
 		$data += $this->get_function('Order History','User');
 
 		$customer_id = $this->session->userdata('member')['id'];
-
-		$data['order'] = $this->model_basic->select_where($this->tbl_order, 'customer_id', $customer_id)->result();
-
+		$data['order'] = $this->model_basic->select_where_order($this->tbl_order, 'customer_id', $customer_id, 'date_created', 'desc')->result();
 		foreach ($data['order'] as $d_row) {
 			$d_row->date_created = "Tanggal : ".date('d M Y', strtotime($d_row->date_created)).' | Jam : '.date('H:i', strtotime($d_row->date_created));
 			$d_row->total_order=indonesian_currency($d_row->total_order);
@@ -298,15 +296,13 @@ class Dashboard extends PX_Controller {
 		if($this->encrypt->decode($user->password)==$old){
 			if($pass==$cpass){
 				$query=$this->model_basic->update($this->tbl_customer,$data,'id',$this->session->userdata('member')['id']);
-				$this->session->set_flashdata('msg','Password berhasil di update');
-				redirect('dashboard/changepassword');
+				$this->returnJson(array('status' => 'ok', 'msg' => 'Password berhasil di update.'));
 			}else{
 				$this->session->set_flashdata('msg','Password dan Confirmation Password tidak sama');
-				redirect('dashboard/changepassword');
+				$this->returnJson(array('status' => 'wrongnewpass', 'msg' => 'Password dan Confirmation Password tidak sama.'));
 			}
 		}else{
-			$this->session->set_flashdata('msg','Password Lama tidak sama');
-			redirect('dashboard/changepassword');
+			$this->returnJson(array('status' => 'wrongoldpass', 'msg' => 'Password Lama tidak sama.'));
 		}
 		
 	}
