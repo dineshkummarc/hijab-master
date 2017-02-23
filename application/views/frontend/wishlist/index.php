@@ -23,7 +23,11 @@
 					<div class="faq-title">
 						<h4><?php echo $function_name;?></h4>
 					</div>
-					
+				     <?php if($this->session->flashdata('msg')){ ?>
+	                        <div class="form-group text-center" >
+	                        <h4 style="color:red"><?php echo $this->session->flashdata('msg') ?></h4>
+	                        </div>
+	                        <?php } ?>
 					<?php
 						$this->load->view('frontend/dashboard/side-menu'); 
 					?>
@@ -58,7 +62,7 @@
 											</td>
 											<td class="product-subtotal">
 												<div class="sub-icon">
-													<a class="trash" href="wishlist/wishlist_delete/<?php echo $data_wish->id?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+													<a class="trash" href="#" data-href="wishlist/wishlist_delete/<?php echo $data_wish->id ?>" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 												</div>												
 											</td>
 										</tr>
@@ -73,4 +77,20 @@
 			
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body-confirm">
+                Are you sure you want to delete this data?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
 </div>

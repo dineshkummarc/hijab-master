@@ -24,11 +24,18 @@ class Dashboard extends PX_Controller {
 		$data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
 		$this->load->view('frontend/index',$data);
 	}
-	public function order_confirm(){
+	public function order_confirm($invoice = ""){
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('Order Confirmation','order_confirm');
 		$customer_id = $this->session->userdata('member')['id'];
+		if ($invoice != "") {
+			$data['invoice'] = $invoice;
+		}
+		else
+		{
+			$data['invoice'] = "";
+		}
 		$data['order_count']=$this->model_basic->select_where($this->tbl_order,'customer_id',$customer_id)->num_rows();
 		$data['content'] = $this->load->view('frontend/dashboard/order_confirm',$data,true);
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
@@ -206,7 +213,7 @@ class Dashboard extends PX_Controller {
 		$insert=$this->db->update($this->tbl_customer_shipping_address,$data_ship, "id = $id");
 		
 		if($insert){
-			$this->session->set_flashdata('msg','congratulations, your data have been saved');
+			$this->session->set_flashdata('msg','Your data have been removed');
 			redirect('dashboard/shipping_address');
 		}else{
 			echo"error";
@@ -253,15 +260,56 @@ class Dashboard extends PX_Controller {
 		$data = $this->get_app_settings();
 		$data += $this->controller_attr;
 		$data += $this->get_function('Order History','User');
-
 		$customer_id = $this->session->userdata('member')['id'];
-		$data['order'] = $this->model_basic->select_where_order($this->tbl_order, 'customer_id', $customer_id, 'date_created', 'desc')->result();
+
+        if(isset($_GET['per_page']))
+        {
+            $start = $_GET['per_page'] ;
+        }
+        else
+        {
+            $start = 0;
+        }
+
+		$data['order'] = $this->model_shop->select_customer_order($customer_id, 5, $start)->result();
+		$data['order_count'] = $this->model_shop->select_customer_order_count($customer_id)->num_rows();
 		foreach ($data['order'] as $d_row) {
 			$d_row->date_created = "Tanggal : ".date('d M Y', strtotime($d_row->date_created)).' | Jam : '.date('H:i', strtotime($d_row->date_created));
 			$d_row->total_order=indonesian_currency($d_row->total_order);
 			$d_row->total_ship_price = indonesian_currency($d_row->total_ship_price);
 			$d_row->total_payment = indonesian_currency($d_row->total_payment);
 		}
+
+		$this->load->library('pagination');
+        
+        $config['base_url'] = base_url().'dashboard/order?';
+        $config['total_rows'] = $data['order_count'];
+        $config['per_page'] = 5;
+        $config['uri_segment'] = 4;
+        $config['num_links'] = 4;
+        $config['page_query_string'] = TRUE;
+        $config['full_tag_open'] = '<ul>';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['next_link'] = '&gt;';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_link'] = '&lt;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a>';
+        $config['cur_tag_close'] = '</a></li>';
+   
+        $this->pagination->initialize($config);
+        
+        $data["links"] = $this->pagination->create_links();
 
 		$data += $this->get_function('User Order','User');
 		$data['content'] = $this->load->view('frontend/dashboard/order',$data,true);

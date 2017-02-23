@@ -66,9 +66,10 @@
 												</div>											
 											</td>
 											<td class="product-subtotal">
-												<a  href="dashboard/detail_address/<?php echo $key->id ?>"><button class="btnb mbt-30">Detail</button></a>
+												<a href="dashboard/detail_address/<?php echo $key->id ?>"><button class="btnb mbt-30">Detail</button></a>
+
 												<div class="sub-icon">
-													<a class="trash" href="dashboard/del_address/<?php echo $key->id ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+													<a class="trash" href="#" data-href="dashboard/del_address/<?php echo $key->id ?>" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 												</div>												
 											</td>
 										</tr>
@@ -83,3 +84,19 @@
 			</div>
 		</div>
 	</div>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body-confirm">
+                Are you sure you want to remove this data?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

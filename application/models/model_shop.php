@@ -223,6 +223,27 @@ class Model_shop extends PX_Model {
         		return $query;
 	}
 
+        function select_customer_order($customer_id, $per_page, $start)
+        {
+                $this->db->select('*');
+                $this->db->where('customer_id', $customer_id);
+                $this->db->order_by('date_created', 'desc');
+                $query = $this->db->get($this->tbl_order, $per_page, $start);
+
+                return $query;
+        }
+
+        function select_customer_order_count($customer_id)
+        {
+                $this->db->select('*');
+                $this->db->from($this->tbl_order);
+                $this->db->where('customer_id', $customer_id);
+                $this->db->order_by('date_created', 'desc');
+                $query = $this->db->get();
+
+                return $query;
+        }
+
 }
 
 /* End of file model_shop.php */

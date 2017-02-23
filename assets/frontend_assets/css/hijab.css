@@ -209,6 +209,25 @@ footer li{
     width:80%;
     height:76%;
 }
+.modal-dialog-confirm {
+    position:absolute;
+    top:50% !important;
+    transform: translate(0, -50%) !important;
+    -ms-transform: translate(0, -50%) !important;
+    -webkit-transform: translate(0, -50%) !important;
+    margin:auto 20%;
+    width:50%;
+    height:50%;
+}
+.modal-body-confirm {
+    position:relative;
+    top:45px; // height of header
+    bottom:45px;  // height of footer
+    left:0;
+    right:0;
+    margin: 0 20px;
+    overflow-y:auto;
+}
 .modal-content {
     min-height:100%;
     position:absolute;

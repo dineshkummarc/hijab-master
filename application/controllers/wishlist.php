@@ -49,6 +49,7 @@ class Wishlist extends PX_Controller{
 		$data += $this->controller_attr;
 		$data += $this->get_function('Wishlist','wishlist');
 		$this->model_basic->delete($this->tbl_wishlist, 'id', $id);
+		$this->session->set_flashdata('msg','Your wishlist have been removed');
 		redirect('wishlist');
 	}
 }

@@ -57,13 +57,21 @@
 								</div>
 								<br>
 								<a href="cart/invoice/<?php echo $d_row->invoice_number?>" class="link-shop">DETAIL</a>
-
+								<?php if ($d_row->status == 0) { ?>
+									<a href="dashboard/order_confirm/<?php echo $d_row->invoice_number?>" class="link-shop">ORDER CONFIRMATION</a>
+								<?php } ?>
 							</div>
 							<div class="clearfix"></div>
 						</div>
 						<?php } ?>
 					</div>
-						
+					<div class="row">
+						<div class="pager-item-right">
+                            <div class="item-right">
+                                <?php echo $links ?>
+                            </div>
+                        </div>
+					</div>
 					</div>	
 
 				</div>

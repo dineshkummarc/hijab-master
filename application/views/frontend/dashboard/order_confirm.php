@@ -40,7 +40,7 @@
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Invoice Number<span>*</span></label>
-										<input required type="text" name="code"/>
+										<input required type="text" name="code" value="<?php echo $invoice ?>" />
 									</div>
 								</div>
 								<div class="col-sm-12">
