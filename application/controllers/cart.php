@@ -419,42 +419,6 @@ class Cart extends PX_Controller {
         }
     }
 
-    function invoice($invoice)
-    {
-        $data = $this->get_app_settings();
-        $data += $this->controller_attr;
-        $data += $this->get_function('Cart','cart');
-        if($invoice==null){
-            redirect('login');
-        }
-        $customer_id = $this->session->userdata('member')['id'];
-        $data['invoice']=$this->model_basic->select_where($this->tbl_order,'invoice_number',$invoice)->row();
-        $data['customer']=$this->model_basic->select_where($this->tbl_customer,'id',$data['invoice']->customer_id)->row();
-        $data['ship_address']=$this->model_basic->select_where($this->tbl_shipping_address,'id',$data['invoice']->ship_address_id)->row();
-       
-        $data['prov_ship']=$this->model_basic->select_where($this->tbl_shipping_province,'id',$data['ship_address']->province)->row();
-        $data['city_ship']=$this->model_basic->select_where($this->tbl_shipping_city,'id',$data['ship_address']->city)->row();
-        $data['region_ship']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['ship_address']->region)->row();
-        $order_prod=$this->model_basic->select_where($this->tbl_product_order,'order_id',$data['invoice']->id)->result();
-        foreach ($order_prod as $key) {
-            $product=$this->model_basic->select_where($this->tbl_product,'id',$key->product_id)->row();
-            $size=$this->model_basic->select_where($this->tbl_size,'id',$key->size_id)->row();
-            $color=$this->model_basic->select_where($this->tbl_color,'id',$key->color_id)->row();
-            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $key->product_id)->row();
-            $key->image = $image->photo;
-            $key->name=$product->name_product;
-            $key->price=$product->price;
-            $key->color=$color->name;
-            $key->size=$size->name;
-        }
-        $data['product']=$order_prod;
-        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
-        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
-        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
-        $data['content'] = $this->load->view('frontend/cart/invoice',$data,true);
-        $this->load->view('frontend/index',$data); 
-    }
-
     function thankyou($invoice){
         $data = $this->get_app_settings();
         $data += $this->controller_attr;

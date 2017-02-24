@@ -118,7 +118,33 @@
 					</div>
 					<div class="clearfix"></div>
 					</div>
-					
+				<div><br><h4 class="h3-18">Tracking System</h4></div>
+				<div>
+					<div class="col-md-12" style="background: #eeeeee; padding: 20px;">
+						<table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">No</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Judul</th>
+                                    <th class="text-center">Content</th>
+                                    <th class="text-center">Date Created</th>
+                                </tr>
+                            <thead>
+                            <tbody>
+                                <?php $no=1; foreach($tracking_system as $data_row) { ?>
+                                <tr>
+                                    <td class="text-center"><?php echo $no; ?></td>
+                                    <td class="text-center"><?php echo $data_row->status->title; ?></td>
+                                    <td class="text-center"><?php echo $data_row->title; ?></td>
+                                    <td class="text-center"><?php echo $data_row->content; ?></td>
+                                    <td class="text-center"><?php echo $data_row->date_created; ?></td>
+                                </tr>
+                                <?php $no++;} ?>
+                            </tbody>
+                        </table>
+					</div>
+				</div>
 				<div>
 				<div style="border:2px solid #eeeeee; margin-top: 20px; padding: 10px" class="col-md-4">
 					Please transfer the total amount to the following bank account. Acc. No. 0080527071<br> Acc.Name: Imanuel Hendrik Latunij<br> Choose Bank Code: 014 <br>

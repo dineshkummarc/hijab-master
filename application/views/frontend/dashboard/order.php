@@ -29,7 +29,7 @@
 					?>
 					<div class="col-lg-6 col-xs-12 col-sm-12">
 					<div class="row">
-						<?php $no=1; foreach ($order as $d_row) { ?>
+						<?php $no = $start_no + 1; foreach ($order as $d_row) { ?>
 						<div class="box orderlist">
 						<div class="col-md-1 text-center box2">
 							<?php echo $no?>
@@ -56,14 +56,14 @@
 									
 								</div>
 								<br>
-								<a href="cart/invoice/<?php echo $d_row->invoice_number?>" class="link-shop">DETAIL</a>
+								<a href="dashboard/invoice/<?php echo $d_row->invoice_number?>" class="link-shop">DETAIL</a>
 								<?php if ($d_row->status == 0) { ?>
 									<a href="dashboard/order_confirm/<?php echo $d_row->invoice_number?>" class="link-shop">ORDER CONFIRMATION</a>
 								<?php } ?>
 							</div>
 							<div class="clearfix"></div>
 						</div>
-						<?php } ?>
+						<?php $no++; } ?>
 					</div>
 					<div class="row">
 						<div class="pager-item-right">

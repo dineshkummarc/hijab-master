@@ -401,6 +401,7 @@
         <script src="assets/frontend_assets/page/login/login.js"></script>
         <script src="assets/frontend_assets/page/dashboard/address.js"></script>
         <script src="assets/frontend_assets/page/dashboard/changepassword.js"></script>
+        <script src="assets/frontend_assets/page/dashboard/order_confirm.js"></script>
         <script src="assets/frontend_assets/page/shop/shop.js"></script>
         <script src="assets/frontend_assets/page/shop/cart.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>

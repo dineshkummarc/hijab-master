@@ -139,6 +139,50 @@ class Dashboard extends PX_Controller {
 		$this->load->view('frontend/index',$data);
 	}
 
+    function invoice($invoice)
+    {
+        $data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Dashboard','dashboard');
+        if($invoice==null){
+            redirect('login');
+        }
+        $customer_id = $this->session->userdata('member')['id'];
+        $data['invoice']=$this->model_basic->select_where($this->tbl_order,'invoice_number',$invoice)->row();
+        $data['customer']=$this->model_basic->select_where($this->tbl_customer,'id',$data['invoice']->customer_id)->row();
+        $data['ship_address']=$this->model_basic->select_where($this->tbl_shipping_address,'id',$data['invoice']->ship_address_id)->row();
+       
+        $data['prov_ship']=$this->model_basic->select_where($this->tbl_shipping_province,'id',$data['ship_address']->province)->row();
+        $data['city_ship']=$this->model_basic->select_where($this->tbl_shipping_city,'id',$data['ship_address']->city)->row();
+        $data['region_ship']=$this->model_basic->select_where($this->tbl_shipping_region,'id',$data['ship_address']->region)->row();
+        $order_prod=$this->model_basic->select_where($this->tbl_product_order,'order_id',$data['invoice']->id)->result();
+        foreach ($order_prod as $key) {
+            $product=$this->model_basic->select_where($this->tbl_product,'id',$key->product_id)->row();
+            $size=$this->model_basic->select_where($this->tbl_size,'id',$key->size_id)->row();
+            $color=$this->model_basic->select_where($this->tbl_color,'id',$key->color_id)->row();
+            $image=$this->model_basic->select_where($this->tbl_product_image, 'product_id', $key->product_id)->row();
+            $key->image = $image->photo;
+            $key->name=$product->name_product;
+            $key->price=$product->price;
+            $key->color=$color->name;
+            $key->size=$size->name;
+        }
+        //tracking system
+        $tracking_system = $this->model_basic->select_where_order($this->tbl_tracking_system, 'order_id', $data['invoice']->id, 'date_created', 'desc')->result();
+        foreach($tracking_system as $data_row)
+        {
+            $data_row->status = $this->model_basic->select_where($this->tbl_tracking_status, 'status_id', $data_row->status_id)->row();
+            $data_row->date_created = date('d M Y H:i:s', strtotime($data_row->date_created));
+        }
+        $data['product']=$order_prod;
+        $data['tracking_system'] = $tracking_system;
+        $data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
+        $data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();
+        $data['fax']= $this->model_basic->select_where($this->tbl_static_content,'id','8')->row();
+        $data['content'] = $this->load->view('frontend/dashboard/invoice',$data,true);
+        $this->load->view('frontend/index',$data); 
+    }
+
 	public function update_ship(){
 		$customer_id = $this->session->userdata('member')['id'];
 		$id=$this->input->post('id');
@@ -167,42 +211,59 @@ class Dashboard extends PX_Controller {
 
 	}
 
-	public function submit_confirm(){
-		$invoice=$this->input->post('code');
-		$order=$this->model_basic->select_where($this->tbl_order,'invoice_number',$invoice);
-		if($order->num_rows() <1){
-			$this->session->set_flashdata('msg','Sorry, your Invoice Number not found');
-			redirect('dashboard/order_confirm');
-		}else{
-		$order=$order->row();
-		if($order->status>1){
-			$this->session->set_flashdata('msg','Your order has been confirmed previously');
-			redirect('dashboard/order_confirm');
+	public function submit_confirm()
+	{
+		$invoice = $this->input->post('code');
+		$order = $this->model_basic->select_where($this->tbl_order,'invoice_number',$invoice);
+		if($order->num_rows() < 1){
+			$this->returnJson(array('status' => 'notfound', 'redirect' => 'dashboard/order_confirm', 'msg' => 'Sorry, your Invoice Number is not found.'));
 		}
-		else{
-		$data_confirm=array(
-				"order_id"=>$order->id,
-				"account_name"=>$this->input->post('acc_name'),
-				"account_bank"=>$this->input->post('acc_bank'),
-				"bank_target"=>$this->input->post('bank_target'),
-				"total_payment"=>$this->input->post('tot_payment'),
-				"date_transfer"=>$this->input->post('date_tf'),
-				'date_created'=>date('Y-m-d H:i:s',now()),
-			);
-		$data_order=array(
-				"status"=>1,
-				'date_modified'=>date('Y-m-d H:i:s',now()),
-			);
-		
-		$insert=$this->db->update($this->tbl_order,$data_order, "id = $order->id");
-		$insert=$this->db->insert($this->tbl_order_confirmation,$data_confirm);
-		if($insert){
-			$this->session->set_flashdata('msg','congratulations, your data have been saved');
-			redirect('dashboard/order_confirm');
-		}else{
-			echo"error";
-		}
-		}
+		else
+		{
+			$order = $order->row();
+
+			if($order->status >= 1){
+				$id_confirmation = $this->model_basic->select_where($this->tbl_order_confirmation, 'order_id', $order->id)->row()->id;
+				$data_confirm = array(
+						'date_created' => date('Y-m-d H:i:s',now())
+					);
+				$this->model_basic->update($this->tbl_tracking_system, $data_confirm, 'id', $id_confirmation);
+
+				$this->returnJson(array('status' => 'already', 'redirect' => 'dashboard/order_confirm', 'msg' => 'Your order is already confirmed.'));
+			}
+			else
+			{
+				$data_confirm = array(
+						"order_id" => $order->id,
+						"account_name" => $this->input->post('acc_name'),
+						"account_bank" => $this->input->post('acc_bank'),
+						"bank_target" => $this->input->post('bank_target'),
+						"total_payment" => $this->input->post('tot_payment'),
+						"date_transfer" => $this->input->post('date_tf'),
+						'date_created' => date('Y-m-d H:i:s',now()),
+					);
+				$insert = $this->model_basic->insert_all($this->tbl_order_confirmation, $data_confirm);
+				$data_order = array(
+						"status" => 1,
+						'date_modified' => date('Y-m-d H:i:s',now()),
+					);
+				$update = $this->model_basic->update($this->tbl_order, $data_order, 'id', $order->id);
+
+				if($insert){
+					$data_tracking = array(
+						'order_id' => $order->id,
+						'status_id' => 2,
+						'title' => "Confirmed",
+						'content' => "Customer sudah konfirmasi pembayaran order.",
+						'date_created' => date('Y-m-d H:i:s',now())
+					);
+					$insert_tracking = $this->model_basic->insert_all($this->tbl_tracking_system, $data_tracking);
+
+					$this->returnJson(array('status' => 'ok', 'redirect' => 'dashboard/order_confirm', 'msg' => 'Congratulations, your order has been confirmed.'));
+				}else{
+					$this->returnJson(array('status' => 'error', 'redirect' => 'dashboard/order_confirm', 'msg' => 'Error!'));
+				}
+			}
 		}
 
 	}
@@ -312,6 +373,7 @@ class Dashboard extends PX_Controller {
         $data["links"] = $this->pagination->create_links();
 
 		$data += $this->get_function('User Order','User');
+		$data['start_no'] = $start;
 		$data['content'] = $this->load->view('frontend/dashboard/order',$data,true);
 		$data['address']= $this->model_basic->select_where($this->tbl_static_content,'id','6')->row();
 		$data['phone']= $this->model_basic->select_where($this->tbl_static_content,'id','7')->row();

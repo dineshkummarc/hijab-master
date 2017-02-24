@@ -30,13 +30,10 @@
 					<div class="col-lg-6 col-xs-6 col-sm-6">
 						  <div class="panel-body">
 						  <h3>Form Confirmation</h3>
-						   <?php if($this->session->flashdata('msg')){ ?>
 	                        <div class="form-group text-center" >
-	                        <h4 style="color:red"><?php echo $this->session->flashdata('msg') ?></h4>
+	                        <h4 class="order-confirm-msg" style="color:red"></h4>
 	                        </div>
-	                        <?php } ?>
-
-							<form action="dashboard/submit_confirm" method="post" class="biling-info">
+							<form id="form-order-confirmation" action="dashboard/submit_confirm" method="post" class="biling-info">
 								<div class="col-sm-12">
 									<div class="input-box">
 										<label>Invoice Number<span>*</span></label>
