@@ -28,7 +28,7 @@
                     </ul>  -->                               
                 </div>
                 <div class="panel-body">
-                    <table class="table datatable table-bordered">
+                    <table class="table table-bordered" id="table">
                         <thead>
                             <tr>
                                 <th width="6%" class="text-center">No</th>
@@ -38,7 +38,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $no = 1;
+                           <!-- <?php 
+                            $no = 1;
                             foreach ($product_list as $d_row) { ?>
                                 <tr>
                                     <td class="text-center"><?php echo $no; ?></td>
@@ -49,7 +50,6 @@
                                     <td class="text-center">
                                         <form action="<?php echo $controller . '/' . $function_form; ?>" method="post">
                                             <input type="hidden" name="id" value="<?php echo $d_row->id; ?>">
-                                            <!-- <a class="btn btn-default btn-xs" href="<?php echo $controller ?>/product_list_detail/<?php echo $d_row->id; ?>" data-original-title="Detail Produk" data-placement="top" data-toggle="tooltip"><i class="fa fa-eye"></i></a> -->
                                             <a href="<?php echo $controller . '/album_image_product/' . $d_row->id; ?>" data-original-title="Data Gambar Produk" data-placement="top" data-toggle="tooltip" class="btn btn-xs btn-primary"><i class="fa fa-image"></i></a>
                                             <a href="<?php echo $controller . '/stock/' . $d_row->id; ?>" data-original-title="Data Stock Produk" data-placement="top" data-toggle="tooltip" class="btn btn-xs btn-primary"><i class="fa fa-building"></i></a>
                                             <button class="btn btn-info btn-xs btn-edit" type="submit" data-original-title="Ubah" data-placement="top" data-toggle="tooltip"><i class="fa fa-edit"></i></button>
@@ -58,7 +58,8 @@
                                     </td>
                                 </tr>
                                 <?php $no++;
-                            } ?>
+                            } 
+                            ?>-->
                         </tbody>
                     </table>
                 </div>
@@ -108,13 +109,13 @@
 <!-- THIS PAGE PLUGINS -->
 <script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script>
 <script type="text/javascript" src="assets/backend_assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="assets/backend_assets/js/plugins/summernote/summernote.js"></script>   
+<script type="text/javascript" src="assets/backend_assets/js/plugins/summernote/summernote.js"></script>    
 <script type="text/javascript" src="assets/backend_assets/js/plugins/dropzone/dropzone.min.js"></script>
-<script type="text/javascript" src="assets/backend_assets/js/plugins/icheck/icheck.min.js"></script> 
+<script type="text/javascript" src="assets/backend_assets/js/plugins/icheck/icheck.min.js"></script>
 <!-- END PAGE PLUGINS -->
 <!-- START TEMPLATE -->
 <script type="text/javascript" src="assets/backend_assets/js/settings.js"></script>
 
-<script type="text/javascript" src="assets/backend_assets/js/plugins.js"></script>        
+<script type="text/javascript" src="assets/backend_assets/js/plugins.js"></script>       
 <script type="text/javascript" src="assets/backend_assets/js/actions.js"></script>
 <script type="text/javascript" src="assets/backend_assets/page/product/product_list.js"></script>

@@ -1323,6 +1323,46 @@ class Admin_product extends PX_Controller {
         $this->load->view('backend/index', $data);
     }
 
+    public function product_list_ajax()
+    {
+        // permissionUser();
+        $this->load->model('model_product');
+        $list = $this->model_product->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $r) {
+            $btn = ($r->show_flag == 0) ? 'btn-danger':'btn-success' ;
+            $status = ($r->show_flag == 0) ? 'Hide':'Show' ;
+            $url = base_url('admin_product/product_list_form/'.$r->id);
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $r->name_product;
+            $row[] = '<button id="show_flag'.$r->id.'" class="btn btn-change-status '.$btn.' " row_id="'.$r->id.'">'.$status.'</button>';
+            
+            $row[] = "
+                <form action='$url' method='post'>
+                <input type='hidden' name='id' value='$r->id'>
+                <a href='admin_product/album_image_product/$r->id' class='btn btn-default btn-xs' data-original-title='Data Gambar Produk' data-placement='top' data-toggle='tooltip'><i class='fa fa-image'></i></a>
+                <a href='admin_product/stock/$r->id' class='btn btn-default btn-xs' data-original-title='Data Stock Produk' data-placement='top' data-toggle='tooltip'><i class='fa fa-building'></i></a>
+                <button class='btn btn-info btn-xs btn-edit' type='submit' data-original-title='Ubah' data-placement='top' data-toggle='tooltip'><i class='fa fa-edit'></i></button>
+                <button class='btn btn-danger btn-xs btn-delete' type='button' data-original-title='Hapus' data-placement='top' data-toggle='tooltip' data-target-id='$r->id'><i class='fa fa-trash-o'></i></button>
+            </form>
+            ";
+            
+            $data[] = $row;
+        }
+
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->model_customer->count_all(),
+                        "recordsFiltered" => $this->model_customer->count_filtered(),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);
+    }
+
     public function product_list_form() {
         $data = $this->get_app_settings();
         $data += $this->controller_attr;
