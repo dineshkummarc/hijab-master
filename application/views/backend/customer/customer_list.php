@@ -42,7 +42,7 @@
 					</ul>  -->
 				</div>
 				<div class="panel-body">
-					<table class="table datatable table-bordered" id="table">
+					<table class="table table-bordered" id="table">
 						<thead>
 							<tr>
 								<th width="6%" class="text-center">No</th>
@@ -118,15 +118,15 @@
 
 <!-- START SCRIPTS -->               
 	<!-- THIS PAGE PLUGINS -->
-	<!-- <script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script> -->
+	<script type="text/javascript" src="assets/backend_assets/js/plugins/jquery-validation/jquery.validate.js"></script>
 	<script type="text/javascript" src="assets/backend_assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
-	<!-- <script type="text/javascript" src="assets/backend_assets/js/plugins/summernote/summernote.js"></script>   
+	<script type="text/javascript" src="assets/backend_assets/js/plugins/summernote/summernote.js"></script>   
     <script type="text/javascript" src="assets/backend_assets/js/plugins/dropzone/dropzone.min.js"></script>
-    <script type="text/javascript" src="assets/backend_assets/js/plugins/icheck/icheck.min.js"></script>  -->
+    <script type="text/javascript" src="assets/backend_assets/js/plugins/icheck/icheck.min.js"></script> 
 	<!-- END PAGE PLUGINS -->
 	<!-- START TEMPLATE -->
-	<!-- <script type="text/javascript" src="assets/backend_assets/js/settings.js"></script> -->
+	<script type="text/javascript" src="assets/backend_assets/js/settings.js"></script>
 	
-	<!-- <script type="text/javascript" src="assets/backend_assets/js/plugins.js"></script>         -->
-	<!-- <script type="text/javascript" src="assets/backend_assets/js/actions.js"></script> -->
+	<script type="text/javascript" src="assets/backend_assets/js/plugins.js"></script>        
+	<script type="text/javascript" src="assets/backend_assets/js/actions.js"></script>
 	<script type="text/javascript" src="assets/backend_assets/page/customer/customer_list.js"></script>

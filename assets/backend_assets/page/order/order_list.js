@@ -8,7 +8,7 @@ $(document).ready(function(){
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "http://localhost/hijab-master/admin_order/order_list_ajax",
+            "url": "admin_order/order_list_ajax",
             "type": "POST"
         },
 
