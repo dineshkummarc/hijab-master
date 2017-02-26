@@ -345,4 +345,40 @@ class PX_Controller extends CI_Controller {
         }
     }
 
+    function get_guest_book() {
+        $guest_book_unread = $this->model_basic->select_where_order($this->tbl_guest_book, 'read_flag', 0, 'date_created','DESC')->result();
+        foreach ($guest_book_unread as $data_row) {
+            $data_row->date_created = $this->date_format('l, d F Y h:i:s', $data_row->date_created);
+        }
+        return $guest_book_unread;
+    }
+
+    function date_format($format, $date) {
+        $timestamp = strtotime($date);
+        $l = array('', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu');
+        $F = array('', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
+        $return = '';
+        if (is_null($timestamp)) {
+            $timestamp = mktime();
+        }
+        for ($i = 0, $len = strlen($format); $i < $len; $i++) {
+            switch ($format[$i]) {
+                case '\\' :
+                    $i++;
+                    $return .= isset($format[$i]) ? $format[$i] : '';
+                    break;
+                case 'l' :
+                    $return .= $l[date('N', $timestamp)];
+                    break;
+                case 'F' :
+                    $return .= $F[date('n', $timestamp)];
+                    break;
+                default :
+                    $return .= date($format[$i], $timestamp);
+                    break;
+            }
+        }
+        return $return;
+    }
+
 }

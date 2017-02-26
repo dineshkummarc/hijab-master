@@ -1,86 +1,75 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Admin_guest_book extends PX_Controller {
-
-	public function __construct() {
+class admin_guest_book extends PX_Controller {
+	function __construct() {
 		parent::__construct();
-		$this->check_login();
-		$this->controller_attr = array('controller' => 'admin_guest_book','controller_name' => 'Admin Guest Book','controller_id' => 0);
+		$this->controller_attr = array('controller' => 'admin_guest_book', 'controller_name' => 'Admin Customer Messages', 'controller_id' => 0);
+        $this->check_login();
 	}
-
 	public function index(){
 		$data = $this->get_app_settings();
-		$data += $this->controller_attr;
-		$data += $this->get_function('Admin Guest Book','admin_guest_book');
-		$data += $this->get_menu();
-		$this->check_userakses($data['function_id'], ACT_READ);
-		$data['data'] = $this->model_basic->select_all($this->tbl_guest_book);
-		$data['view_status'] = 'all';
-		$data['content'] = $this->load->view('backend/admin_guest_book/index',$data,true);
-		$this->load->view('backend/index',$data); 
-	}
-	function new_item(){
-		$data = $this->get_app_settings();
-		$data += $this->controller_attr;
-		$data += $this->get_function('Admin Guest Book','admin_guest_book');
-		$data += $this->get_menu();
-		$this->check_userakses($data['function_id'], ACT_READ);
-		$data['data'] = $this->model_basic->select_where($this->tbl_guest_book,'status',0)->result();
-		$data['view_status'] = 'new';
-		$data['content'] = $this->load->view('backend/admin_guest_book/index',$data,true);
-		$this->load->view('backend/index',$data); 
-	}
-	function reply_item(){
-		$data = $this->get_app_settings();
-		$data += $this->controller_attr;
-		$data += $this->get_function('Admin Guest Book','admin_guest_book');
-		$data += $this->get_menu();
-		$this->check_userakses($data['function_id'], ACT_READ);
-		$data['data'] = $this->model_basic->select_where($this->tbl_guest_book,'id_parent >',0)->result();
-		$data['view_status'] = 'reply';
-		$data['content'] = $this->load->view('backend/admin_guest_book/index',$data,true);
-		$this->load->view('backend/index',$data); 
-	}
-	function read($id){
-		$data = $this->get_app_settings();
-		$data += $this->controller_attr;
-		$data += $this->get_function('Admin Guest Book','admin_guest_book');
-		$data += $this->get_menu();
-		$this->check_userakses($data['function_id'], ACT_READ);
+        $data += $this->controller_attr;
+        $data += $this->get_function('Customer Messages','customer_messages');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
 
-		if($id){
-			$read = array(
-				'status' => 1,
-				'date_read' => date('d-m-Y H:i:s',now())
-				);
-			$this->model_basic->update($this->tbl_guest_book,$read,'id',$id);
-			$data['data'] = $this->model_basic->select_where($this->tbl_guest_book,'id',$id)->row();
-			$data['content'] = $this->load->view('backend/admin_guest_book/read',$data,true);
-			$this->load->view('backend/index',$data);
+		$guest_book = $this->model_basic->select_all_order($this->tbl_guest_book, 'date_created', 'DESC');
+		foreach($guest_book as $data_row)
+		{
+			$data_row->subject = substr($data_row->subject, 0, 30).'...';
+			$data_row->message = substr($data_row->content, 0, 50).'...';
+			$data_row->date_created = $this->date_format('l, d F Y h:i:s', $data_row->date_created);
 		}
-		else
-			redirect($data['controller']);
-	}
-	function do_delete(){
-		$data = $this->get_app_settings();
-		$data += $this->controller_attr;
-		$data += $this->get_function('Admin Guest Book','admin_guest_book');
-		$data += $this->get_menu();
-		$this->check_userakses($data['function_id'], ACT_DELETE);
 
-		$id = $this->input->post('delete');
-		$error = 0;
-		foreach ($id as $id) {
-			$do_delete = $this->model_basic->delete($this->tbl_guest_book,'id',$id);
-			if(!$do_delete)
-				$error++;
-		}
-		if($error < 1){
-			$this->returnJson(array('status' => 'ok','msg' => 'Data berhasil dihapus','redirect' => $data['controller'].'/'.$data['function']));
-		}
-		else
-			$this->returnJson(array('status' => 'error','msg' => 'Data gagal dihapus'));
+		$data['guest_book'] = $guest_book;
+		$data['guest_book_unread'] = $this->get_guest_book();
+		$data['submenu'] = $this->get_submenu($data['controller']);
+		$data['content'] = $this->load->view('backend/guest_book/inbox',$data,true);
+		$this->load->view('backend/index',$data);
+	}
+
+	function read_messages($id)
+	{
+		$data = $this->get_app_settings();
+        $data += $this->controller_attr;
+        $data += $this->get_function('Customer Messages','customer_messages');
+        $data += $this->get_menu();
+        $this->check_userakses($data['function_id'], ACT_READ);
+
+		$data['messages'] = $this->model_basic->select_where($this->tbl_guest_book, 'id', $id)->row();
+		$data['messages']->date_created = $this->date_format('l, d F Y h:i:s', $data['messages']->date_created);
+
+		$update_read_flag = array('read_flag' => 1);
+		$this->model_basic->update($this->tbl_guest_book, $update_read_flag, 'id', $id);
+
+		$data['guest_book_unread'] = $this->get_guest_book();
+		$data['submenu'] = $this->get_submenu($data['controller']);
+		$data['content'] = $this->load->view('backend/guest_book/read_messages',$data,true);
+		$this->load->view('backend/index',$data);
+	}
+
+	function delete_messages()
+	{
+            $data = $this->controller_attr;
+            $data += $this->get_function('Main', 'index');
+            $messages_id = $this->input->post('messages_id');
+            if ($messages_id == NULL) {
+                redirect($data['controller'] . '/?delete=kosong');
+            } else {
+                foreach ($messages_id as $data_row) {
+                    if (!$this->delete_each_messsages($data_row)) {
+                        redirect($data['controller'] . '/?delete=error');
+                        break;
+                    }
+                }
+                redirect($data['controller'] . '/?delete=ok');
+            }
+	}
+
+	function delete_each_messsages($messages_id)
+	{
+		if(!$this->model_basic->delete($this->tbl_guest_book, 'id', $messages_id))
+			return FALSE;
+		return TRUE;
 	}
 }
