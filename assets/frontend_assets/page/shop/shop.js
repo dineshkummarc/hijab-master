@@ -189,6 +189,8 @@ $(document).ready(function(){
                   }
               });
       });
+
+     
     });
 
     $('#select-color').change(function() {
@@ -549,6 +551,12 @@ function getUrlVars()
     }
     return vars;
 }
+
+$(document).ready(function() {
+   if ($(window).width() < 1000) {
+   $("#sidebar_menu").click();
+    }
+});
 
 
 

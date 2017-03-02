@@ -3,6 +3,10 @@
 .no-padding{
     padding: 0px!important
 }
+.search2{
+    padding:5px 10px;
+    border:1px solid #e6e7eb ;
+}
 .no-padding-left{
     padding-left: 0px!important;
     padding-right:10px;
@@ -13,7 +17,12 @@
 }
 .no-padding-right2{
     padding-right: 5px!important;
-    padding-left:10px;
+    padding-left: 10px;
+}
+
+.no-padding-right3{
+    padding-right: 0px!important;
+    padding-left:13px;
 }
 
 #shop-detail{
@@ -498,6 +507,10 @@ img.zoom_01 {
         padding-left: 0px;
     }
     .no-padding-right2{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .no-padding-right3{
         padding-left: 0px;
         padding-right: 0px;
     }

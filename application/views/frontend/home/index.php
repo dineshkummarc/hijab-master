@@ -29,9 +29,18 @@
           </div>
         </div>
       </div>
-        <?php } else if($no != 4) { ?>
+      <?php } else if($no == 2) { ?>
 
       <div class="col-md-3 grid no-padding-right2">
+        <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center; background-size: cover">
+          <div class="caption-left">
+            <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>
+          </div>
+        </div>
+      </div>
+        <?php } else if($no == 3) { ?>
+
+      <div class="col-md-3 grid no-padding-right3">
         <div class="grid-small" style="background: url('<?php echo "assets/uploads/category/".$data_row->id."/".$data_row->potrait_image ?>') center; background-size: cover">
           <div class="caption-left">
             <a href="shop?category=<?php echo $data_row->id ?>"><div class="caption-grid"><?php echo $data_row->name ?></div></a>

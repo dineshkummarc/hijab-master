@@ -2,7 +2,7 @@
                     <div class="panel">
                                 <div id="headingNine" role="tab" class="panel-heading">
                                   <h4 class="panel-title">
-                                    <a aria-controls="collapseNine" aria-expanded="true" href="#collapseNine" data-parent="#accordion" data-toggle="collapse" role="button" class="border">
+                                    <a id="sidebar_menu" aria-controls="collapseNine" aria-expanded="true" href="#collapseNine" data-parent="#accordion" data-toggle="collapse" role="button" class="border">
                                         Search Items                                          
                                         <span class="counter"><i class="fa fa-list-ol"></i></span>                      
                                         <span class="opener"></span>                                        
@@ -14,7 +14,7 @@
                   <div class="sidebar-widget">
                         <div class="info-widget">
                                 <form action="shop" id="form-search">
-                                    <input type="text" name="search" placeholder="" value="Search entire store here" 
+                                    <input type="text" name="search" placeholder="" class="search2" value="Search entire store here" 
                                            onblur="if (this.value == '') {
                                                        this.value = 'Search entire store here';
                                                    }" 
